@@ -29,7 +29,7 @@ export function Navbar() {
     >
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/images/logo.png" alt="AidXBait Logo" width={150} height={40} className="h-auto w-auto" />
+          <Image src="/images/logo.png" alt="AidXBait Logo" width={200} height={120} />
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           <Link href="#services" className="text-sm font-medium hover:text-primary transition-colors">

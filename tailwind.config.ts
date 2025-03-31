@@ -26,15 +26,15 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#1E88E5", // Medium blue from logo
+          DEFAULT: "#1E88E5",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "#81D4FA", // Light blue from logo
+          DEFAULT: "#81D4FA",
           foreground: "hsl(var(--secondary-foreground))",
         },
         accent: {
-          DEFAULT: "#0D47A1", // Dark blue from logo
+          DEFAULT: "#0D47A1",
           foreground: "hsl(var(--accent-foreground))",
         },
         destructive: {
