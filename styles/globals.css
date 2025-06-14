@@ -4,6 +4,7 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background: transparent !important;
 }
 
 @layer utilities {
@@ -91,4 +92,32 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+html,
+body {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.navbar-link {
+  font-family: "Manrope", Arial, sans-serif;
+  font-weight: 500;
+  color: rgb(183, 174, 136);
+  font-size: 14px;
+  line-height: 21px;
+  transition: color 0.2s;
+}
+.navbar-link:hover {
+  color: rgb(0, 0, 0) !important;
+}
+
+.navbar--transparent .navbar-link,
+.navbar--scrolled .navbar-link {
+  color: #fff !important;
+}
+
+header .navbar-link {
+  color: #fff !important;
 }
