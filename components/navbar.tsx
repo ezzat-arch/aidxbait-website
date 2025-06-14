@@ -85,7 +85,7 @@ export function Navbar({
             className={`rounded-full text-white px-10 py-5 font-medium shadow-none border-none backdrop-blur-md transition-all duration-700 ${
               atTop
                 ? "bg-white/30 hover:bg-black/30"
-                : "bg-[#35322E] hover:bg-[#242A2A]"
+                : "bg-black/70 hover:bg-[#242A2A]"
             }`}
             style={{
               fontFamily: "Manrope, Arial, sans-serif",
