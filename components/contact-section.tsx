@@ -15,10 +15,10 @@ export function ContactSection() {
 					viewport={{ once: true, amount: 0.3 }}
 					transition={{ duration: 1, type: "spring" }}
 				>
-					<h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
-					<p className="text-lg text-gray-600">
-						Have questions about AidXBait? Our team is here to help you with any
-						inquiries.
+					<h2 className="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
+					<p className="text-lg text-black dark:text-white">
+						Have questions? We're here to help. Reach out to us through any of
+						these channels.
 					</p>
 				</motion.div>
 
@@ -91,7 +91,7 @@ export function ContactSection() {
 									</div>
 									<div>
 										<h4 className="font-medium">Our Location</h4>
-										<p className="text-gray-600">
+										<p className="text-black dark:text-white">
 											123 Innovation Drive, Medical District, CA 90210
 										</p>
 									</div>
@@ -102,7 +102,9 @@ export function ContactSection() {
 									</div>
 									<div>
 										<h4 className="font-medium">Phone Number</h4>
-										<p className="text-gray-600">+1 (800) 123-4567</p>
+										<p className="text-black dark:text-white">
+											+1 (800) 123-4567
+										</p>
 									</div>
 								</div>
 								<div className="flex items-start gap-4">
@@ -111,7 +113,9 @@ export function ContactSection() {
 									</div>
 									<div>
 										<h4 className="font-medium">Email Address</h4>
-										<p className="text-gray-600">info@aidxbait.com</p>
+										<p className="text-black dark:text-white">
+											info@aidxbait.com
+										</p>
 									</div>
 								</div>
 								<div className="flex items-start gap-4">
@@ -120,7 +124,9 @@ export function ContactSection() {
 									</div>
 									<div>
 										<h4 className="font-medium">Working Hours</h4>
-										<p className="text-gray-600">Monday - Friday: 9AM - 6PM</p>
+										<p className="text-black dark:text-white">
+											Monday - Friday: 9AM - 6PM
+										</p>
 									</div>
 								</div>
 							</div>

@@ -38,12 +38,10 @@ export function HowItWorksSection() {
 		<section id="how-it-works" className="pt-20 bg-blue-50 overflow-x-hidden">
 			<div className="container">
 				<div className="text-center max-w-3xl mx-auto mb-16">
-					<h2 className="text-3xl md:text-4xl font-bold ">
-						How AidXBait Works
-					</h2>
-					<p className="text-lg mt-6 text-gray-600">
-						Our platform simplifies the orthopedic care process with an
-						intuitive, step-by-step approach.
+					<h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+					<p className="text-lg mt-6 text-black dark:text-white">
+						Our platform makes it easy to get the care you need, when you need
+						it.
 					</p>
 				</div>
 
@@ -114,7 +112,7 @@ export function HowItWorksSection() {
 												{step.title}
 											</motion.h3>
 											<motion.p
-												className="text-lg text-gray-600 mb-6"
+												className="text-lg text-black dark:text-white mb-6"
 												initial={{ opacity: 0, y: 40 }}
 												whileInView={{ opacity: 1, y: 0 }}
 												viewport={{ once: true, amount: 0.3 }}
@@ -151,7 +149,7 @@ export function HowItWorksSection() {
 														transition={{ type: "spring", duration: 0.5 }}
 													>
 														<CheckCircle className="h-5 w-5 text-primary" />
-														<span className="text-gray-700">
+														<span className="text-black/70 dark:text-white/70">
 															Feature point {item} for{" "}
 															{step.title.toLowerCase()}
 														</span>
