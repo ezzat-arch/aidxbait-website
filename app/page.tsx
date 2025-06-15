@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/hero-section";
 import { ServicesSection } from "@/components/services-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
 import { AppDownloadSection } from "@/components/app-download-section";
-import { TestimonialsSection } from "@/components/testimonials-section";
+import TestimonialsSection from "@/components/testimonials-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";

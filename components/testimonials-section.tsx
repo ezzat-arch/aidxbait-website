@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Star } from "lucide-react";
@@ -148,4 +149,10 @@ export function TestimonialsSection() {
 			</div>
 		</motion.section>
 	);
+=======
+import AnimatedTestimonialsDemo from "@/components/ui/animated-testimonials-demo";
+
+export default function TestimonialsSection() {
+  return <AnimatedTestimonialsDemo />;
+>>>>>>> 5abbd06 (additions)
 }
