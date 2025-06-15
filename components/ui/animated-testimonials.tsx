@@ -18,6 +18,8 @@ export const AnimatedTestimonials = ({
 	autoplay?: boolean;
 }) => {
 	const [active, setActive] = useState(0);
+	const [rotationValues, setRotationValues] = useState<number[]>([]);
+	const [isMounted, setIsMounted] = useState(false);
 
 	const handleNext = () => {
 		setActive((prev) => (prev + 1) % testimonials.length);
@@ -32,15 +34,76 @@ export const AnimatedTestimonials = ({
 	};
 
 	useEffect(() => {
+		// Generate random rotation values on client side only
+		const newRotationValues = testimonials.map(
+			() => Math.floor(Math.random() * 21) - 10
+		);
+		setRotationValues(newRotationValues);
+		setIsMounted(true);
+	}, [testimonials]);
+
+	useEffect(() => {
 		if (autoplay) {
 			const interval = setInterval(handleNext, 5000);
 			return () => clearInterval(interval);
 		}
 	}, [autoplay]);
 
-	const randomRotateY = () => {
-		return Math.floor(Math.random() * 21) - 10;
+	const getRandomRotation = (index: number) => {
+		return rotationValues[index] || 0;
 	};
+	// Don't render until mounted to avoid hydration issues
+	if (!isMounted) {
+		return (
+			<div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
+				<div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
+					<div>
+						<div className="relative h-80 w-full">
+							{/* Placeholder during SSR */}
+							<div className="absolute inset-0 origin-bottom">
+								<img
+									src={testimonials[active]?.src}
+									alt={testimonials[active]?.name}
+									width={500}
+									height={500}
+									draggable={false}
+									className="h-full w-full rounded-3xl object-cover object-center"
+								/>
+							</div>
+						</div>
+					</div>
+					<div className="flex flex-col justify-between py-4">
+						<div>
+							<h3 className="text-2xl font-bold text-primary dark:text-white">
+								{testimonials[active]?.name}
+							</h3>
+							<p className="text-sm text-primary/70 dark:text-neutral-500">
+								{testimonials[active]?.designation}
+							</p>
+							<p className="mt-8 text-lg text-black/80 dark:text-neutral-300">
+								{testimonials[active]?.quote}
+							</p>
+						</div>
+						<div className="flex gap-4 pt-12 md:pt-0">
+							<button
+								onClick={handlePrev}
+								className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+							>
+								<IconArrowLeft className="h-5 w-5 text-primary transition-transform duration-300 group-hover/button:rotate-12 dark:text-neutral-400" />
+							</button>
+							<button
+								onClick={handleNext}
+								className="group/button flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+							>
+								<IconArrowRight className="h-5 w-5 text-primary transition-transform duration-300 group-hover/button:-rotate-12 dark:text-neutral-400" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
 			<div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
@@ -54,13 +117,13 @@ export const AnimatedTestimonials = ({
 										opacity: 0,
 										scale: 0.9,
 										z: -100,
-										rotate: randomRotateY(),
+										rotate: getRandomRotation(index),
 									}}
 									animate={{
 										opacity: isActive(index) ? 1 : 0.7,
 										scale: isActive(index) ? 1 : 0.95,
 										z: isActive(index) ? 0 : -100,
-										rotate: isActive(index) ? 0 : randomRotateY(),
+										rotate: isActive(index) ? 0 : getRandomRotation(index),
 										zIndex: isActive(index)
 											? 40
 											: testimonials.length + 2 - index,
@@ -70,7 +133,7 @@ export const AnimatedTestimonials = ({
 										opacity: 0,
 										scale: 0.9,
 										z: 100,
-										rotate: randomRotateY(),
+										rotate: getRandomRotation(index),
 									}}
 									transition={{
 										duration: 0.4,

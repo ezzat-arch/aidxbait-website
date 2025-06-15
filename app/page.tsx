@@ -10,21 +10,21 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 
 export default function Home() {
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
-  return (
-    <div className="flex flex-col min-h-screen">
-      <HeroSection
-        navbar={<Navbar sentinelRef={sentinelRef} />}
-        sentinelRef={sentinelRef}
-      />
-      <main>
-        <ServicesSection />
-        <HowItWorksSection />
-        <AppDownloadSection />
-        <TestimonialsSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
-  );
+	const sentinelRef = useRef<HTMLDivElement | null>(null);
+	return (
+		<div className="flex flex-col min-h-screen">
+			<HeroSection
+				navbar={<Navbar sentinelRef={sentinelRef} />}
+				sentinelRef={sentinelRef}
+			/>
+			<main>
+				<ServicesSection />
+				<HowItWorksSection />
+				<AppDownloadSection />
+				<TestimonialsSection />
+				<ContactSection />
+			</main>
+			<Footer />
+		</div>
+	);
 }

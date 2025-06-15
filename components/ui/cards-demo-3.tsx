@@ -113,29 +113,59 @@ export const Skeleton = ({ icon }: { icon?: React.ReactNode }) => {
 };
 
 const Sparkles = () => {
-	const randomMove = () => Math.random() * 2 - 1;
-	const randomOpacity = () => Math.random();
-	const random = () => Math.random();
+	const [sparkles, setSparkles] = useState<
+		Array<{
+			top: number;
+			left: number;
+			animateTop: number;
+			animateLeft: number;
+			opacity: number;
+			duration: number;
+			moveX: number;
+			moveY: number;
+		}>
+	>([]);
+
+	useEffect(() => {
+		// Generate random values only on client side
+		const newSparkles = Array.from({ length: 12 }, () => ({
+			top: Math.random() * 100,
+			left: Math.random() * 100,
+			animateTop: Math.random() * 100,
+			animateLeft: Math.random() * 100,
+			opacity: Math.random(),
+			duration: Math.random() * 2 + 4,
+			moveX: Math.random() * 2 - 1,
+			moveY: Math.random() * 2 - 1,
+		}));
+		setSparkles(newSparkles);
+	}, []);
+
+	if (sparkles.length === 0) {
+		// Return null or a placeholder during SSR
+		return null;
+	}
+
 	return (
 		<div className="absolute inset-0">
-			{[...Array(12)].map((_, i) => (
+			{sparkles.map((sparkle, i) => (
 				<motion.span
 					key={`star-${i}`}
 					animate={{
-						top: `calc(${random() * 100}% + ${randomMove()}px)`,
-						left: `calc(${random() * 100}% + ${randomMove()}px)`,
-						opacity: randomOpacity(),
+						top: `calc(${sparkle.animateTop}% + ${sparkle.moveY}px)`,
+						left: `calc(${sparkle.animateLeft}% + ${sparkle.moveX}px)`,
+						opacity: sparkle.opacity,
 						scale: [1, 1.2, 0],
 					}}
 					transition={{
-						duration: random() * 2 + 4,
+						duration: sparkle.duration,
 						repeat: Infinity,
 						ease: "linear",
 					}}
 					style={{
 						position: "absolute",
-						top: `${random() * 100}%`,
-						left: `${random() * 100}%`,
+						top: `${sparkle.top}%`,
+						left: `${sparkle.left}%`,
 						width: `2px`,
 						height: `2px`,
 						borderRadius: "50%",
