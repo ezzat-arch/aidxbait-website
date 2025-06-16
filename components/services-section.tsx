@@ -57,7 +57,7 @@ function ServiceCard({
 	if (idx === 2) bgImage = "/images/services3.png";
 	if (idx === 3) bgImage = "/images/services4.png";
 	return (
-		<Card className="relative overflow-hidden">
+		<Card className="relative overflow-hidden w-full max-w-md min-h-[24rem] flex flex-col justify-center items-center p-8 shadow-lg">
 			<Image
 				src={bgImage}
 				alt="Service background"
@@ -65,12 +65,14 @@ function ServiceCard({
 				className="object-cover object-center absolute inset-0 z-0 opacity-30 pointer-events-none select-none"
 				priority
 			/>
-			<div className="relative z-10">
+			<div className="relative z-10 flex flex-col items-center justify-center h-full w-full">
 				<CardSkeletonContainer>
 					<Skeleton icon={service.icon} />
 				</CardSkeletonContainer>
-				<CardTitle className="text-center mt-2 mb-1">{service.title}</CardTitle>
-				<CardDescription className="text-center mb-2 text-neutral-600 dark:text-neutral-400 max-w-sm">
+				<CardTitle className="text-center mt-4 mb-2 text-2xl">
+					{service.title}
+				</CardTitle>
+				<CardDescription className="text-center mb-2 text-neutral-600 dark:text-neutral-400 max-w-md text-lg">
 					{service.description}
 				</CardDescription>
 			</div>
@@ -88,10 +90,10 @@ export function ServicesSection() {
 	}, []);
 
 	return (
-		<section id="services" className="py-20 bg-white">
-			<div className="container">
+		<section id="services" className="py-24 bg-white">
+			<div className="container max-w-[1200px]">
 				<motion.div
-					className="text-center max-w-3xl mx-auto mb-16"
+					className="text-center max-w-5xl mx-auto mb-20"
 					initial={{ opacity: 0, y: 40 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true, amount: 0.5 }}
@@ -105,10 +107,10 @@ export function ServicesSection() {
 						post-operative recovery to ongoing physical therapy.
 					</p>
 				</motion.div>
-				<div className="flex flex-col md:flex-row gap-12 items-stretch justify-center">
+				<div className="flex flex-col md:flex-row gap-16 items-start justify-center w-full">
 					{/* List on the left with entrance animation */}
 					<motion.ul
-						className="flex flex-col gap-4 w-full md:w-1/2 max-w-xs min-h-[32rem] justify-center h-full"
+						className="flex flex-col gap-6 w-full md:w-2/5 max-w-md min-h-[32rem] justify-center h-full"
 						initial={{ opacity: 0, x: -60 }}
 						whileInView={{ opacity: 1, x: 0 }}
 						viewport={{ once: true, amount: 0.3 }}
@@ -137,7 +139,7 @@ export function ServicesSection() {
 					</motion.ul>
 					{/* Preview on the right with entrance animation */}
 					<motion.div
-						className="w-full md:w-1/2 flex justify-center min-h-[32rem]"
+						className="w-full md:w-3/5 flex justify-center min-h-[32rem]"
 						initial={{ opacity: 0, x: 60 }}
 						whileInView={{ opacity: 1, x: 0 }}
 						viewport={{ once: true, amount: 0.3 }}
@@ -150,7 +152,7 @@ export function ServicesSection() {
 								animate={{ opacity: 1, x: 0 }}
 								exit={{ opacity: 0, x: -40 }}
 								transition={{ duration: 0.5, type: "spring" }}
-								className="w-full max-w-md flex flex-col items-center"
+								className="w-full max-w-lg flex flex-col items-center"
 							>
 								<ServiceCard
 									service={services[activeIndex]}
