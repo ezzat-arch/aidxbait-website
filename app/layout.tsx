@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NavbarDemo from "@/components/ui/navbar-menu-demo";
 
 export const metadata: Metadata = {
 	title: "AidXBait",
@@ -27,7 +28,10 @@ export default function RootLayout({
 					rel="stylesheet"
 				/>
 			</head>
-			<body className="font-sans">{children}</body>
+			<body className="font-sans">
+				<NavbarDemo />
+				{children}
+			</body>
 		</html>
 	);
 }

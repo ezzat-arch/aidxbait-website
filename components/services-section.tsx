@@ -110,7 +110,7 @@ export function ServicesSection() {
 				<div className="flex flex-col md:flex-row gap-16 items-start justify-center w-full">
 					{/* List on the left with entrance animation */}
 					<motion.ul
-						className="flex flex-col gap-6 w-full md:w-2/5 max-w-md min-h-[32rem] justify-center h-full"
+						className="hidden md:flex flex-col gap-6 w-full md:w-2/5 max-w-md min-h-[32rem] justify-center h-full"
 						initial={{ opacity: 0, x: -60 }}
 						whileInView={{ opacity: 1, x: 0 }}
 						viewport={{ once: true, amount: 0.3 }}
