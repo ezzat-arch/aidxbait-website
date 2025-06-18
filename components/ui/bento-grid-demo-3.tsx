@@ -9,7 +9,7 @@ import {
 	IconSignature,
 	IconTableColumn,
 } from "@tabler/icons-react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 const SkeletonOne = () => {
 	const variants = {
@@ -272,7 +272,17 @@ const items = [
 	{
 		title: "App Downloads",
 		description: (
-			<span className="text-sm">5,000+ downloads of our mobile app.</span>
+			<div>
+				<span className="text-sm block">
+					5,000+ downloads of our mobile app across iOS and Android.
+				</span>
+				<span className="text-xs text-neutral-500 block mt-1">
+					<b>Average Rating:</b> 4.8/5 stars
+				</span>
+				<span className="text-[11px] text-orange-600 dark:text-orange-300 mt-1 block italic">
+					Fun fact: 85% of users open the app daily!
+				</span>
+			</div>
 		),
 		header: <SkeletonFour />,
 		className: "md:col-span-2",
@@ -293,17 +303,51 @@ const items = [
 
 export default function BentoGridThirdDemo() {
 	return (
-		<BentoGrid className="max-w-6xl mx-auto md:auto-rows-[20rem]">
-			{items.map((item, i) => (
-				<BentoGridItem
-					key={i}
-					title={item.title}
-					description={item.description}
-					header={item.header}
-					className={cn("[&>p:text-lg]", item.className)}
-					icon={item.icon}
-				/>
-			))}
-		</BentoGrid>
+		<motion.div
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+			viewport={{ once: true, amount: 0.2 }}
+			transition={{ duration: 0.6 }}
+		>
+			<motion.h2
+				className="text-3xl md:text-4xl font-bold text-center mb-10"
+				initial={{ opacity: 0, y: 30 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: true, amount: 0.5 }}
+				transition={{ duration: 0.6, delay: 0.1 }}
+			>
+				AidXBait in Numbers
+			</motion.h2>
+			<BentoGrid className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:auto-rows-[20rem]">
+				{items.map((item, i) => (
+					<motion.div
+						key={i}
+						initial={{ opacity: 0, y: 50, scale: 0.9 }}
+						whileInView={{ opacity: 1, y: 0, scale: 1 }}
+						viewport={{ once: true, amount: 0.3 }}
+						transition={{
+							duration: 0.5,
+							delay: i * 0.1,
+							type: "spring",
+							stiffness: 100,
+						}}
+						whileHover={{
+							scale: 1.02,
+							y: -5,
+							transition: { duration: 0.2 },
+						}}
+						className={cn("h-full", item.className)}
+					>
+						<BentoGridItem
+							title={item.title}
+							description={item.description}
+							header={item.header}
+							className="[&>p:text-lg] h-full"
+							icon={item.icon}
+						/>
+					</motion.div>
+				))}
+			</BentoGrid>
+		</motion.div>
 	);
 }

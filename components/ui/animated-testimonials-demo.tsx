@@ -1,4 +1,5 @@
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { motion } from "framer-motion";
 
 export default function AnimatedTestimonialsDemo() {
 	const testimonials = [
@@ -38,5 +39,22 @@ export default function AnimatedTestimonialsDemo() {
 			src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		},
 	];
-	return <AnimatedTestimonials testimonials={testimonials} autoplay={true} />;
+
+	return (
+		<motion.div
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+			viewport={{ once: true, amount: 0.2 }}
+			transition={{ duration: 0.8 }}
+		>
+			<motion.div
+				initial={{ opacity: 0, y: 40 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: true, amount: 0.3 }}
+				transition={{ duration: 0.6, delay: 0.2 }}
+			>
+				<AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+			</motion.div>
+		</motion.div>
+	);
 }
