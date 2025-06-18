@@ -7,6 +7,7 @@ import { AppDownloadSection } from "@/components/app-download-section";
 import TestimonialsSection from "@/components/testimonials-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
+import BentoGridThirdDemo from "@/components/ui/bento-grid-demo-3";
 
 export default function Home() {
 	const sentinelRef = useRef<HTMLDivElement | null>(null);
@@ -15,7 +16,9 @@ export default function Home() {
 			<HeroSection sentinelRef={sentinelRef} />
 			<main>
 				<ServicesSection />
-
+				<div className="my-16 py-8 px-4 sm:px-6 lg:px-8">
+					<BentoGridThirdDemo />
+				</div>
 				<AppDownloadSection />
 				<TestimonialsSection />
 				<ContactSection />

@@ -70,16 +70,16 @@ export const Menu = ({
 }) => {
 	return (
 		<nav
-			onMouseLeave={() => setActive(null)} // resets the state
+			onMouseLeave={() => setActive(null)}
 			className={cn(
-				"relative border border-transparent shadow-input flex justify-between items-center space-x-4 px-8 py-4  sm:py-2 transition-all duration-300",
+				"border border-transparent shadow-input flex items-center transition-all duration-300 z-50",
 				isScrolled
-					? "rounded-b-2xl backdrop-blur-md bg-slate-200 dark:bg-slate-900/90 "
-					: "rounded-full bg-white dark:bg-black dark:border-white/[0.2]"
+					? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-slate-200 dark:bg-slate-900/90 px-80 py-2 justify-between"
+					: "relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] px-8 py-4 sm:py-2 mx-auto mt-4 max-w-4xl justify-between"
 			)}
 		>
 			{logo && <div className="flex-shrink-0">{logo}</div>}
-			<div className="flex justify-center space-x-4">{children}</div>
+			<div className="flex justify-end space-x-4 w-full">{children}</div>
 		</nav>
 	);
 };

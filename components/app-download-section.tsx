@@ -2,6 +2,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { AppleIcon, PlayIcon } from "./icons";
 import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { HoveredLink, Menu, MenuItem, ProductItem } from "./ui/navbar-menu";
+import { cn } from "@/lib/utils";
 
 export function AppDownloadSection() {
 	return (
@@ -132,5 +135,87 @@ export function AppDownloadSection() {
 				</div>
 			</div>
 		</section>
+	);
+}
+
+export function NavbarDemo() {
+	return (
+		<div className="relative w-full flex items-center justify-center">
+			<Navbar />
+		</div>
+	);
+}
+
+function Navbar() {
+	const [active, setActive] = useState<string | null>(null);
+	const logo = (
+		<a href="/">
+			<img src="/images/logo.png" alt="Logo" className="h-10" />
+		</a>
+	);
+	return (
+		<div className="fixed top-0 left-0 w-full z-50">
+			<Menu setActive={setActive} logo={logo} isScrolled={true}>
+				<MenuItem setActive={setActive} active={active} item="Services">
+					<div className="grid grid-cols-2 gap-8 p-4 min-w-[400px]">
+						<div className="flex flex-col space-y-2">
+							<h4 className="font-semibold text-base mb-2">Development</h4>
+							<HoveredLink href="#web-dev">Web Development</HoveredLink>
+							<HoveredLink href="#mobile-dev">Mobile Development</HoveredLink>
+							<HoveredLink href="#api-dev">API Development</HoveredLink>
+						</div>
+						<div className="flex flex-col space-y-2">
+							<h4 className="font-semibold text-base mb-2">
+								Design & Marketing
+							</h4>
+							<HoveredLink href="#interface-design">
+								Interface Design
+							</HoveredLink>
+							<HoveredLink href="#branding">Branding</HoveredLink>
+							<HoveredLink href="#seo">SEO</HoveredLink>
+						</div>
+					</div>
+				</MenuItem>
+				<MenuItem setActive={setActive} active={active} item="Testimonials">
+					<div className="flex flex-col space-y-4 text-sm min-w-[300px] p-4">
+						<h4 className="font-semibold text-base mb-2">
+							What Our Clients Say
+						</h4>
+						<p className="text-neutral-700 dark:text-neutral-300">
+							“AIDXBait transformed our business with their innovative
+							solutions!”
+						</p>
+						<HoveredLink href="#testimonials">
+							Read More Testimonials
+						</HoveredLink>
+						<HoveredLink href="#case-studies">Case Studies</HoveredLink>
+					</div>
+				</MenuItem>
+				<MenuItem setActive={setActive} active={active} item="Contact">
+					<div className="flex flex-col space-y-4 text-sm min-w-[200px]">
+						<HoveredLink href="#contact">Contact Form</HoveredLink>
+						<HoveredLink href="#location">Our Location</HoveredLink>
+					</div>
+				</MenuItem>
+				<MenuItem setActive={setActive} active={active} item="App">
+					<div className="grid grid-cols-2 gap-6 p-4 min-w-[400px]">
+						<ProductItem
+							title="Download Our App"
+							href="#app-download"
+							src="/images/hero_image.jpg"
+							description="Get our app for the best experience."
+						/>
+						<div className="flex flex-col justify-center">
+							<h4 className="font-semibold text-base mb-2">Why Use Our App?</h4>
+							<ul className="list-disc list-inside text-neutral-700 dark:text-neutral-300 text-sm space-y-1">
+								<li>Easy access to all services</li>
+								<li>Personalized notifications</li>
+								<li>Exclusive offers for app users</li>
+							</ul>
+						</div>
+					</div>
+				</MenuItem>
+			</Menu>
+		</div>
 	);
 }
