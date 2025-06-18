@@ -17,9 +17,17 @@ export function StatisticsSection() {
 		{
 			title: "Patients Helped",
 			description: (
-				<span className="text-sm">
-					Over 10,000 patients have used AidXBait for their recovery.
-				</span>
+				<div>
+					<span className="text-sm block">
+						Over 10,000 patients have used AidXBait for their recovery.
+					</span>
+					<span className="text-xs text-neutral-500 block mt-1">
+						<b>Avg. Age:</b> 42 years
+					</span>
+					<span className="text-[11px] text-blue-600 dark:text-blue-300 mt-1 block italic">
+						Fun fact: Our youngest patient was just 3 years old!
+					</span>
+				</div>
 			),
 			header: <StatSkeletonOne />,
 			className: "md:col-span-1",
@@ -29,9 +37,18 @@ export function StatisticsSection() {
 		{
 			title: "Therapists Onboard",
 			description: (
-				<span className="text-sm">
-					500+ certified therapists available for home visits and consultations.
-				</span>
+				<div>
+					<span className="text-sm block">
+						500+ certified therapists available for home visits and
+						consultations.
+					</span>
+					<span className="text-xs text-neutral-500 block mt-1">
+						<b>Top Specialty:</b> Orthopedic Rehab
+					</span>
+					<span className="text-[11px] text-green-600 dark:text-green-300 mt-1 block italic">
+						Fun fact: 60% of our therapists speak two or more languages!
+					</span>
+				</div>
 			),
 			header: <StatSkeletonTwo />,
 			className: "md:col-span-1",
@@ -41,9 +58,17 @@ export function StatisticsSection() {
 		{
 			title: "Products Delivered",
 			description: (
-				<span className="text-sm">
-					2,000+ rehab products delivered to doorsteps.
-				</span>
+				<div>
+					<span className="text-sm block">
+						2,000+ rehab products delivered to doorsteps.
+					</span>
+					<span className="text-xs text-neutral-500 block mt-1">
+						<b>Most Popular:</b> Resistance Bands
+					</span>
+					<span className="text-[11px] text-pink-600 dark:text-pink-300 mt-1 block italic">
+						Fun fact: We've shipped to 12 different countries!
+					</span>
+				</div>
 			),
 			header: <StatSkeletonThree />,
 			className: "md:col-span-1",

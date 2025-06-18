@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import {
 	HoveredLink,
 	Menu,
@@ -9,8 +9,357 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu as MenuIcon, X } from "lucide-react";
+import { MenuIcon, X, ChevronRight } from "lucide-react";
 import { services } from "../services-data";
+
+// Enhanced navigation data structure for expanded dropdowns
+const navigationData = {
+	services: {
+		sections: [
+			{
+				title: "Core Services",
+				items: [
+					{
+						name: "PT Home Visits",
+						href: "/services/pt-home-visits",
+						description: "Professional therapists at your location",
+					},
+					{
+						name: "Exercise Programs",
+						href: "/services/exercise-programs",
+						description: "Personalized rehabilitation routines",
+					},
+					{
+						name: "Online Consultations",
+						href: "/services/online-consultations",
+						description: "Virtual expert consultations",
+					},
+					{
+						name: "Medical Equipment Store",
+						href: "/services/store",
+						description: "Rehab tools and devices",
+					},
+				],
+			},
+			{
+				title: "Specialized Care",
+				items: [
+					{
+						name: "Post-Surgery Recovery",
+						href: "/services/post-surgery",
+						description: "Comprehensive post-operative care",
+					},
+					{
+						name: "Pain Management",
+						href: "/services/pain-management",
+						description: "Advanced pain relief strategies",
+					},
+					{
+						name: "Sports Rehabilitation",
+						href: "/services/sports-rehab",
+						description: "Athletic injury recovery",
+					},
+					{
+						name: "Chronic Condition Support",
+						href: "/services/chronic-care",
+						description: "Long-term management solutions",
+					},
+				],
+			},
+			{
+				title: "Quick Access",
+				items: [
+					{
+						name: "24/7 Emergency Support",
+						href: "/services/emergency",
+						description: "Immediate orthopedic assistance",
+					},
+					{
+						name: "Insurance Verification",
+						href: "/services/insurance",
+						description: "Check coverage options",
+					},
+					{
+						name: "Appointment Booking",
+						href: "/services/booking",
+						description: "Schedule your visit",
+					},
+					{
+						name: "Patient Portal",
+						href: "/services/portal",
+						description: "Access your care plan",
+					},
+				],
+			},
+		],
+	},
+	app: {
+		sections: [
+			{
+				title: "App Features",
+				items: [
+					{
+						name: "Exercise Tracking",
+						href: "/app/exercise-tracking",
+						description: "Monitor your daily progress",
+					},
+					{
+						name: "Virtual PT Sessions",
+						href: "/app/virtual-sessions",
+						description: "Live therapy sessions",
+					},
+					{
+						name: "Progress Analytics",
+						href: "/app/analytics",
+						description: "Detailed recovery insights",
+					},
+					{
+						name: "Medication Reminders",
+						href: "/app/medications",
+						description: "Never miss your prescriptions",
+					},
+				],
+			},
+			{
+				title: "Platform Access",
+				items: [
+					{
+						name: "iOS App",
+						href: "/app/ios",
+						description: "Download for iPhone & iPad",
+					},
+					{
+						name: "Android App",
+						href: "/app/android",
+						description: "Download for Android devices",
+					},
+					{
+						name: "Web Platform",
+						href: "/app/web",
+						description: "Access from any browser",
+					},
+					{
+						name: "Wearable Integration",
+						href: "/app/wearables",
+						description: "Sync with fitness trackers",
+					},
+				],
+			},
+			{
+				title: "Support",
+				items: [
+					{
+						name: "Getting Started",
+						href: "/app/getting-started",
+						description: "Quick setup guide",
+					},
+					{
+						name: "Video Tutorials",
+						href: "/app/tutorials",
+						description: "Learn app features",
+					},
+					{
+						name: "Technical Support",
+						href: "/app/support",
+						description: "Help with app issues",
+					},
+					{
+						name: "Privacy & Security",
+						href: "/app/privacy",
+						description: "Your data protection",
+					},
+				],
+			},
+		],
+	},
+	providers: {
+		sections: [
+			{
+				title: "For Healthcare Providers",
+				items: [
+					{
+						name: "Provider Portal",
+						href: "/providers/portal",
+						description: "Manage patient referrals",
+					},
+					{
+						name: "Integration Services",
+						href: "/providers/integration",
+						description: "EHR system connections",
+					},
+					{
+						name: "Analytics Dashboard",
+						href: "/providers/analytics",
+						description: "Patient outcome tracking",
+					},
+					{
+						name: "Billing Support",
+						href: "/providers/billing",
+						description: "Streamlined payment processing",
+					},
+				],
+			},
+			{
+				title: "Partnership Programs",
+				items: [
+					{
+						name: "Hospital Networks",
+						href: "/providers/hospitals",
+						description: "Comprehensive facility solutions",
+					},
+					{
+						name: "Private Practices",
+						href: "/providers/practices",
+						description: "Independent provider tools",
+					},
+					{
+						name: "Insurance Partners",
+						href: "/providers/insurance",
+						description: "Coverage network expansion",
+					},
+					{
+						name: "Rehabilitation Centers",
+						href: "/providers/rehab",
+						description: "Specialized facility support",
+					},
+				],
+			},
+		],
+	},
+	testimonials: {
+		sections: [
+			{
+				title: "Patient Stories",
+				items: [
+					{
+						name: "Recovery Success Stories",
+						href: "/testimonials/recovery",
+						description: "Real patient experiences",
+					},
+					{
+						name: "Video Testimonials",
+						href: "/testimonials/videos",
+						description: "Watch patient journeys",
+					},
+					{
+						name: "Provider Reviews",
+						href: "/testimonials/providers",
+						description: "Healthcare professional feedback",
+					},
+					{
+						name: "Family Experiences",
+						href: "/testimonials/families",
+						description: "Caregiver perspectives",
+					},
+				],
+			},
+			{
+				title: "Case Studies",
+				items: [
+					{
+						name: "Knee Replacement Recovery",
+						href: "/testimonials/knee-replacement",
+						description: "Complete recovery journeys",
+					},
+					{
+						name: "Sports Injury Rehabilitation",
+						href: "/testimonials/sports-injuries",
+						description: "Athletic comeback stories",
+					},
+					{
+						name: "Chronic Pain Management",
+						href: "/testimonials/pain-management",
+						description: "Long-term success stories",
+					},
+					{
+						name: "Post-Surgery Outcomes",
+						href: "/testimonials/post-surgery",
+						description: "Surgical recovery experiences",
+					},
+				],
+			},
+		],
+	},
+	contact: {
+		sections: [
+			{
+				title: "Get in Touch",
+				items: [
+					{
+						name: "General Inquiries",
+						href: "/contact/general",
+						description: "Questions about our services",
+					},
+					{
+						name: "New Patient Registration",
+						href: "/contact/registration",
+						description: "Start your care journey",
+					},
+					{
+						name: "Provider Partnership",
+						href: "/contact/providers",
+						description: "Healthcare provider inquiries",
+					},
+					{
+						name: "Technical Support",
+						href: "/contact/support",
+						description: "App and platform assistance",
+					},
+				],
+			},
+			{
+				title: "Contact Methods",
+				items: [
+					{
+						name: "Phone Support",
+						href: "/contact/phone",
+						description: "1-800-AIDXBAIT (24/7)",
+					},
+					{
+						name: "Live Chat",
+						href: "/contact/chat",
+						description: "Instant messaging support",
+					},
+					{
+						name: "Email Support",
+						href: "/contact/email",
+						description: "support@aidxbait.com",
+					},
+					{
+						name: "Schedule Callback",
+						href: "/contact/callback",
+						description: "We'll call you back",
+					},
+				],
+			},
+			{
+				title: "Locations",
+				items: [
+					{
+						name: "Service Areas",
+						href: "/contact/areas",
+						description: "Find coverage in your area",
+					},
+					{
+						name: "Office Locations",
+						href: "/contact/offices",
+						description: "Visit our physical locations",
+					},
+					{
+						name: "Partner Facilities",
+						href: "/contact/facilities",
+						description: "Network of partner clinics",
+					},
+					{
+						name: "Emergency Contacts",
+						href: "/contact/emergency",
+						description: "Urgent care information",
+					},
+				],
+			},
+		],
+	},
+};
 
 export default function NavbarDemo() {
 	return (
@@ -25,6 +374,10 @@ function Navbar({ className }: { className?: string }) {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [activeServiceIdx, setActiveServiceIdx] = useState(0);
+	const [activeAppIdx, setActiveAppIdx] = useState(0);
+	const [activeProviderIdx, setActiveProviderIdx] = useState(0);
+	const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
+	const [activeContactIdx, setActiveContactIdx] = useState(0);
 	const [isMounted, setIsMounted] = useState(false);
 
 	useEffect(() => {
@@ -47,11 +400,11 @@ function Navbar({ className }: { className?: string }) {
 		return (
 			<div
 				className={cn(
-					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-4xl px-4 sm:px-0 top-4",
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-6xl px-4 sm:px-0 top-4",
 					className
 				)}
 			>
-				<div className="relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] border border-transparent shadow-input flex items-center px-8 py-4 sm:py-2 mx-auto mt-4 max-w-4xl justify-between">
+				<div className="relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] border border-transparent shadow-input flex items-center px-8 py-4 sm:py-2 mx-auto mt-4 max-w-6xl justify-between">
 					<Link href="/" className="flex items-center gap-2">
 						<Image
 							src="/images/logo.png"
@@ -63,12 +416,13 @@ function Navbar({ className }: { className?: string }) {
 						/>
 					</Link>
 					<div className="flex justify-end space-x-4 w-full">
-						<div className="hidden md:flex space-x-4">
+						<div className="hidden md:flex space-x-6">
 							{/* Skeleton menu items */}
-							<div className="px-4 py-2">Services</div>
-							<div className="px-4 py-2">Our App</div>
-							<div className="px-4 py-2">Testimonials</div>
-							<div className="px-4 py-2">Contact</div>
+							<div className="px-3 py-2">Services</div>
+							<div className="px-3 py-2">Our App</div>
+							<div className="px-3 py-2">For Providers</div>
+							<div className="px-3 py-2">Testimonials</div>
+							<div className="px-3 py-2">Contact</div>
 						</div>
 					</div>
 				</div>
@@ -93,148 +447,379 @@ function Navbar({ className }: { className?: string }) {
 		<>
 			<div
 				className={cn(
-					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-4xl px-4 sm:px-0",
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-6xl px-4 sm:px-0",
 					isScrolled ? "top-0" : "top-4",
 					className
 				)}
 			>
 				<Menu setActive={setActive} logo={logo} isScrolled={isScrolled}>
 					{/* Desktop Navigation with Dropdowns */}
-					<div className="hidden md:flex space-x-4">
-						<MenuItem setActive={setActive} active={active} item="Services">
-							<div className="flex min-w-[800px] max-w-[1000px]">
-								{/* Left column: list of services */}
-								<ul className="flex flex-col w-56 border-r pr-4">
-									{services.map((service, idx) => (
-										<li
-											key={service.title}
-											className={`cursor-pointer px-4 py-2 rounded transition-colors ${
-												activeServiceIdx === idx
-													? "bg-primary/10 text-primary font-semibold"
-													: "hover:bg-gray-100 dark:hover:bg-gray-800"
-											}`}
-											onMouseEnter={() => setActiveServiceIdx(idx)}
-										>
+					<div className="hidden md:flex space-x-6">
+						{/* Services Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<Link href="/services">Services</Link>}
+							itemKey="Services"
+						>
+							{(() => {
+								const allServiceItems =
+									navigationData.services.sections.flatMap((section) =>
+										section.items.map((item) => ({
+											...item,
+											section: section.title,
+										}))
+									);
+								const activeItem = allServiceItems[activeServiceIdx];
+								const serviceImages = [
+									"/images/services1.png",
+									"/images/services2.png",
+									"/images/services3.png",
+									"/images/services4.png",
+								];
+								const getImage = (idx: number) =>
+									serviceImages[idx % serviceImages.length];
+								return (
+									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
+											{allServiceItems.slice(0, 6).map((item, idx: number) => (
+												<li key={item.name}>
+													<Link href={item.href}>
+														<button
+															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																idx === activeServiceIdx
+																	? "bg-primary/10 text-primary"
+																	: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+															}`}
+															onMouseEnter={() => setActiveServiceIdx(idx)}
+															onFocus={() => setActiveServiceIdx(idx)}
+															tabIndex={0}
+														>
+															{item.name}
+														</button>
+													</Link>
+												</li>
+											))}
+										</ul>
+										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+											<h4 className="font-bold text-sm mb-2 text-primary">
+												{activeItem.name}
+											</h4>
+											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+												{activeItem.description}
+											</p>
 											<Link
-												href={`/services/${service.slug}`}
-												className="block w-full h-full"
+												href={activeItem.href}
+												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
 											>
-												{service.title}
+												Learn More <ChevronRight className="ml-1 h-3 w-3" />
 											</Link>
-										</li>
-									))}
-								</ul>
-								{/* Middle column: details of selected service */}
-								<div className="flex-1 pl-6 flex flex-col justify-center max-w-xs border-r pr-6">
-									<h4 className="text-lg font-bold mb-1">
-										{services[activeServiceIdx].title}
-									</h4>
-									<p className="text-sm text-neutral-700 dark:text-neutral-300">
-										{services[activeServiceIdx].description}
-									</p>
-								</div>
-								{/* Right column: image of selected service */}
-								<div className="flex items-center justify-center pl-6 min-w-[180px]">
-									<Image
-										src={services[activeServiceIdx].image}
-										alt={services[activeServiceIdx].title}
-										width={120}
-										height={80}
-										className="rounded-lg object-cover"
-									/>
-								</div>
-							</div>
+										</div>
+										<div className="relative flex items-center justify-center min-w-[160px]">
+											<img
+												src={getImage(activeServiceIdx)}
+												alt={activeItem.name}
+												className="w-full h-32 object-cover rounded-lg shadow-md"
+											/>
+										</div>
+									</div>
+								);
+							})()}
 						</MenuItem>
-						<MenuItem setActive={setActive} active={active} item="Our App">
-							<div className="flex min-w-[800px] max-w-[1000px]">
-								{/* Left column: title */}
-								<Link
-									href="#app"
-									className="w-56 border-r pr-4 flex items-center font-semibold text-primary hover:underline"
-								>
-									Download the AidXBait App
-								</Link>
-								{/* Middle column: description */}
-								<div className="flex-1 pl-6 flex flex-col justify-center max-w-xs border-r pr-6">
-									<p className="text-sm text-neutral-700 dark:text-neutral-300">
-										Take control of your orthopedic care journey with our
-										comprehensive mobile application. Available for iOS and
-										Android devices.
-									</p>
-								</div>
-								{/* Right column: image */}
-								<div className="flex items-center justify-center pl-6 min-w-[180px]">
-									<Image
-										src="/images/hero_image.jpg"
-										alt="AidXBait App Interface"
-										width={120}
-										height={80}
-										className="rounded-lg object-cover"
-									/>
-								</div>
-							</div>
+
+						{/* Our App Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<Link href="/app">Our App</Link>}
+							itemKey="Our App"
+						>
+							{(() => {
+								const allAppItems = navigationData.app.sections.flatMap(
+									(section) =>
+										section.items.map((item) => ({
+											...item,
+											section: section.title,
+										}))
+								);
+								const activeItem = allAppItems[activeAppIdx];
+								const appImages = [
+									"/images/services2.png",
+									"/images/services1.png",
+									"/images/services3.png",
+									"/images/services4.png",
+								];
+								const getImage = (idx: number) =>
+									appImages[idx % appImages.length];
+								return (
+									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
+											{allAppItems.slice(0, 6).map((item, idx: number) => (
+												<li key={item.name}>
+													<Link href={item.href}>
+														<button
+															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																idx === activeAppIdx
+																	? "bg-primary/10 text-primary"
+																	: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+															}`}
+															onMouseEnter={() => setActiveAppIdx(idx)}
+															onFocus={() => setActiveAppIdx(idx)}
+															tabIndex={0}
+														>
+															{item.name}
+														</button>
+													</Link>
+												</li>
+											))}
+										</ul>
+										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+											<h4 className="font-bold text-sm mb-2 text-primary">
+												{activeItem.name}
+											</h4>
+											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+												{activeItem.description}
+											</p>
+											<Link
+												href={activeItem.href}
+												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
+											>
+												Learn More <ChevronRight className="ml-1 h-3 w-3" />
+											</Link>
+										</div>
+										<div className="relative flex items-center justify-center min-w-[160px]">
+											<img
+												src={getImage(activeAppIdx)}
+												alt={activeItem.name}
+												className="w-full h-32 object-cover rounded-lg shadow-md"
+											/>
+										</div>
+									</div>
+								);
+							})()}
 						</MenuItem>
-						<MenuItem setActive={setActive} active={active} item="Testimonials">
-							<div className="flex min-w-[800px] max-w-[1000px]">
-								{/* Left column: title */}
-								<Link
-									href="#testimonials"
-									className="w-56 border-r pr-4 flex items-center font-semibold text-primary hover:underline"
-								>
-									What Our Clients Say
-								</Link>
-								{/* Middle column: description */}
-								<div className="flex-1 pl-6 flex flex-col justify-center max-w-xs border-r pr-6">
-									<p className="text-sm text-neutral-700 dark:text-neutral-300">
-										"AidXBait made my post-surgery recovery so much easier. The
-										home visit scheduling and guided exercises were a game
-										changer!"
-									</p>
-									<span className="mt-2 text-xs text-neutral-500">
-										Sarah Johnson, Knee Replacement Patient
-									</span>
-								</div>
-								{/* Right column: image */}
-								<div className="flex items-center justify-center pl-6 min-w-[180px]">
-									<Image
-										src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-										alt="Sarah Johnson"
-										width={120}
-										height={80}
-										className="rounded-lg object-cover"
-									/>
-								</div>
-							</div>
+
+						{/* For Providers Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<Link href="/providers">For Providers</Link>}
+							itemKey="For Providers"
+						>
+							{(() => {
+								const allProviderItems =
+									navigationData.providers.sections.flatMap((section) =>
+										section.items.map((item) => ({
+											...item,
+											section: section.title,
+										}))
+									);
+								const activeItem = allProviderItems[activeProviderIdx];
+								const providerImages = [
+									"/images/services3.png",
+									"/images/services1.png",
+									"/images/services2.png",
+									"/images/services4.png",
+								];
+								const getImage = (idx: number) =>
+									providerImages[idx % providerImages.length];
+								return (
+									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
+											{allProviderItems.slice(0, 6).map((item, idx: number) => (
+												<li key={item.name}>
+													<Link href={item.href}>
+														<button
+															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																idx === activeProviderIdx
+																	? "bg-primary/10 text-primary"
+																	: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+															}`}
+															onMouseEnter={() => setActiveProviderIdx(idx)}
+															onFocus={() => setActiveProviderIdx(idx)}
+															tabIndex={0}
+														>
+															{item.name}
+														</button>
+													</Link>
+												</li>
+											))}
+										</ul>
+										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+											<h4 className="font-bold text-sm mb-2 text-primary">
+												{activeItem.name}
+											</h4>
+											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+												{activeItem.description}
+											</p>
+											<Link
+												href={activeItem.href}
+												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
+											>
+												Learn More <ChevronRight className="ml-1 h-3 w-3" />
+											</Link>
+										</div>
+										<div className="relative flex items-center justify-center min-w-[160px]">
+											<img
+												src={getImage(activeProviderIdx)}
+												alt={activeItem.name}
+												className="w-full h-32 object-cover rounded-lg shadow-md"
+											/>
+										</div>
+									</div>
+								);
+							})()}
 						</MenuItem>
-						<MenuItem setActive={setActive} active={active} item="Contact">
-							<div className="flex min-w-[800px] max-w-[1000px]">
-								{/* Left column: title */}
-								<Link
-									href="#contact"
-									className="w-56 border-r pr-4 flex items-center font-semibold text-primary hover:underline"
-								>
-									Contact Us
-								</Link>
-								{/* Middle column: description */}
-								<div className="flex-1 pl-6 flex flex-col justify-center max-w-xs border-r pr-6">
-									<p className="text-sm text-neutral-700 dark:text-neutral-300">
-										Have questions? We're here to help. Reach out to us through
-										any of these channels.
-									</p>
-								</div>
-								{/* Right column: image */}
-								<div className="flex items-center justify-center pl-6 min-w-[180px]">
-									<Image
-										src="/images/logo.png"
-										alt="AidXBait Logo"
-										width={80}
-										height={80}
-										className="rounded-lg object-contain bg-white"
-									/>
-								</div>
-							</div>
+
+						{/* Testimonials Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<Link href="/testimonials">Testimonials</Link>}
+							itemKey="Testimonials"
+						>
+							{(() => {
+								const allTestimonialItems =
+									navigationData.testimonials.sections.flatMap((section) =>
+										section.items.map((item) => ({
+											...item,
+											section: section.title,
+										}))
+									);
+								const activeItem = allTestimonialItems[activeTestimonialIdx];
+								const testimonialImages = [
+									"/images/services4.png",
+									"/images/services1.png",
+									"/images/services2.png",
+									"/images/services3.png",
+								];
+								const getImage = (idx: number) =>
+									testimonialImages[idx % testimonialImages.length];
+								return (
+									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
+											{allTestimonialItems
+												.slice(0, 6)
+												.map((item, idx: number) => (
+													<li key={item.name}>
+														<Link href={item.href}>
+															<button
+																className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																	idx === activeTestimonialIdx
+																		? "bg-primary/10 text-primary"
+																		: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+																}`}
+																onMouseEnter={() =>
+																	setActiveTestimonialIdx(idx)
+																}
+																onFocus={() => setActiveTestimonialIdx(idx)}
+																tabIndex={0}
+															>
+																{item.name}
+															</button>
+														</Link>
+													</li>
+												))}
+										</ul>
+										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+											<h4 className="font-bold text-sm mb-2 text-primary">
+												{activeItem.name}
+											</h4>
+											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+												{activeItem.description}
+											</p>
+											<Link
+												href={activeItem.href}
+												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
+											>
+												Learn More <ChevronRight className="ml-1 h-3 w-3" />
+											</Link>
+										</div>
+										<div className="relative flex items-center justify-center min-w-[160px]">
+											<img
+												src={getImage(activeTestimonialIdx)}
+												alt={activeItem.name}
+												className="w-full h-32 object-cover rounded-lg shadow-md"
+											/>
+										</div>
+									</div>
+								);
+							})()}
+						</MenuItem>
+
+						{/* Contact Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<Link href="/contact">Contact</Link>}
+							itemKey="Contact"
+						>
+							{(() => {
+								const allContactItems = navigationData.contact.sections.flatMap(
+									(section) =>
+										section.items.map((item) => ({
+											...item,
+											section: section.title,
+										}))
+								);
+								const activeItem = allContactItems[activeContactIdx];
+								const contactImages = [
+									"/images/hero_image.jpg",
+									"/images/services1.png",
+									"/images/services2.png",
+									"/images/services3.png",
+								];
+								const getImage = (idx: number) =>
+									contactImages[idx % contactImages.length];
+								return (
+									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
+											{allContactItems.slice(0, 6).map((item, idx: number) => (
+												<li key={item.name}>
+													<Link href={item.href}>
+														<button
+															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																idx === activeContactIdx
+																	? "bg-primary/10 text-primary"
+																	: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+															}`}
+															onMouseEnter={() => setActiveContactIdx(idx)}
+															onFocus={() => setActiveContactIdx(idx)}
+															tabIndex={0}
+														>
+															{item.name}
+														</button>
+													</Link>
+												</li>
+											))}
+										</ul>
+										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+											<h4 className="font-bold text-sm mb-2 text-primary">
+												{activeItem.name}
+											</h4>
+											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+												{activeItem.description}
+											</p>
+											<Link
+												href={activeItem.href}
+												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
+											>
+												Learn More <ChevronRight className="ml-1 h-3 w-3" />
+											</Link>
+										</div>
+										<div className="relative flex items-center justify-center min-w-[160px]">
+											<img
+												src={getImage(activeContactIdx)}
+												alt={activeItem.name}
+												className="w-full h-32 object-cover rounded-lg shadow-md"
+											/>
+										</div>
+									</div>
+								);
+							})()}
 						</MenuItem>
 					</div>
+
 					{/* Mobile Menu Button */}
 					<button
 						className="md:hidden cursor-pointer text-black dark:text-white"
@@ -252,13 +837,62 @@ function Navbar({ className }: { className?: string }) {
 						className="absolute inset-0 bg-black/50"
 						onClick={() => setIsMobileMenuOpen(false)}
 					/>
-					<div className="absolute top-20 left-4 right-4 bg-white dark:bg-black rounded-2xl shadow-xl p-6">
-						<nav className="flex flex-col space-y-4">
-							{/* Simple mobile links, no dropdowns for mobile */}
-							<HoveredLink href="#services">Services</HoveredLink>
-							<HoveredLink href="#app">Our App</HoveredLink>
-							<HoveredLink href="#testimonials">Testimonials</HoveredLink>
-							<HoveredLink href="#contact">Contact</HoveredLink>
+					<div className="absolute top-20 left-4 right-4 bg-white dark:bg-black rounded-2xl shadow-xl p-6 max-h-[80vh] overflow-y-auto">
+						<nav className="space-y-6">
+							{/* Mobile Navigation */}
+							<div>
+								<h3 className="font-bold text-lg mb-3">Services</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="#services">All Services</HoveredLink>
+									<HoveredLink href="/services/pt-home-visits">
+										PT Home Visits
+									</HoveredLink>
+									<HoveredLink href="/services/exercise-programs">
+										Exercise Programs
+									</HoveredLink>
+									<HoveredLink href="/services/online-consultations">
+										Online Consultations
+									</HoveredLink>
+								</div>
+							</div>
+							<div>
+								<h3 className="font-bold text-lg mb-3">Our App</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="#app">App Overview</HoveredLink>
+									<HoveredLink href="/app/ios">iOS App</HoveredLink>
+									<HoveredLink href="/app/android">Android App</HoveredLink>
+								</div>
+							</div>
+							<div>
+								<h3 className="font-bold text-lg mb-3">For Providers</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="/providers/portal">
+										Provider Portal
+									</HoveredLink>
+									<HoveredLink href="/providers/partnership">
+										Partnership
+									</HoveredLink>
+								</div>
+							</div>
+							<div>
+								<h3 className="font-bold text-lg mb-3">Testimonials</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="#testimonials">
+										Patient Stories
+									</HoveredLink>
+									<HoveredLink href="/testimonials/videos">
+										Video Testimonials
+									</HoveredLink>
+								</div>
+							</div>
+							<div className="border-t pt-4">
+								<h3 className="font-bold text-lg mb-3">Contact</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="#contact">Contact Us</HoveredLink>
+									<HoveredLink href="/contact/phone">Phone Support</HoveredLink>
+									<HoveredLink href="/contact/chat">Live Chat</HoveredLink>
+								</div>
+							</div>
 						</nav>
 					</div>
 				</div>

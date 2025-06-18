@@ -215,9 +215,17 @@ const items = [
 	{
 		title: "Patients Helped",
 		description: (
-			<span className="text-sm">
-				Over 10,000 patients have used AidXBait for their recovery.
-			</span>
+			<div>
+				<span className="text-sm block">
+					Over 10,000 patients have used AidXBait for their recovery.
+				</span>
+				<span className="text-xs text-neutral-500 block mt-1">
+					<b>Avg. Age:</b> 42 years
+				</span>
+				<span className="text-[11px] text-blue-600 dark:text-blue-300 mt-1 block italic">
+					Fun fact: Our youngest patient was just 3 years old!
+				</span>
+			</div>
 		),
 		header: <SkeletonOne />,
 		className: "md:col-span-1",
@@ -226,9 +234,17 @@ const items = [
 	{
 		title: "Therapists Onboard",
 		description: (
-			<span className="text-sm">
-				500+ certified therapists available for home visits and consultations.
-			</span>
+			<div>
+				<span className="text-sm block">
+					500+ certified therapists available for home visits and consultations.
+				</span>
+				<span className="text-xs text-neutral-500 block mt-1">
+					<b>Top Specialty:</b> Orthopedic Rehab
+				</span>
+				<span className="text-[11px] text-green-600 dark:text-green-300 mt-1 block italic">
+					Fun fact: 60% of our therapists speak two or more languages!
+				</span>
+			</div>
 		),
 		header: <SkeletonTwo />,
 		className: "md:col-span-1",
@@ -237,9 +253,17 @@ const items = [
 	{
 		title: "Faster Recovery",
 		description: (
-			<span className="text-sm">
-				Patients report 30% faster recovery with our programs.
-			</span>
+			<div>
+				<span className="text-sm block">
+					Patients report 30% faster recovery with our programs.
+				</span>
+				<span className="text-xs text-neutral-500 block mt-1">
+					<b>Avg. Program Length:</b> 6 weeks
+				</span>
+				<span className="text-[11px] text-purple-600 dark:text-purple-300 mt-1 block italic">
+					Fun fact: Our fastest recovery was just 2 weeks!
+				</span>
+			</div>
 		),
 		header: <SkeletonThree />,
 		className: "md:col-span-1",
