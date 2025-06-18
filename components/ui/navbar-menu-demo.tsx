@@ -15,7 +15,7 @@ import { services } from "../services-data";
 export default function NavbarDemo() {
 	return (
 		<div className="relative w-full flex items-center justify-center">
-			<Navbar />
+			<Navbar className="top-2" />
 		</div>
 	);
 }
@@ -25,16 +25,56 @@ function Navbar({ className }: { className?: string }) {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [activeServiceIdx, setActiveServiceIdx] = useState(0);
+	const [isMounted, setIsMounted] = useState(false);
 
 	useEffect(() => {
+		setIsMounted(true);
+
 		const handleScroll = () => {
 			const scrollTop = window.scrollY;
 			setIsScrolled(scrollTop > 50);
 		};
 
+		// Set initial scroll state
+		handleScroll();
+
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
+
+	// Prevent hydration mismatch by not rendering scroll-dependent styles until mounted
+	if (!isMounted) {
+		return (
+			<div
+				className={cn(
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-4xl px-4 sm:px-0 top-4",
+					className
+				)}
+			>
+				<div className="relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] border border-transparent shadow-input flex items-center px-8 py-4 sm:py-2 mx-auto mt-4 max-w-4xl justify-between">
+					<Link href="/" className="flex items-center gap-2">
+						<Image
+							src="/images/logo.png"
+							alt="AidXBait Logo"
+							width={100}
+							height={50}
+							className="object-contain sm:w-[120px] sm:h-[60px]"
+							priority
+						/>
+					</Link>
+					<div className="flex justify-end space-x-4 w-full">
+						<div className="hidden md:flex space-x-4">
+							{/* Skeleton menu items */}
+							<div className="px-4 py-2">Services</div>
+							<div className="px-4 py-2">Our App</div>
+							<div className="px-4 py-2">Testimonials</div>
+							<div className="px-4 py-2">Contact</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
 
 	const logo = (
 		<Link href="/" className="flex items-center gap-2">

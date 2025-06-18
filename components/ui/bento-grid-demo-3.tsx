@@ -57,6 +57,8 @@ const SkeletonTwo = () => {
 		hover: { width: ["0%", "100%"], transition: { duration: 2 } },
 	};
 	const arr = new Array(6).fill(0);
+	// Use consistent widths to avoid hydration mismatch
+	const widths = ["75%", "60%", "85%", "50%", "70%", "65%"];
 	return (
 		<motion.div
 			initial="initial"
@@ -68,7 +70,7 @@ const SkeletonTwo = () => {
 				<motion.div
 					key={"skelenton-two" + i}
 					variants={variants}
-					style={{ maxWidth: Math.random() * (100 - 40) + 40 + "%" }}
+					style={{ maxWidth: widths[i] }}
 					className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2  items-center space-x-2 bg-neutral-100 dark:bg-black w-full h-4"
 				></motion.div>
 			))}
