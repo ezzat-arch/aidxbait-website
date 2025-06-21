@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { HeroSection } from "@/components/hero-section";
+import { HeroParallaxDemo } from "@/components/hero-parallax-demo";
 import { ServicesSection } from "@/components/services-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
 import { AppDownloadSection } from "@/components/app-download-section";
@@ -23,7 +23,7 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col min-h-screen">
-			<HeroSection sentinelRef={sentinelRef} />
+			<HeroParallaxDemo />
 			<main>
 				<ServicesSection />
 				<div className="my-16 py-8 px-4 sm:px-6 lg:px-8">

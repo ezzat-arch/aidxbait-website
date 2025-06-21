@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 
 const transition: Transition = {
 	type: "spring",
-	mass: 0.5,
-	damping: 11.5,
-	stiffness: 100,
+	mass: 0.3,
+	damping: 25,
+	stiffness: 300,
 };
 
 export const MenuItem = ({
@@ -26,21 +26,21 @@ export const MenuItem = ({
 	return (
 		<div onMouseEnter={() => setActive(itemKey)} className="relative ">
 			<motion.p
-				transition={{ duration: 0.3 }}
-				className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+				transition={{ duration: 0.15 }}
+				className="cursor-pointer text-slate-700 hover:text-blue-600 font-medium transition-colors duration-150 dark:text-slate-300 dark:hover:text-blue-400"
 			>
 				{item}
 			</motion.p>
 			{active !== null && (
 				<motion.div
-					initial={{ opacity: 0, scale: 0.85, y: 10 }}
+					initial={{ opacity: 0, scale: 0.95, y: 8 }}
 					animate={{ opacity: 1, scale: 1, y: 0 }}
-					transition={transition}
+					transition={{ duration: 0.2, ease: "easeOut" }}
 				>
 					{active === itemKey && (
 						<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
 							<motion.div
-								transition={transition}
+								transition={{ duration: 0.15, ease: "easeOut" }}
 								layoutId="active"
 								className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
 							>
@@ -71,10 +71,10 @@ export const Menu = ({
 		<nav
 			onMouseLeave={() => setActive(null)}
 			className={cn(
-				"border border-transparent shadow-input flex items-center transition-all duration-300 z-50",
+				"border border-transparent shadow-input flex items-center transition-all duration-200  z-50",
 				isScrolled
-					? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-slate-200 dark:bg-slate-900/90 px-96 py-2 justify-between"
-					: "relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] px-8 py-4 sm:py-2 mx-auto mt-4 max-w-4xl justify-between"
+					? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-96 py-2 justify-between shadow-2xl drop-shadow-lg"
+					: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-8 py-4 sm:py-2 mx-auto mt-4 max-w-4xl justify-between shadow-2xl drop-shadow-lg"
 			)}
 		>
 			{logo && <div className="flex-shrink-0">{logo}</div>}
@@ -119,7 +119,7 @@ export const HoveredLink = ({ children, ...rest }: any) => {
 	return (
 		<a
 			{...rest}
-			className="text-neutral-700 dark:text-neutral-200 hover:text-black "
+			className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150 font-medium"
 		>
 			{children}
 		</a>
