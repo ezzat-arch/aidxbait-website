@@ -11,7 +11,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { MenuIcon, X, ChevronRight } from "lucide-react";
 import { services } from "../services-data";
-import { IconClipboardList } from "@tabler/icons-react";
 
 // Enhanced navigation data structure for expanded dropdowns
 const navigationData = {
@@ -69,27 +68,65 @@ const navigationData = {
 	app: {
 		sections: [
 			{
-				title: "App Features",
+				title: "How it works",
 				items: [
 					{
-						name: "Exercise Tracking",
-						href: "/app/exercise-tracking",
-						description: "Monitor your daily progress",
+						name: "Step 1 – Choose a Service",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								<div>Select the healthcare service you need:</div>
+								<ul className="list-disc ml-5 mt-1 text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+									<li>Home physical therapy</li>
+									<li>At-home radiology</li>
+									<li>Lab tests</li>
+									<li>Virtual consultations with specialists</li>
+								</ul>
+							</div>
+						),
 					},
 					{
-						name: "Virtual PT Sessions",
-						href: "/app/virtual-sessions",
-						description: "Live therapy sessions",
+						name: "Step 2 – Book Your Appointment",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								Pick a convenient time and location. Our team confirms your
+								request and prepares everything for your visit or call.
+							</div>
+						),
 					},
 					{
-						name: "Progress Analytics",
-						href: "/app/analytics",
-						description: "Detailed recovery insights",
+						name: "Step 3 – Receive Care at Home or Online",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								Licensed professionals come to you with the tools they need — or
+								meet you virtually for your consultation. No travel needed.
+							</div>
+						),
 					},
 					{
-						name: "Medication Reminders",
-						href: "/app/medications",
-						description: "Never miss your prescriptions",
+						name: "Step 4 – Follow Up & Stay Connected",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								Access your reports, track recovery, and continue your care
+								through the Aid x Bait app. We're with you every step of the
+								way.
+							</div>
+						),
+					},
+					{
+						name: "Step 5 – Need Medical Supplies?",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								Visit our{" "}
+								<a
+									href="/services/store"
+									className="text-blue-600 underline font-bold"
+								>
+									Online Store
+								</a>{" "}
+								to order braces, mobility aids, rehab equipment, and more — all
+								delivered to your home, no appointment required.
+							</div>
+						),
 					},
 				],
 			},
@@ -334,6 +371,121 @@ const navigationData = {
 	},
 };
 
+navigationData.services.sections = [
+	{
+		title: "Our Services",
+		items: [
+			{
+				name: "Home Physical Therapy",
+				href: "/services/pt-home-visits",
+				description:
+					"Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
+			},
+			{
+				name: "Virtual Consultations",
+				href: "/services/online-consultations",
+				description:
+					"Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+			},
+			{
+				name: "Home Lab Testing",
+				href: "/services/lab-testing",
+				description:
+					"We send a nurse to collect your blood or samples from home. Lab results are delivered digitally.",
+			},
+			{
+				name: "At-Home Radiology",
+				href: "/services/at-home-radiology",
+				description:
+					"Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+			},
+			{
+				name: "Exercise Program Library",
+				href: "/services/exercise-programs",
+				description:
+					"Personalized video-based rehab programs sent after your consultation for follow-up care.",
+			},
+			{
+				name: "Medical Equipment Store",
+				href: "/services/store",
+				description:
+					"Browse and order mobility aids, braces, and more — all delivered to your doorstep.",
+			},
+			{
+				name: "Home Nursing Care",
+				href: "/services/home-nursing",
+				description:
+					"Professional nurses available for home visits to provide medication administration, wound care, post-operative support, IV therapy, and chronic condition management — all in the comfort of your home.",
+			},
+		],
+	},
+];
+
+navigationData.app.sections = [
+	{
+		title: "How it works",
+		items: [
+			{
+				name: "Step 1 – Choose a Service",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						<div>Select the healthcare service you need:</div>
+						<ul className="list-disc ml-5 mt-1 text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+							<li>Home physical therapy</li>
+							<li>At-home radiology</li>
+							<li>Lab tests</li>
+							<li>Virtual consultations with specialists</li>
+						</ul>
+					</div>
+				),
+			},
+			{
+				name: "Step 2 – Book Your Appointment",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						Pick a convenient time and location. Our team confirms your request
+						and prepares everything for your visit or call.
+					</div>
+				),
+			},
+			{
+				name: "Step 3 – Receive Care at Home or Online",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						Licensed professionals come to you with the tools they need — or
+						meet you virtually for your consultation. No travel needed.
+					</div>
+				),
+			},
+			{
+				name: "Step 4 – Follow Up & Stay Connected",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						Access your reports, track recovery, and continue your care through
+						the Aid x Bait app. We're with you every step of the way.
+					</div>
+				),
+			},
+			{
+				name: "Step 5 – Need Medical Supplies?",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						Visit our{" "}
+						<a
+							href="/services/store"
+							className="text-blue-600 underline font-bold"
+						>
+							Online Store
+						</a>{" "}
+						to order braces, mobility aids, rehab equipment, and more — all
+						delivered to your home, no appointment required.
+					</div>
+				),
+			},
+		],
+	},
+];
+
 export default function NavbarDemo() {
 	return (
 		<div className="relative w-full flex items-center justify-center">
@@ -352,6 +504,8 @@ function Navbar({ className }: { className?: string }) {
 	const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
 	const [activeContactIdx, setActiveContactIdx] = useState(0);
 	const [isMounted, setIsMounted] = useState(false);
+	const [activeWhyIdx, setActiveWhyIdx] = useState(0);
+	const [activeFeatureIdx, setActiveFeatureIdx] = useState(0);
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -395,7 +549,6 @@ function Navbar({ className }: { className?: string }) {
 							<div className="px-3 py-2">Our App</div>
 							<div className="px-3 py-2">For Providers</div>
 							<div className="px-3 py-2">Testimonials</div>
-							<div className="px-3 py-2">Contact</div>
 						</div>
 					</div>
 				</div>
@@ -438,64 +591,84 @@ function Navbar({ className }: { className?: string }) {
 							{(() => {
 								const allServiceItems =
 									navigationData.services.sections.flatMap((section) =>
-										section.items.map((item) => ({
+										section.items.map((item: any) => ({
 											...item,
 											section: section.title,
 										}))
 									);
 								const activeItem = allServiceItems[activeServiceIdx];
-								const serviceImages = [
-									"/images/services1.png",
+								const appImages = [
 									"/images/services2.png",
+									"/images/services1.png",
 									"/images/services3.png",
 									"/images/services4.png",
 								];
 								const getImage = (idx: number) =>
-									serviceImages[idx % serviceImages.length];
+									appImages[idx % appImages.length];
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
-											{allServiceItems.slice(0, 6).map((item, idx: number) => (
-												<li key={item.name}>
-													<Link href={item.href}>
-														<button
-															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-																idx === activeServiceIdx
-																	? "bg-primary/10 text-primary"
-																	: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-															}`}
-															onMouseEnter={() => setActiveServiceIdx(idx)}
-															onFocus={() => setActiveServiceIdx(idx)}
-															tabIndex={0}
-														>
-															{item.name}
-														</button>
-													</Link>
-												</li>
-											))}
+									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[180px]">
+											{allServiceItems
+												.slice(0, 6)
+												.map((item: any, idx: number) => (
+													<li key={item.name}>
+														{"href" in item ? (
+															<Link href={item.href}>
+																<button
+																	className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																		idx === activeServiceIdx
+																			? "bg-primary/10 text-primary"
+																			: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+																	}`}
+																	onMouseEnter={() => setActiveServiceIdx(idx)}
+																	onFocus={() => setActiveServiceIdx(idx)}
+																	tabIndex={0}
+																>
+																	{item.name}
+																</button>
+															</Link>
+														) : (
+															<button
+																className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																	idx === activeServiceIdx
+																		? "bg-primary/10 text-primary"
+																		: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+																}`}
+																onMouseEnter={() => setActiveServiceIdx(idx)}
+																onFocus={() => setActiveServiceIdx(idx)}
+																tabIndex={0}
+															>
+																{item.name}
+															</button>
+														)}
+													</li>
+												))}
 										</ul>
-										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+										<div className="flex flex-col justify-center px-4 w-[220px] border-r border-neutral-200 dark:border-neutral-700">
 											<h4 className="font-bold text-sm mb-2 text-primary">
 												{activeItem.name}
 											</h4>
-											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
-												<IconClipboardList className="w-5 h-5 text-blue-500 mr-2" />
-												{activeItem.description}
-											</p>
-											<Link
-												href={activeItem.href}
-												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
-											>
-												Learn More <ChevronRight className="ml-1 h-3 w-3" />
-											</Link>
+											{typeof activeItem.description === "string" ? (
+												<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4 break-words max-w-xs">
+													{activeItem.description}
+												</p>
+											) : (
+												activeItem.description
+											)}
+											{"href" in activeItem ? (
+												<Link
+													href={activeItem.href}
+													className="inline-flex items-center text-xs font-medium text-primary hover:underline"
+												>
+													Learn More <ChevronRight className="ml-1 h-3 w-3" />
+												</Link>
+											) : null}
 										</div>
-										<div className="relative flex items-center justify-center min-w-[160px]">
-											<Image
+										<div className="relative flex items-center justify-center w-[160px]">
+											<img
 												src={getImage(activeServiceIdx)}
 												alt={activeItem.name}
-												width={160}
-												height={160}
-												className="object-contain"
+												className="w-full h-32 object-cover rounded-lg shadow-md"
 											/>
 										</div>
 									</div>
@@ -507,32 +680,41 @@ function Navbar({ className }: { className?: string }) {
 						<MenuItem
 							setActive={setActive}
 							active={active}
-							item={<Link href="/app">Our App</Link>}
-							itemKey="Our App"
+							item={<Link href="/app">How it works</Link>}
+							itemKey="How it works"
 						>
 							{(() => {
 								const allAppItems = navigationData.app.sections.flatMap(
 									(section) =>
-										section.items.map((item) => ({
+										section.items.map((item: any) => ({
 											...item,
 											section: section.title,
 										}))
 								);
 								const activeItem = allAppItems[activeAppIdx];
-								const appImages = [
-									"/images/services2.png",
-									"/images/services1.png",
-									"/images/services3.png",
-									"/images/services4.png",
-								];
-								const getImage = (idx: number) =>
-									appImages[idx % appImages.length];
+								// Always use the same image and styling as the first image in the Services dropdown
+								const fixedImage = "/images/services2.png";
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
-											{allAppItems.slice(0, 6).map((item, idx: number) => (
+									<div className="grid grid-cols-3 gap-6 min-w-[180px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[280px]">
+											{allAppItems.slice(0, 6).map((item: any, idx: number) => (
 												<li key={item.name}>
-													<Link href={item.href}>
+													{"href" in item ? (
+														<Link href={item.href}>
+															<button
+																className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																	idx === activeAppIdx
+																		? "bg-primary/10 text-primary"
+																		: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+																}`}
+																onMouseEnter={() => setActiveAppIdx(idx)}
+																onFocus={() => setActiveAppIdx(idx)}
+																tabIndex={0}
+															>
+																{item.name}
+															</button>
+														</Link>
+													) : (
 														<button
 															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
 																idx === activeAppIdx
@@ -545,32 +727,35 @@ function Navbar({ className }: { className?: string }) {
 														>
 															{item.name}
 														</button>
-													</Link>
+													)}
 												</li>
 											))}
 										</ul>
-										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+										<div className="flex flex-col justify-center px-4 w-[220px] border-r border-neutral-200 dark:border-neutral-700">
 											<h4 className="font-bold text-sm mb-2 text-primary">
 												{activeItem.name}
 											</h4>
-											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
-												<IconClipboardList className="w-5 h-5 text-blue-500 mr-2" />
-												{activeItem.description}
-											</p>
-											<Link
-												href={activeItem.href}
-												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
-											>
-												Learn More <ChevronRight className="ml-1 h-3 w-3" />
-											</Link>
+											{typeof activeItem.description === "string" ? (
+												<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4 break-words max-w-xs">
+													{activeItem.description}
+												</p>
+											) : (
+												activeItem.description
+											)}
+											{"href" in activeItem ? (
+												<Link
+													href={activeItem.href}
+													className="inline-flex items-center text-xs font-medium text-primary hover:underline"
+												>
+													Learn More <ChevronRight className="ml-1 h-3 w-3" />
+												</Link>
+											) : null}
 										</div>
-										<div className="relative flex items-center justify-center min-w-[160px]">
-											<Image
-												src={getImage(activeAppIdx)}
-												alt={activeItem.name}
-												width={160}
-												height={160}
-												className="object-contain"
+										<div className="relative flex items-center justify-center w-[160px]">
+											<img
+												src={fixedImage}
+												alt="Step 1 – Choose a Service"
+												className="w-full h-32 object-cover rounded-lg shadow-md"
 											/>
 										</div>
 									</div>
@@ -582,70 +767,70 @@ function Navbar({ className }: { className?: string }) {
 						<MenuItem
 							setActive={setActive}
 							active={active}
-							item={<Link href="/providers">For Providers</Link>}
-							itemKey="For Providers"
+							item={<span>Why Aid x Bait?</span>}
+							itemKey="Why Aid x Bait?"
 						>
 							{(() => {
-								const allProviderItems =
-									navigationData.providers.sections.flatMap((section) =>
-										section.items.map((item) => ({
-											...item,
-											section: section.title,
-										}))
-									);
-								const activeItem = allProviderItems[activeProviderIdx];
-								const providerImages = [
-									"/images/services3.png",
-									"/images/services1.png",
+								const whyItems = [
+									{
+										title: "24-Hour Average Response Time",
+										description:
+											"Fast appointment scheduling for urgent needs.",
+									},
+									{
+										title: "Licensed Professionals",
+										description:
+											"All therapists and technicians are fully certified.",
+									},
+									{
+										title: "Serving Cairo, Giza & More",
+										description: "Expanding across key areas in Egypt.",
+									},
+									{
+										title: "Everything in One App",
+										description: "Book, track, and follow-up with ease.",
+									},
+								];
+								const activeItem = whyItems[activeWhyIdx];
+								const whyImages = [
 									"/images/services2.png",
+									"/images/services1.png",
+									"/images/services3.png",
 									"/images/services4.png",
 								];
-								const getImage = (idx: number) =>
-									providerImages[idx % providerImages.length];
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
-											{allProviderItems.slice(0, 6).map((item, idx: number) => (
-												<li key={item.name}>
-													<Link href={item.href}>
-														<button
-															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-																idx === activeProviderIdx
-																	? "bg-primary/10 text-primary"
-																	: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-															}`}
-															onMouseEnter={() => setActiveProviderIdx(idx)}
-															onFocus={() => setActiveProviderIdx(idx)}
-															tabIndex={0}
-														>
-															{item.name}
-														</button>
-													</Link>
+									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[180px]">
+											{whyItems.map((item, idx) => (
+												<li key={item.title}>
+													<button
+														className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+															idx === activeWhyIdx
+																? "bg-primary/10 text-primary"
+																: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+														}`}
+														onMouseEnter={() => setActiveWhyIdx(idx)}
+														onFocus={() => setActiveWhyIdx(idx)}
+														tabIndex={0}
+													>
+														{item.title}
+													</button>
 												</li>
 											))}
 										</ul>
-										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+										<div className="flex flex-col justify-center px-4 w-[220px] border-r border-neutral-200 dark:border-neutral-700">
 											<h4 className="font-bold text-sm mb-2 text-primary">
-												{activeItem.name}
+												{activeItem.title}
 											</h4>
-											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
-												<IconClipboardList className="w-5 h-5 text-blue-500 mr-2" />
+											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4 break-words max-w-xs">
 												{activeItem.description}
 											</p>
-											<Link
-												href={activeItem.href}
-												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
-											>
-												Learn More <ChevronRight className="ml-1 h-3 w-3" />
-											</Link>
 										</div>
-										<div className="relative flex items-center justify-center min-w-[160px]">
-											<Image
-												src={getImage(activeProviderIdx)}
-												alt={activeItem.name}
-												width={160}
-												height={160}
-												className="object-contain"
+										<div className="relative flex items-center justify-center w-[160px]">
+											<img
+												src={whyImages[activeWhyIdx]}
+												alt={activeItem.title}
+												className="w-full h-32 object-cover rounded-lg shadow-md"
 											/>
 										</div>
 									</div>
@@ -657,147 +842,78 @@ function Navbar({ className }: { className?: string }) {
 						<MenuItem
 							setActive={setActive}
 							active={active}
-							item={<Link href="/testimonials">Testimonials</Link>}
-							itemKey="Testimonials"
+							item={<span>App features</span>}
+							itemKey="App features"
 						>
 							{(() => {
-								const allTestimonialItems =
-									navigationData.testimonials.sections.flatMap((section) =>
-										section.items.map((item) => ({
-											...item,
-											section: section.title,
-										}))
-									);
-								const activeItem = allTestimonialItems[activeTestimonialIdx];
-								const testimonialImages = [
+								const features = [
+									{
+										title: "Book appointments",
+										description:
+											"Schedule visits with healthcare professionals at your convenience.",
+									},
+									{
+										title: "View lab results",
+										description:
+											"Access your medical test results securely and quickly.",
+									},
+									{
+										title: "Chat with providers",
+										description:
+											"Communicate directly with your care team for support and questions.",
+									},
+									{
+										title: "Access exercise plans",
+										description:
+											"Follow personalized exercise routines designed for your recovery.",
+									},
+									{
+										title: "Track progress",
+										description:
+											"Monitor your health improvements and milestones over time.",
+									},
+								];
+								const activeItem = features[activeFeatureIdx];
+								const appFeatureImages = [
+									"/images/services1.png",
+									"/images/services3.png",
+									"/images/services2.png",
 									"/images/services4.png",
-									"/images/services1.png",
-									"/images/services2.png",
-									"/images/services3.png",
+									"/images/services4.png",
 								];
-								const getImage = (idx: number) =>
-									testimonialImages[idx % testimonialImages.length];
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
-											{allTestimonialItems
-												.slice(0, 6)
-												.map((item, idx: number) => (
-													<li key={item.name}>
-														<Link href={item.href}>
-															<button
-																className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-																	idx === activeTestimonialIdx
-																		? "bg-primary/10 text-primary"
-																		: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-																}`}
-																onMouseEnter={() =>
-																	setActiveTestimonialIdx(idx)
-																}
-																onFocus={() => setActiveTestimonialIdx(idx)}
-																tabIndex={0}
-															>
-																{item.name}
-															</button>
-														</Link>
-													</li>
-												))}
-										</ul>
-										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
-											<h4 className="font-bold text-sm mb-2 text-primary">
-												{activeItem.name}
-											</h4>
-											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
-												{activeItem.description}
-											</p>
-											<Link
-												href={activeItem.href}
-												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
-											>
-												Learn More <ChevronRight className="ml-1 h-3 w-3" />
-											</Link>
-										</div>
-										<div className="relative flex items-center justify-center min-w-[160px]">
-											<Image
-												src={getImage(activeTestimonialIdx)}
-												alt={activeItem.name}
-												width={160}
-												height={160}
-												className="object-contain"
-											/>
-										</div>
-									</div>
-								);
-							})()}
-						</MenuItem>
-
-						{/* Contact Menu */}
-						<MenuItem
-							setActive={setActive}
-							active={active}
-							item={<Link href="/contact">Contact</Link>}
-							itemKey="Contact"
-						>
-							{(() => {
-								const allContactItems = navigationData.contact.sections.flatMap(
-									(section) =>
-										section.items.map((item) => ({
-											...item,
-											section: section.title,
-										}))
-								);
-								const activeItem = allContactItems[activeContactIdx];
-								const contactImages = [
-									"/images/hero_image.jpg",
-									"/images/services1.png",
-									"/images/services2.png",
-									"/images/services3.png",
-								];
-								const getImage = (idx: number) =>
-									contactImages[idx % contactImages.length];
-								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[600px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 min-w-[180px]">
-											{allContactItems.slice(0, 6).map((item, idx: number) => (
-												<li key={item.name}>
-													<Link href={item.href}>
-														<button
-															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-																idx === activeContactIdx
-																	? "bg-primary/10 text-primary"
-																	: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-															}`}
-															onMouseEnter={() => setActiveContactIdx(idx)}
-															onFocus={() => setActiveContactIdx(idx)}
-															tabIndex={0}
-														>
-															{item.name}
-														</button>
-													</Link>
+									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[180px]">
+											{features.map((item, idx) => (
+												<li key={item.title}>
+													<button
+														className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+															idx === activeFeatureIdx
+																? "bg-primary/10 text-primary"
+																: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+														}`}
+														onMouseEnter={() => setActiveFeatureIdx(idx)}
+														onFocus={() => setActiveFeatureIdx(idx)}
+														tabIndex={0}
+													>
+														{item.title}
+													</button>
 												</li>
 											))}
 										</ul>
-										<div className="flex flex-col justify-center px-4 min-w-[220px] border-r border-neutral-200 dark:border-neutral-700">
+										<div className="flex flex-col justify-center px-4 w-[220px] border-r border-neutral-200 dark:border-neutral-700">
 											<h4 className="font-bold text-sm mb-2 text-primary">
-												{activeItem.name}
+												{activeItem.title}
 											</h4>
-											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4 break-words max-w-xs">
 												{activeItem.description}
 											</p>
-											<Link
-												href={activeItem.href}
-												className="inline-flex items-center text-xs font-medium text-primary hover:underline"
-											>
-												Learn More <ChevronRight className="ml-1 h-3 w-3" />
-											</Link>
 										</div>
-										<div className="relative flex items-center justify-center min-w-[160px]">
-											<Image
-												src={getImage(activeContactIdx)}
-												alt={activeItem.name}
-												width={160}
-												height={160}
-												className="object-contain"
+										<div className="relative flex items-center justify-center w-[160px]">
+											<img
+												src={appFeatureImages[activeFeatureIdx]}
+												alt={activeItem.title}
+												className="w-full h-32 object-cover rounded-lg shadow-md"
 											/>
 										</div>
 									</div>
@@ -869,14 +985,6 @@ function Navbar({ className }: { className?: string }) {
 									<HoveredLink href="/testimonials/videos">
 										Video Testimonials
 									</HoveredLink>
-								</div>
-							</div>
-							<div className="border-t pt-4">
-								<h3 className="font-bold text-lg mb-3">Contact</h3>
-								<div className="space-y-2 pl-4">
-									<HoveredLink href="#contact">Contact Us</HoveredLink>
-									<HoveredLink href="/contact/phone">Phone Support</HoveredLink>
-									<HoveredLink href="/contact/chat">Live Chat</HoveredLink>
 								</div>
 							</div>
 						</nav>
