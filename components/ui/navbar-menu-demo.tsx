@@ -695,8 +695,8 @@ function Navbar({ className }: { className?: string }) {
 								// Always use the same image and styling as the first image in the Services dropdown
 								const fixedImage = "/images/services2.png";
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[180px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[280px]">
+									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[180px]">
 											{allAppItems.slice(0, 6).map((item: any, idx: number) => (
 												<li key={item.name}>
 													{"href" in item ? (
@@ -800,7 +800,7 @@ function Navbar({ className }: { className?: string }) {
 								];
 								return (
 									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[180px]">
+										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[250px]">
 											{whyItems.map((item, idx) => (
 												<li key={item.title}>
 													<button
