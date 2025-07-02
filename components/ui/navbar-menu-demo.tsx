@@ -606,9 +606,9 @@ function Navbar({ className }: { className?: string }) {
 								const getImage = (idx: number) =>
 									appImages[idx % appImages.length];
 								return (
-									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 min-w-[580px]">
-										<div className="grid grid-cols-3 gap-4">
-											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px]">
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
 												{allServiceItems
 													.slice(0, 6)
 													.map((item: any, idx: number) => (
@@ -647,7 +647,7 @@ function Navbar({ className }: { className?: string }) {
 														</li>
 													))}
 											</ul>
-											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200">
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
 												<h4 className="font-semibold text-base mb-3 text-gray-900">
 													{activeItem.name}
 												</h4>
@@ -667,11 +667,12 @@ function Navbar({ className }: { className?: string }) {
 													</Link>
 												) : null}
 											</div>
-											<div className="relative flex items-center justify-center w-[140px]">
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
 												<img
 													src={getImage(activeServiceIdx)}
 													alt={activeItem.name}
-													className="w-full h-28 object-cover rounded-lg shadow-sm border border-gray-100"
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
 												/>
 											</div>
 										</div>
@@ -699,9 +700,9 @@ function Navbar({ className }: { className?: string }) {
 								// Always use the same image and styling as the first image in the Services dropdown
 								const fixedImage = "/images/services2.png";
 								return (
-									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 min-w-[580px]">
-										<div className="grid grid-cols-3 gap-4">
-											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px]">
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
 												{allAppItems
 													.slice(0, 6)
 													.map((item: any, idx: number) => (
@@ -738,7 +739,7 @@ function Navbar({ className }: { className?: string }) {
 														</li>
 													))}
 											</ul>
-											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200">
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
 												<h4 className="font-semibold text-base mb-3 text-gray-900">
 													{activeItem.name}
 												</h4>
@@ -758,11 +759,12 @@ function Navbar({ className }: { className?: string }) {
 													</Link>
 												) : null}
 											</div>
-											<div className="relative flex items-center justify-center w-[140px]">
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
 												<img
 													src={fixedImage}
 													alt="Step 1 – Choose a Service"
-													className="w-full h-28 object-cover rounded-lg shadow-sm border border-gray-100"
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
 												/>
 											</div>
 										</div>
@@ -807,9 +809,9 @@ function Navbar({ className }: { className?: string }) {
 									"/images/services4.png",
 								];
 								return (
-									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 min-w-[580px]">
-										<div className="grid grid-cols-3 gap-4">
-											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px]">
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
 												{whyItems.map((item, idx) => (
 													<li key={item.title}>
 														<button
@@ -827,7 +829,7 @@ function Navbar({ className }: { className?: string }) {
 													</li>
 												))}
 											</ul>
-											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200">
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
 												<h4 className="font-semibold text-base mb-3 text-gray-900">
 													{activeItem.title}
 												</h4>
@@ -835,11 +837,12 @@ function Navbar({ className }: { className?: string }) {
 													{activeItem.description}
 												</p>
 											</div>
-											<div className="relative flex items-center justify-center w-[140px]">
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
 												<img
 													src={whyImages[activeWhyIdx]}
 													alt={activeItem.title}
-													className="w-full h-28 object-cover rounded-lg shadow-sm border border-gray-100"
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
 												/>
 											</div>
 										</div>
@@ -892,9 +895,9 @@ function Navbar({ className }: { className?: string }) {
 									"/images/services4.png",
 								];
 								return (
-									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 min-w-[580px]">
-										<div className="grid grid-cols-3 gap-4">
-											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px]">
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
 												{features.map((item, idx) => (
 													<li key={item.title}>
 														<button
@@ -912,7 +915,7 @@ function Navbar({ className }: { className?: string }) {
 													</li>
 												))}
 											</ul>
-											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200">
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
 												<h4 className="font-semibold text-base mb-3 text-gray-900">
 													{activeItem.title}
 												</h4>
@@ -920,11 +923,12 @@ function Navbar({ className }: { className?: string }) {
 													{activeItem.description}
 												</p>
 											</div>
-											<div className="relative flex items-center justify-center w-[140px]">
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
 												<img
 													src={appFeatureImages[activeFeatureIdx]}
 													alt={activeItem.title}
-													className="w-full h-28 object-cover rounded-lg shadow-sm border border-gray-100"
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
 												/>
 											</div>
 										</div>
