@@ -64,7 +64,7 @@ export function ServicesSection() {
 	}, []);
 
 	return (
-		<section id="services" className="py-24 bg-white">
+		<section className="py-20 bg-gray-50">
 			<div className="container max-w-[1200px]">
 				<motion.div
 					className="text-center max-w-5xl mx-auto mb-20"
@@ -73,12 +73,10 @@ export function ServicesSection() {
 					viewport={{ once: true, amount: 0.5 }}
 					transition={{ duration: 3, type: "spring" }}
 				>
-					<h2 className="text-3xl md:text-4xl font-bold mb-4">
-						Our Comprehensive Services
-					</h2>
+					<h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
 					<p className="text-lg text-black dark:text-white">
-						AidXBait offers a complete ecosystem for orthopedic care, from
-						post-operative recovery to ongoing physical therapy.
+						Complete healthcare services delivered to your home for maximum
+						convenience and comfort.
 					</p>
 				</motion.div>
 				<div className="flex flex-col md:flex-row gap-16 items-start justify-center w-full">

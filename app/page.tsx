@@ -2,6 +2,8 @@
 import { useRef, useState, useEffect } from "react";
 import { HeroParallaxDemo } from "@/components/hero-parallax-demo";
 import { ServicesSection } from "@/components/services-section";
+import { AppFeaturesSection } from "@/components/app-features-section";
+import { WhyAidXBaitSection } from "@/components/why-aidxbait-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
 import { AppDownloadSection } from "@/components/app-download-section";
 import TestimonialsSection from "@/components/testimonials-section";
@@ -26,6 +28,9 @@ export default function Home() {
 			<HeroParallaxDemo />
 			<main>
 				<ServicesSection />
+				<AppFeaturesSection />
+				<WhyAidXBaitSection />
+				<HowItWorksSection />
 				<div className="my-16 py-8 px-4 sm:px-6 lg:px-8">
 					<BentoGridThirdDemo />
 				</div>

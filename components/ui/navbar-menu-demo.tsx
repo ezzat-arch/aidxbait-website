@@ -11,83 +11,56 @@ import Link from "next/link";
 import Image from "next/image";
 import { MenuIcon, X, ChevronRight } from "lucide-react";
 import { services } from "../services-data";
+import { IconClipboardList } from "@tabler/icons-react";
 
 // Enhanced navigation data structure for expanded dropdowns
 const navigationData = {
 	services: {
 		sections: [
 			{
-				title: "Core Services",
+				title: "Our Services",
 				items: [
 					{
-						name: "PT Home Visits",
+						name: "Home Physical Therapy",
 						href: "/services/pt-home-visits",
-						description: "Professional therapists at your location",
+						description:
+							"Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
 					},
 					{
-						name: "Exercise Programs",
-						href: "/services/exercise-programs",
-						description: "Personalized rehabilitation routines",
-					},
-					{
-						name: "Online Consultations",
+						name: "Virtual Consultations",
 						href: "/services/online-consultations",
-						description: "Virtual expert consultations",
+						description:
+							"Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+					},
+					{
+						name: "Home Lab Testing",
+						href: "/services/lab-testing",
+						description:
+							"We send a nurse to collect your blood or samples from home. Lab results are delivered digitally.",
+					},
+					{
+						name: "At-Home Radiology",
+						href: "/services/at-home-radiology",
+						description:
+							"Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+					},
+					{
+						name: "Exercise Program Library",
+						href: "/services/exercise-programs",
+						description:
+							"Personalized video-based rehab programs sent after your consultation for follow-up care.",
 					},
 					{
 						name: "Medical Equipment Store",
 						href: "/services/store",
-						description: "Rehab tools and devices",
-					},
-				],
-			},
-			{
-				title: "Specialized Care",
-				items: [
-					{
-						name: "Post-Surgery Recovery",
-						href: "/services/post-surgery",
-						description: "Comprehensive post-operative care",
+						description:
+							"Browse and order mobility aids, braces, and more — all delivered to your doorstep.",
 					},
 					{
-						name: "Pain Management",
-						href: "/services/pain-management",
-						description: "Advanced pain relief strategies",
-					},
-					{
-						name: "Sports Rehabilitation",
-						href: "/services/sports-rehab",
-						description: "Athletic injury recovery",
-					},
-					{
-						name: "Chronic Condition Support",
-						href: "/services/chronic-care",
-						description: "Long-term management solutions",
-					},
-				],
-			},
-			{
-				title: "Quick Access",
-				items: [
-					{
-						name: "24/7 Emergency Support",
-						href: "/services/emergency",
-						description: "Immediate orthopedic assistance",
-					},
-					{
-						name: "Insurance Verification",
-						href: "/services/insurance",
-						description: "Check coverage options",
-					},
-					{
-						name: "Appointment Booking",
-						href: "/services/booking",
-						description: "Schedule your visit",
-					},
-					{
-						name: "Patient Portal",
-						href: "/services/portal",
-						description: "Access your care plan",
+						name: "Home Nursing Care",
+						href: "/services/home-nursing",
+						description:
+							"Professional nurses available for home visits to provide medication administration, wound care, post-operative support, IV therapy, and chronic condition management — all in the comfort of your home.",
 					},
 				],
 			},
@@ -400,11 +373,11 @@ function Navbar({ className }: { className?: string }) {
 		return (
 			<div
 				className={cn(
-					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-6xl px-4 sm:px-0 top-4",
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-3xl px-4 sm:px-0 top-4",
 					className
 				)}
 			>
-				<div className="relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] border border-transparent shadow-input flex items-center px-8 py-4 sm:py-2 mx-auto mt-4 max-w-6xl justify-between">
+				<div className="relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] border border-transparent shadow-input flex items-center px-8 py-4 sm:py-2 mx-auto mt-4 max-w-3xl justify-between">
 					<Link href="/" className="flex items-center gap-2">
 						<Image
 							src="/images/logo.png"
@@ -447,7 +420,7 @@ function Navbar({ className }: { className?: string }) {
 		<>
 			<div
 				className={cn(
-					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-6xl px-4 sm:px-0",
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-3xl px-4 sm:px-0",
 					isScrolled ? "top-0" : "top-4",
 					className
 				)}
@@ -506,6 +479,7 @@ function Navbar({ className }: { className?: string }) {
 												{activeItem.name}
 											</h4>
 											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+												<IconClipboardList className="w-5 h-5 text-blue-500 mr-2" />
 												{activeItem.description}
 											</p>
 											<Link
@@ -516,10 +490,12 @@ function Navbar({ className }: { className?: string }) {
 											</Link>
 										</div>
 										<div className="relative flex items-center justify-center min-w-[160px]">
-											<img
+											<Image
 												src={getImage(activeServiceIdx)}
 												alt={activeItem.name}
-												className="w-full h-32 object-cover rounded-lg shadow-md"
+												width={160}
+												height={160}
+												className="object-contain"
 											/>
 										</div>
 									</div>
@@ -578,6 +554,7 @@ function Navbar({ className }: { className?: string }) {
 												{activeItem.name}
 											</h4>
 											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+												<IconClipboardList className="w-5 h-5 text-blue-500 mr-2" />
 												{activeItem.description}
 											</p>
 											<Link
@@ -588,10 +565,12 @@ function Navbar({ className }: { className?: string }) {
 											</Link>
 										</div>
 										<div className="relative flex items-center justify-center min-w-[160px]">
-											<img
+											<Image
 												src={getImage(activeAppIdx)}
 												alt={activeItem.name}
-												className="w-full h-32 object-cover rounded-lg shadow-md"
+												width={160}
+												height={160}
+												className="object-contain"
 											/>
 										</div>
 									</div>
@@ -650,6 +629,7 @@ function Navbar({ className }: { className?: string }) {
 												{activeItem.name}
 											</h4>
 											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4">
+												<IconClipboardList className="w-5 h-5 text-blue-500 mr-2" />
 												{activeItem.description}
 											</p>
 											<Link
@@ -660,10 +640,12 @@ function Navbar({ className }: { className?: string }) {
 											</Link>
 										</div>
 										<div className="relative flex items-center justify-center min-w-[160px]">
-											<img
+											<Image
 												src={getImage(activeProviderIdx)}
 												alt={activeItem.name}
-												className="w-full h-32 object-cover rounded-lg shadow-md"
+												width={160}
+												height={160}
+												className="object-contain"
 											/>
 										</div>
 									</div>
@@ -736,10 +718,12 @@ function Navbar({ className }: { className?: string }) {
 											</Link>
 										</div>
 										<div className="relative flex items-center justify-center min-w-[160px]">
-											<img
+											<Image
 												src={getImage(activeTestimonialIdx)}
 												alt={activeItem.name}
-												className="w-full h-32 object-cover rounded-lg shadow-md"
+												width={160}
+												height={160}
+												className="object-contain"
 											/>
 										</div>
 									</div>
@@ -808,10 +792,12 @@ function Navbar({ className }: { className?: string }) {
 											</Link>
 										</div>
 										<div className="relative flex items-center justify-center min-w-[160px]">
-											<img
+											<Image
 												src={getImage(activeContactIdx)}
 												alt={activeItem.name}
-												className="w-full h-32 object-cover rounded-lg shadow-md"
+												width={160}
+												height={160}
+												className="object-contain"
 											/>
 										</div>
 									</div>

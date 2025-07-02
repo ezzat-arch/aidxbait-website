@@ -103,15 +103,21 @@ export const Header = () => {
 	return (
 		<div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
 			<h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-				<span className="text-primary">Revolutionizing</span> <br />{" "}
-				<span className="text-primary">Orthopedic Care</span>
+				<span className="text-primary">Home-based healthcare.</span> <br />{" "}
+				<span className="text-primary">Simplified</span>
 			</h1>
 			<p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-				AidXBait automates post-operative care, physical therapy, and
-				appointment booking for orthopedic patients. Take control of your
-				recovery journey with our comprehensive platform that connects patients,
-				providers, and technology.
+				Get physical therapy, radiology, lab tests, and virtual consultations
+				all from the comfort of your home.
 			</p>
+			<div className="flex flex-col sm:flex-row gap-4 mt-8">
+				<button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-medium text-lg transition-colors">
+					Get started
+				</button>
+				<button className="border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 rounded-lg font-medium text-lg transition-colors">
+					Browse services
+				</button>
+			</div>
 		</div>
 	);
 };

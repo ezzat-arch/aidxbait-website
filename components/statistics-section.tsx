@@ -112,7 +112,7 @@ export function StatisticsSection() {
 	];
 
 	return (
-		<section id="statistics" className="py-20 bg-white dark:bg-black">
+		<section id="statistics" className="py-20 bg-gray-50 dark:bg-black">
 			<h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
 				AidXBait in Numbers
 			</h2>

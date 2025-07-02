@@ -303,51 +303,53 @@ const items = [
 
 export default function BentoGridThirdDemo() {
 	return (
-		<motion.div
-			initial={{ opacity: 0 }}
-			whileInView={{ opacity: 1 }}
-			viewport={{ once: true, amount: 0.2 }}
-			transition={{ duration: 0.6 }}
-		>
-			<motion.h2
-				className="text-3xl md:text-4xl font-bold text-center mb-10"
-				initial={{ opacity: 0, y: 30 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true, amount: 0.5 }}
-				transition={{ duration: 0.6, delay: 0.1 }}
+		<section className="py-20 bg-gray-50">
+			<motion.div
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				viewport={{ once: true, amount: 0.2 }}
+				transition={{ duration: 0.6 }}
 			>
-				AidXBait in Numbers
-			</motion.h2>
-			<BentoGrid className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:auto-rows-[20rem]">
-				{items.map((item, i) => (
-					<motion.div
-						key={i}
-						initial={{ opacity: 0, y: 50, scale: 0.9 }}
-						whileInView={{ opacity: 1, y: 0, scale: 1 }}
-						viewport={{ once: true, amount: 0.3 }}
-						transition={{
-							duration: 0.5,
-							delay: i * 0.1,
-							type: "spring",
-							stiffness: 100,
-						}}
-						whileHover={{
-							scale: 1.02,
-							y: -5,
-							transition: { duration: 0.2 },
-						}}
-						className={cn("h-full", item.className)}
-					>
-						<BentoGridItem
-							title={item.title}
-							description={item.description}
-							header={item.header}
-							className="[&>p:text-lg] h-full"
-							icon={item.icon}
-						/>
-					</motion.div>
-				))}
-			</BentoGrid>
-		</motion.div>
+				<motion.h2
+					className="text-3xl md:text-4xl font-bold text-center mb-10"
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, amount: 0.5 }}
+					transition={{ duration: 0.6, delay: 0.1 }}
+				>
+					AidXBait in Numbers
+				</motion.h2>
+				<BentoGrid className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:auto-rows-[20rem]">
+					{items.map((item, i) => (
+						<motion.div
+							key={i}
+							initial={{ opacity: 0, y: 50, scale: 0.9 }}
+							whileInView={{ opacity: 1, y: 0, scale: 1 }}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{
+								duration: 0.5,
+								delay: i * 0.1,
+								type: "spring",
+								stiffness: 100,
+							}}
+							whileHover={{
+								scale: 1.02,
+								y: -5,
+								transition: { duration: 0.2 },
+							}}
+							className={cn("h-full", item.className)}
+						>
+							<BentoGridItem
+								title={item.title}
+								description={item.description}
+								header={item.header}
+								className="[&>p:text-lg] h-full"
+								icon={item.icon}
+							/>
+						</motion.div>
+					))}
+				</BentoGrid>
+			</motion.div>
+		</section>
 	);
 }
