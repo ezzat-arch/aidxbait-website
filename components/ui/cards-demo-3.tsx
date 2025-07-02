@@ -1,5 +1,5 @@
 "use client";
-import { animate, motion } from "motion/react";
+import { animate, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Activity, Calendar, Video, ShoppingBag, Clock } from "lucide-react";
@@ -69,7 +69,7 @@ export const Skeleton = ({ icon }: { icon?: React.ReactNode }) => {
 		animate(sequence, {
 			// @ts-ignore
 			repeat: Infinity,
-			repeatDelay: 1,
+			delay: 1,
 		});
 	}, []);
 

@@ -17,33 +17,7 @@ import {
 	Card,
 	Skeleton,
 } from "@/components/ui/cards-demo-3";
-
-const services = [
-	{
-		icon: <Calendar className="h-10 w-10 text-blue-600" />,
-		title: "PT Home Visits",
-		description:
-			"Book physical therapy home visits in convenient packages, with local therapists able to accept or decline requests.",
-	},
-	{
-		icon: <Activity className="h-10 w-10 text-emerald-600" />,
-		title: "Exercise Programs",
-		description:
-			"Access guided, customizable rehab programs with progress tracking and secure, in-app instructional videos.",
-	},
-	{
-		icon: <ShoppingBag className="h-10 w-10 text-pink-600" />,
-		title: "Store",
-		description:
-			"Browse and purchase rehab products with easy filtering, secure payments, and real-time order tracking.",
-	},
-	{
-		icon: <Video className="h-10 w-10 text-purple-600" />,
-		title: "Online Consultations",
-		description:
-			"Book video consultations with doctors, get reminders, and receive expert follow-up and record updates.",
-	},
-];
+import { services } from "./services-data";
 
 function ServiceCard({
 	service,
@@ -90,7 +64,7 @@ export function ServicesSection() {
 	}, []);
 
 	return (
-		<section id="services" className="py-24 bg-white">
+		<section className="py-20 bg-gray-50">
 			<div className="container max-w-[1200px]">
 				<motion.div
 					className="text-center max-w-5xl mx-auto mb-20"
@@ -99,12 +73,10 @@ export function ServicesSection() {
 					viewport={{ once: true, amount: 0.5 }}
 					transition={{ duration: 3, type: "spring" }}
 				>
-					<h2 className="text-3xl md:text-4xl font-bold mb-4">
-						Our Comprehensive Services
-					</h2>
+					<h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
 					<p className="text-lg text-black dark:text-white">
-						AidXBait offers a complete ecosystem for orthopedic care, from
-						post-operative recovery to ongoing physical therapy.
+						Complete healthcare services delivered to your home for maximum
+						convenience and comfort.
 					</p>
 				</motion.div>
 				<div className="flex flex-col md:flex-row gap-16 items-start justify-center w-full">

@@ -5,47 +5,46 @@ import { cn } from "@/lib/utils";
 
 const transition: Transition = {
 	type: "spring",
-	mass: 0.5,
-	damping: 11.5,
-	stiffness: 100,
+	mass: 0.3,
+	damping: 25,
+	stiffness: 300,
 };
 
 export const MenuItem = ({
 	setActive,
 	active,
 	item,
+	itemKey,
 	children,
 }: {
 	setActive: (item: string) => void;
 	active: string | null;
-	item: string;
+	item: React.ReactNode;
+	itemKey: string;
 	children?: React.ReactNode;
 }) => {
 	return (
-		<div onMouseEnter={() => setActive(item)} className="relative ">
+		<div onMouseEnter={() => setActive(itemKey)} className="relative">
 			<motion.p
-				transition={{ duration: 0.3 }}
-				className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+				transition={{ duration: 0.15 }}
+				className="cursor-pointer text-black dark:text-white"
 			>
 				{item}
 			</motion.p>
 			{active !== null && (
 				<motion.div
-					initial={{ opacity: 0, scale: 0.85, y: 10 }}
+					initial={{ opacity: 0, scale: 0.95, y: 8 }}
 					animate={{ opacity: 1, scale: 1, y: 0 }}
-					transition={transition}
+					transition={{ duration: 0.2, ease: "easeOut" }}
 				>
-					{active === item && (
+					{active === itemKey && (
 						<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
 							<motion.div
-								transition={transition}
-								layoutId="active" // layoutId ensures smooth animation
-								className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
+								transition={{ duration: 0.15, ease: "easeOut" }}
+								layoutId="active"
+								className="backdrop-blur-sm rounded-2xl overflow-hidden"
 							>
-								<motion.div
-									layout // layout ensures smooth animation
-									className="w-max h-full p-4"
-								>
+								<motion.div layout className="w-max h-full">
 									{children}
 								</motion.div>
 							</motion.div>
@@ -70,16 +69,16 @@ export const Menu = ({
 }) => {
 	return (
 		<nav
-			onMouseLeave={() => setActive(null)} // resets the state
+			onMouseLeave={() => setActive(null)}
 			className={cn(
-				"relative border border-transparent shadow-input flex justify-between items-center space-x-4 px-8 py-4  sm:py-2 transition-all duration-300",
+				"border border-transparent shadow-input flex items-center transition-all duration-200 z-50",
 				isScrolled
-					? "rounded-b-2xl backdrop-blur-md bg-slate-200 dark:bg-slate-900/90 "
-					: "rounded-full bg-white dark:bg-black dark:border-white/[0.2]"
+					? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-96 py-2 justify-between shadow-2xl drop-shadow-lg"
+					: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-8 py-4 sm:py-2 mx-auto mt-4 max-w-4xl justify-between shadow-2xl drop-shadow-lg"
 			)}
 		>
 			{logo && <div className="flex-shrink-0">{logo}</div>}
-			<div className="flex justify-center space-x-4">{children}</div>
+			<div className="flex justify-end space-x-4 w-full">{children}</div>
 		</nav>
 	);
 };
@@ -120,7 +119,7 @@ export const HoveredLink = ({ children, ...rest }: any) => {
 	return (
 		<a
 			{...rest}
-			className="text-neutral-700 dark:text-neutral-200 hover:text-black "
+			className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150 font-medium"
 		>
 			{children}
 		</a>

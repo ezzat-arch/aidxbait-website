@@ -21,7 +21,6 @@ export const HeroSection = React.forwardRef<
 		>
 			{navbar && <div className="fixed top-0 left-0 w-full z-50">{navbar}</div>}
 			<div className="absolute inset-0 bg-black/50 z-0" />
-			<div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center z-10"></div>
 			<div className="container relative z-20 px-4 sm:px-6 lg:px-8">
 				<div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center pt-20 sm:pt-24 md:pt-28 lg:pt-0">
 					<motion.div

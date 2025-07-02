@@ -182,9 +182,7 @@ export function Footer() {
 
 			<div className="border-t border-gray-800 py-6">
 				<div className="container flex flex-col sm:flex-row justify-between items-center">
-					<p className="text-sm">
-						© {new Date().getFullYear()} AidXBait. All rights reserved.
-					</p>
+					<p className="text-sm">© 2025 AidXBait. All rights reserved.</p>
 					<div className="flex gap-6 mt-4 sm:mt-0">
 						<Link
 							href="#"

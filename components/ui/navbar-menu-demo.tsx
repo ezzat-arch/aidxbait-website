@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import {
 	HoveredLink,
 	Menu,
@@ -9,12 +9,487 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu as MenuIcon, X } from "lucide-react";
+import { MenuIcon, X, ChevronRight } from "lucide-react";
+import { services } from "../services-data";
+
+// Enhanced navigation data structure for expanded dropdowns
+const navigationData = {
+	services: {
+		sections: [
+			{
+				title: "Our Services",
+				items: [
+					{
+						name: "Home Physical Therapy",
+						href: "/services/pt-home-visits",
+						description:
+							"Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
+					},
+					{
+						name: "Virtual Consultations",
+						href: "/services/online-consultations",
+						description:
+							"Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+					},
+					{
+						name: "Home Lab Testing",
+						href: "/services/lab-testing",
+						description:
+							"We send a nurse to collect your blood or samples from home. Lab results are delivered digitally.",
+					},
+					{
+						name: "At-Home Radiology",
+						href: "/services/at-home-radiology",
+						description:
+							"Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+					},
+					{
+						name: "Exercise Program Library",
+						href: "/services/exercise-programs",
+						description:
+							"Personalized video-based rehab programs sent after your consultation for follow-up care.",
+					},
+					{
+						name: "Medical Equipment Store",
+						href: "/services/store",
+						description:
+							"Browse and order mobility aids, braces, and more — all delivered to your doorstep.",
+					},
+					{
+						name: "Home Nursing Care",
+						href: "/services/home-nursing",
+						description:
+							"Professional nurses available for home visits to provide medication administration, wound care, post-operative support, IV therapy, and chronic condition management — all in the comfort of your home.",
+					},
+				],
+			},
+		],
+	},
+	app: {
+		sections: [
+			{
+				title: "How it works",
+				items: [
+					{
+						name: "Step 1 – Choose a Service",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								<div>Select the healthcare service you need:</div>
+								<ul className="list-disc ml-5 mt-1 text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+									<li>Home physical therapy</li>
+									<li>At-home radiology</li>
+									<li>Lab tests</li>
+									<li>Virtual consultations with specialists</li>
+								</ul>
+							</div>
+						),
+					},
+					{
+						name: "Step 2 – Book Your Appointment",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								Pick a convenient time and location. Our team confirms your
+								request and prepares everything for your visit or call.
+							</div>
+						),
+					},
+					{
+						name: "Step 3 – Receive Care at Home or Online",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								Licensed professionals come to you with the tools they need — or
+								meet you virtually for your consultation. No travel needed.
+							</div>
+						),
+					},
+					{
+						name: "Step 4 – Follow Up & Stay Connected",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								Access your reports, track recovery, and continue your care
+								through the Aid x Bait app. We're with you every step of the
+								way.
+							</div>
+						),
+					},
+					{
+						name: "Step 5 – Need Medical Supplies?",
+						description: (
+							<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+								Visit our{" "}
+								<a
+									href="/services/store"
+									className="text-blue-600 underline font-bold"
+								>
+									Online Store
+								</a>{" "}
+								to order braces, mobility aids, rehab equipment, and more — all
+								delivered to your home, no appointment required.
+							</div>
+						),
+					},
+				],
+			},
+			{
+				title: "Platform Access",
+				items: [
+					{
+						name: "iOS App",
+						href: "/app/ios",
+						description: "Download for iPhone & iPad",
+					},
+					{
+						name: "Android App",
+						href: "/app/android",
+						description: "Download for Android devices",
+					},
+					{
+						name: "Web Platform",
+						href: "/app/web",
+						description: "Access from any browser",
+					},
+					{
+						name: "Wearable Integration",
+						href: "/app/wearables",
+						description: "Sync with fitness trackers",
+					},
+				],
+			},
+			{
+				title: "Support",
+				items: [
+					{
+						name: "Getting Started",
+						href: "/app/getting-started",
+						description: "Quick setup guide",
+					},
+					{
+						name: "Video Tutorials",
+						href: "/app/tutorials",
+						description: "Learn app features",
+					},
+					{
+						name: "Technical Support",
+						href: "/app/support",
+						description: "Help with app issues",
+					},
+					{
+						name: "Privacy & Security",
+						href: "/app/privacy",
+						description: "Your data protection",
+					},
+				],
+			},
+		],
+	},
+	providers: {
+		sections: [
+			{
+				title: "For Healthcare Providers",
+				items: [
+					{
+						name: "Provider Portal",
+						href: "/providers/portal",
+						description: "Manage patient referrals",
+					},
+					{
+						name: "Integration Services",
+						href: "/providers/integration",
+						description: "EHR system connections",
+					},
+					{
+						name: "Analytics Dashboard",
+						href: "/providers/analytics",
+						description: "Patient outcome tracking",
+					},
+					{
+						name: "Billing Support",
+						href: "/providers/billing",
+						description: "Streamlined payment processing",
+					},
+				],
+			},
+			{
+				title: "Partnership Programs",
+				items: [
+					{
+						name: "Hospital Networks",
+						href: "/providers/hospitals",
+						description: "Comprehensive facility solutions",
+					},
+					{
+						name: "Private Practices",
+						href: "/providers/practices",
+						description: "Independent provider tools",
+					},
+					{
+						name: "Insurance Partners",
+						href: "/providers/insurance",
+						description: "Coverage network expansion",
+					},
+					{
+						name: "Rehabilitation Centers",
+						href: "/providers/rehab",
+						description: "Specialized facility support",
+					},
+				],
+			},
+		],
+	},
+	testimonials: {
+		sections: [
+			{
+				title: "Patient Stories",
+				items: [
+					{
+						name: "Recovery Success Stories",
+						href: "/testimonials/recovery",
+						description: "Real patient experiences",
+					},
+					{
+						name: "Video Testimonials",
+						href: "/testimonials/videos",
+						description: "Watch patient journeys",
+					},
+					{
+						name: "Provider Reviews",
+						href: "/testimonials/providers",
+						description: "Healthcare professional feedback",
+					},
+					{
+						name: "Family Experiences",
+						href: "/testimonials/families",
+						description: "Caregiver perspectives",
+					},
+				],
+			},
+			{
+				title: "Case Studies",
+				items: [
+					{
+						name: "Knee Replacement Recovery",
+						href: "/testimonials/knee-replacement",
+						description: "Complete recovery journeys",
+					},
+					{
+						name: "Sports Injury Rehabilitation",
+						href: "/testimonials/sports-injuries",
+						description: "Athletic comeback stories",
+					},
+					{
+						name: "Chronic Pain Management",
+						href: "/testimonials/pain-management",
+						description: "Long-term success stories",
+					},
+					{
+						name: "Post-Surgery Outcomes",
+						href: "/testimonials/post-surgery",
+						description: "Surgical recovery experiences",
+					},
+				],
+			},
+		],
+	},
+	contact: {
+		sections: [
+			{
+				title: "Get in Touch",
+				items: [
+					{
+						name: "General Inquiries",
+						href: "/contact/general",
+						description: "Questions about our services",
+					},
+					{
+						name: "New Patient Registration",
+						href: "/contact/registration",
+						description: "Start your care journey",
+					},
+					{
+						name: "Provider Partnership",
+						href: "/contact/providers",
+						description: "Healthcare provider inquiries",
+					},
+					{
+						name: "Technical Support",
+						href: "/contact/support",
+						description: "App and platform assistance",
+					},
+				],
+			},
+			{
+				title: "Contact Methods",
+				items: [
+					{
+						name: "Phone Support",
+						href: "/contact/phone",
+						description: "1-800-AIDXBAIT (24/7)",
+					},
+					{
+						name: "Live Chat",
+						href: "/contact/chat",
+						description: "Instant messaging support",
+					},
+					{
+						name: "Email Support",
+						href: "/contact/email",
+						description: "support@aidxbait.com",
+					},
+					{
+						name: "Schedule Callback",
+						href: "/contact/callback",
+						description: "We'll call you back",
+					},
+				],
+			},
+			{
+				title: "Locations",
+				items: [
+					{
+						name: "Service Areas",
+						href: "/contact/areas",
+						description: "Find coverage in your area",
+					},
+					{
+						name: "Office Locations",
+						href: "/contact/offices",
+						description: "Visit our physical locations",
+					},
+					{
+						name: "Partner Facilities",
+						href: "/contact/facilities",
+						description: "Network of partner clinics",
+					},
+					{
+						name: "Emergency Contacts",
+						href: "/contact/emergency",
+						description: "Urgent care information",
+					},
+				],
+			},
+		],
+	},
+};
+
+navigationData.services.sections = [
+	{
+		title: "Our Services",
+		items: [
+			{
+				name: "Home Physical Therapy",
+				href: "/services/pt-home-visits",
+				description:
+					"Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
+			},
+			{
+				name: "Virtual Consultations",
+				href: "/services/online-consultations",
+				description:
+					"Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+			},
+			{
+				name: "Home Lab Testing",
+				href: "/services/lab-testing",
+				description:
+					"We send a nurse to collect your blood or samples from home. Lab results are delivered digitally.",
+			},
+			{
+				name: "At-Home Radiology",
+				href: "/services/at-home-radiology",
+				description:
+					"Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+			},
+			{
+				name: "Exercise Program Library",
+				href: "/services/exercise-programs",
+				description:
+					"Personalized video-based rehab programs sent after your consultation for follow-up care.",
+			},
+			{
+				name: "Medical Equipment Store",
+				href: "/services/store",
+				description:
+					"Browse and order mobility aids, braces, and more — all delivered to your doorstep.",
+			},
+			{
+				name: "Home Nursing Care",
+				href: "/services/home-nursing",
+				description:
+					"Professional nurses available for home visits to provide medication administration, wound care, post-operative support, IV therapy, and chronic condition management — all in the comfort of your home.",
+			},
+		],
+	},
+];
+
+navigationData.app.sections = [
+	{
+		title: "How it works",
+		items: [
+			{
+				name: "Step 1 – Choose a Service",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						<div>Select the healthcare service you need:</div>
+						<ul className="list-disc ml-5 mt-1 text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+							<li>Home physical therapy</li>
+							<li>At-home radiology</li>
+							<li>Lab tests</li>
+							<li>Virtual consultations with specialists</li>
+						</ul>
+					</div>
+				),
+			},
+			{
+				name: "Step 2 – Book Your Appointment",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						Pick a convenient time and location. Our team confirms your request
+						and prepares everything for your visit or call.
+					</div>
+				),
+			},
+			{
+				name: "Step 3 – Receive Care at Home or Online",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						Licensed professionals come to you with the tools they need — or
+						meet you virtually for your consultation. No travel needed.
+					</div>
+				),
+			},
+			{
+				name: "Step 4 – Follow Up & Stay Connected",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						Access your reports, track recovery, and continue your care through
+						the Aid x Bait app. We're with you every step of the way.
+					</div>
+				),
+			},
+			{
+				name: "Step 5 – Need Medical Supplies?",
+				description: (
+					<div className="text-xs text-neutral-700 dark:text-neutral-300 break-words max-w-xs">
+						Visit our{" "}
+						<a
+							href="/services/store"
+							className="text-blue-600 underline font-bold"
+						>
+							Online Store
+						</a>{" "}
+						to order braces, mobility aids, rehab equipment, and more — all
+						delivered to your home, no appointment required.
+					</div>
+				),
+			},
+		],
+	},
+];
 
 export default function NavbarDemo() {
 	return (
 		<div className="relative w-full flex items-center justify-center">
-			<Navbar />
+			<Navbar className="top-2" />
 		</div>
 	);
 }
@@ -23,16 +498,63 @@ function Navbar({ className }: { className?: string }) {
 	const [active, setActive] = useState<string | null>(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [activeServiceIdx, setActiveServiceIdx] = useState(0);
+	const [activeAppIdx, setActiveAppIdx] = useState(0);
+	const [activeProviderIdx, setActiveProviderIdx] = useState(0);
+	const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
+	const [activeContactIdx, setActiveContactIdx] = useState(0);
+	const [isMounted, setIsMounted] = useState(false);
+	const [activeWhyIdx, setActiveWhyIdx] = useState(0);
+	const [activeFeatureIdx, setActiveFeatureIdx] = useState(0);
 
 	useEffect(() => {
+		setIsMounted(true);
+
 		const handleScroll = () => {
 			const scrollTop = window.scrollY;
 			setIsScrolled(scrollTop > 50);
 		};
 
+		// Set initial scroll state
+		handleScroll();
+
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
+
+	// Prevent hydration mismatch by not rendering scroll-dependent styles until mounted
+	if (!isMounted) {
+		return (
+			<div
+				className={cn(
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-3xl px-4 sm:px-0 top-4",
+					className
+				)}
+			>
+				<div className="relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] border border-transparent shadow-input flex items-center px-8 py-4 sm:py-2 mx-auto mt-4 max-w-3xl justify-between">
+					<Link href="/" className="flex items-center gap-2">
+						<Image
+							src="/images/logo.png"
+							alt="AidXBait Logo"
+							width={100}
+							height={50}
+							className="object-contain sm:w-[120px] sm:h-[60px]"
+							priority
+						/>
+					</Link>
+					<div className="flex justify-end space-x-4 w-full">
+						<div className="hidden md:flex space-x-6">
+							{/* Skeleton menu items */}
+							<div className="px-3 py-2">Services</div>
+							<div className="px-3 py-2">How it works</div>
+							<div className="px-3 py-2">Why Aid x Bait?</div>
+							<div className="px-3 py-2">App features</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
 
 	const logo = (
 		<Link href="/" className="flex items-center gap-2">
@@ -47,36 +569,373 @@ function Navbar({ className }: { className?: string }) {
 		</Link>
 	);
 
-	const navLinks = [
-		{ href: "#services", label: "Services" },
-
-		{ href: "#app", label: "Our App" },
-		{ href: "#testimonials", label: "Testimonials" },
-		{ href: "#contact", label: "Contact" },
-	];
-
 	return (
 		<>
 			<div
 				className={cn(
-					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-4xl px-4 sm:px-0",
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-3xl px-4 sm:px-0",
 					isScrolled ? "top-0" : "top-4",
 					className
 				)}
 			>
 				<Menu setActive={setActive} logo={logo} isScrolled={isScrolled}>
-					{/* Desktop Navigation */}
-					<div className="hidden md:flex space-x-4">
-						{navLinks.map((link) => (
-							<Link
-								key={link.href}
-								href={link.href}
-								className="font-inter text-slate-800 dark:text-white hover:text-primary transition-colors py-2 text-md lg:text-lg whitespace-nowrap"
-								style={{ fontFamily: "Inter, Arial, Helvetica, sans-serif" }}
-							>
-								{link.label}
-							</Link>
-						))}
+					{/* Desktop Navigation with Dropdowns */}
+					<div className="hidden md:flex space-x-6">
+						{/* Services Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<Link href="/services">Services</Link>}
+							itemKey="Services"
+						>
+							{(() => {
+								const allServiceItems =
+									navigationData.services.sections.flatMap((section) =>
+										section.items.map((item: any) => ({
+											...item,
+											section: section.title,
+										}))
+									);
+								const activeItem = allServiceItems[activeServiceIdx];
+								const appImages = [
+									"/images/services2.png",
+									"/images/services1.png",
+									"/images/services3.png",
+									"/images/services4.png",
+								];
+								const getImage = (idx: number) =>
+									appImages[idx % appImages.length];
+								return (
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
+												{allServiceItems
+													.slice(0, 6)
+													.map((item: any, idx: number) => (
+														<li key={item.name}>
+															{"href" in item ? (
+																<Link href={item.href}>
+																	<button
+																		className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																			idx === activeServiceIdx
+																				? "bg-blue-50 text-blue-700 border border-blue-200"
+																				: "hover:bg-gray-50 text-gray-700"
+																		}`}
+																		onMouseEnter={() =>
+																			setActiveServiceIdx(idx)
+																		}
+																		onFocus={() => setActiveServiceIdx(idx)}
+																		tabIndex={0}
+																	>
+																		{item.name}
+																	</button>
+																</Link>
+															) : (
+																<button
+																	className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																		idx === activeServiceIdx
+																			? "bg-blue-50 text-blue-700 border border-blue-200"
+																			: "hover:bg-gray-50 text-gray-700"
+																	}`}
+																	onMouseEnter={() => setActiveServiceIdx(idx)}
+																	onFocus={() => setActiveServiceIdx(idx)}
+																	tabIndex={0}
+																>
+																	{item.name}
+																</button>
+															)}
+														</li>
+													))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{activeItem.name}
+												</h4>
+												{typeof activeItem.description === "string" ? (
+													<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+														{activeItem.description}
+													</p>
+												) : (
+													activeItem.description
+												)}
+												{"href" in activeItem ? (
+													<Link
+														href={activeItem.href}
+														className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+													>
+														Learn More <ChevronRight className="ml-1 h-4 w-4" />
+													</Link>
+												) : null}
+											</div>
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
+												<img
+													src={getImage(activeServiceIdx)}
+													alt={activeItem.name}
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
+												/>
+											</div>
+										</div>
+									</div>
+								);
+							})()}
+						</MenuItem>
+
+						{/* How it works Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<Link href="/app">How it works</Link>}
+							itemKey="How it works"
+						>
+							{(() => {
+								const allAppItems = navigationData.app.sections.flatMap(
+									(section) =>
+										section.items.map((item: any) => ({
+											...item,
+											section: section.title,
+										}))
+								);
+								const activeItem = allAppItems[activeAppIdx];
+								// Always use the same image and styling as the first image in the Services dropdown
+								const fixedImage = "/images/services2.png";
+								return (
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
+												{allAppItems
+													.slice(0, 6)
+													.map((item: any, idx: number) => (
+														<li key={item.name}>
+															{"href" in item ? (
+																<Link href={item.href}>
+																	<button
+																		className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																			idx === activeAppIdx
+																				? "bg-blue-50 text-blue-700 border border-blue-200"
+																				: "hover:bg-gray-50 text-gray-700"
+																		}`}
+																		onMouseEnter={() => setActiveAppIdx(idx)}
+																		onFocus={() => setActiveAppIdx(idx)}
+																		tabIndex={0}
+																	>
+																		{item.name}
+																	</button>
+																</Link>
+															) : (
+																<button
+																	className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																		idx === activeAppIdx
+																			? "bg-blue-50 text-blue-700 border border-blue-200"
+																			: "hover:bg-gray-50 text-gray-700"
+																	}`}
+																	onMouseEnter={() => setActiveAppIdx(idx)}
+																	onFocus={() => setActiveAppIdx(idx)}
+																	tabIndex={0}
+																>
+																	{item.name}
+																</button>
+															)}
+														</li>
+													))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{activeItem.name}
+												</h4>
+												{typeof activeItem.description === "string" ? (
+													<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+														{activeItem.description}
+													</p>
+												) : (
+													activeItem.description
+												)}
+												{"href" in activeItem ? (
+													<Link
+														href={activeItem.href}
+														className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+													>
+														Learn More <ChevronRight className="ml-1 h-4 w-4" />
+													</Link>
+												) : null}
+											</div>
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
+												<img
+													src={fixedImage}
+													alt="Step 1 – Choose a Service"
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
+												/>
+											</div>
+										</div>
+									</div>
+								);
+							})()}
+						</MenuItem>
+
+						{/* Why Aid x Bait Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<span>Why Aid x Bait?</span>}
+							itemKey="Why Aid x Bait?"
+						>
+							{(() => {
+								const whyItems = [
+									{
+										title: "24-Hour Average Response Time",
+										description:
+											"Fast appointment scheduling for urgent needs.",
+									},
+									{
+										title: "Licensed Professionals",
+										description:
+											"All therapists and technicians are fully certified.",
+									},
+									{
+										title: "Serving Cairo, Giza & More",
+										description: "Expanding across key areas in Egypt.",
+									},
+									{
+										title: "Everything in One App",
+										description: "Book, track, and follow-up with ease.",
+									},
+								];
+								const activeItem = whyItems[activeWhyIdx];
+								const whyImages = [
+									"/images/services2.png",
+									"/images/services1.png",
+									"/images/services3.png",
+									"/images/services4.png",
+								];
+								return (
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
+												{whyItems.map((item, idx) => (
+													<li key={item.title}>
+														<button
+															className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																idx === activeWhyIdx
+																	? "bg-blue-50 text-blue-700 border border-blue-200"
+																	: "hover:bg-gray-50 text-gray-700"
+															}`}
+															onMouseEnter={() => setActiveWhyIdx(idx)}
+															onFocus={() => setActiveWhyIdx(idx)}
+															tabIndex={0}
+														>
+															{item.title}
+														</button>
+													</li>
+												))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{activeItem.title}
+												</h4>
+												<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+													{activeItem.description}
+												</p>
+											</div>
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
+												<img
+													src={whyImages[activeWhyIdx]}
+													alt={activeItem.title}
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
+												/>
+											</div>
+										</div>
+									</div>
+								);
+							})()}
+						</MenuItem>
+
+						{/* App features Menu */}
+						<MenuItem
+							setActive={setActive}
+							active={active}
+							item={<span>App features</span>}
+							itemKey="App features"
+						>
+							{(() => {
+								const features = [
+									{
+										title: "Book appointments",
+										description:
+											"Schedule visits with healthcare professionals at your convenience.",
+									},
+									{
+										title: "View lab results",
+										description:
+											"Access your medical test results securely and quickly.",
+									},
+									{
+										title: "Chat with providers",
+										description:
+											"Communicate directly with your care team for support and questions.",
+									},
+									{
+										title: "Access exercise plans",
+										description:
+											"Follow personalized exercise routines designed for your recovery.",
+									},
+									{
+										title: "Track progress",
+										description:
+											"Monitor your health improvements and milestones over time.",
+									},
+								];
+								const activeItem = features[activeFeatureIdx];
+								const appFeatureImages = [
+									"/images/services1.png",
+									"/images/services3.png",
+									"/images/services2.png",
+									"/images/services4.png",
+									"/images/services4.png",
+								];
+								return (
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
+												{features.map((item, idx) => (
+													<li key={item.title}>
+														<button
+															className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																idx === activeFeatureIdx
+																	? "bg-blue-50 text-blue-700 border border-blue-200"
+																	: "hover:bg-gray-50 text-gray-700"
+															}`}
+															onMouseEnter={() => setActiveFeatureIdx(idx)}
+															onFocus={() => setActiveFeatureIdx(idx)}
+															tabIndex={0}
+														>
+															{item.title}
+														</button>
+													</li>
+												))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{activeItem.title}
+												</h4>
+												<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+													{activeItem.description}
+												</p>
+											</div>
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
+												<img
+													src={appFeatureImages[activeFeatureIdx]}
+													alt={activeItem.title}
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
+												/>
+											</div>
+										</div>
+									</div>
+								);
+							})()}
+						</MenuItem>
 					</div>
 
 					{/* Mobile Menu Button */}
@@ -96,19 +955,54 @@ function Navbar({ className }: { className?: string }) {
 						className="absolute inset-0 bg-black/50"
 						onClick={() => setIsMobileMenuOpen(false)}
 					/>
-					<div className="absolute top-20 left-4 right-4 bg-white dark:bg-black rounded-2xl shadow-xl p-6">
-						<nav className="flex flex-col space-y-4">
-							{navLinks.map((link) => (
-								<Link
-									key={link.href}
-									href={link.href}
-									className="font-inter text-slate-800 dark:text-slate-700 hover:text-primary transition-colors py-2 text-lg"
-									style={{ fontFamily: "Inter, Arial, Helvetica, sans-serif" }}
-									onClick={() => setIsMobileMenuOpen(false)}
-								>
-									{link.label}
-								</Link>
-							))}
+					<div className="absolute top-20 left-4 right-4 bg-white dark:bg-black rounded-2xl shadow-xl p-6 max-h-[80vh] overflow-y-auto">
+						<nav className="space-y-6">
+							{/* Mobile Navigation */}
+							<div>
+								<h3 className="font-bold text-lg mb-3">Services</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="#services">All Services</HoveredLink>
+									<HoveredLink href="/services/pt-home-visits">
+										PT Home Visits
+									</HoveredLink>
+									<HoveredLink href="/services/exercise-programs">
+										Exercise Programs
+									</HoveredLink>
+									<HoveredLink href="/services/online-consultations">
+										Online Consultations
+									</HoveredLink>
+								</div>
+							</div>
+							<div>
+								<h3 className="font-bold text-lg mb-3">How it works</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="#app">App Overview</HoveredLink>
+									<HoveredLink href="/app/ios">iOS App</HoveredLink>
+									<HoveredLink href="/app/android">Android App</HoveredLink>
+								</div>
+							</div>
+							<div>
+								<h3 className="font-bold text-lg mb-3">Why Aid x Bait?</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="/providers/portal">
+										24-Hour Response Time
+									</HoveredLink>
+									<HoveredLink href="/providers/partnership">
+										Licensed Professionals
+									</HoveredLink>
+								</div>
+							</div>
+							<div>
+								<h3 className="font-bold text-lg mb-3">App features</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="#testimonials">
+										Book appointments
+									</HoveredLink>
+									<HoveredLink href="/testimonials/videos">
+										View lab results
+									</HoveredLink>
+								</div>
+							</div>
 						</nav>
 					</div>
 				</div>
