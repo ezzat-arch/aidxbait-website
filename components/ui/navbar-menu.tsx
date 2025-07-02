@@ -24,10 +24,10 @@ export const MenuItem = ({
 	children?: React.ReactNode;
 }) => {
 	return (
-		<div onMouseEnter={() => setActive(itemKey)} className="relative ">
+		<div onMouseEnter={() => setActive(itemKey)} className="relative">
 			<motion.p
 				transition={{ duration: 0.15 }}
-				className="cursor-pointer text-slate-700 hover:text-blue-600 font-medium transition-colors duration-150 dark:text-slate-300 dark:hover:text-blue-400"
+				className="cursor-pointer text-black dark:text-white"
 			>
 				{item}
 			</motion.p>
@@ -42,9 +42,9 @@ export const MenuItem = ({
 							<motion.div
 								transition={{ duration: 0.15, ease: "easeOut" }}
 								layoutId="active"
-								className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
+								className="backdrop-blur-sm rounded-2xl overflow-hidden"
 							>
-								<motion.div layout className="w-max h-full p-4">
+								<motion.div layout className="w-max h-full">
 									{children}
 								</motion.div>
 							</motion.div>
@@ -71,7 +71,7 @@ export const Menu = ({
 		<nav
 			onMouseLeave={() => setActive(null)}
 			className={cn(
-				"border border-transparent shadow-input flex items-center transition-all duration-200  z-50",
+				"border border-transparent shadow-input flex items-center transition-all duration-200 z-50",
 				isScrolled
 					? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-96 py-2 justify-between shadow-2xl drop-shadow-lg"
 					: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-8 py-4 sm:py-2 mx-auto mt-4 max-w-4xl justify-between shadow-2xl drop-shadow-lg"

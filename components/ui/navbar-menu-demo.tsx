@@ -546,9 +546,9 @@ function Navbar({ className }: { className?: string }) {
 						<div className="hidden md:flex space-x-6">
 							{/* Skeleton menu items */}
 							<div className="px-3 py-2">Services</div>
-							<div className="px-3 py-2">Our App</div>
-							<div className="px-3 py-2">For Providers</div>
-							<div className="px-3 py-2">Testimonials</div>
+							<div className="px-3 py-2">How it works</div>
+							<div className="px-3 py-2">Why Aid x Bait?</div>
+							<div className="px-3 py-2">App features</div>
 						</div>
 					</div>
 				</div>
@@ -606,19 +606,36 @@ function Navbar({ className }: { className?: string }) {
 								const getImage = (idx: number) =>
 									appImages[idx % appImages.length];
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[180px]">
-											{allServiceItems
-												.slice(0, 6)
-												.map((item: any, idx: number) => (
-													<li key={item.name}>
-														{"href" in item ? (
-															<Link href={item.href}>
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 min-w-[580px]">
+										<div className="grid grid-cols-3 gap-4">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px]">
+												{allServiceItems
+													.slice(0, 6)
+													.map((item: any, idx: number) => (
+														<li key={item.name}>
+															{"href" in item ? (
+																<Link href={item.href}>
+																	<button
+																		className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																			idx === activeServiceIdx
+																				? "bg-blue-50 text-blue-700 border border-blue-200"
+																				: "hover:bg-gray-50 text-gray-700"
+																		}`}
+																		onMouseEnter={() =>
+																			setActiveServiceIdx(idx)
+																		}
+																		onFocus={() => setActiveServiceIdx(idx)}
+																		tabIndex={0}
+																	>
+																		{item.name}
+																	</button>
+																</Link>
+															) : (
 																<button
-																	className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
+																	className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
 																		idx === activeServiceIdx
-																			? "bg-primary/10 text-primary"
-																			: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
+																			? "bg-blue-50 text-blue-700 border border-blue-200"
+																			: "hover:bg-gray-50 text-gray-700"
 																	}`}
 																	onMouseEnter={() => setActiveServiceIdx(idx)}
 																	onFocus={() => setActiveServiceIdx(idx)}
@@ -626,57 +643,44 @@ function Navbar({ className }: { className?: string }) {
 																>
 																	{item.name}
 																</button>
-															</Link>
-														) : (
-															<button
-																className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-																	idx === activeServiceIdx
-																		? "bg-primary/10 text-primary"
-																		: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-																}`}
-																onMouseEnter={() => setActiveServiceIdx(idx)}
-																onFocus={() => setActiveServiceIdx(idx)}
-																tabIndex={0}
-															>
-																{item.name}
-															</button>
-														)}
-													</li>
-												))}
-										</ul>
-										<div className="flex flex-col justify-center px-4 w-[220px] border-r border-neutral-200 dark:border-neutral-700">
-											<h4 className="font-bold text-sm mb-2 text-primary">
-												{activeItem.name}
-											</h4>
-											{typeof activeItem.description === "string" ? (
-												<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4 break-words max-w-xs">
-													{activeItem.description}
-												</p>
-											) : (
-												activeItem.description
-											)}
-											{"href" in activeItem ? (
-												<Link
-													href={activeItem.href}
-													className="inline-flex items-center text-xs font-medium text-primary hover:underline"
-												>
-													Learn More <ChevronRight className="ml-1 h-3 w-3" />
-												</Link>
-											) : null}
-										</div>
-										<div className="relative flex items-center justify-center w-[160px]">
-											<img
-												src={getImage(activeServiceIdx)}
-												alt={activeItem.name}
-												className="w-full h-32 object-cover rounded-lg shadow-md"
-											/>
+															)}
+														</li>
+													))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{activeItem.name}
+												</h4>
+												{typeof activeItem.description === "string" ? (
+													<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+														{activeItem.description}
+													</p>
+												) : (
+													activeItem.description
+												)}
+												{"href" in activeItem ? (
+													<Link
+														href={activeItem.href}
+														className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+													>
+														Learn More <ChevronRight className="ml-1 h-4 w-4" />
+													</Link>
+												) : null}
+											</div>
+											<div className="relative flex items-center justify-center w-[140px]">
+												<img
+													src={getImage(activeServiceIdx)}
+													alt={activeItem.name}
+													className="w-full h-28 object-cover rounded-lg shadow-sm border border-gray-100"
+												/>
+											</div>
 										</div>
 									</div>
 								);
 							})()}
 						</MenuItem>
 
-						{/* Our App Menu */}
+						{/* How it works Menu */}
 						<MenuItem
 							setActive={setActive}
 							active={active}
@@ -695,75 +699,79 @@ function Navbar({ className }: { className?: string }) {
 								// Always use the same image and styling as the first image in the Services dropdown
 								const fixedImage = "/images/services2.png";
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[180px]">
-											{allAppItems.slice(0, 6).map((item: any, idx: number) => (
-												<li key={item.name}>
-													{"href" in item ? (
-														<Link href={item.href}>
-															<button
-																className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-																	idx === activeAppIdx
-																		? "bg-primary/10 text-primary"
-																		: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-																}`}
-																onMouseEnter={() => setActiveAppIdx(idx)}
-																onFocus={() => setActiveAppIdx(idx)}
-																tabIndex={0}
-															>
-																{item.name}
-															</button>
-														</Link>
-													) : (
-														<button
-															className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-																idx === activeAppIdx
-																	? "bg-primary/10 text-primary"
-																	: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-															}`}
-															onMouseEnter={() => setActiveAppIdx(idx)}
-															onFocus={() => setActiveAppIdx(idx)}
-															tabIndex={0}
-														>
-															{item.name}
-														</button>
-													)}
-												</li>
-											))}
-										</ul>
-										<div className="flex flex-col justify-center px-4 w-[220px] border-r border-neutral-200 dark:border-neutral-700">
-											<h4 className="font-bold text-sm mb-2 text-primary">
-												{activeItem.name}
-											</h4>
-											{typeof activeItem.description === "string" ? (
-												<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4 break-words max-w-xs">
-													{activeItem.description}
-												</p>
-											) : (
-												activeItem.description
-											)}
-											{"href" in activeItem ? (
-												<Link
-													href={activeItem.href}
-													className="inline-flex items-center text-xs font-medium text-primary hover:underline"
-												>
-													Learn More <ChevronRight className="ml-1 h-3 w-3" />
-												</Link>
-											) : null}
-										</div>
-										<div className="relative flex items-center justify-center w-[160px]">
-											<img
-												src={fixedImage}
-												alt="Step 1 – Choose a Service"
-												className="w-full h-32 object-cover rounded-lg shadow-md"
-											/>
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 min-w-[580px]">
+										<div className="grid grid-cols-3 gap-4">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px]">
+												{allAppItems
+													.slice(0, 6)
+													.map((item: any, idx: number) => (
+														<li key={item.name}>
+															{"href" in item ? (
+																<Link href={item.href}>
+																	<button
+																		className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																			idx === activeAppIdx
+																				? "bg-blue-50 text-blue-700 border border-blue-200"
+																				: "hover:bg-gray-50 text-gray-700"
+																		}`}
+																		onMouseEnter={() => setActiveAppIdx(idx)}
+																		onFocus={() => setActiveAppIdx(idx)}
+																		tabIndex={0}
+																	>
+																		{item.name}
+																	</button>
+																</Link>
+															) : (
+																<button
+																	className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																		idx === activeAppIdx
+																			? "bg-blue-50 text-blue-700 border border-blue-200"
+																			: "hover:bg-gray-50 text-gray-700"
+																	}`}
+																	onMouseEnter={() => setActiveAppIdx(idx)}
+																	onFocus={() => setActiveAppIdx(idx)}
+																	tabIndex={0}
+																>
+																	{item.name}
+																</button>
+															)}
+														</li>
+													))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{activeItem.name}
+												</h4>
+												{typeof activeItem.description === "string" ? (
+													<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+														{activeItem.description}
+													</p>
+												) : (
+													activeItem.description
+												)}
+												{"href" in activeItem ? (
+													<Link
+														href={activeItem.href}
+														className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+													>
+														Learn More <ChevronRight className="ml-1 h-4 w-4" />
+													</Link>
+												) : null}
+											</div>
+											<div className="relative flex items-center justify-center w-[140px]">
+												<img
+													src={fixedImage}
+													alt="Step 1 – Choose a Service"
+													className="w-full h-28 object-cover rounded-lg shadow-sm border border-gray-100"
+												/>
+											</div>
 										</div>
 									</div>
 								);
 							})()}
 						</MenuItem>
 
-						{/* For Providers Menu */}
+						{/* Why Aid x Bait Menu */}
 						<MenuItem
 							setActive={setActive}
 							active={active}
@@ -799,46 +807,48 @@ function Navbar({ className }: { className?: string }) {
 									"/images/services4.png",
 								];
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[250px]">
-											{whyItems.map((item, idx) => (
-												<li key={item.title}>
-													<button
-														className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-															idx === activeWhyIdx
-																? "bg-primary/10 text-primary"
-																: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-														}`}
-														onMouseEnter={() => setActiveWhyIdx(idx)}
-														onFocus={() => setActiveWhyIdx(idx)}
-														tabIndex={0}
-													>
-														{item.title}
-													</button>
-												</li>
-											))}
-										</ul>
-										<div className="flex flex-col justify-center px-4 w-[220px] border-r border-neutral-200 dark:border-neutral-700">
-											<h4 className="font-bold text-sm mb-2 text-primary">
-												{activeItem.title}
-											</h4>
-											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4 break-words max-w-xs">
-												{activeItem.description}
-											</p>
-										</div>
-										<div className="relative flex items-center justify-center w-[160px]">
-											<img
-												src={whyImages[activeWhyIdx]}
-												alt={activeItem.title}
-												className="w-full h-32 object-cover rounded-lg shadow-md"
-											/>
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 min-w-[580px]">
+										<div className="grid grid-cols-3 gap-4">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px]">
+												{whyItems.map((item, idx) => (
+													<li key={item.title}>
+														<button
+															className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																idx === activeWhyIdx
+																	? "bg-blue-50 text-blue-700 border border-blue-200"
+																	: "hover:bg-gray-50 text-gray-700"
+															}`}
+															onMouseEnter={() => setActiveWhyIdx(idx)}
+															onFocus={() => setActiveWhyIdx(idx)}
+															tabIndex={0}
+														>
+															{item.title}
+														</button>
+													</li>
+												))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{activeItem.title}
+												</h4>
+												<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+													{activeItem.description}
+												</p>
+											</div>
+											<div className="relative flex items-center justify-center w-[140px]">
+												<img
+													src={whyImages[activeWhyIdx]}
+													alt={activeItem.title}
+													className="w-full h-28 object-cover rounded-lg shadow-sm border border-gray-100"
+												/>
+											</div>
 										</div>
 									</div>
 								);
 							})()}
 						</MenuItem>
 
-						{/* Testimonials Menu */}
+						{/* App features Menu */}
 						<MenuItem
 							setActive={setActive}
 							active={active}
@@ -882,39 +892,41 @@ function Navbar({ className }: { className?: string }) {
 									"/images/services4.png",
 								];
 								return (
-									<div className="grid grid-cols-3 gap-6 min-w-[480px] p-4">
-										<ul className="space-y-2 pr-4 border-r border-neutral-200 dark:border-neutral-700 w-[180px]">
-											{features.map((item, idx) => (
-												<li key={item.title}>
-													<button
-														className={`w-full text-left px-2 py-1 rounded transition-colors text-xs font-medium ${
-															idx === activeFeatureIdx
-																? "bg-primary/10 text-primary"
-																: "hover:bg-neutral-100 dark:hover:bg-neutral-800"
-														}`}
-														onMouseEnter={() => setActiveFeatureIdx(idx)}
-														onFocus={() => setActiveFeatureIdx(idx)}
-														tabIndex={0}
-													>
-														{item.title}
-													</button>
-												</li>
-											))}
-										</ul>
-										<div className="flex flex-col justify-center px-4 w-[220px] border-r border-neutral-200 dark:border-neutral-700">
-											<h4 className="font-bold text-sm mb-2 text-primary">
-												{activeItem.title}
-											</h4>
-											<p className="text-xs text-neutral-700 dark:text-neutral-300 mb-4 break-words max-w-xs">
-												{activeItem.description}
-											</p>
-										</div>
-										<div className="relative flex items-center justify-center w-[160px]">
-											<img
-												src={appFeatureImages[activeFeatureIdx]}
-												alt={activeItem.title}
-												className="w-full h-32 object-cover rounded-lg shadow-md"
-											/>
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 min-w-[580px]">
+										<div className="grid grid-cols-3 gap-4">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px]">
+												{features.map((item, idx) => (
+													<li key={item.title}>
+														<button
+															className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																idx === activeFeatureIdx
+																	? "bg-blue-50 text-blue-700 border border-blue-200"
+																	: "hover:bg-gray-50 text-gray-700"
+															}`}
+															onMouseEnter={() => setActiveFeatureIdx(idx)}
+															onFocus={() => setActiveFeatureIdx(idx)}
+															tabIndex={0}
+														>
+															{item.title}
+														</button>
+													</li>
+												))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{activeItem.title}
+												</h4>
+												<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+													{activeItem.description}
+												</p>
+											</div>
+											<div className="relative flex items-center justify-center w-[140px]">
+												<img
+													src={appFeatureImages[activeFeatureIdx]}
+													alt={activeItem.title}
+													className="w-full h-28 object-cover rounded-lg shadow-sm border border-gray-100"
+												/>
+											</div>
 										</div>
 									</div>
 								);
@@ -958,7 +970,7 @@ function Navbar({ className }: { className?: string }) {
 								</div>
 							</div>
 							<div>
-								<h3 className="font-bold text-lg mb-3">Our App</h3>
+								<h3 className="font-bold text-lg mb-3">How it works</h3>
 								<div className="space-y-2 pl-4">
 									<HoveredLink href="#app">App Overview</HoveredLink>
 									<HoveredLink href="/app/ios">iOS App</HoveredLink>
@@ -966,24 +978,24 @@ function Navbar({ className }: { className?: string }) {
 								</div>
 							</div>
 							<div>
-								<h3 className="font-bold text-lg mb-3">For Providers</h3>
+								<h3 className="font-bold text-lg mb-3">Why Aid x Bait?</h3>
 								<div className="space-y-2 pl-4">
 									<HoveredLink href="/providers/portal">
-										Provider Portal
+										24-Hour Response Time
 									</HoveredLink>
 									<HoveredLink href="/providers/partnership">
-										Partnership
+										Licensed Professionals
 									</HoveredLink>
 								</div>
 							</div>
 							<div>
-								<h3 className="font-bold text-lg mb-3">Testimonials</h3>
+								<h3 className="font-bold text-lg mb-3">App features</h3>
 								<div className="space-y-2 pl-4">
 									<HoveredLink href="#testimonials">
-										Patient Stories
+										Book appointments
 									</HoveredLink>
 									<HoveredLink href="/testimonials/videos">
-										Video Testimonials
+										View lab results
 									</HoveredLink>
 								</div>
 							</div>
