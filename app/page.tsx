@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { HeroParallaxDemo } from "@/components/hero-parallax-demo";
+import { HeroSection } from "@/components/hero-section";
+import { UberStyleHeroSection } from "@/components/uber-style-hero-section";
 import { ServicesSection } from "@/components/services-section";
 import { AppFeaturesSection } from "@/components/app-features-section";
 import { WhyAidXBaitSection } from "@/components/why-aidxbait-section";
@@ -25,7 +26,9 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col min-h-screen">
-			<HeroParallaxDemo />
+			<HeroSection sentinelRef={sentinelRef} />
+			<UberStyleHeroSection />
+			<AppDownloadSection />
 			<main>
 				<ServicesSection />
 				<AppFeaturesSection />
@@ -34,7 +37,7 @@ export default function Home() {
 				<div>
 					<BentoGridThirdDemo />
 				</div>
-				<AppDownloadSection />
+
 				<TestimonialsSection />
 				<ContactSection />
 			</main>

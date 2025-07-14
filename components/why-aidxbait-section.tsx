@@ -39,8 +39,7 @@ export function WhyAidXBaitSection() {
 						Why Choose AidXBait?
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-						Experience the future of healthcare with our innovative platform
-						designed to bring professional medical care directly to your home.
+						Bringing Hospital-Care quality to your home
 					</p>
 				</div>
 				<div className="max-w-5xl mx-auto px-2">
