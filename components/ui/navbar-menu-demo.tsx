@@ -506,6 +506,7 @@ function Navbar({ className }: { className?: string }) {
 	const [isMounted, setIsMounted] = useState(false);
 	const [activeWhyIdx, setActiveWhyIdx] = useState(0);
 	const [activeFeatureIdx, setActiveFeatureIdx] = useState(0);
+	const [currentLanguage, setCurrentLanguage] = useState("En");
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -545,7 +546,7 @@ function Navbar({ className }: { className?: string }) {
 					<div className="flex justify-end space-x-4 w-full">
 						<div className="hidden md:flex space-x-6">
 							{/* Skeleton menu items */}
-							<div className="px-3 py-2">Services</div>
+							<div className="px-3 py-2 ">Services</div>
 							<div className="px-3 py-2">How it works</div>
 							<div className="px-3 py-2">Why Aid x Bait?</div>
 							<div className="px-3 py-2">App features</div>
@@ -561,9 +562,9 @@ function Navbar({ className }: { className?: string }) {
 			<Image
 				src="/images/logo.png"
 				alt="AidXBait Logo"
-				width={100}
-				height={50}
-				className="object-contain sm:w-[120px] sm:h-[60px]"
+				width={140}
+				height={70}
+				className="object-contain sm:w-[160px] sm:h-[80px]"
 				priority
 			/>
 		</Link>
@@ -573,369 +574,490 @@ function Navbar({ className }: { className?: string }) {
 		<>
 			<div
 				className={cn(
-					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-3xl px-4 sm:px-0",
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-6xl px-4 sm:px-0",
 					isScrolled ? "top-0" : "top-4",
 					className
 				)}
 			>
-				<Menu setActive={setActive} logo={logo} isScrolled={isScrolled}>
-					{/* Desktop Navigation with Dropdowns */}
-					<div className="hidden md:flex space-x-6">
+				<nav
+					onMouseLeave={() => setActive(null)}
+					className={cn(
+						"border border-transparent shadow-input flex items-center transition-all duration-200 z-50",
+						isScrolled
+							? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-96 py-1 justify-between shadow-2xl drop-shadow-lg"
+							: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-10 py-4 sm:py-1 mx-auto mt-4 max-w-6xl justify-between shadow-2xl drop-shadow-lg"
+					)}
+				>
+					{/* Logo */}
+					<div className="flex-shrink-0 mr-8">{logo}</div>
+
+					{/* Left Menu Items */}
+					<div className="hidden md:flex space-x-4">
 						{/* Services Menu */}
-						<MenuItem
-							setActive={setActive}
-							active={active}
-							item={<Link href="/services">Services</Link>}
-							itemKey="Services"
+						<div
+							onMouseEnter={() => setActive("Services")}
+							className="relative"
 						>
-							{(() => {
-								const allServiceItems =
-									navigationData.services.sections.flatMap((section) =>
-										section.items.map((item: any) => ({
-											...item,
-											section: section.title,
-										}))
-									);
-								const activeItem = allServiceItems[activeServiceIdx];
-								const appImages = [
-									"/images/services2.png",
-									"/images/services1.png",
-									"/images/services3.png",
-									"/images/services4.png",
-								];
-								const getImage = (idx: number) =>
-									appImages[idx % appImages.length];
-								return (
+							<Link
+								href="/services"
+								className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50"
+							>
+								Services
+							</Link>
+							{active === "Services" && (
+								<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
 									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
 										<div className="flex">
 											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
-												{allServiceItems
-													.slice(0, 6)
-													.map((item: any, idx: number) => (
-														<li key={item.name}>
-															{"href" in item ? (
-																<Link href={item.href}>
-																	<button
-																		className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
-																			idx === activeServiceIdx
-																				? "bg-blue-50 text-blue-700 border border-blue-200"
-																				: "hover:bg-gray-50 text-gray-700"
-																		}`}
-																		onMouseEnter={() =>
-																			setActiveServiceIdx(idx)
-																		}
-																		onFocus={() => setActiveServiceIdx(idx)}
-																		tabIndex={0}
-																	>
-																		{item.name}
-																	</button>
-																</Link>
-															) : (
-																<button
-																	className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
-																		idx === activeServiceIdx
-																			? "bg-blue-50 text-blue-700 border border-blue-200"
-																			: "hover:bg-gray-50 text-gray-700"
-																	}`}
-																	onMouseEnter={() => setActiveServiceIdx(idx)}
-																	onFocus={() => setActiveServiceIdx(idx)}
-																	tabIndex={0}
-																>
-																	{item.name}
-																</button>
-															)}
-														</li>
-													))}
-											</ul>
-											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
-												<h4 className="font-semibold text-base mb-3 text-gray-900">
-													{activeItem.name}
-												</h4>
-												{typeof activeItem.description === "string" ? (
-													<p className="text-sm text-gray-600 mb-4 leading-relaxed">
-														{activeItem.description}
-													</p>
-												) : (
-													activeItem.description
-												)}
-												{"href" in activeItem ? (
-													<Link
-														href={activeItem.href}
-														className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
-													>
-														Learn More <ChevronRight className="ml-1 h-4 w-4" />
-													</Link>
-												) : null}
-											</div>
-											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
-												<img
-													src={getImage(activeServiceIdx)}
-													alt={activeItem.name}
-													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
-													style={{ minHeight: "140px" }}
-												/>
-											</div>
-										</div>
-									</div>
-								);
-							})()}
-						</MenuItem>
-
-						{/* How it works Menu */}
-						<MenuItem
-							setActive={setActive}
-							active={active}
-							item={<Link href="/app">How it works</Link>}
-							itemKey="How it works"
-						>
-							{(() => {
-								const allAppItems = navigationData.app.sections.flatMap(
-									(section) =>
-										section.items.map((item: any) => ({
-											...item,
-											section: section.title,
-										}))
-								);
-								const activeItem = allAppItems[activeAppIdx];
-								// Always use the same image and styling as the first image in the Services dropdown
-								const fixedImage = "/images/services2.png";
-								return (
-									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
-										<div className="flex">
-											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
-												{allAppItems
-													.slice(0, 6)
-													.map((item: any, idx: number) => (
-														<li key={item.name}>
-															{"href" in item ? (
-																<Link href={item.href}>
-																	<button
-																		className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
-																			idx === activeAppIdx
-																				? "bg-blue-50 text-blue-700 border border-blue-200"
-																				: "hover:bg-gray-50 text-gray-700"
-																		}`}
-																		onMouseEnter={() => setActiveAppIdx(idx)}
-																		onFocus={() => setActiveAppIdx(idx)}
-																		tabIndex={0}
-																	>
-																		{item.name}
-																	</button>
-																</Link>
-															) : (
-																<button
-																	className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
-																		idx === activeAppIdx
-																			? "bg-blue-50 text-blue-700 border border-blue-200"
-																			: "hover:bg-gray-50 text-gray-700"
-																	}`}
-																	onMouseEnter={() => setActiveAppIdx(idx)}
-																	onFocus={() => setActiveAppIdx(idx)}
-																	tabIndex={0}
-																>
-																	{item.name}
-																</button>
-															)}
-														</li>
-													))}
-											</ul>
-											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
-												<h4 className="font-semibold text-base mb-3 text-gray-900">
-													{activeItem.name}
-												</h4>
-												{typeof activeItem.description === "string" ? (
-													<p className="text-sm text-gray-600 mb-4 leading-relaxed">
-														{activeItem.description}
-													</p>
-												) : (
-													activeItem.description
-												)}
-												{"href" in activeItem ? (
-													<Link
-														href={activeItem.href}
-														className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
-													>
-														Learn More <ChevronRight className="ml-1 h-4 w-4" />
-													</Link>
-												) : null}
-											</div>
-											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
-												<img
-													src={fixedImage}
-													alt="Step 1 – Choose a Service"
-													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
-													style={{ minHeight: "140px" }}
-												/>
-											</div>
-										</div>
-									</div>
-								);
-							})()}
-						</MenuItem>
-
-						{/* Why Aid x Bait Menu */}
-						<MenuItem
-							setActive={setActive}
-							active={active}
-							item={<span>Why Aid x Bait?</span>}
-							itemKey="Why Aid x Bait?"
-						>
-							{(() => {
-								const whyItems = [
-									{
-										title: "24-Hour Average Response Time",
-										description:
-											"Fast appointment scheduling for urgent needs.",
-									},
-									{
-										title: "Licensed Professionals",
-										description:
-											"All therapists and technicians are fully certified.",
-									},
-									{
-										title: "Serving Cairo, Giza & More",
-										description: "Expanding across key areas in Egypt.",
-									},
-									{
-										title: "Everything in One App",
-										description: "Book, track, and follow-up with ease.",
-									},
-								];
-								const activeItem = whyItems[activeWhyIdx];
-								const whyImages = [
-									"/images/services2.png",
-									"/images/services1.png",
-									"/images/services3.png",
-									"/images/services4.png",
-								];
-								return (
-									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
-										<div className="flex">
-											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
-												{whyItems.map((item, idx) => (
-													<li key={item.title}>
-														<button
-															className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
-																idx === activeWhyIdx
-																	? "bg-blue-50 text-blue-700 border border-blue-200"
-																	: "hover:bg-gray-50 text-gray-700"
-															}`}
-															onMouseEnter={() => setActiveWhyIdx(idx)}
-															onFocus={() => setActiveWhyIdx(idx)}
-															tabIndex={0}
-														>
-															{item.title}
-														</button>
+												{[
+													{
+														name: "Home Physical Therapy",
+														href: "/services/pt-home-visits",
+														description:
+															"Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
+													},
+													{
+														name: "Home Lab Tests",
+														href: "/services/lab-testing",
+														description:
+															"We send a nurse to collect your blood or samples from home. Lab results are delivered digitally.",
+													},
+													{
+														name: "Home Imaging",
+														href: "/services/at-home-radiology",
+														description:
+															"Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+													},
+													{
+														name: "Home Nursing",
+														href: "/services/home-nursing",
+														description:
+															"Professional nurses available for home visits to provide medication administration, wound care, and more.",
+													},
+													{
+														name: "Online Video Consultations",
+														href: "/services/online-consultations",
+														description:
+															"Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+													},
+												].map((item, idx) => (
+													<li key={item.name}>
+														<Link href={item.href}>
+															<button
+																className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																	idx === activeServiceIdx
+																		? "bg-blue-50 text-blue-700 border border-blue-200"
+																		: "hover:bg-gray-50 text-gray-700"
+																}`}
+																onMouseEnter={() => setActiveServiceIdx(idx)}
+																onFocus={() => setActiveServiceIdx(idx)}
+																tabIndex={0}
+															>
+																{item.name}
+															</button>
+														</Link>
 													</li>
 												))}
 											</ul>
 											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
 												<h4 className="font-semibold text-base mb-3 text-gray-900">
-													{activeItem.title}
+													{
+														[
+															"Home Physical Therapy",
+															"Home Lab Tests",
+															"Home Imaging",
+															"Home Nursing",
+															"Online Video Consultations",
+														][activeServiceIdx]
+													}
 												</h4>
 												<p className="text-sm text-gray-600 mb-4 leading-relaxed">
-													{activeItem.description}
+													{
+														[
+															"Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
+															"We send a nurse to collect your blood or samples from home. Lab results are delivered digitally.",
+															"Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+															"Professional nurses available for home visits to provide medication administration, wound care, and more.",
+															"Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+														][activeServiceIdx]
+													}
 												</p>
+												<Link
+													href={
+														[
+															"/services/pt-home-visits",
+															"/services/lab-testing",
+															"/services/at-home-radiology",
+															"/services/home-nursing",
+															"/services/online-consultations",
+														][activeServiceIdx]
+													}
+													className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+												>
+													Learn More <ChevronRight className="ml-1 h-4 w-4" />
+												</Link>
 											</div>
 											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
 												<img
-													src={whyImages[activeWhyIdx]}
-													alt={activeItem.title}
+													src={
+														[
+															"/images/services2.png",
+															"/images/services1.png",
+															"/images/services3.png",
+															"/images/services4.png",
+															"/images/services2.png",
+														][activeServiceIdx]
+													}
+													alt={
+														[
+															"Home Physical Therapy",
+															"Home Lab Tests",
+															"Home Imaging",
+															"Home Nursing",
+															"Online Video Consultations",
+														][activeServiceIdx]
+													}
 													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
 													style={{ minHeight: "140px" }}
 												/>
 											</div>
 										</div>
 									</div>
-								);
-							})()}
-						</MenuItem>
+								</div>
+							)}
+						</div>
 
-						{/* App features Menu */}
-						<MenuItem
-							setActive={setActive}
-							active={active}
-							item={<span>App features</span>}
-							itemKey="App features"
+						{/* Products Menu */}
+						<div
+							onMouseEnter={() => setActive("Products")}
+							className="relative"
 						>
-							{(() => {
-								const features = [
-									{
-										title: "Book appointments",
-										description:
-											"Schedule visits with healthcare professionals at your convenience.",
-									},
-									{
-										title: "View lab results",
-										description:
-											"Access your medical test results securely and quickly.",
-									},
-									{
-										title: "Chat with providers",
-										description:
-											"Communicate directly with your care team for support and questions.",
-									},
-									{
-										title: "Access exercise plans",
-										description:
-											"Follow personalized exercise routines designed for your recovery.",
-									},
-									{
-										title: "Track progress",
-										description:
-											"Monitor your health improvements and milestones over time.",
-									},
-								];
-								const activeItem = features[activeFeatureIdx];
-								const appFeatureImages = [
-									"/images/services1.png",
-									"/images/services3.png",
-									"/images/services2.png",
-									"/images/services4.png",
-									"/images/services4.png",
-								];
-								return (
+							<Link
+								href="/products"
+								className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50"
+							>
+								Products
+							</Link>
+							{active === "Products" && (
+								<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
 									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
 										<div className="flex">
 											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
-												{features.map((item, idx) => (
-													<li key={item.title}>
-														<button
-															className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
-																idx === activeFeatureIdx
-																	? "bg-blue-50 text-blue-700 border border-blue-200"
-																	: "hover:bg-gray-50 text-gray-700"
-															}`}
-															onMouseEnter={() => setActiveFeatureIdx(idx)}
-															onFocus={() => setActiveFeatureIdx(idx)}
-															tabIndex={0}
-														>
-															{item.title}
-														</button>
+												{[
+													{
+														name: "Medical Store",
+														href: "/services/store",
+														description:
+															"Order medical supplies, medications, and equipment directly to your home.",
+													},
+													{
+														name: "Equipment Rental",
+														href: "/products/equipment-rental",
+														description:
+															"Rent medical equipment like wheelchairs, walkers, and mobility aids.",
+													},
+													{
+														name: "Home-Exercise Programs",
+														href: "/services/exercise-programs",
+														description:
+															"Personalized video-based rehab programs for your recovery.",
+													},
+												].map((item, idx) => (
+													<li key={item.name}>
+														<Link href={item.href}>
+															<button
+																className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																	idx === activeAppIdx
+																		? "bg-blue-50 text-blue-700 border border-blue-200"
+																		: "hover:bg-gray-50 text-gray-700"
+																}`}
+																onMouseEnter={() => setActiveAppIdx(idx)}
+																onFocus={() => setActiveAppIdx(idx)}
+																tabIndex={0}
+															>
+																{item.name}
+															</button>
+														</Link>
 													</li>
 												))}
 											</ul>
 											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
 												<h4 className="font-semibold text-base mb-3 text-gray-900">
-													{activeItem.title}
+													{
+														[
+															"Medical Store",
+															"Equipment Rental",
+															"Home-Exercise Programs",
+														][activeAppIdx]
+													}
 												</h4>
 												<p className="text-sm text-gray-600 mb-4 leading-relaxed">
-													{activeItem.description}
+													{
+														[
+															"Order medical supplies, medications, and equipment directly to your home.",
+															"Rent medical equipment like wheelchairs, walkers, and mobility aids.",
+															"Personalized video-based rehab programs for your recovery.",
+														][activeAppIdx]
+													}
 												</p>
+												<Link
+													href={
+														[
+															"/services/store",
+															"/products/equipment-rental",
+															"/services/exercise-programs",
+														][activeAppIdx]
+													}
+													className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+												>
+													Learn More <ChevronRight className="ml-1 h-4 w-4" />
+												</Link>
 											</div>
 											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
 												<img
-													src={appFeatureImages[activeFeatureIdx]}
-													alt={activeItem.title}
+													src={
+														[
+															"/images/services1.png",
+															"/images/services3.png",
+															"/images/services2.png",
+														][activeAppIdx]
+													}
+													alt={
+														[
+															"Medical Store",
+															"Equipment Rental",
+															"Home-Exercise Programs",
+														][activeAppIdx]
+													}
 													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
 													style={{ minHeight: "140px" }}
 												/>
 											</div>
 										</div>
 									</div>
-								);
-							})()}
-						</MenuItem>
+								</div>
+							)}
+						</div>
+
+						{/* Contact Us Menu */}
+						<div
+							onMouseEnter={() => setActive("Contact Us")}
+							className="relative"
+						>
+							<Link
+								href="/contact"
+								className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50"
+							>
+								Contact Us
+							</Link>
+							{active === "Contact Us" && (
+								<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
+												{[
+													{
+														name: "Call-me Request",
+														href: "/contact/callback",
+														description:
+															"Request a callback from our team and we'll get in touch with you shortly.",
+													},
+													{
+														name: "WhatsApp Chatbot",
+														href: "/contact/chat",
+														description:
+															"Chat with our AI assistant for instant support and answers.",
+													},
+													{
+														name: "Send a Message",
+														href: "/contact/email",
+														description:
+															"Send us a detailed message and we'll respond within 24 hours.",
+													},
+												].map((item, idx) => (
+													<li key={item.name}>
+														<Link href={item.href}>
+															<button
+																className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm font-medium ${
+																	idx === activeContactIdx
+																		? "bg-blue-50 text-blue-700 border border-blue-200"
+																		: "hover:bg-gray-50 text-gray-700"
+																}`}
+																onMouseEnter={() => setActiveContactIdx(idx)}
+																onFocus={() => setActiveContactIdx(idx)}
+																tabIndex={0}
+															>
+																{item.name}
+															</button>
+														</Link>
+													</li>
+												))}
+											</ul>
+											<div className="flex flex-col justify-center px-3 w-[200px] border-r border-gray-200 flex-shrink-0">
+												<h4 className="font-semibold text-base mb-3 text-gray-900">
+													{
+														[
+															"Call-me Request",
+															"WhatsApp Chatbot",
+															"Send a Message",
+														][activeContactIdx]
+													}
+												</h4>
+												<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+													{
+														[
+															"Request a callback from our team and we'll get in touch with you shortly.",
+															"Chat with our AI assistant for instant support and answers.",
+															"Send us a detailed message and we'll respond within 24 hours.",
+														][activeContactIdx]
+													}
+												</p>
+												<Link
+													href={
+														[
+															"/contact/callback",
+															"/contact/chat",
+															"/contact/email",
+														][activeContactIdx]
+													}
+													className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+												>
+													Learn More <ChevronRight className="ml-1 h-4 w-4" />
+												</Link>
+											</div>
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
+												<img
+													src={
+														[
+															"/images/services3.png",
+															"/images/services4.png",
+															"/images/services1.png",
+														][activeContactIdx]
+													}
+													alt={
+														[
+															"Call-me Request",
+															"WhatsApp Chatbot",
+															"Send a Message",
+														][activeContactIdx]
+													}
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
+												/>
+											</div>
+										</div>
+									</div>
+								</div>
+							)}
+						</div>
+
+						{/* About Menu */}
+						<div onMouseEnter={() => setActive("About")} className="relative">
+							<span className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50">
+								About
+							</span>
+							{active === "About" && (
+								<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
+										<div className="flex">
+											<div className="w-full px-4">
+												<div className="mb-6">
+													<h4 className="font-semibold text-lg mb-3 text-gray-900">
+														Our Vision
+													</h4>
+													<p className="text-sm text-gray-600 mb-4 leading-relaxed">
+														To revolutionize healthcare delivery by making
+														quality medical services accessible at home,
+														empowering patients to receive professional care in
+														the comfort of their own environment.
+													</p>
+												</div>
+												<div>
+													<h4 className="font-semibold text-lg mb-3 text-gray-900">
+														Our Mission
+													</h4>
+													<p className="text-sm text-gray-600 leading-relaxed">
+														We are committed to providing comprehensive,
+														technology-driven healthcare solutions that bridge
+														the gap between patients and medical professionals,
+														ensuring convenient, efficient, and personalized
+														care for everyone.
+													</p>
+												</div>
+											</div>
+											<div className="relative w-[240px] bg-blue-50 ml-4 rounded-lg p-4">
+												<img
+													src="/images/services4.png"
+													alt="About AidXBait"
+													className="w-full h-full object-cover rounded-lg shadow-sm border border-gray-100"
+													style={{ minHeight: "140px" }}
+												/>
+											</div>
+										</div>
+									</div>
+								</div>
+							)}
+						</div>
+					</div>
+
+					{/* Spacer */}
+					<div className="flex-grow"></div>
+
+					{/* Right Side Menu Items */}
+					<div className="hidden md:flex items-center space-x-6 ml-8">
+						{/* Language Toggle Switch */}
+						<div className="flex items-center">
+							<div className="relative ">
+								<button
+									onClick={() =>
+										setCurrentLanguage(currentLanguage === "En" ? "Ar" : "En")
+									}
+									className="relative inline-flex items-center h-8 rounded-full w-16 bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 focus:outline-none shadow-sm border border-blue-200"
+								>
+									<span
+										className={`inline-block w-6 h-6 transform bg-white rounded-full transition-all duration-300 shadow-md border border-blue-300 ${
+											currentLanguage === "En"
+												? "translate-x-1"
+												: "translate-x-9"
+										}`}
+									/>
+									<span
+										className={`absolute text-xs font-semibold transition-all duration-300 ${
+											currentLanguage === "En"
+												? "left-2 text-blue-700"
+												: "right-2 text-blue-700"
+										}`}
+									>
+										{currentLanguage}
+									</span>
+									<span
+										className={`absolute text-xs font-medium transition-all duration-300 opacity-60 ${
+											currentLanguage === "En"
+												? "right-2 text-blue-600"
+												: "left-2 text-blue-600"
+										}`}
+									>
+										{currentLanguage === "En" ? "Ar" : "En"}
+									</span>
+								</button>
+							</div>
+						</div>
+
+						{/* FAQs */}
+						<Link
+							href="/faqs"
+							className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50"
+						>
+							FAQs
+						</Link>
+
+						{/* Login */}
+						<Link
+							href="/login"
+							className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
+						>
+							Login
+						</Link>
 					</div>
 
 					{/* Mobile Menu Button */}
@@ -945,7 +1067,7 @@ function Navbar({ className }: { className?: string }) {
 					>
 						{isMobileMenuOpen ? <X size={24} /> : <MenuIcon size={24} />}
 					</button>
-				</Menu>
+				</nav>
 			</div>
 
 			{/* Mobile Menu Overlay */}
@@ -961,46 +1083,76 @@ function Navbar({ className }: { className?: string }) {
 							<div>
 								<h3 className="font-bold text-lg mb-3">Services</h3>
 								<div className="space-y-2 pl-4">
-									<HoveredLink href="#services">All Services</HoveredLink>
 									<HoveredLink href="/services/pt-home-visits">
-										PT Home Visits
+										Home Physical Therapy
 									</HoveredLink>
-									<HoveredLink href="/services/exercise-programs">
-										Exercise Programs
+									<HoveredLink href="/services/lab-testing">
+										Home Lab Tests
+									</HoveredLink>
+									<HoveredLink href="/services/at-home-radiology">
+										Home Imaging
+									</HoveredLink>
+									<HoveredLink href="/services/home-nursing">
+										Home Nursing
 									</HoveredLink>
 									<HoveredLink href="/services/online-consultations">
-										Online Consultations
+										Online Video Consultations
 									</HoveredLink>
 								</div>
 							</div>
 							<div>
-								<h3 className="font-bold text-lg mb-3">How it works</h3>
+								<h3 className="font-bold text-lg mb-3">Products</h3>
 								<div className="space-y-2 pl-4">
-									<HoveredLink href="#app">App Overview</HoveredLink>
-									<HoveredLink href="/app/ios">iOS App</HoveredLink>
-									<HoveredLink href="/app/android">Android App</HoveredLink>
-								</div>
-							</div>
-							<div>
-								<h3 className="font-bold text-lg mb-3">Why Aid x Bait?</h3>
-								<div className="space-y-2 pl-4">
-									<HoveredLink href="/providers/portal">
-										24-Hour Response Time
+									<HoveredLink href="/services/store">
+										Medical Store
 									</HoveredLink>
-									<HoveredLink href="/providers/partnership">
-										Licensed Professionals
+									<HoveredLink href="/products/equipment-rental">
+										Equipment Rental
+									</HoveredLink>
+									<HoveredLink href="/services/exercise-programs">
+										Home-Exercise Programs
 									</HoveredLink>
 								</div>
 							</div>
 							<div>
-								<h3 className="font-bold text-lg mb-3">App features</h3>
+								<h3 className="font-bold text-lg mb-3">Contact Us</h3>
 								<div className="space-y-2 pl-4">
-									<HoveredLink href="#testimonials">
-										Book appointments
+									<HoveredLink href="/contact/callback">
+										Call-me Request
 									</HoveredLink>
-									<HoveredLink href="/testimonials/videos">
-										View lab results
+									<HoveredLink href="/contact/chat">
+										WhatsApp Chatbot
 									</HoveredLink>
+									<HoveredLink href="/contact/email">
+										Send a Message
+									</HoveredLink>
+								</div>
+							</div>
+							<div>
+								<h3 className="font-bold text-lg mb-3">About</h3>
+								<div className="space-y-2 pl-4">
+									<HoveredLink href="/about">Our Vision & Mission</HoveredLink>
+								</div>
+							</div>
+							<div className="border-t pt-4">
+								<div className="flex items-center justify-between">
+									<div className="flex space-x-4">
+										<HoveredLink href="/faqs">FAQs</HoveredLink>
+										<HoveredLink href="/login">Login</HoveredLink>
+									</div>
+									<div className="flex items-center space-x-2">
+										<span className="text-sm text-gray-600">Language:</span>
+										<button
+											onClick={() =>
+												setCurrentLanguage(
+													currentLanguage === "En" ? "Ar" : "En"
+												)
+											}
+											className="text-sm font-medium text-blue-600 hover:text-blue-700"
+										>
+											{currentLanguage}
+										</button>
+									</div>
 								</div>
 							</div>
 						</nav>

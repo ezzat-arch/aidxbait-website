@@ -31,28 +31,25 @@ export const HeroSection = React.forwardRef<
 						className="flex flex-col gap-6"
 					>
 						<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight leading-tight">
-							Revolutionizing{" "}
-							<span className="text-primary">Orthopedic Care</span> Through
-							Technology
+							Unlock The Potentials of{" "}
+							<span className="text-primary">Home Care</span>
 						</h1>
 						<p className="text-base sm:text-lg text-white/90 max-w-xl leading-relaxed">
-							AidXBait automates post-operative care, physical therapy, and
-							appointment booking for orthopedic patients. Take control of your
-							recovery journey with our comprehensive platform.
+							Stay at Home and order all medical services with a finger click
 						</p>
 						<div className="flex flex-col sm:flex-row gap-4 mt-4">
 							<Button
 								size="lg"
 								className="bg-primary hover:bg-primary/90 text-white transition-all duration-500 w-full sm:w-auto"
 							>
-								Get Started <ArrowRight className="ml-2 h-4 w-4" />
+								Sign Up <ArrowRight className="ml-2 h-4 w-4" />
 							</Button>
 							<Button
 								size="lg"
 								variant="outline"
-								className="border-white text-black bg-white hover:bg-transparent hover:text-white transition-all duration-500 w-full sm:w-auto"
+								className="border-white text-white bg-transparent hover:bg-white hover:text-black transition-all duration-500 w-full sm:w-auto"
 							>
-								Learn More
+								Sign In
 							</Button>
 						</div>
 					</motion.div>
@@ -69,11 +66,12 @@ export const HeroSection = React.forwardRef<
 							lg:absolute lg:top-4 lg:left-4 lg:w-full lg:h-full lg:p-6 lg:flex lg:items-center lg:justify-center"
 						>
 							<Image
-								src="/placeholder.svg?height=400&width=400"
-								alt="AidXBait App Interface"
+								src="/images/services4.png"
+								alt="Medical Technology and Healthcare Services"
 								width={400}
 								height={400}
-								className="rounded-xl shadow-lg w-40 sm:w-64 md:w-80 lg:w-full h-auto"
+								className="rounded-xl shadow-lg w-full h-full object-cover"
+								style={{ minHeight: "250px" }}
 							/>
 						</div>
 					</motion.div>
