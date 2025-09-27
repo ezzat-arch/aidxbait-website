@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavbarDemo from "@/components/ui/navbar-menu-demo";
+import NavbarDiv from "@/components/ui/navbar";
 import { CartProvider } from "@/contexts/cart-context";
 import { CartSidebar } from "@/components/store/CartSidebar";
 
@@ -32,7 +32,7 @@ export default function RootLayout({
 			</head>
 			<body className="font-sans" suppressHydrationWarning={true}>
 				<CartProvider>
-					<NavbarDemo />
+					<NavbarDiv />
 					{children}
 					<CartSidebar />
 				</CartProvider>

@@ -488,15 +488,7 @@ navigationData.app.sections = [
 	},
 ];
 
-export default function NavbarDemo() {
-	return (
-		<div className="relative w-full flex items-center justify-center">
-			<Navbar className="top-2" />
-		</div>
-	);
-}
-
-function Navbar({ className }: { className?: string }) {
+const Navbar = ({ className }: { className?: string }) => {
 	const [active, setActive] = useState<string | null>(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -1131,4 +1123,14 @@ function Navbar({ className }: { className?: string }) {
 			)}
 		</>
 	);
-}
+};
+
+const NavbarDiv = () => {
+	return (
+		<div className="relative w-full flex items-center justify-center">
+			<Navbar className="top-2" />
+		</div>
+	);
+};
+
+export default NavbarDiv;
