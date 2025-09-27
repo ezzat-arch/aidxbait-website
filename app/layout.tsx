@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavbarDemo from "@/components/ui/navbar-menu-demo";
+import { CartProvider } from "@/contexts/cart-context";
+import { CartSidebar } from "@/components/store/CartSidebar";
 
 export const metadata: Metadata = {
 	title: "AidXBait | Your Health Companion",
@@ -29,8 +31,11 @@ export default function RootLayout({
 				/>
 			</head>
 			<body className="font-sans" suppressHydrationWarning={true}>
-				<NavbarDemo />
-				{children}
+				<CartProvider>
+					<NavbarDemo />
+					{children}
+					<CartSidebar />
+				</CartProvider>
 			</body>
 		</html>
 	);

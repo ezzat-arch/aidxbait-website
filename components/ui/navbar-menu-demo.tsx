@@ -11,6 +11,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { MenuIcon, X, ChevronRight } from "lucide-react";
 import { services } from "../services-data";
+import { LanguageDropdown } from "./language-dropdown";
+import { CartIcon } from "@/components/store/CartIcon";
 
 // Enhanced navigation data structure for expanded dropdowns
 const navigationData = {
@@ -951,6 +953,14 @@ function Navbar({ className }: { className?: string }) {
 							)}
 						</div>
 
+						{/* Store */}
+						<Link
+							href="/services/store"
+							className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50"
+						>
+							Store
+						</Link>
+
 						{/* About Menu */}
 						<div onMouseEnter={() => setActive("About")} className="relative">
 							<span className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50">
@@ -1005,51 +1015,16 @@ function Navbar({ className }: { className?: string }) {
 
 					{/* Right Side Menu Items */}
 					<div className="hidden md:flex items-center space-x-6 ml-8">
-						{/* Language Toggle Switch */}
-						<div className="flex items-center">
-							<div className="relative ">
-								<button
-									onClick={() =>
-										setCurrentLanguage(currentLanguage === "En" ? "Ar" : "En")
-									}
-									className="relative inline-flex items-center h-8 rounded-full w-16 bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 focus:outline-none shadow-sm border border-blue-200"
-								>
-									<span
-										className={`inline-block w-6 h-6 transform bg-white rounded-full transition-all duration-300 shadow-md border border-blue-300 ${
-											currentLanguage === "En"
-												? "translate-x-1"
-												: "translate-x-9"
-										}`}
-									/>
-									<span
-										className={`absolute text-xs font-semibold transition-all duration-300 ${
-											currentLanguage === "En"
-												? "left-2 text-blue-700"
-												: "right-2 text-blue-700"
-										}`}
-									>
-										{currentLanguage}
-									</span>
-									<span
-										className={`absolute text-xs font-medium transition-all duration-300 opacity-60 ${
-											currentLanguage === "En"
-												? "right-2 text-blue-600"
-												: "left-2 text-blue-600"
-										}`}
-									>
-										{currentLanguage === "En" ? "Ar" : "En"}
-									</span>
-								</button>
-							</div>
-						</div>
+						{/* Language Dropdown - Only show when not scrolled */}
+						{!isScrolled && (
+							<LanguageDropdown
+								currentLanguage={currentLanguage}
+								onLanguageChange={setCurrentLanguage}
+							/>
+						)}
 
-						{/* FAQs */}
-						<Link
-							href="/faqs"
-							className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50"
-						>
-							FAQs
-						</Link>
+						{/* Cart Icon */}
+						<CartIcon />
 
 						{/* Login */}
 						<Link
@@ -1136,22 +1111,17 @@ function Navbar({ className }: { className?: string }) {
 							</div>
 							<div className="border-t pt-4">
 								<div className="flex items-center justify-between">
-									<div className="flex space-x-4">
-										<HoveredLink href="/faqs">FAQs</HoveredLink>
+									<div className="flex space-x-4 items-center">
+										<CartIcon />
 										<HoveredLink href="/login">Login</HoveredLink>
 									</div>
 									<div className="flex items-center space-x-2">
 										<span className="text-sm text-gray-600">Language:</span>
-										<button
-											onClick={() =>
-												setCurrentLanguage(
-													currentLanguage === "En" ? "Ar" : "En"
-												)
-											}
-											className="text-sm font-medium text-blue-600 hover:text-blue-700"
-										>
-											{currentLanguage}
-										</button>
+										<LanguageDropdown
+											currentLanguage={currentLanguage}
+											onLanguageChange={setCurrentLanguage}
+											className="scale-90"
+										/>
 									</div>
 								</div>
 							</div>
