@@ -390,7 +390,7 @@ const items = [
 	},
 ];
 
-export default function BentoGridThirdDemo() {
+const AidxbaitInNumbers = () => {
 	return (
 		<section className="py-20 bg-gray-50">
 			<motion.div
@@ -441,4 +441,6 @@ export default function BentoGridThirdDemo() {
 			</motion.div>
 		</section>
 	);
-}
+};
+
+export default AidxbaitInNumbers;

@@ -46,7 +46,7 @@ export function AppFeaturesSection() {
 		<section className="py-20 bg-white">
 			<div className="container mx-auto px-4">
 				<h2 className="text-2xl font-bold text-blue-900 text-center mb-10">
-					App features
+					What do we offer?
 				</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
 					{features.map((feature, idx) => {

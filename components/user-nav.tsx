@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,141 +10,11 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut, User, Settings, UserCircle } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
-import { signOut } from "@/lib/auth/actions";
-import type { User as SupabaseUser } from "@supabase/supabase-js";
-
-interface UserProfile {
-	first_name: string | null;
-	last_name: string | null;
-}
+import { LogOut, Settings, UserCircle } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
 
 export const UserNav = () => {
-	const [user, setUser] = useState<SupabaseUser | null>(null);
-	const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-	const [loading, setLoading] = useState(true);
-	const [profileLoading, setProfileLoading] = useState(false);
-
-	useEffect(() => {
-		console.log("[UserNav] Component mounted, initializing...");
-		const supabase = createClient();
-		let isInitialLoad = true;
-
-		// Get initial user
-		const getUser = async () => {
-			try {
-				console.log("[UserNav] Fetching initial user...");
-				const {
-					data: { user },
-					error: authError,
-				} = await supabase.auth.getUser();
-
-				if (authError) {
-					console.error("[UserNav] Auth error:", authError);
-				}
-
-				console.log(
-					"[UserNav] User fetched:",
-					user ? "Authenticated" : "Not authenticated"
-				);
-				setUser(user);
-
-				// Fetch user profile if user exists
-				if (user) {
-					console.log("[UserNav] User ID:", user.id);
-					setProfileLoading(true);
-					try {
-						console.log("[UserNav] Fetching user profile from database...");
-						const { data, error } = await supabase
-							.from("users")
-							.select("first_name, last_name")
-							.eq("supabase_id", user.id)
-							.single();
-
-						if (error) {
-							console.error("[UserNav] Profile fetch error:", error);
-						} else {
-							console.log("[UserNav] Profile fetched:", data);
-							setUserProfile(data);
-						}
-					} catch (profileError) {
-						console.error("[UserNav] Profile fetch exception:", profileError);
-					} finally {
-						setProfileLoading(false);
-					}
-				}
-			} catch (error) {
-				console.error("[UserNav] GetUser exception:", error);
-			} finally {
-				console.log("[UserNav] Setting loading to false");
-				setLoading(false);
-				isInitialLoad = false;
-			}
-		};
-
-		getUser();
-
-		// Listen for auth changes
-		console.log("[UserNav] Setting up auth state change listener");
-		const {
-			data: { subscription },
-		} = supabase.auth.onAuthStateChange(async (event, session) => {
-			console.log(
-				"[UserNav] Auth state changed:",
-				event,
-				session?.user ? "User present" : "No user"
-			);
-
-			// Skip events during initial load since we handle that in getUser()
-			if (isInitialLoad) {
-				console.log("[UserNav] Skipping event during initial load:", event);
-				return;
-			}
-
-			setUser(session?.user || null);
-
-			if (session?.user) {
-				setProfileLoading(true);
-				try {
-					console.log("[UserNav] Fetching profile for user:", session.user.id);
-					const { data, error } = await supabase
-						.from("users")
-						.select("first_name, last_name")
-						.eq("supabase_id", session.user.id)
-						.single();
-
-					if (error) {
-						console.error(
-							"[UserNav] Profile fetch error (auth change):",
-							error
-						);
-					} else {
-						console.log("[UserNav] Profile fetched (auth change):", data);
-						setUserProfile(data);
-					}
-				} catch (profileError) {
-					console.error(
-						"[UserNav] Profile fetch exception (auth change):",
-						profileError
-					);
-				} finally {
-					setProfileLoading(false);
-				}
-			} else {
-				setUserProfile(null);
-			}
-		});
-
-		return () => {
-			console.log("[UserNav] Component unmounting, cleaning up subscription");
-			subscription.unsubscribe();
-		};
-	}, []);
-
-	const handleSignOut = async () => {
-		await signOut();
-	};
+	const { user, userProfile, loading, profileLoading, signOut } = useAuth();
 
 	console.log("[UserNav] Render state:", {
 		loading,
@@ -243,19 +112,13 @@ export const UserNav = () => {
 				</div>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
-					<Link href="/dashboard" className="flex items-center">
-						<User className="mr-2 h-4 w-4" />
-						<span>Dashboard</span>
-					</Link>
-				</DropdownMenuItem>
-				<DropdownMenuItem asChild>
 					<Link href="/settings" className="flex items-center">
 						<Settings className="mr-2 h-4 w-4" />
 						<span>Settings</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
+				<DropdownMenuItem onClick={signOut} className="cursor-pointer">
 					<LogOut className="mr-2 h-4 w-4" />
 					<span>Sign out</span>
 				</DropdownMenuItem>
