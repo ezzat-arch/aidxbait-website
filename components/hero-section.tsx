@@ -42,14 +42,14 @@ export const HeroSection = React.forwardRef<
 								size="lg"
 								className="bg-primary hover:bg-primary/90 text-white transition-all duration-500 w-full sm:w-auto"
 							>
-								Sign Up <ArrowRight className="ml-2 h-4 w-4" />
+								Create an Account <ArrowRight className="ml-2 h-4 w-4" />
 							</Button>
 							<Button
 								size="lg"
 								variant="outline"
 								className="border-white text-white bg-transparent hover:bg-white hover:text-black transition-all duration-500 w-full sm:w-auto"
 							>
-								Sign In
+								Log In
 							</Button>
 						</div>
 					</motion.div>

@@ -111,10 +111,10 @@ export const Header = () => {
 			</p>
 			<div className="flex flex-col sm:flex-row gap-4 mt-8">
 				<button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-medium text-lg transition-colors">
-					Sign Up
+					Create an Account
 				</button>
 				<button className="border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 rounded-lg font-medium text-lg transition-colors">
-					Sign In
+					Log In
 				</button>
 			</div>
 		</div>

@@ -1,0 +1,125 @@
+---
+alwaysApply: true
+---
+
+# Supabase Service Role Key Usage
+
+## When to Use Service Role Key
+
+Use the Supabase service role key (secret key) in the following scenarios:
+
+1. **Bypassing Row Level Security (RLS)**: When you need to perform operations that require elevated privileges
+2. **Admin Operations**: Creating users, managing user data from server-side
+3. **System Operations**: Automated processes, data migrations, cleanup tasks
+4. **API Routes**: Server-side operations that need full database access
+
+## Implementation Pattern
+
+### 1. Create Admin Supabase Client
+
+```typescript
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseAdmin = createClient(
+	process.env.NEXT_PUBLIC_SUPABASE_URL!,
+	process.env.SUPABASE_SERVICE_ROLE_KEY!, // Service role key for admin operations
+	{
+		auth: {
+			autoRefreshToken: false,
+			persistSession: false,
+		},
+	}
+);
+```
+
+### 2. Use in API Routes Only
+
+**✅ CORRECT - Server-side API route:**
+
+```typescript
+// app/api/auth/signup/route.ts
+export async function POST(request: NextRequest) {
+  // Use supabaseAdmin here - secure server environment
+  const { data, error } = await supabaseAdmin.auth.admin.createUser({...});
+}
+```
+
+**❌ INCORRECT - Client-side component:**
+
+```typescript
+// Never expose service role key in client-side code
+const supabaseAdmin = createClient(url, serviceRoleKey); // SECURITY RISK!
+```
+
+### 3. Environment Variables
+
+Ensure these environment variables are set:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key  # Server-side only!
+```
+
+## Security Best Practices
+
+1. **Never expose service role key to client-side**: Only use in API routes or server-side functions
+2. **Validate inputs**: Always validate and sanitize inputs before database operations
+3. **Error handling**: Implement proper error handling and cleanup
+4. **Logging**: Log operations for audit trails but never log sensitive data
+5. **Principle of least privilege**: Only use service role when necessary
+
+## Common Use Cases
+
+### User Registration with Profile Creation
+
+- Create auth user with `supabaseAdmin.auth.admin.createUser()`
+- Create profile records with elevated privileges
+- Handle cleanup if any step fails
+
+### Data Migration
+
+- Bulk operations that bypass RLS
+- System-level data transformations
+- Administrative data updates
+
+### Scheduled Tasks
+
+- Cleanup operations
+- Data synchronization
+- Automated maintenance tasks
+
+## Error Handling Pattern
+
+```typescript
+try {
+  // Step 1: Create auth user
+  const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({...});
+
+  if (authError) {
+    return NextResponse.json({ success: false, error: authError.message });
+  }
+
+  // Step 2: Create related records
+  const { error: dbError } = await supabaseAdmin.rpc('some_function', {...});
+
+  if (dbError) {
+    // Cleanup: Remove auth user if database operation fails
+    await supabaseAdmin.auth.admin.deleteUser(authData.user.id);
+    return NextResponse.json({ success: false, error: "Operation failed" });
+  }
+
+  return NextResponse.json({ success: true });
+} catch (error) {
+  console.error("Operation failed:", error);
+  return NextResponse.json({ success: false, error: "Unexpected error" });
+}
+```
+
+## Remember
+
+- Service role key = Full database access + Bypass RLS
+- Only use in secure server environments (API routes, server functions)
+- Always implement proper error handling and cleanup
+- Never commit service role key to version control
+- Use regular client for user-facing operations when possible

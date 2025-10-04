@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,31 +15,47 @@ import {
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import {
 	Eye,
 	EyeOff,
 	Mail,
-	Phone,
 	Lock,
-	User,
 	ArrowRight,
 	Check,
 	X,
+	AlertCircle,
+	Phone,
+	User,
+	CheckCircle,
 } from "lucide-react";
+import { signup } from "@/lib/auth/actions";
 
 export default function RegisterPage() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [acceptTerms, setAcceptTerms] = useState(false);
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
+	const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+	const [showErrorDialog, setShowErrorDialog] = useState(false);
+	const [dialogMessage, setDialogMessage] = useState("");
+	const [dialogTitle, setDialogTitle] = useState("");
+	const searchParams = useSearchParams();
+	const router = useRouter();
 
-	const [formData, setFormData] = useState({
-		firstName: "",
-		lastName: "",
-		phone: "",
-		email: "",
-		password: "",
-		confirmPassword: "",
-	});
+	const error = searchParams.get("error");
+	const message = searchParams.get("message");
 
 	const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -53,50 +70,44 @@ export default function RegisterPage() {
 		return requirements;
 	};
 
-	const passwordRequirements = validatePassword(formData.password);
+	const passwordRequirements = validatePassword(password);
 	const isPasswordValid = Object.values(passwordRequirements).every(Boolean);
 
-	const handleInputChange = (field: string, value: string) => {
-		setFormData((prev) => ({ ...prev, [field]: value }));
-
-		// Clear error when user starts typing
-		if (errors[field]) {
-			setErrors((prev) => ({ ...prev, [field]: "" }));
-		}
-	};
+	// Real-time password confirmation validation
+	const passwordsMatch =
+		password && confirmPassword && password === confirmPassword;
+	const showPasswordMismatch = confirmPassword && password !== confirmPassword;
 
 	const validateForm = () => {
 		const newErrors: Record<string, string> = {};
 
-		if (!formData.firstName.trim()) {
+		if (!firstName?.trim()) {
 			newErrors.firstName = "First name is required";
 		}
 
-		if (!formData.lastName.trim()) {
+		if (!lastName?.trim()) {
 			newErrors.lastName = "Last name is required";
 		}
 
-		if (!formData.phone.trim()) {
-			newErrors.phone = "Phone number is required";
-		} else if (!/^\+?[\d\s-()]+$/.test(formData.phone)) {
-			newErrors.phone = "Please enter a valid phone number";
-		}
-
-		if (!formData.email.trim()) {
+		if (!email?.trim()) {
 			newErrors.email = "Email is required";
-		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
 			newErrors.email = "Please enter a valid email address";
 		}
 
-		if (!formData.password) {
+		if (!phone?.trim()) {
+			newErrors.phone = "Phone number is required";
+		} else if (!/^\+?[\d\s\-\(\)]{10,}$/.test(phone.replace(/\s/g, ""))) {
+			newErrors.phone = "Please enter a valid phone number";
+		}
+
+		if (!password) {
 			newErrors.password = "Password is required";
-		} else if (!isPasswordValid) {
+		} else if (!Object.values(validatePassword(password)).every(Boolean)) {
 			newErrors.password = "Password does not meet requirements";
 		}
 
-		if (!formData.confirmPassword) {
-			newErrors.confirmPassword = "Please confirm your password";
-		} else if (formData.password !== formData.confirmPassword) {
+		if (password !== confirmPassword) {
 			newErrors.confirmPassword = "Passwords do not match";
 		}
 
@@ -108,29 +119,107 @@ export default function RegisterPage() {
 		return Object.keys(newErrors).length === 0;
 	};
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-
+	const handleSubmit = async (formData: FormData) => {
 		if (!validateForm()) {
 			return;
 		}
 
 		setIsLoading(true);
+		try {
+			// Create a custom signup function that doesn't redirect
+			const result = await signupWithoutRedirect();
 
-		// Simulate API call
-		await new Promise((resolve) => setTimeout(resolve, 1500));
+			if (result.success) {
+				setDialogTitle("Account Created Successfully!");
+				setDialogMessage(
+					"Please check your email to confirm your account before signing in."
+				);
+				setShowSuccessDialog(true);
+			} else {
+				setDialogTitle("Registration Failed");
+				setDialogMessage(
+					result.error || "An unexpected error occurred. Please try again."
+				);
+				setShowErrorDialog(true);
+			}
+		} catch (error) {
+			console.error("Signup error:", error);
+			setDialogTitle("Registration Failed");
+			setDialogMessage("An unexpected error occurred. Please try again.");
+			setShowErrorDialog(true);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
-		console.log("Registration attempt:", {
-			firstName: formData.firstName,
-			lastName: formData.lastName,
-			phone: formData.phone,
-			email: formData.email,
-			password: "***hidden***",
-			confirmPassword: "***hidden***",
-			acceptedTerms: acceptTerms,
-		});
+	// Custom signup function that uses secure API route
+	const signupWithoutRedirect = async () => {
+		// Validate required fields
+		if (
+			!firstName?.trim() ||
+			!lastName?.trim() ||
+			!email?.trim() ||
+			!phone?.trim() ||
+			!password?.trim()
+		) {
+			return { success: false, error: "All fields are required" };
+		}
 
-		setIsLoading(false);
+		try {
+			// Call our secure API route that uses service role key
+			const response = await fetch("/api/auth/signup/", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					firstName: firstName.trim(),
+					lastName: lastName.trim(),
+					email: email.trim(),
+					phone: phone.trim(),
+					password: password.trim(),
+				}),
+			});
+
+			const result = await response.json();
+
+			if (!response.ok) {
+				return {
+					success: false,
+					error:
+						result.error || "An unexpected error occurred. Please try again.",
+				};
+			}
+
+			return result;
+		} catch (error) {
+			console.error("Signup error:", error);
+			return {
+				success: false,
+				error: "An unexpected error occurred. Please try again.",
+			};
+		}
+	};
+
+	const clearForm = () => {
+		setFirstName("");
+		setLastName("");
+		setEmail("");
+		setPhone("");
+		setPassword("");
+		setConfirmPassword("");
+		setAcceptTerms(false);
+		setErrors({});
+	};
+
+	const handleSuccessDialogClose = () => {
+		setShowSuccessDialog(false);
+		clearForm();
+		router.push("/login");
+	};
+
+	const handleErrorDialogClose = () => {
+		setShowErrorDialog(false);
 	};
 
 	const RequirementItem = ({ met, text }: { met: boolean; text: string }) => (
@@ -172,9 +261,24 @@ export default function RegisterPage() {
 					</CardHeader>
 
 					<CardContent className="relative z-10">
-						<form onSubmit={handleSubmit} className="space-y-6 lg:space-y-8">
+						{error && (
+							<div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-2">
+								<AlertCircle className="h-5 w-5 text-red-500" />
+								<p className="text-sm text-red-700">{error}</p>
+							</div>
+						)}
+
+						{message && (
+							<div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-2">
+								<AlertCircle className="h-5 w-5 text-green-500" />
+								<p className="text-sm text-green-700">{message}</p>
+							</div>
+						)}
+
+						<form action={handleSubmit} className="space-y-6 lg:space-y-8">
 							{/* Name Fields */}
-							<div className="grid grid-cols-2 gap-4">
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+								{/* First Name Field */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="firstName"
@@ -188,12 +292,11 @@ export default function RegisterPage() {
 										</div>
 										<Input
 											id="firstName"
+											name="firstName"
 											type="text"
-											placeholder="First name"
-											value={formData.firstName}
-											onChange={(e) =>
-												handleInputChange("firstName", e.target.value)
-											}
+											placeholder="Enter your first name"
+											value={firstName}
+											onChange={(e) => setFirstName(e.target.value)}
 											className={`pl-9 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 ${
 												errors.firstName ? "border-red-500" : ""
 											}`}
@@ -205,6 +308,7 @@ export default function RegisterPage() {
 									)}
 								</div>
 
+								{/* Last Name Field */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="lastName"
@@ -218,12 +322,11 @@ export default function RegisterPage() {
 										</div>
 										<Input
 											id="lastName"
+											name="lastName"
 											type="text"
-											placeholder="Last name"
-											value={formData.lastName}
-											onChange={(e) =>
-												handleInputChange("lastName", e.target.value)
-											}
+											placeholder="Enter your last name"
+											value={lastName}
+											onChange={(e) => setLastName(e.target.value)}
 											className={`pl-9 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 ${
 												errors.lastName ? "border-red-500" : ""
 											}`}
@@ -234,35 +337,6 @@ export default function RegisterPage() {
 										<p className="text-xs text-red-500">{errors.lastName}</p>
 									)}
 								</div>
-							</div>
-
-							{/* Phone Field */}
-							<div className="space-y-2">
-								<Label
-									htmlFor="phone"
-									className="text-sm font-medium text-gray-700"
-								>
-									Phone Number
-								</Label>
-								<div className="relative">
-									<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-										<Phone className="h-4 w-4 text-gray-400" />
-									</div>
-									<Input
-										id="phone"
-										type="tel"
-										placeholder="Enter your phone number"
-										value={formData.phone}
-										onChange={(e) => handleInputChange("phone", e.target.value)}
-										className={`pl-9 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 ${
-											errors.phone ? "border-red-500" : ""
-										}`}
-										required
-									/>
-								</div>
-								{errors.phone && (
-									<p className="text-xs text-red-500">{errors.phone}</p>
-								)}
 							</div>
 
 							{/* Email Field */}
@@ -279,10 +353,11 @@ export default function RegisterPage() {
 									</div>
 									<Input
 										id="email"
+										name="email"
 										type="email"
 										placeholder="Enter your email address"
-										value={formData.email}
-										onChange={(e) => handleInputChange("email", e.target.value)}
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
 										className={`pl-9 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 ${
 											errors.email ? "border-red-500" : ""
 										}`}
@@ -291,6 +366,36 @@ export default function RegisterPage() {
 								</div>
 								{errors.email && (
 									<p className="text-xs text-red-500">{errors.email}</p>
+								)}
+							</div>
+
+							{/* Phone Field */}
+							<div className="space-y-2">
+								<Label
+									htmlFor="phone"
+									className="text-sm font-medium text-gray-700"
+								>
+									Phone Number
+								</Label>
+								<div className="relative">
+									<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+										<Phone className="h-4 w-4 text-gray-400" />
+									</div>
+									<Input
+										id="phone"
+										name="phone"
+										type="tel"
+										placeholder="Enter your phone number"
+										value={phone}
+										onChange={(e) => setPhone(e.target.value)}
+										className={`pl-9 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 ${
+											errors.phone ? "border-red-500" : ""
+										}`}
+										required
+									/>
+								</div>
+								{errors.phone && (
+									<p className="text-xs text-red-500">{errors.phone}</p>
 								)}
 							</div>
 
@@ -308,12 +413,11 @@ export default function RegisterPage() {
 									</div>
 									<Input
 										id="password"
+										name="password"
 										type={showPassword ? "text" : "password"}
 										placeholder="Create a strong password"
-										value={formData.password}
-										onChange={(e) =>
-											handleInputChange("password", e.target.value)
-										}
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
 										className={`pl-9 pr-9 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 ${
 											errors.password ? "border-red-500" : ""
 										}`}
@@ -333,7 +437,7 @@ export default function RegisterPage() {
 								</div>
 
 								{/* Password Requirements */}
-								{formData.password && (
+								{password && (
 									<div className="mt-2 p-3 bg-gray-50 rounded-lg space-y-1">
 										<p className="text-xs font-medium text-gray-700 mb-2">
 											Password Requirements:
@@ -382,15 +486,27 @@ export default function RegisterPage() {
 										id="confirmPassword"
 										type={showConfirmPassword ? "text" : "password"}
 										placeholder="Confirm your password"
-										value={formData.confirmPassword}
-										onChange={(e) =>
-											handleInputChange("confirmPassword", e.target.value)
-										}
-										className={`pl-9 pr-9 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 ${
-											errors.confirmPassword ? "border-red-500" : ""
+										value={confirmPassword}
+										onChange={(e) => setConfirmPassword(e.target.value)}
+										className={`pl-9 pr-12 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 ${
+											showPasswordMismatch
+												? "border-red-500"
+												: passwordsMatch
+												? "border-green-500"
+												: ""
 										}`}
 										required
 									/>
+									{/* Password match indicator */}
+									{confirmPassword && (
+										<div className="absolute inset-y-0 right-8 flex items-center pointer-events-none">
+											{passwordsMatch ? (
+												<Check className="h-4 w-4 text-green-500" />
+											) : (
+												<X className="h-4 w-4 text-red-500" />
+											)}
+										</div>
+									)}
 									<button
 										type="button"
 										onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -403,6 +519,28 @@ export default function RegisterPage() {
 										)}
 									</button>
 								</div>
+
+								{/* Real-time password match feedback */}
+								{confirmPassword && (
+									<div
+										className={`text-xs transition-colors ${
+											passwordsMatch ? "text-green-600" : "text-red-500"
+										}`}
+									>
+										{passwordsMatch ? (
+											<div className="flex items-center space-x-1">
+												<Check className="w-3 h-3" />
+												<span>Passwords match</span>
+											</div>
+										) : (
+											<div className="flex items-center space-x-1">
+												<X className="w-3 h-3" />
+												<span>Passwords do not match</span>
+											</div>
+										)}
+									</div>
+								)}
+
 								{errors.confirmPassword && (
 									<p className="text-xs text-red-500">
 										{errors.confirmPassword}
@@ -468,7 +606,7 @@ export default function RegisterPage() {
 							</Button>
 						</form>
 
-						{/* Sign In Link */}
+						{/* Log In Link */}
 						<div className="text-center mt-8 pt-6 border-t border-slate-200">
 							<p className="text-slate-600">
 								Already have an account?{" "}
@@ -476,7 +614,7 @@ export default function RegisterPage() {
 									href="/login"
 									className="font-semibold text-blue-600 hover:text-blue-500 transition-colors tracking-wide"
 								>
-									Sign in here
+									Log in here
 								</Link>
 							</p>
 						</div>
@@ -489,6 +627,55 @@ export default function RegisterPage() {
 					AidXBait
 				</p>
 			</div>
+
+			{/* Success Dialog */}
+			<Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+				<DialogContent className="sm:max-w-md">
+					<DialogHeader>
+						<div className="flex items-center space-x-2">
+							<CheckCircle className="h-6 w-6 text-green-500" />
+							<DialogTitle className="text-green-700">
+								{dialogTitle}
+							</DialogTitle>
+						</div>
+						<DialogDescription className="text-gray-600 mt-2">
+							{dialogMessage}
+						</DialogDescription>
+					</DialogHeader>
+					<div className="flex justify-end mt-4">
+						<Button
+							onClick={handleSuccessDialogClose}
+							className="bg-green-600 hover:bg-green-700 text-white"
+						>
+							Continue
+						</Button>
+					</div>
+				</DialogContent>
+			</Dialog>
+
+			{/* Error Dialog */}
+			<Dialog open={showErrorDialog} onOpenChange={setShowErrorDialog}>
+				<DialogContent className="sm:max-w-md">
+					<DialogHeader>
+						<div className="flex items-center space-x-2">
+							<AlertCircle className="h-6 w-6 text-red-500" />
+							<DialogTitle className="text-red-700">{dialogTitle}</DialogTitle>
+						</div>
+						<DialogDescription className="text-gray-600 mt-2">
+							{dialogMessage}
+						</DialogDescription>
+					</DialogHeader>
+					<div className="flex justify-end mt-4">
+						<Button
+							onClick={handleErrorDialogClose}
+							variant="outline"
+							className="border-red-300 text-red-700 hover:bg-red-50"
+						>
+							Try Again
+						</Button>
+					</div>
+				</DialogContent>
+			</Dialog>
 		</div>
 	);
 }

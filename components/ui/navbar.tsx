@@ -13,6 +13,7 @@ import { MenuIcon, X, ChevronRight } from "lucide-react";
 import { services } from "../services-data";
 import { LanguageDropdown } from "./language-dropdown";
 import { CartIcon } from "@/components/store/CartIcon";
+import { UserNav } from "@/components/user-nav";
 
 // Enhanced navigation data structure for expanded dropdowns
 const navigationData = {
@@ -517,40 +518,6 @@ const Navbar = ({ className }: { className?: string }) => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// Prevent hydration mismatch by not rendering scroll-dependent styles until mounted
-	if (!isMounted) {
-		return (
-			<div
-				className={cn(
-					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-3xl px-4 sm:px-0 top-4",
-					className
-				)}
-			>
-				<div className="relative rounded-full bg-white dark:bg-black dark:border-white/[0.2] border border-transparent shadow-input flex items-center px-8 py-4 sm:py-2 mx-auto mt-4 max-w-3xl justify-between">
-					<Link href="/" className="flex items-center gap-2">
-						<Image
-							src="/images/logo.png"
-							alt="AidXBait Logo"
-							width={100}
-							height={50}
-							className="object-contain sm:w-[120px] sm:h-[60px]"
-							priority
-						/>
-					</Link>
-					<div className="flex justify-end space-x-4 w-full">
-						<div className="hidden md:flex space-x-6">
-							{/* Skeleton menu items */}
-							<div className="px-3 py-2 ">Services</div>
-							<div className="px-3 py-2">How it works</div>
-							<div className="px-3 py-2">Why Aid x Bait?</div>
-							<div className="px-3 py-2">App features</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	}
-
 	const logo = (
 		<Link href="/" className="flex items-center gap-2">
 			<Image
@@ -574,7 +541,6 @@ const Navbar = ({ className }: { className?: string }) => {
 				)}
 			>
 				<nav
-					onMouseLeave={() => setActive(null)}
 					className={cn(
 						"border border-transparent shadow-input flex items-center transition-all duration-200 z-50",
 						isScrolled
@@ -590,6 +556,7 @@ const Navbar = ({ className }: { className?: string }) => {
 						{/* Services Menu */}
 						<div
 							onMouseEnter={() => setActive("Services")}
+							onMouseLeave={() => setActive(null)}
 							className="relative"
 						>
 							<Link
@@ -599,7 +566,7 @@ const Navbar = ({ className }: { className?: string }) => {
 								Services
 							</Link>
 							{active === "Services" && (
-								<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+								<div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2">
 									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
 										<div className="flex">
 											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
@@ -724,6 +691,7 @@ const Navbar = ({ className }: { className?: string }) => {
 						{/* Products Menu */}
 						<div
 							onMouseEnter={() => setActive("Products")}
+							onMouseLeave={() => setActive(null)}
 							className="relative"
 						>
 							<Link
@@ -733,7 +701,7 @@ const Navbar = ({ className }: { className?: string }) => {
 								Products
 							</Link>
 							{active === "Products" && (
-								<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+								<div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2">
 									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
 										<div className="flex">
 											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
@@ -833,19 +801,20 @@ const Navbar = ({ className }: { className?: string }) => {
 							)}
 						</div>
 
-						{/* Contact Us Menu */}
+						{/* Contact Menu */}
 						<div
-							onMouseEnter={() => setActive("Contact Us")}
+							onMouseEnter={() => setActive("Contact")}
+							onMouseLeave={() => setActive(null)}
 							className="relative"
 						>
 							<Link
 								href="/contact"
 								className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50"
 							>
-								Contact Us
+								Contact
 							</Link>
-							{active === "Contact Us" && (
-								<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+							{active === "Contact" && (
+								<div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2">
 									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
 										<div className="flex">
 											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
@@ -948,18 +917,23 @@ const Navbar = ({ className }: { className?: string }) => {
 						{/* Store */}
 						<Link
 							href="/services/store"
+							onMouseEnter={() => setActive(null)}
 							className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50"
 						>
 							Store
 						</Link>
 
 						{/* About Menu */}
-						<div onMouseEnter={() => setActive("About")} className="relative">
+						<div
+							onMouseEnter={() => setActive("About")}
+							onMouseLeave={() => setActive(null)}
+							className="relative"
+						>
 							<span className="text-md px-2 font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200 rounded-md hover:bg-blue-50">
 								About
 							</span>
 							{active === "About" && (
-								<div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+								<div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2">
 									<div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 w-[680px]">
 										<div className="flex">
 											<div className="w-full px-4">
@@ -1018,13 +992,8 @@ const Navbar = ({ className }: { className?: string }) => {
 						{/* Cart Icon */}
 						<CartIcon />
 
-						{/* Login */}
-						<Link
-							href="/login"
-							className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
-						>
-							Login
-						</Link>
+						{/* User Navigation */}
+						<UserNav />
 					</div>
 
 					{/* Mobile Menu Button */}
@@ -1082,7 +1051,7 @@ const Navbar = ({ className }: { className?: string }) => {
 								</div>
 							</div>
 							<div>
-								<h3 className="font-bold text-lg mb-3">Contact Us</h3>
+								<h3 className="font-bold text-lg mb-3">Contact</h3>
 								<div className="space-y-2 pl-4">
 									<HoveredLink href="/contact/callback">
 										Call-me Request
@@ -1105,7 +1074,7 @@ const Navbar = ({ className }: { className?: string }) => {
 								<div className="flex items-center justify-between">
 									<div className="flex space-x-4 items-center">
 										<CartIcon />
-										<HoveredLink href="/login">Login</HoveredLink>
+										<UserNav />
 									</div>
 									<div className="flex items-center space-x-2">
 										<span className="text-sm text-gray-600">Language:</span>

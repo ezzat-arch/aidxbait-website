@@ -72,7 +72,7 @@ export const UberStyleHeroSection = () => {
 									className="text-blue-600 hover:text-blue-800 font-medium hover:underline transition-colors duration-200"
 								>
 									Already have an account?{" "}
-									<span className="font-semibold">Sign in</span>
+									<span className="font-semibold">Log in</span>
 								</Link>
 							</div>
 
