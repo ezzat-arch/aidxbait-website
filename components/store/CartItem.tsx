@@ -17,6 +17,15 @@ export function CartItem({ item, className }: CartItemProps) {
 	const { updateQuantity, removeFromCart } = useCart();
 	const { product, quantity } = item;
 
+	// Compute derived values
+	const effectivePrice = product.discounted_price || product.price;
+	const hasDiscount = !!product.discounted_price;
+	const mainImage =
+		product.images.find((img) => img.is_main)?.image_url ||
+		product.images[0]?.image_url ||
+		"/placeholder.jpg";
+	const primaryJoint = product.joints[0]?.joint_name || "general";
+
 	const handleQuantityChange = (newQuantity: number) => {
 		if (newQuantity <= 0) {
 			removeFromCart(product.id);
@@ -25,7 +34,7 @@ export function CartItem({ item, className }: CartItemProps) {
 		}
 	};
 
-	const total = product.price * quantity;
+	const total = effectivePrice * quantity;
 
 	return (
 		<div className={`flex gap-4 py-4 ${className}`}>
@@ -33,7 +42,7 @@ export function CartItem({ item, className }: CartItemProps) {
 			<div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
 				<Link href={`/services/store/products/${product.id}`}>
 					<Image
-						src={product.image}
+						src={mainImage}
 						alt={product.name}
 						fill
 						className="object-cover"
@@ -51,11 +60,19 @@ export function CartItem({ item, className }: CartItemProps) {
 								{product.name}
 							</h3>
 						</Link>
-						<Badge variant="secondary" className="mt-1 text-xs capitalize">
-							{product.joint === "general"
-								? "All Purpose"
-								: `${product.joint} Support`}
-						</Badge>
+						<div className="mt-1 flex flex-wrap gap-1">
+							{product.joints.slice(0, 2).map((joint) => (
+								<Badge
+									key={joint.joint_id}
+									variant="secondary"
+									className="text-xs capitalize"
+								>
+									{joint.joint_name === "general"
+										? "All Purpose"
+										: joint.joint_name}
+								</Badge>
+							))}
+						</div>
 					</div>
 
 					<Button
@@ -72,11 +89,11 @@ export function CartItem({ item, className }: CartItemProps) {
 				<div className="flex justify-between items-center">
 					<div className="flex items-center gap-2">
 						<span className="font-semibold text-primary">
-							{product.price.toFixed(2)} EGP
+							{effectivePrice.toFixed(2)} {product.currency}
 						</span>
-						{product.originalPrice && (
+						{hasDiscount && (
 							<span className="text-xs text-muted-foreground line-through">
-								{product.originalPrice.toFixed(2)} EGP
+								{product.price.toFixed(2)} {product.currency}
 							</span>
 						)}
 					</div>
@@ -101,6 +118,7 @@ export function CartItem({ item, className }: CartItemProps) {
 							size="icon"
 							className="h-7 w-7"
 							onClick={() => handleQuantityChange(quantity + 1)}
+							disabled={quantity >= product.stock}
 						>
 							<Plus className="h-3 w-3" />
 						</Button>
@@ -110,9 +128,11 @@ export function CartItem({ item, className }: CartItemProps) {
 				{/* Item Total */}
 				<div className="flex justify-between items-center mt-2">
 					<div className="text-xs text-muted-foreground">
-						{quantity} × {product.price.toFixed(2)} EGP
+						{quantity} × {effectivePrice.toFixed(2)} {product.currency}
 					</div>
-					<div className="font-semibold">{total.toFixed(2)} EGP</div>
+					<div className="font-semibold">
+						{total.toFixed(2)} {product.currency}
+					</div>
 				</div>
 			</div>
 		</div>

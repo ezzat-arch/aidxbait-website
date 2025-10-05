@@ -6,8 +6,8 @@ import { Product, CartItem, Cart } from "@/lib/store-types";
 interface CartContextType {
 	cart: Cart;
 	addToCart: (product: Product, quantity?: number) => void;
-	removeFromCart: (productId: string) => void;
-	updateQuantity: (productId: string, quantity: number) => void;
+	removeFromCart: (productId: number) => void;
+	updateQuantity: (productId: number, quantity: number) => void;
 	clearCart: () => void;
 	isCartOpen: boolean;
 	openCart: () => void;
@@ -19,8 +19,8 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 type CartAction =
 	| { type: "ADD_TO_CART"; product: Product; quantity?: number }
-	| { type: "REMOVE_FROM_CART"; productId: string }
-	| { type: "UPDATE_QUANTITY"; productId: string; quantity: number }
+	| { type: "REMOVE_FROM_CART"; productId: number }
+	| { type: "UPDATE_QUANTITY"; productId: number; quantity: number }
 	| { type: "CLEAR_CART" }
 	| { type: "OPEN_CART" }
 	| { type: "CLOSE_CART" }
@@ -35,10 +35,10 @@ function calculateCartTotals(items: CartItem[]): {
 	total: number;
 	itemCount: number;
 } {
-	const total = items.reduce(
-		(sum, item) => sum + item.product.price * item.quantity,
-		0
-	);
+	const total = items.reduce((sum, item) => {
+		const effectivePrice = item.product.discounted_price || item.product.price;
+		return sum + effectivePrice * item.quantity;
+	}, 0);
 	const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 	return { total, itemCount };
 }
@@ -172,11 +172,11 @@ export function CartProvider({ children }: CartProviderProps) {
 		dispatch({ type: "ADD_TO_CART", product, quantity });
 	};
 
-	const removeFromCart = (productId: string) => {
+	const removeFromCart = (productId: number) => {
 		dispatch({ type: "REMOVE_FROM_CART", productId });
 	};
 
-	const updateQuantity = (productId: string, quantity: number) => {
+	const updateQuantity = (productId: number, quantity: number) => {
 		dispatch({ type: "UPDATE_QUANTITY", productId, quantity });
 	};
 

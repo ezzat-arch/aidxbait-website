@@ -1,26 +1,13 @@
 "use client";
 
-import { Search, SlidersHorizontal, X, ChevronDown } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Slider } from "@/components/ui/slider";
-import { PRODUCT_CATEGORIES } from "@/lib/store-data";
 import { FilterOptions, Joint } from "@/lib/store-types";
 import { JointCapsuleFilter } from "./JointCapsuleFilter";
+import { PriceRangeFilter } from "./PriceRangeFilter";
 
 interface HorizontalFiltersProps {
 	filters: FilterOptions;
@@ -46,20 +33,10 @@ export function HorizontalFilters({
 		});
 	};
 
-	const handleCategoryChange = (value: string) => {
+	const handlePriceRangeChange = (range: { min: number; max: number }) => {
 		onFiltersChange({
 			...filters,
-			category: value,
-		});
-	};
-
-	const handlePriceRangeChange = (values: number[]) => {
-		onFiltersChange({
-			...filters,
-			priceRange: {
-				min: values[0],
-				max: values[1],
-			},
+			priceRange: range,
 		});
 	};
 
@@ -72,17 +49,15 @@ export function HorizontalFilters({
 
 	const hasActiveFilters =
 		filters.joints.length > 0 ||
-		filters.category !== "all" ||
 		filters.priceRange.min > 0 ||
-		filters.priceRange.max < 200 ||
+		filters.priceRange.max < 10000 ||
 		filters.inStock ||
 		searchQuery.length > 0;
 
 	const getActiveFiltersCount = () => {
 		let count = 0;
 		if (filters.joints.length > 0) count++;
-		if (filters.category !== "all") count++;
-		if (filters.priceRange.min > 0 || filters.priceRange.max < 200) count++;
+		if (filters.priceRange.min > 0 || filters.priceRange.max < 10000) count++;
 		if (filters.inStock) count++;
 		if (searchQuery.length > 0) count++;
 		return count;
@@ -90,183 +65,82 @@ export function HorizontalFilters({
 
 	return (
 		<div className="space-y-6 bg-background border-b pb-6">
-			{/* Search Bar - Full width on mobile */}
-			<div className="relative max-w-md md:max-w-lg">
-				<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-				<Input
-					placeholder="Search physical therapy products..."
-					value={searchQuery}
-					onChange={(e) => onSearchChange(e.target.value)}
-					className="pl-10 h-11"
-				/>
+			{/* Search, Price Range, and In Stock - All in one row */}
+			<div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
+				{/* Search Bar */}
+				<div className="relative flex-1 min-w-0">
+					<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4 z-10" />
+					<Input
+						placeholder="Search products..."
+						value={searchQuery}
+						onChange={(e) => onSearchChange(e.target.value)}
+						className="pl-10 pr-10 h-12 border-2 shadow-sm w-full"
+					/>
+					{searchQuery && (
+						<button
+							type="button"
+							aria-label="Clear search"
+							onClick={() => onSearchChange("")}
+							className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
+						>
+							<X className="h-4 w-4" />
+						</button>
+					)}
+				</div>
+
+				{/* Price Range Filter - Inline */}
+				<div className="lg:flex-1 lg:max-w-md">
+					<PriceRangeFilter
+						priceRange={filters.priceRange}
+						onPriceRangeChange={handlePriceRangeChange}
+					/>
+				</div>
+
+				{/* In Stock Toggle */}
+				<div className="flex items-center space-x-3 px-5 py-3 bg-gradient-to-br from-muted/40 to-background border-2 border-border/60 rounded-xl shadow-md hover:shadow-lg transition-shadow whitespace-nowrap">
+					<Checkbox
+						id="inStock"
+						checked={filters.inStock}
+						onCheckedChange={handleInStockChange}
+						className="w-5 h-5"
+					/>
+					<label
+						htmlFor="inStock"
+						className="text-sm font-semibold leading-none cursor-pointer select-none"
+					>
+						In Stock Only
+					</label>
+				</div>
 			</div>
 
-			{/* Joint Filter - Responsive Design */}
+			{/* Joint Filter - Moved below */}
 			<JointCapsuleFilter
 				selectedJoints={filters.joints}
 				onJointsChange={handleJointsChange}
 			/>
 
-			{/* Other Filters Row - Mobile Optimized */}
-			<div className="flex flex-col md:flex-row md:items-center gap-4">
-				{/* Mobile: Stack filters vertically, Desktop: Horizontal */}
-				<div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 flex-1">
-					{/* Category Filter */}
-					<div className="flex items-center gap-2 min-w-0">
-						<span className="text-sm font-medium text-muted-foreground whitespace-nowrap hidden sm:block">
-							Category:
-						</span>
-						<Select
-							value={filters.category}
-							onValueChange={handleCategoryChange}
-						>
-							<SelectTrigger className="w-full sm:w-48 h-10">
-								<SelectValue placeholder="All Categories" />
-							</SelectTrigger>
-							<SelectContent>
-								{PRODUCT_CATEGORIES.map((category) => (
-									<SelectItem key={category.value} value={category.value}>
-										{category.label}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
-					</div>
+			{/* Results Count and Clear Filters */}
+			<div className="flex items-center justify-between gap-4">
+				<Badge
+					variant="secondary"
+					className="text-sm font-bold px-4 py-2 shadow-sm"
+				>
+					{productsCount} {productsCount === 1 ? "product" : "products"} found
+				</Badge>
 
-					{/* Price Range Filter */}
-					<Popover>
-						<PopoverTrigger asChild>
-							<Button
-								variant="outline"
-								className="h-10 flex-1 sm:flex-none sm:min-w-[120px]"
-							>
-								<span className="hidden sm:inline">Price Range</span>
-								<span className="sm:hidden">
-									{filters.priceRange.min === 0 &&
-									filters.priceRange.max === 200
-										? "All Prices"
-										: `${filters.priceRange.min}-${filters.priceRange.max} EGP`}
-								</span>
-								<ChevronDown className="ml-2 h-4 w-4" />
-							</Button>
-						</PopoverTrigger>
-						<PopoverContent className="w-80" align="start">
-							<div className="space-y-4">
-								<h4 className="font-medium">Price Range (EGP)</h4>
-								<div className="px-2">
-									<Slider
-										value={[filters.priceRange.min, filters.priceRange.max]}
-										onValueChange={handlePriceRangeChange}
-										max={200}
-										min={0}
-										step={5}
-										className="w-full"
-									/>
-									<div className="flex justify-between text-sm text-muted-foreground mt-2">
-										<span>{filters.priceRange.min} EGP</span>
-										<span>{filters.priceRange.max} EGP</span>
-									</div>
-								</div>
-							</div>
-						</PopoverContent>
-					</Popover>
-
-					{/* In Stock Filter */}
-					<div className="flex items-center space-x-2">
-						<Checkbox
-							id="inStock"
-							checked={filters.inStock}
-							onCheckedChange={handleInStockChange}
-						/>
-						<label
-							htmlFor="inStock"
-							className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-						>
-							In stock only
-						</label>
-					</div>
-				</div>
-
-				{/* Results Count and Clear Filters */}
-				<div className="flex items-center justify-between md:justify-end gap-4">
-					<span className="text-sm text-muted-foreground whitespace-nowrap">
-						{productsCount} products found
-					</span>
-
-					{hasActiveFilters && (
-						<div className="flex items-center gap-2">
-							<Badge variant="secondary" className="text-xs">
-								{getActiveFiltersCount()} filters
-							</Badge>
-							<Button
-								variant="ghost"
-								size="sm"
-								onClick={onClearFilters}
-								className="text-muted-foreground hover:text-destructive h-8 px-2"
-							>
-								<X className="h-4 w-4 mr-1" />
-								<span className="hidden sm:inline">Clear All</span>
-								<span className="sm:hidden">Clear</span>
-							</Button>
-						</div>
-					)}
-				</div>
+				{hasActiveFilters && (
+					<Button
+						variant="ghost"
+						size="sm"
+						onClick={onClearFilters}
+						className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-9 px-4 font-medium"
+					>
+						<X className="h-4 w-4 mr-1.5" />
+						<span className="hidden sm:inline">Clear All Filters</span>
+						<span className="sm:hidden">Clear</span>
+					</Button>
+				)}
 			</div>
-
-			{/* Active Filters Display */}
-			{hasActiveFilters && (
-				<div className="flex flex-wrap gap-2">
-					{searchQuery && (
-						<Badge variant="outline" className="gap-1">
-							Search: "{searchQuery}"
-							<X
-								className="h-3 w-3 cursor-pointer"
-								onClick={() => onSearchChange("")}
-							/>
-						</Badge>
-					)}
-					{filters.joints.length > 0 && (
-						<Badge variant="outline" className="gap-1">
-							{filters.joints.length} joint
-							{filters.joints.length > 1 ? "s" : ""} selected
-							<X
-								className="h-3 w-3 cursor-pointer"
-								onClick={() => handleJointsChange([])}
-							/>
-						</Badge>
-					)}
-					{filters.category !== "all" && (
-						<Badge variant="outline" className="gap-1">
-							{
-								PRODUCT_CATEGORIES.find((c) => c.value === filters.category)
-									?.label
-							}
-							<X
-								className="h-3 w-3 cursor-pointer"
-								onClick={() => handleCategoryChange("all")}
-							/>
-						</Badge>
-					)}
-					{(filters.priceRange.min > 0 || filters.priceRange.max < 200) && (
-						<Badge variant="outline" className="gap-1">
-							{filters.priceRange.min} - {filters.priceRange.max} EGP
-							<X
-								className="h-3 w-3 cursor-pointer"
-								onClick={() => handlePriceRangeChange([0, 200])}
-							/>
-						</Badge>
-					)}
-					{filters.inStock && (
-						<Badge variant="outline" className="gap-1">
-							In Stock Only
-							<X
-								className="h-3 w-3 cursor-pointer"
-								onClick={() => handleInStockChange(false)}
-							/>
-						</Badge>
-					)}
-				</div>
-			)}
 		</div>
 	);
 }
