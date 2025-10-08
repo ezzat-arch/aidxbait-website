@@ -20,11 +20,27 @@ export function ProductCard({ product, className }: ProductCardProps) {
 	const [isLiked, setIsLiked] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
+	// Compute derived values from new product structure
+	const isInStock =
+		product.is_available && !product.is_oos && product.stock > 0;
+	const effectivePrice = product.discounted_price || product.price;
+	const hasDiscount = !!product.discounted_price;
+	const discountPercentage = hasDiscount
+		? Math.round(
+				((product.price - product.discounted_price!) / product.price) * 100
+		  )
+		: 0;
+	const mainImage =
+		product.images.find((img) => img.is_main)?.image_url ||
+		product.images[0]?.image_url ||
+		"/placeholder.jpg";
+	const primaryJoint = product.joints[0]?.joint_name || "general";
+
 	const handleAddToCart = async (e: React.MouseEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
 
-		if (!product.inStock) return;
+		if (!isInStock) return;
 
 		setIsLoading(true);
 		addToCart(product);
@@ -41,12 +57,6 @@ export function ProductCard({ product, className }: ProductCardProps) {
 		setIsLiked(!isLiked);
 	};
 
-	const discountPercentage = product.originalPrice
-		? Math.round(
-				((product.originalPrice - product.price) / product.originalPrice) * 100
-		  )
-		: 0;
-
 	return (
 		<Card
 			className={`group relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${className}`}
@@ -54,7 +64,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 			<div className="relative aspect-square overflow-hidden">
 				<Link href={`/services/store/products/${product.id}`}>
 					<Image
-						src={product.image}
+						src={mainImage}
 						alt={product.name}
 						fill
 						className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -62,15 +72,37 @@ export function ProductCard({ product, className }: ProductCardProps) {
 					/>
 				</Link>
 
-				{/* Discount Badge */}
-				{discountPercentage > 0 && (
-					<Badge variant="destructive" className="absolute top-2 left-2 z-10">
-						-{discountPercentage}%
-					</Badge>
-				)}
+				{/* Badges */}
+				<div className="absolute top-2 left-2 z-10 flex flex-col gap-2">
+					{/* Discount Badge */}
+					{hasDiscount && (
+						<Badge variant="destructive">-{discountPercentage}%</Badge>
+					)}
+					{/* Best Seller Badge */}
+					{product.is_best_seller && (
+						<Badge className="bg-amber-500 hover:bg-amber-600">
+							Best Seller
+						</Badge>
+					)}
+					{/* Featured Badge */}
+					{product.is_featured && (
+						<Badge className="bg-purple-500 hover:bg-purple-600">
+							Featured
+						</Badge>
+					)}
+					{/* For Rent Badge */}
+					{product.is_for_rent && (
+						<Badge
+							variant="outline"
+							className="bg-background/80 backdrop-blur-sm"
+						>
+							For Rent
+						</Badge>
+					)}
+				</div>
 
 				{/* Stock Status */}
-				{!product.inStock && (
+				{!isInStock && (
 					<Badge
 						variant="outline"
 						className="absolute top-2 right-2 z-10 bg-background/80 backdrop-blur-sm"
@@ -84,7 +116,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 					variant="ghost"
 					size="icon"
 					className={`absolute top-2 right-2 z-10 h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm transition-colors ${
-						!product.inStock ? "top-10 right-2" : ""
+						!isInStock ? "top-10 right-2" : ""
 					} ${
 						isLiked
 							? "text-red-500"
@@ -94,29 +126,29 @@ export function ProductCard({ product, className }: ProductCardProps) {
 				>
 					<Heart className={`h-4 w-4 ${isLiked ? "fill-current" : ""}`} />
 				</Button>
-
-				{/* Quick Add to Cart */}
-				<div className="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-					<Button
-						onClick={handleAddToCart}
-						disabled={!product.inStock || isLoading}
-						className="w-full"
-						size="sm"
-					>
-						<ShoppingCart className="h-4 w-4 mr-2" />
-						{isLoading ? "Adding..." : "Quick Add"}
-					</Button>
-				</div>
 			</div>
 
 			<CardContent className="p-4">
 				<Link href={`/services/store/products/${product.id}`}>
-					{/* Joint Badge */}
-					<Badge variant="secondary" className="mb-2 capitalize">
-						{product.joint === "general"
-							? "All Purpose"
-							: `${product.joint} Support`}
-					</Badge>
+					{/* Joint Badges */}
+					<div className="mb-2 flex flex-wrap gap-1">
+						{product.joints.slice(0, 2).map((joint) => (
+							<Badge
+								key={joint.joint_id}
+								variant="secondary"
+								className="capitalize"
+							>
+								{joint.joint_name === "general"
+									? "All Purpose"
+									: `${joint.joint_name}`}
+							</Badge>
+						))}
+						{product.joints.length > 2 && (
+							<Badge variant="outline" className="text-xs">
+								+{product.joints.length - 2}
+							</Badge>
+						)}
+					</div>
 
 					{/* Product Name */}
 					<h3 className="font-semibold text-lg line-clamp-2 mb-2 group-hover:text-primary transition-colors">
@@ -124,27 +156,29 @@ export function ProductCard({ product, className }: ProductCardProps) {
 					</h3>
 
 					{/* Rating */}
-					<div className="flex items-center gap-1 mb-2">
-						<div className="flex items-center">
-							{[...Array(5)].map((_, i) => (
-								<Star
-									key={i}
-									className={`h-4 w-4 ${
-										i < Math.floor(product.rating)
-											? "text-yellow-400 fill-current"
-											: "text-gray-300"
-									}`}
-								/>
-							))}
+					{product.reviewCount > 0 && (
+						<div className="flex items-center gap-1 mb-2">
+							<div className="flex items-center">
+								{[...Array(5)].map((_, i) => (
+									<Star
+										key={i}
+										className={`h-4 w-4 ${
+											i < Math.floor(product.rating)
+												? "text-yellow-400 fill-current"
+												: "text-gray-300"
+										}`}
+									/>
+								))}
+							</div>
+							<span className="text-sm text-muted-foreground">
+								{product.rating.toFixed(1)} ({product.reviewCount})
+							</span>
 						</div>
-						<span className="text-sm text-muted-foreground">
-							{product.rating} ({product.reviewCount})
-						</span>
-					</div>
+					)}
 
 					{/* Description */}
 					<p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-						{product.description}
+						{product.description || "No description available"}
 					</p>
 				</Link>
 			</CardContent>
@@ -153,28 +187,33 @@ export function ProductCard({ product, className }: ProductCardProps) {
 				<div className="flex flex-col">
 					<div className="flex items-center gap-2">
 						<span className="text-lg font-bold text-primary">
-							{product.price.toFixed(2)} EGP
+							{effectivePrice.toFixed(2)} {product.currency}
 						</span>
-						{product.originalPrice && (
+						{hasDiscount && (
 							<span className="text-sm text-muted-foreground line-through">
-								{product.originalPrice.toFixed(2)} EGP
+								{product.price.toFixed(2)} {product.currency}
 							</span>
 						)}
 					</div>
-					{product.inStock && product.stockCount <= 5 && (
+					{isInStock && product.stock <= 5 && (
 						<span className="text-xs text-amber-600">
-							Only {product.stockCount} left
+							Only {product.stock} left
+						</span>
+					)}
+					{product.is_for_rent && product.rent_term && (
+						<span className="text-xs text-muted-foreground capitalize">
+							{product.rent_term.replace("per_", "/ ")}
 						</span>
 					)}
 				</div>
 
 				<Button
 					onClick={handleAddToCart}
-					disabled={!product.inStock || isLoading}
+					disabled={!isInStock || isLoading}
 					size="sm"
 				>
 					<ShoppingCart className="h-4 w-4 mr-2" />
-					{isLoading ? "Adding..." : "Add to Cart"}
+					{isLoading ? "Adding..." : "Add"}
 				</Button>
 			</CardFooter>
 		</Card>

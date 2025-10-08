@@ -304,15 +304,14 @@ export const DUMMY_PRODUCTS: Product[] = [
 
 export const JOINT_CATEGORIES = [
 	{ value: "all", label: "All Joints", icon: "🔄" },
-	{ value: "knee", label: "Knee", icon: "🦵" },
-	{ value: "shoulder", label: "Shoulder", icon: "💪" },
-	{ value: "back", label: "Back", icon: "🔙" },
-	{ value: "hip", label: "Hip", icon: "🏃" },
-	{ value: "ankle", label: "Ankle", icon: "🦶" },
-	{ value: "wrist", label: "Wrist", icon: "✋" },
-	{ value: "elbow", label: "Elbow", icon: "💪" },
-	{ value: "neck", label: "Neck", icon: "👤" },
-	{ value: "general", label: "General", icon: "🏥" },
+	{ value: "knee", label: "Knee", icon: "/icons/joints/knee.png" },
+	{ value: "shoulder", label: "Shoulder", icon: "/icons/joints/shoulder.png" },
+	{ value: "back", label: "Back", icon: "/icons/joints/back.png" },
+	{ value: "hip", label: "Hip", icon: "/icons/joints/thigh.png" },
+	{ value: "ankle", label: "Ankle", icon: "/icons/joints/ankle.png" },
+	{ value: "wrist", label: "Wrist", icon: "/icons/joints/wrist.png" },
+	{ value: "elbow", label: "Elbow", icon: "/icons/joints/elbow.png" },
+	{ value: "neck", label: "Neck", icon: "/icons/joints/neck.png" },
 ];
 
 export const PRODUCT_CATEGORIES = [

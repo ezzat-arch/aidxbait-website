@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavbarDiv from "@/components/ui/navbar";
 import { CartProvider } from "@/contexts/cart-context";
+import { AuthProvider } from "@/contexts/auth-context";
 import { CartSidebar } from "@/components/store/CartSidebar";
 
 export const metadata: Metadata = {
@@ -31,11 +32,13 @@ export default function RootLayout({
 				/>
 			</head>
 			<body className="font-sans" suppressHydrationWarning={true}>
-				<CartProvider>
-					<NavbarDiv />
-					{children}
-					<CartSidebar />
-				</CartProvider>
+				<AuthProvider>
+					<CartProvider>
+						<NavbarDiv />
+						{children}
+						<CartSidebar />
+					</CartProvider>
+				</AuthProvider>
 			</body>
 		</html>
 	);

@@ -1,32 +1,16 @@
-export interface Product {
-	id: string;
-	name: string;
-	description: string;
-	price: number;
-	originalPrice?: number;
-	image: string;
-	images: string[];
-	category: string;
-	joint: Joint;
-	rating: number;
-	reviewCount: number;
-	features: string[];
-	specifications: { [key: string]: string };
-	inStock: boolean;
-	stockCount: number;
-}
-
-export interface CartItem {
-	product: Product;
-	quantity: number;
-}
-
-export interface Cart {
-	items: CartItem[];
-	total: number;
-	itemCount: number;
-}
-
+// Database types matching the schema
+export type Currency =
+	| "EGP"
+	| "USD"
+	| "EUR"
+	| "GBP"
+	| "AED"
+	| "SAR"
+	| "KWD"
+	| "BHD"
+	| "OMR"
+	| "QAR";
+export type RentTerm = "per_day" | "per_week" | "per_month";
 export type Joint =
 	| "knee"
 	| "shoulder"
@@ -38,16 +22,96 @@ export type Joint =
 	| "neck"
 	| "general";
 
+// Core product data from products table
+export interface Product {
+	id: number;
+	name: string;
+	name_ar: string;
+	description: string | null;
+	description_ar: string | null;
+	price: number;
+	discounted_price: number | null;
+	currency: Currency;
+	stock: number;
+	is_best_seller: boolean;
+	is_featured: boolean;
+	is_available: boolean;
+	is_oos: boolean;
+	is_for_rent: boolean;
+	rent_term: RentTerm | null;
+	tags: string[] | null;
+	soft_deleted: boolean;
+	created_at: string;
+	updated_at: string;
+	// Joined data
+	images: ProductImage[];
+	joints: ProductJoint[];
+	reviews: ProductReview[];
+	// Computed fields
+	rating: number;
+	reviewCount: number;
+}
+
+// Product image from product_images table
+export interface ProductImage {
+	id: number;
+	product_id: number;
+	image_url: string;
+	is_main: boolean;
+	created_at: string;
+	updated_at: string;
+}
+
+// Product joint relationship
+export interface ProductJoint {
+	joint_id: number;
+	joint_name: string;
+	joint_name_ar: string;
+	created_at: string;
+	updated_at: string;
+}
+
+// Product review from product_reviews table
+export interface ProductReview {
+	id: number;
+	product_id: number;
+	patient_id: number;
+	rating: number;
+	comment: string | null;
+	soft_deleted: boolean;
+	created_at: string;
+	updated_at: string;
+	// Optional joined patient data
+	patient_name?: string;
+}
+
+// Cart types
+export interface CartItem {
+	product: Product;
+	quantity: number;
+}
+
+export interface Cart {
+	items: CartItem[];
+	total: number;
+	itemCount: number;
+}
+
+// Filter options
 export interface FilterOptions {
-	joints: Joint[]; // Changed to array for multi-select
+	joints: Joint[];
 	priceRange: {
 		min: number;
 		max: number;
 	};
-	category: string | "all";
 	inStock: boolean;
+	currency?: Currency;
+	isBestSeller?: boolean;
+	isFeatured?: boolean;
+	isForRent?: boolean;
 }
 
+// Checkout form
 export interface CheckoutFormData {
 	email: string;
 	firstName: string;
@@ -57,4 +121,12 @@ export interface CheckoutFormData {
 	state: string;
 	zipCode: string;
 	phone: string;
+}
+
+// API Response types
+export interface ProductsResponse {
+	success: boolean;
+	data?: Product[];
+	error?: string;
+	count?: number;
 }

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Apple, Play, Smartphone } from "lucide-react";
+import { Apple, Play } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const AppDownloadSection = () => {
@@ -69,27 +69,6 @@ export const AppDownloadSection = () => {
 							<div className="text-left">
 								<div className="text-xs opacity-90">Get it on</div>
 								<div className="text-sm font-semibold">Google Play</div>
-							</div>
-						</Button>
-					</motion.div>
-
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.4 }}
-						viewport={{ once: true }}
-						className="w-full sm:w-auto"
-					>
-						<Button
-							size="lg"
-							variant="outline"
-							className="w-full sm:w-auto border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 rounded-lg flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105"
-							onClick={() => window.open("/app/web", "_blank")}
-						>
-							<Smartphone className="h-6 w-6" />
-							<div className="text-left">
-								<div className="text-xs opacity-90">Access via</div>
-								<div className="text-sm font-semibold">Web App</div>
 							</div>
 						</Button>
 					</motion.div>
