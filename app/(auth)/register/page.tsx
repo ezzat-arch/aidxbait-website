@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 import { signup } from "@/lib/auth/actions";
 
-export default function RegisterPage() {
+const RegisterForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -678,4 +678,20 @@ export default function RegisterPage() {
 			</Dialog>
 		</div>
 	);
-}
+};
+
+const RegisterPage = () => {
+	return (
+		<Suspense
+			fallback={
+				<div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-500 to-cyan-500 flex items-center justify-center px-4 py-8">
+					<div className="text-white text-xl">Loading...</div>
+				</div>
+			}
+		>
+			<RegisterForm />
+		</Suspense>
+	);
+};
+
+export default RegisterPage;

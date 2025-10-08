@@ -1,8 +1,12 @@
-export const dynamic = "force-static"; // or remove `dynamic = 'error'` if present
-export const fetchCache = "force-cache"; // if you use fetch() here and want it cached
-
+import { Suspense } from "react";
 import ProvidersClient from "./ProvidersClient";
 
-export default function ProvidersPage() {
-	return <ProvidersClient />;
-}
+const ProvidersPage = () => {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<ProvidersClient />
+		</Suspense>
+	);
+};
+
+export default ProvidersPage;

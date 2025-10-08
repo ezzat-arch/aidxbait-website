@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { login } from "@/lib/auth/actions";
 
-export default function LoginPage() {
+const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const searchParams = useSearchParams();
@@ -225,4 +225,20 @@ export default function LoginPage() {
 			</div>
 		</div>
 	);
-}
+};
+
+const LoginPage = () => {
+	return (
+		<Suspense
+			fallback={
+				<div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-500 to-cyan-500 flex items-center justify-center px-4 py-8">
+					<div className="text-white text-xl">Loading...</div>
+				</div>
+			}
+		>
+			<LoginForm />
+		</Suspense>
+	);
+};
+
+export default LoginPage;
