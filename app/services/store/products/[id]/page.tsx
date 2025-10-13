@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +19,8 @@ import {
 	Calendar,
 	Info,
 	StarHalf,
+	ChevronDown,
+	ChevronUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -28,12 +30,15 @@ import { Product } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
 
 interface ProductPageProps {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
+	// Unwrap params using React.use()
+	const unwrappedParams = use(params);
+
 	const [product, setProduct] = useState<Product | null>(null);
 	const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -44,6 +49,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 	const [quantity, setQuantity] = useState(1);
 	const [isLiked, setIsLiked] = useState(false);
 	const [isAddingToCart, setIsAddingToCart] = useState(false);
+	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
 	// Fetch product and related products
 	useEffect(() => {
@@ -53,7 +59,9 @@ export default function ProductPage({ params }: ProductPageProps) {
 				setError(null);
 
 				// Fetch the specific product
-				const productResponse = await fetch(`/api/products/${params.id}`);
+				const productResponse = await fetch(
+					`/api/products/${unwrappedParams.id}`
+				);
 				const productResult = await productResponse.json();
 
 				if (
@@ -107,7 +115,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 		};
 
 		fetchProduct();
-	}, [params.id]);
+	}, [unwrappedParams.id]);
 
 	// Computed values
 	const isInStock =
@@ -376,16 +384,64 @@ export default function ProductPage({ params }: ProductPageProps) {
 							</div>
 
 							{/* Description */}
-							<div className="space-y-2">
-								<p className="text-muted-foreground text-lg leading-relaxed">
-									{product.description || "No description available"}
-								</p>
+							<div className="space-y-4">
+								{/* Arabic Description (First) */}
 								{product.description_ar && (
-									<p
-										className="text-muted-foreground text-lg leading-relaxed font-arabic"
-										dir="rtl"
+									<div dir="rtl" className="font-arabic">
+										<p className="text-muted-foreground text-lg leading-relaxed whitespace-pre-line">
+											{isDescriptionExpanded
+												? product.description_ar
+												: product.description_ar.length > 200
+												? `${product.description_ar.substring(0, 200)}...`
+												: product.description_ar}
+										</p>
+									</div>
+								)}
+
+								{/* English Description (Second) */}
+								{product.description && (
+									<div>
+										<p className="text-muted-foreground text-lg leading-relaxed whitespace-pre-line">
+											{isDescriptionExpanded
+												? product.description
+												: product.description.length > 200
+												? `${product.description.substring(0, 200)}...`
+												: product.description}
+										</p>
+									</div>
+								)}
+
+								{/* Show "See More/Less" button only if description is long enough */}
+								{((product.description_ar &&
+									product.description_ar.length > 200) ||
+									(product.description &&
+										product.description.length > 200)) && (
+									<Button
+										variant="ghost"
+										size="sm"
+										onClick={() =>
+											setIsDescriptionExpanded(!isDescriptionExpanded)
+										}
+										className="w-full flex items-center justify-center gap-2 hover:bg-primary/10"
 									>
-										{product.description_ar}
+										{isDescriptionExpanded ? (
+											<>
+												<span>See Less</span>
+												<ChevronUp className="h-4 w-4" />
+											</>
+										) : (
+											<>
+												<span>See More</span>
+												<ChevronDown className="h-4 w-4" />
+											</>
+										)}
+									</Button>
+								)}
+
+								{/* Show message if no description */}
+								{!product.description && !product.description_ar && (
+									<p className="text-muted-foreground text-lg leading-relaxed">
+										No description available
 									</p>
 								)}
 							</div>
