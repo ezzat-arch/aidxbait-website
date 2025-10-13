@@ -29,7 +29,7 @@ export default function Home() {
 			{/* <AppDownloadSection /> */}
 			<main>
 				<ServicesSection />
-				<AppFeaturesSection />
+				{/* <AppFeaturesSection /> */}
 				<WhyAidXBaitSection />
 				{/* <HowItWorksSection /> */}
 				{/* <AidxbaitInNumbers /> */}

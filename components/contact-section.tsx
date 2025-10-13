@@ -111,7 +111,7 @@ export function ContactSection() {
 							</div>
 						</div>
 
-						<div className="mt-8 lg:w-1/2 lg:mx-6">
+						{/* <div className="mt-8 lg:w-1/2 lg:mx-6">
 							<div className="w-full px-8 py-10 mx-auto overflow-hidden bg-white shadow-2xl rounded-xl dark:bg-gray-900 lg:max-w-xl">
 								<h1 className="text-xl font-medium text-gray-700 dark:text-gray-200">
 									Contact form
@@ -159,7 +159,7 @@ export function ContactSection() {
 									</Button>
 								</form>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

@@ -8,9 +8,10 @@ interface RouteContext {
 	};
 }
 
-export async function GET(request: NextRequest, { params }: RouteContext) {
+export async function GET(request: NextRequest, context: RouteContext) {
 	try {
 		const supabase = await createClient();
+		const params = await context.params;
 		const productId = parseInt(params.id);
 
 		if (isNaN(productId)) {
