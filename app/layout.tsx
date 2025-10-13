@@ -4,6 +4,7 @@ import NavbarDiv from "@/components/ui/navbar";
 import { CartProvider } from "@/contexts/cart-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { CartSidebar } from "@/components/store/CartSidebar";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
 	title: "AidXBait | Your Health Companion",
@@ -37,6 +38,7 @@ export default function RootLayout({
 						<NavbarDiv />
 						{children}
 						<CartSidebar />
+						<Toaster />
 					</CartProvider>
 				</AuthProvider>
 			</body>

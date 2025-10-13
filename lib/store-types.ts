@@ -130,3 +130,26 @@ export interface ProductsResponse {
 	error?: string;
 	count?: number;
 }
+
+// Cart sync types
+export interface UserCartItem {
+	id: number;
+	user_id: number;
+	product_id: number;
+	quantity: number;
+	added_at: string;
+	updated_at: string;
+}
+
+export interface CartSyncRequest {
+	userId: number;
+	items: Array<{
+		product_id: number;
+		quantity: number;
+	}>;
+}
+
+export interface CartSyncResponse {
+	success: boolean;
+	error?: string;
+}

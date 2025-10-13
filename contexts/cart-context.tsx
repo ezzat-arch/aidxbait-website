@@ -1,7 +1,23 @@
 "use client";
 
-import React, { createContext, useContext, useReducer, ReactNode } from "react";
+import React, {
+	createContext,
+	useContext,
+	useReducer,
+	ReactNode,
+	useEffect,
+	useRef,
+	useCallback,
+} from "react";
 import { Product, CartItem, Cart } from "@/lib/store-types";
+import { useAuth } from "@/contexts/auth-context";
+import {
+	loadCartFromLocalStorage,
+	saveCartToLocalStorage,
+	syncCartToServer,
+	fetchCartFromServer,
+} from "@/lib/cart/cart-service";
+import { toast } from "@/hooks/use-toast";
 
 interface CartContextType {
 	cart: Cart;
@@ -13,6 +29,8 @@ interface CartContextType {
 	openCart: () => void;
 	closeCart: () => void;
 	toggleCart: () => void;
+	isSyncing: boolean;
+	syncError: string | null;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -22,6 +40,7 @@ type CartAction =
 	| { type: "REMOVE_FROM_CART"; productId: number }
 	| { type: "UPDATE_QUANTITY"; productId: number; quantity: number }
 	| { type: "CLEAR_CART" }
+	| { type: "SET_CART"; items: CartItem[] }
 	| { type: "OPEN_CART" }
 	| { type: "CLOSE_CART" }
 	| { type: "TOGGLE_CART" };
@@ -129,6 +148,18 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 				},
 			};
 
+		case "SET_CART": {
+			const { total, itemCount } = calculateCartTotals(action.items);
+			return {
+				...state,
+				cart: {
+					items: action.items,
+					total,
+					itemCount,
+				},
+			};
+		}
+
 		case "OPEN_CART":
 			return {
 				...state,
@@ -167,6 +198,94 @@ interface CartProviderProps {
 
 export function CartProvider({ children }: CartProviderProps) {
 	const [state, dispatch] = useReducer(cartReducer, initialState);
+	const { user, userProfile, loading: authLoading } = useAuth();
+	const [isSyncing, setIsSyncing] = React.useState(false);
+	const [syncError, setSyncError] = React.useState<string | null>(null);
+	const isInitialized = useRef(false);
+	const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const previousUserIdRef = useRef<number | null>(null);
+
+	const performSync = useCallback(
+		async (items: CartItem[]) => {
+			if (!userProfile?.id) return;
+
+			setIsSyncing(true);
+			setSyncError(null);
+
+			try {
+				await syncCartToServer(userProfile.id, items);
+			} catch (error) {
+				console.error("[CartContext] Sync failed:", error);
+				setSyncError(error instanceof Error ? error.message : "Sync failed");
+				toast({
+					title: "Cart sync issue",
+					description: "Failed to sync cart. Your cart is saved locally.",
+					variant: "destructive",
+				});
+			} finally {
+				setIsSyncing(false);
+			}
+		},
+		[userProfile?.id]
+	);
+
+	useEffect(() => {
+		if (authLoading || isInitialized.current) return;
+
+		const localItems = loadCartFromLocalStorage();
+
+		if (localItems.length > 0) {
+			dispatch({ type: "SET_CART", items: localItems });
+		}
+
+		if (userProfile?.id && localItems.length > 0) {
+			performSync(localItems);
+		}
+
+		isInitialized.current = true;
+	}, [authLoading, userProfile?.id, performSync]);
+
+	useEffect(() => {
+		if (authLoading || !isInitialized.current) return;
+
+		const currentUserId = userProfile?.id || null;
+		const previousUserId = previousUserIdRef.current;
+
+		if (currentUserId && currentUserId !== previousUserId) {
+			const localItems = loadCartFromLocalStorage();
+			if (localItems.length > 0) {
+				performSync(localItems);
+			}
+		}
+
+		if (!currentUserId && previousUserId) {
+			console.log("[CartContext] User logged out, keeping localStorage cart");
+		}
+
+		previousUserIdRef.current = currentUserId;
+	}, [userProfile?.id, authLoading, performSync]);
+
+	useEffect(() => {
+		if (!isInitialized.current) return;
+
+		saveCartToLocalStorage(state.cart.items);
+
+		if (syncTimeoutRef.current) {
+			clearTimeout(syncTimeoutRef.current);
+		}
+
+		if (userProfile?.id) {
+			syncTimeoutRef.current = setTimeout(() => {
+				performSync(state.cart.items);
+			}, 300);
+		}
+
+		return () => {
+			if (syncTimeoutRef.current) {
+				clearTimeout(syncTimeoutRef.current);
+			}
+		};
+	}, [state.cart.items, userProfile?.id, performSync]);
 
 	const addToCart = (product: Product, quantity = 1) => {
 		dispatch({ type: "ADD_TO_CART", product, quantity });
@@ -206,6 +325,8 @@ export function CartProvider({ children }: CartProviderProps) {
 		openCart,
 		closeCart,
 		toggleCart,
+		isSyncing,
+		syncError,
 	};
 
 	return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -12,8 +12,13 @@ import { signOut } from "@/lib/auth/actions";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 interface UserProfile {
+	id: number;
+	phone_number: string;
+	email: string | null;
 	first_name: string | null;
 	last_name: string | null;
+	user_type: string;
+	image_url: string | null;
 }
 
 interface AuthContextType {
@@ -68,7 +73,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 						console.log("[AuthContext] Fetching user profile from database...");
 						const { data, error } = await supabase
 							.from("users")
-							.select("first_name, last_name")
+							.select(
+								"id, phone_number, email, first_name, last_name, user_type, image_url"
+							)
 							.eq("supabase_id", user.id)
 							.single();
 
@@ -126,7 +133,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 					);
 					const { data, error } = await supabase
 						.from("users")
-						.select("first_name, last_name")
+						.select(
+							"id, phone_number, email, first_name, last_name, user_type, image_url"
+						)
 						.eq("supabase_id", session.user.id)
 						.single();
 
