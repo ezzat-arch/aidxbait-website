@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -44,6 +44,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const { addToCart, openCart } = useCart();
+	const router = useRouter();
 
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const [quantity, setQuantity] = useState(1);
@@ -141,6 +142,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
 		setTimeout(() => {
 			setIsAddingToCart(false);
+			router.push("/services/store/");
 			openCart();
 		}, 300);
 	};
