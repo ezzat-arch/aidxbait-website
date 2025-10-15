@@ -1,13 +1,5 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import {
-	Calendar,
-	Activity,
-	Video,
-	ShoppingBag,
-	Clock,
-	Smartphone,
-} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
