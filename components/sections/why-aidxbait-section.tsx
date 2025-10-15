@@ -1,7 +1,6 @@
 "use client";
 
-import { HoverEffect } from "./ui/card-hover-effect";
-import { Clock, Users, MapPin, Smartphone } from "lucide-react";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 const whyItems = [
 	{

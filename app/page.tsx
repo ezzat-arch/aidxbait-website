@@ -1,15 +1,12 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { HeroSection } from "@/components/hero-section";
-import { ServicesSection } from "@/components/services-section";
-import { AppFeaturesSection } from "@/components/app-features-section";
-import { WhyAidXBaitSection } from "@/components/why-aidxbait-section";
-import { HowItWorksSection } from "@/components/how-it-works-section";
-import { AppDownloadSection } from "@/components/app-download-section";
-import TestimonialsSection from "@/components/testimonials-section";
-import { ContactSection } from "@/components/contact-section";
-import { Footer } from "@/components/footer";
-import AidxbaitInNumbers from "@/components/ui/aidxbait-in-numbers";
+import { HeroSection } from "@/components/sections/hero-section";
+import { ServicesSection } from "@/components/sections/services-section";
+import { WhyAidXBaitSection } from "@/components/sections/why-aidxbait-section";
+import { ContactSection } from "@/components/sections/contact-section";
+import { Footer } from "@/components/layout/footer";
+// import { AidXbaitMetricsSection } from "@/components/sections/aidxbait-metrics-section";
+// import { TestimonialsSection } from "@/components/sections/testimonials-section";
 
 export default function Home() {
 	const sentinelRef = useRef<HTMLDivElement | null>(null);
@@ -25,17 +22,14 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col min-h-screen">
-			<HeroSection sentinelRef={sentinelRef} />
-			{/* <AppDownloadSection /> */}
-			<main>
-				<ServicesSection />
-				{/* <AppFeaturesSection /> */}
-				<WhyAidXBaitSection />
-				{/* <HowItWorksSection /> */}
-				{/* <AidxbaitInNumbers /> */}
-				{/* <TestimonialsSection /> */}
-				<ContactSection />
-			</main>
+                        <HeroSection sentinelRef={sentinelRef} />
+                        <main>
+                                <ServicesSection />
+                                <WhyAidXBaitSection />
+                                {/* <AidXbaitMetricsSection /> */}
+                                {/* <TestimonialsSection /> */}
+                                <ContactSection />
+                        </main>
 			<Footer />
 		</div>
 	);
