@@ -35,6 +35,7 @@ const LoginForm = () => {
 	const message = searchParams.get("message")
 		? decodeURIComponent(searchParams.get("message")!)
 		: null;
+	const redirect = searchParams.get("redirect") || null;
 
 	const handleSubmit = async (formData: FormData) => {
 		setIsLoading(true);
@@ -96,6 +97,11 @@ const LoginForm = () => {
 						)}
 
 						<form action={handleSubmit} className="space-y-8">
+							{/* Hidden redirect field */}
+							{redirect && (
+								<input type="hidden" name="redirect" value={redirect} />
+							)}
+
 							{/* Email Field */}
 							<div className="space-y-3">
 								<Label
@@ -195,7 +201,11 @@ const LoginForm = () => {
 							<p className="text-slate-600">
 								Don't have an account?{" "}
 								<Link
-									href="/register"
+									href={
+										redirect
+											? `/register?redirect=${encodeURIComponent(redirect)}`
+											: "/register"
+									}
 									className="font-semibold text-blue-600 hover:text-blue-500 transition-colors tracking-wide"
 								>
 									Create an account for free

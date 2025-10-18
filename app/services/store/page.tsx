@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { HorizontalFilters } from "@/components/store/HorizontalFilters";
 import { FilterOptions, Product } from "@/lib/store-types";
+import { useCart } from "@/contexts/cart-context";
 
 const initialFilters: FilterOptions = {
 	joints: [],
@@ -17,6 +19,21 @@ export default function StorePage() {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const { openCart } = useCart();
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const hasHandledCartOpen = useRef(false);
+
+	// Auto-open cart drawer if openCart param is present
+	useEffect(() => {
+		const shouldOpenCart = searchParams.get("openCart");
+		if (shouldOpenCart === "true" && !hasHandledCartOpen.current) {
+			hasHandledCartOpen.current = true;
+			openCart();
+			// Clean up URL without adding to history
+			router.replace("/services/store");
+		}
+	}, [searchParams, openCart, router]);
 
 	// Fetch products from API
 	useEffect(() => {

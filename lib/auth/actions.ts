@@ -10,10 +10,15 @@ export const login = async (formData: FormData) => {
 	// Extract and validate form data
 	const email = formData.get("email") as string;
 	const password = formData.get("password") as string;
+	const redirectTo = formData.get("redirect") as string | null;
 
 	// Basic validation
 	if (!email?.trim() || !password?.trim()) {
-		redirect("/login?error=Email and password are required");
+		const params = new URLSearchParams({
+			error: "Email and password are required",
+		});
+		if (redirectTo) params.set("redirect", redirectTo);
+		redirect(`/login?${params.toString()}`);
 	}
 
 	const { data, error } = await supabase.auth.signInWithPassword({
@@ -54,7 +59,7 @@ export const login = async (formData: FormData) => {
 
 					if (!retryError && retryData.user) {
 						revalidatePath("/", "layout");
-						redirect("/");
+						redirect(redirectTo || "/");
 					}
 				}
 			} catch (confirmError) {
@@ -63,17 +68,22 @@ export const login = async (formData: FormData) => {
 		}
 
 		// Use the actual error message from Supabase
-		const errorMessage = encodeURIComponent(error.message);
-		redirect(`/login?error=${errorMessage}`);
+		const params = new URLSearchParams({ error: error.message });
+		if (redirectTo) params.set("redirect", redirectTo);
+		redirect(`/login?${params.toString()}`);
 	}
 
 	// Check if user exists
 	if (!data.user) {
-		redirect("/login?error=Login failed. Please try again.");
+		const params = new URLSearchParams({
+			error: "Login failed. Please try again.",
+		});
+		if (redirectTo) params.set("redirect", redirectTo);
+		redirect(`/login?${params.toString()}`);
 	}
 
 	revalidatePath("/", "layout");
-	redirect("/");
+	redirect(redirectTo || "/");
 };
 
 export const signup = async (formData: FormData) => {
@@ -85,6 +95,7 @@ export const signup = async (formData: FormData) => {
 	const email = formData.get("email") as string;
 	const phone = formData.get("phone") as string;
 	const password = formData.get("password") as string;
+	const redirectTo = formData.get("redirect") as string | null;
 
 	// Validate required fields
 	if (
@@ -94,7 +105,9 @@ export const signup = async (formData: FormData) => {
 		!phone?.trim() ||
 		!password?.trim()
 	) {
-		redirect("/register?error=All fields are required");
+		const params = new URLSearchParams({ error: "All fields are required" });
+		if (redirectTo) params.set("redirect", redirectTo);
+		redirect(`/register?${params.toString()}`);
 	}
 
 	try {
@@ -105,11 +118,17 @@ export const signup = async (formData: FormData) => {
 		});
 
 		if (authError) {
-			redirect(`/register?error=${encodeURIComponent(authError.message)}`);
+			const params = new URLSearchParams({ error: authError.message });
+			if (redirectTo) params.set("redirect", redirectTo);
+			redirect(`/register?${params.toString()}`);
 		}
 
 		if (!authData.user?.id) {
-			redirect("/register?error=Failed to create user account");
+			const params = new URLSearchParams({
+				error: "Failed to create user account",
+			});
+			if (redirectTo) params.set("redirect", redirectTo);
+			redirect(`/register?${params.toString()}`);
 		}
 
 		// Step 2: Create database records in a transaction using RPC
@@ -128,16 +147,27 @@ export const signup = async (formData: FormData) => {
 			// If database creation fails, we should ideally clean up the auth user
 			// For now, log the error and redirect with a message
 			console.error("Database error:", dbError);
-			redirect(
-				"/register?error=Account created but profile setup failed. Please contact support."
-			);
+			const params = new URLSearchParams({
+				error:
+					"Account created but profile setup failed. Please contact support.",
+			});
+			if (redirectTo) params.set("redirect", redirectTo);
+			redirect(`/register?${params.toString()}`);
 		}
 
 		revalidatePath("/", "layout");
-		redirect("/login?message=Check your email to confirm your account");
+		const params = new URLSearchParams({
+			message: "Check your email to confirm your account",
+		});
+		if (redirectTo) params.set("redirect", redirectTo);
+		redirect(`/login?${params.toString()}`);
 	} catch (error) {
 		console.error("Signup error:", error);
-		redirect("/register?error=An unexpected error occurred. Please try again.");
+		const params = new URLSearchParams({
+			error: "An unexpected error occurred. Please try again.",
+		});
+		if (redirectTo) params.set("redirect", redirectTo);
+		redirect(`/register?${params.toString()}`);
 	}
 };
 

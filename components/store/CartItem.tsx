@@ -14,8 +14,8 @@ interface CartItemProps {
 }
 
 export function CartItem({ item, className }: CartItemProps) {
-	const { updateQuantity, removeFromCart } = useCart();
-	const { product, quantity } = item;
+	const { updateQuantity, removeFromCart, updateRentalWeeks } = useCart();
+	const { product, quantity, rental_weeks } = item;
 
 	// Compute derived values
 	const effectivePrice = product.discounted_price || product.price;
@@ -31,6 +31,12 @@ export function CartItem({ item, className }: CartItemProps) {
 			removeFromCart(product.id);
 		} else {
 			updateQuantity(product.id, newQuantity);
+		}
+	};
+
+	const handleRentalWeeksChange = (weeks: number) => {
+		if (weeks > 0) {
+			updateRentalWeeks(product.id, weeks);
 		}
 	};
 
@@ -72,6 +78,11 @@ export function CartItem({ item, className }: CartItemProps) {
 										: joint.joint_name}
 								</Badge>
 							))}
+							{product.is_for_rent && (
+								<Badge variant="outline" className="text-xs">
+									For Rent
+								</Badge>
+							)}
 						</div>
 					</div>
 
@@ -125,10 +136,60 @@ export function CartItem({ item, className }: CartItemProps) {
 					</div>
 				</div>
 
+				{/* Rental Weeks Control */}
+				{product.is_for_rent && rental_weeks !== undefined && (
+					<div className="flex items-center gap-2 mt-2">
+						<span className="text-xs text-muted-foreground">
+							Rental Period:
+						</span>
+						<div className="flex items-center gap-1">
+							<Button
+								variant="outline"
+								size="icon"
+								className="h-6 w-6"
+								onClick={() => handleRentalWeeksChange(rental_weeks - 1)}
+								disabled={rental_weeks <= 1}
+							>
+								<Minus className="h-3 w-3" />
+							</Button>
+
+							<input
+								type="number"
+								min="1"
+								max="52"
+								value={rental_weeks}
+								onChange={(e) =>
+									handleRentalWeeksChange(
+										Math.max(1, parseInt(e.target.value) || 1)
+									)
+								}
+								className="w-12 h-6 text-center text-xs border border-input rounded px-1 bg-background"
+							/>
+
+							<Button
+								variant="outline"
+								size="icon"
+								className="h-6 w-6"
+								onClick={() => handleRentalWeeksChange(rental_weeks + 1)}
+								disabled={rental_weeks >= 52}
+							>
+								<Plus className="h-3 w-3" />
+							</Button>
+
+							<span className="text-xs text-muted-foreground ml-1">
+								{rental_weeks === 1 ? "week" : "weeks"}
+							</span>
+						</div>
+					</div>
+				)}
+
 				{/* Item Total */}
 				<div className="flex justify-between items-center mt-2">
 					<div className="text-xs text-muted-foreground">
 						{quantity} × {effectivePrice.toFixed(2)} {product.currency}
+						{product.is_for_rent &&
+							rental_weeks &&
+							` × ${rental_weeks} ${rental_weeks === 1 ? "week" : "weeks"}`}
 					</div>
 					<div className="font-semibold">
 						{total.toFixed(2)} {product.currency}

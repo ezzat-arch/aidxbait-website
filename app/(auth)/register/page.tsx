@@ -56,6 +56,7 @@ const RegisterForm = () => {
 
 	const error = searchParams.get("error");
 	const message = searchParams.get("message");
+	const redirect = searchParams.get("redirect") || null;
 
 	const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -215,7 +216,10 @@ const RegisterForm = () => {
 	const handleSuccessDialogClose = () => {
 		setShowSuccessDialog(false);
 		clearForm();
-		router.push("/login");
+		const loginUrl = redirect
+			? `/login?redirect=${encodeURIComponent(redirect)}`
+			: "/login";
+		router.push(loginUrl);
 	};
 
 	const handleErrorDialogClose = () => {
@@ -611,7 +615,11 @@ const RegisterForm = () => {
 							<p className="text-slate-600">
 								Already have an account?{" "}
 								<Link
-									href="/login"
+									href={
+										redirect
+											? `/login?redirect=${encodeURIComponent(redirect)}`
+											: "/login"
+									}
 									className="font-semibold text-blue-600 hover:text-blue-500 transition-colors tracking-wide"
 								>
 									Log in here

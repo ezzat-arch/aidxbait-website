@@ -89,6 +89,9 @@ export interface ProductReview {
 export interface CartItem {
 	product: Product;
 	quantity: number;
+	rental_weeks?: number; // Number of weeks for rental products
+	rental_start_date?: string; // ISO date string for rental products (calculated at checkout)
+	rental_end_date?: string; // ISO date string for rental products (calculated at checkout)
 }
 
 export interface Cart {
@@ -146,6 +149,7 @@ export interface CartSyncRequest {
 	items: Array<{
 		product_id: number;
 		quantity: number;
+		rental_weeks?: number;
 	}>;
 }
 

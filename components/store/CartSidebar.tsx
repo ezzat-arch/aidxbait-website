@@ -11,14 +11,29 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCart } from "@/contexts/cart-context";
+import { useAuth } from "@/contexts/auth-context";
 import { CartItem } from "./CartItem";
 import { CartSummary } from "./CartSummary";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function CartSidebar() {
 	const { cart, isCartOpen, closeCart, clearCart } = useCart();
+	const { user } = useAuth();
+	const router = useRouter();
 
 	const isEmpty = cart.items.length === 0;
+
+	const handleProceedToCheckout = () => {
+		closeCart();
+		if (!user) {
+			router.push(
+				`/login?redirect=${encodeURIComponent("/services/store/checkout")}`
+			);
+		} else {
+			router.push("/services/store/checkout");
+		}
+	};
 
 	return (
 		<Sheet open={isCartOpen} onOpenChange={closeCart}>
@@ -73,10 +88,12 @@ export function CartSidebar() {
 							<CartSummary cart={cart} />
 
 							<div className="space-y-2">
-								<Button asChild className="w-full" size="lg">
-									<Link href="/services/store/checkout" onClick={closeCart}>
-										Proceed to Checkout
-									</Link>
+								<Button
+									className="w-full"
+									size="lg"
+									onClick={handleProceedToCheckout}
+								>
+									Proceed to Checkout
 								</Button>
 
 								<Button

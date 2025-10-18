@@ -19,6 +19,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 	const { addToCart } = useCart();
 	const [isLiked, setIsLiked] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [rentalWeeks, setRentalWeeks] = useState(1);
 
 	// Compute derived values from new product structure
 	const isInStock =
@@ -43,7 +44,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
 		if (!isInStock) return;
 
 		setIsLoading(true);
-		addToCart(product);
+		// Pass rental weeks if product is for rent
+		addToCart(product, 1, product.is_for_rent ? rentalWeeks : undefined);
 
 		// Simulate a brief loading state for better UX
 		setTimeout(() => {
@@ -183,38 +185,67 @@ export function ProductCard({ product, className }: ProductCardProps) {
 				</Link>
 			</CardContent>
 
-			<CardFooter className="p-4 pt-0 flex justify-between items-center">
-				<div className="flex flex-col">
-					<div className="flex items-center gap-2">
-						<span className="text-lg font-bold text-primary">
-							{effectivePrice.toFixed(2)} {product.currency}
-						</span>
-						{hasDiscount && (
-							<span className="text-sm text-muted-foreground line-through">
-								{product.price.toFixed(2)} {product.currency}
+			<CardFooter className="p-4 pt-0 flex flex-col gap-3">
+				<div className="flex justify-between items-center w-full">
+					<div className="flex flex-col">
+						<div className="flex items-center gap-2">
+							<span className="text-lg font-bold text-primary">
+								{effectivePrice.toFixed(2)} {product.currency}
+							</span>
+							{hasDiscount && (
+								<span className="text-sm text-muted-foreground line-through">
+									{product.price.toFixed(2)} {product.currency}
+								</span>
+							)}
+						</div>
+						{isInStock && product.stock <= 5 && (
+							<span className="text-xs text-amber-600">
+								Only {product.stock} left
+							</span>
+						)}
+						{product.is_for_rent && product.rent_term && (
+							<span className="text-xs text-muted-foreground capitalize">
+								{product.rent_term.replace("per_", "/ ")}
 							</span>
 						)}
 					</div>
-					{isInStock && product.stock <= 5 && (
-						<span className="text-xs text-amber-600">
-							Only {product.stock} left
-						</span>
-					)}
-					{product.is_for_rent && product.rent_term && (
-						<span className="text-xs text-muted-foreground capitalize">
-							{product.rent_term.replace("per_", "/ ")}
-						</span>
-					)}
+
+					<Button
+						onClick={handleAddToCart}
+						disabled={!isInStock || isLoading}
+						size="sm"
+					>
+						<ShoppingCart className="h-4 w-4 mr-2" />
+						{isLoading ? "Adding..." : "Add"}
+					</Button>
 				</div>
 
-				<Button
-					onClick={handleAddToCart}
-					disabled={!isInStock || isLoading}
-					size="sm"
-				>
-					<ShoppingCart className="h-4 w-4 mr-2" />
-					{isLoading ? "Adding..." : "Add"}
-				</Button>
+				{/* Rental Weeks Input */}
+				{product.is_for_rent && isInStock && (
+					<div className="flex items-center gap-2 w-full">
+						<label
+							htmlFor={`rental-weeks-${product.id}`}
+							className="text-sm font-medium text-muted-foreground whitespace-nowrap"
+						>
+							Rental Period:
+						</label>
+						<input
+							id={`rental-weeks-${product.id}`}
+							type="number"
+							min="1"
+							max="52"
+							value={rentalWeeks}
+							onChange={(e) =>
+								setRentalWeeks(Math.max(1, parseInt(e.target.value) || 1))
+							}
+							onClick={(e) => e.stopPropagation()}
+							className="flex h-9 w-20 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+						/>
+						<span className="text-sm text-muted-foreground">
+							{rentalWeeks === 1 ? "week" : "weeks"}
+						</span>
+					</div>
+				)}
 			</CardFooter>
 		</Card>
 	);

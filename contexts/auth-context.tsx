@@ -13,6 +13,7 @@ import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 interface UserProfile {
 	id: number;
+	patient_id: number;
 	phone_number: string;
 	email: string | null;
 	first_name: string | null;
@@ -74,7 +75,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 						const { data, error } = await supabase
 							.from("users")
 							.select(
-								"id, phone_number, email, first_name, last_name, user_type, image_url"
+								"id, phone_number, email, first_name, last_name, user_type, image_url, patients!inner(id)"
 							)
 							.eq("supabase_id", user.id)
 							.single();
@@ -83,7 +84,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 							console.error("[AuthContext] Profile fetch error:", error);
 						} else {
 							console.log("[AuthContext] Profile fetched:", data);
-							setUserProfile(data);
+							// Extract patient_id from the nested patients object
+							const profileData = {
+								...data,
+								patient_id: (data as any).patients?.id,
+							};
+							delete (profileData as any).patients;
+							setUserProfile(profileData);
 						}
 					} catch (profileError) {
 						console.error(
@@ -134,7 +141,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 					const { data, error } = await supabase
 						.from("users")
 						.select(
-							"id, phone_number, email, first_name, last_name, user_type, image_url"
+							"id, phone_number, email, first_name, last_name, user_type, image_url, patients!inner(id)"
 						)
 						.eq("supabase_id", session.user.id)
 						.single();
@@ -146,7 +153,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 						);
 					} else {
 						console.log("[AuthContext] Profile fetched (auth change):", data);
-						setUserProfile(data);
+						// Extract patient_id from the nested patients object
+						const profileData = {
+							...data,
+							patient_id: (data as any).patients?.id,
+						};
+						delete (profileData as any).patients;
+						setUserProfile(profileData);
 					}
 				} catch (profileError) {
 					console.error(

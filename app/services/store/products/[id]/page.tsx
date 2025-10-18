@@ -43,7 +43,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 	const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const { addToCart, openCart } = useCart();
+	const { addToCart } = useCart();
 	const router = useRouter();
 
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -142,8 +142,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
 		setTimeout(() => {
 			setIsAddingToCart(false);
-			router.push("/services/store/");
-			openCart();
+			router.push("/services/store?openCart=true");
 		}, 300);
 	};
 
