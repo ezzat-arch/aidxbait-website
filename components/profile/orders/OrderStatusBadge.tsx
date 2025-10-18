@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { OrderStatus, PaymentStatus } from "@/lib/order-types";
+import { OrderStatus, PaymentStatus, PaymentMethod } from "@/lib/order-types";
 
 interface OrderStatusBadgeProps {
 	status: OrderStatus;
@@ -8,6 +8,7 @@ interface OrderStatusBadgeProps {
 
 interface PaymentStatusBadgeProps {
 	status: PaymentStatus;
+	paymentMethod?: PaymentMethod;
 	className?: string;
 }
 
@@ -32,15 +33,15 @@ export function OrderStatusBadge({ status, className }: OrderStatusBadgeProps) {
 	const getStatusText = (status: OrderStatus) => {
 		switch (status) {
 			case "pending":
-				return "Pending";
+				return "Order: Awaiting Confirmation";
 			case "confirmed":
-				return "Confirmed";
+				return "Order: Confirmed";
 			case "shipped":
-				return "Shipped";
+				return "Order: Shipped";
 			case "delivered":
-				return "Delivered";
+				return "Order: Delivered";
 			case "cancelled":
-				return "Cancelled";
+				return "Order: Cancelled";
 			default:
 				return status;
 		}
@@ -58,6 +59,7 @@ export function OrderStatusBadge({ status, className }: OrderStatusBadgeProps) {
 
 export function PaymentStatusBadge({
 	status,
+	paymentMethod,
 	className,
 }: PaymentStatusBadgeProps) {
 	const getStatusColor = (status: PaymentStatus) => {
@@ -73,14 +75,19 @@ export function PaymentStatusBadge({
 		}
 	};
 
-	const getStatusText = (status: PaymentStatus) => {
+	const getStatusText = (
+		status: PaymentStatus,
+		paymentMethod?: PaymentMethod
+	) => {
 		switch (status) {
 			case "pending":
-				return "Pending";
+				return paymentMethod === "cash_on_delivery"
+					? "Payment: On delivery"
+					: "Payment: Pending";
 			case "paid":
-				return "Paid";
+				return "Payment: Completed";
 			case "failed":
-				return "Failed";
+				return "Payment: Failed";
 			default:
 				return status;
 		}
@@ -91,7 +98,7 @@ export function PaymentStatusBadge({
 			variant="outline"
 			className={`${getStatusColor(status)} ${className}`}
 		>
-			{getStatusText(status)}
+			{getStatusText(status, paymentMethod)}
 		</Badge>
 	);
 }

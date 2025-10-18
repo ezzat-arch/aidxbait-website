@@ -74,12 +74,12 @@ export default function ProfileLayout({
 	);
 
 	return (
-		<div className="min-h-screen bg-background pt-20">
+		<div className="min-h-screen bg-background pt-28">
 			<div className="container mx-auto px-4 py-8">
 				<div className="flex flex-col lg:flex-row gap-8">
 					{/* Desktop Sidebar */}
 					<aside className="hidden lg:block w-64 flex-shrink-0">
-						<div className="sticky top-24 space-y-2">
+						<div className="sticky top-32 space-y-2">
 							<div className="mb-6">
 								<h2 className="text-2xl font-bold mb-2">My Account</h2>
 								<p className="text-sm text-muted-foreground">

@@ -43,7 +43,10 @@ export function OrderCard({ order }: OrderCardProps) {
 					</div>
 					<div className="flex flex-col items-end gap-2">
 						<OrderStatusBadge status={order.order_status} />
-						<PaymentStatusBadge status={order.payment_status} />
+						<PaymentStatusBadge
+							status={order.payment_status}
+							paymentMethod={order.payment_method}
+						/>
 					</div>
 				</div>
 			</CardHeader>
@@ -57,7 +60,7 @@ export function OrderCard({ order }: OrderCardProps) {
 					</div>
 					<div className="flex items-center gap-2 text-muted-foreground capitalize">
 						<CreditCard className="h-4 w-4" />
-						<span>{order.payment_method.replace("_", " ")}</span>
+						<span>{order.payment_method.replace(/_/g, " ")}</span>
 					</div>
 				</div>
 

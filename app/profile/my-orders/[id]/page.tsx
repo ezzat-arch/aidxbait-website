@@ -96,7 +96,10 @@ export default function OrderDetailsPage() {
 					</div>
 					<div className="flex flex-col gap-2">
 						<OrderStatusBadge status={order.order_status} />
-						<PaymentStatusBadge status={order.payment_status} />
+						<PaymentStatusBadge
+							status={order.payment_status}
+							paymentMethod={order.payment_method}
+						/>
 					</div>
 				</div>
 			</div>
@@ -114,9 +117,13 @@ export default function OrderDetailsPage() {
 						</CardHeader>
 						<CardContent className="space-y-4">
 							{order.order_items?.map((item) => {
+								// API returns 'products' (plural) with nested 'product_images'
+								const product = (item as any).products || item.product;
+								const productImages =
+									product?.product_images || product?.images || [];
 								const mainImage =
-									item.product?.images?.find((img) => img.is_main)?.image_url ||
-									item.product?.images?.[0]?.image_url ||
+									productImages?.find((img: any) => img.is_main)?.image_url ||
+									productImages?.[0]?.image_url ||
 									"/placeholder.jpg";
 
 								return (
@@ -124,27 +131,34 @@ export default function OrderDetailsPage() {
 										<div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
 											<Image
 												src={mainImage}
-												alt={item.product?.name || "Product"}
+												alt={product?.name || "Product"}
 												fill
 												className="object-cover"
 												sizes="80px"
+												unoptimized
+												onError={(e) => {
+													const target = e.currentTarget;
+													// Prevent infinite loop: only set fallback if not already on placeholder
+													if (!target.src.includes("placeholder.jpg")) {
+														target.src = "/placeholder.jpg";
+													}
+												}}
 											/>
 										</div>
 										<div className="flex-1 min-w-0">
 											<h4 className="font-medium line-clamp-2">
-												{item.product?.name}
+												{product?.name}
 											</h4>
 											<div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
 												<span>Quantity: {item.quantity}</span>
-												{item.product?.is_for_rent &&
-													item.rental_start_date && (
-														<>
-															<span>•</span>
-															<Badge variant="outline" className="text-xs">
-																Rental
-															</Badge>
-														</>
-													)}
+												{product?.is_for_rent && item.rental_start_date && (
+													<>
+														<span>•</span>
+														<Badge variant="outline" className="text-xs">
+															Rental
+														</Badge>
+													</>
+												)}
 											</div>
 											{item.rental_start_date && item.rental_end_date && (
 												<p className="text-xs text-muted-foreground mt-1">
@@ -228,18 +242,15 @@ export default function OrderDetailsPage() {
 							<div className="flex justify-between text-sm">
 								<span className="text-muted-foreground">Method</span>
 								<span className="capitalize">
-									{order.payment_method.replace("_", " ")}
+									{order.payment_method.replace(/_/g, " ")}
 								</span>
 							</div>
 							<div className="flex justify-between text-sm">
 								<span className="text-muted-foreground">Status</span>
-								<PaymentStatusBadge status={order.payment_status} />
-							</div>
-							<div className="flex justify-between text-sm">
-								<span className="text-muted-foreground">Type</span>
-								<Badge variant="outline" className="capitalize">
-									{order.order_type}
-								</Badge>
+								<PaymentStatusBadge
+									status={order.payment_status}
+									paymentMethod={order.payment_method}
+								/>
 							</div>
 						</CardContent>
 					</Card>

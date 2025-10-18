@@ -64,6 +64,11 @@ export interface OrderItem {
 			image_url: string;
 			is_main: boolean;
 		}>;
+		product_images?: Array<{
+			id: number;
+			image_url: string;
+			is_main: boolean;
+		}>;
 	};
 }
 
