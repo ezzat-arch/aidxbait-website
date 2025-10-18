@@ -10,7 +10,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut, Settings, UserCircle } from "lucide-react";
+import { LogOut, Settings, UserCircle, Package, MapPin } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 
 export const UserNav = () => {
@@ -110,6 +110,19 @@ export const UserNav = () => {
 						)}
 					</div>
 				</div>
+				<DropdownMenuSeparator />
+				<DropdownMenuItem asChild>
+					<Link href="/profile/my-orders" className="flex items-center">
+						<Package className="mr-2 h-4 w-4" />
+						<span>My Orders</span>
+					</Link>
+				</DropdownMenuItem>
+				<DropdownMenuItem asChild>
+					<Link href="/profile/addresses" className="flex items-center">
+						<MapPin className="mr-2 h-4 w-4" />
+						<span>My Addresses</span>
+					</Link>
+				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
 					<Link href="/settings" className="flex items-center">

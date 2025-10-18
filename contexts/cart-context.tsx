@@ -21,9 +21,14 @@ import { toast } from "@/hooks/use-toast";
 
 interface CartContextType {
 	cart: Cart;
-	addToCart: (product: Product, quantity?: number) => void;
+	addToCart: (
+		product: Product,
+		quantity?: number,
+		rentalWeeks?: number
+	) => void;
 	removeFromCart: (productId: number) => void;
 	updateQuantity: (productId: number, quantity: number) => void;
+	updateRentalWeeks: (productId: number, weeks: number) => void;
 	clearCart: () => void;
 	isCartOpen: boolean;
 	openCart: () => void;
@@ -36,9 +41,15 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 type CartAction =
-	| { type: "ADD_TO_CART"; product: Product; quantity?: number }
+	| {
+			type: "ADD_TO_CART";
+			product: Product;
+			quantity?: number;
+			rentalWeeks?: number;
+	  }
 	| { type: "REMOVE_FROM_CART"; productId: number }
 	| { type: "UPDATE_QUANTITY"; productId: number; quantity: number }
+	| { type: "UPDATE_RENTAL_WEEKS"; productId: number; weeks: number }
 	| { type: "CLEAR_CART" }
 	| { type: "SET_CART"; items: CartItem[] }
 	| { type: "OPEN_CART" }
@@ -74,13 +85,24 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 			if (existingItemIndex >= 0) {
 				newItems = state.cart.items.map((item, index) =>
 					index === existingItemIndex
-						? { ...item, quantity: item.quantity + (action.quantity || 1) }
+						? {
+								...item,
+								quantity: item.quantity + (action.quantity || 1),
+								rental_weeks:
+									action.rentalWeeks !== undefined
+										? action.rentalWeeks
+										: item.rental_weeks,
+						  }
 						: item
 				);
 			} else {
 				newItems = [
 					...state.cart.items,
-					{ product: action.product, quantity: action.quantity || 1 },
+					{
+						product: action.product,
+						quantity: action.quantity || 1,
+						rental_weeks: action.rentalWeeks,
+					},
 				];
 			}
 
@@ -123,6 +145,25 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 			const newItems = state.cart.items.map((item) =>
 				item.product.id === action.productId
 					? { ...item, quantity: action.quantity }
+					: item
+			);
+
+			const { total, itemCount } = calculateCartTotals(newItems);
+
+			return {
+				...state,
+				cart: {
+					items: newItems,
+					total,
+					itemCount,
+				},
+			};
+		}
+
+		case "UPDATE_RENTAL_WEEKS": {
+			const newItems = state.cart.items.map((item) =>
+				item.product.id === action.productId
+					? { ...item, rental_weeks: action.weeks }
 					: item
 			);
 
@@ -287,8 +328,8 @@ export function CartProvider({ children }: CartProviderProps) {
 		};
 	}, [state.cart.items, userProfile?.id, performSync]);
 
-	const addToCart = (product: Product, quantity = 1) => {
-		dispatch({ type: "ADD_TO_CART", product, quantity });
+	const addToCart = (product: Product, quantity = 1, rentalWeeks?: number) => {
+		dispatch({ type: "ADD_TO_CART", product, quantity, rentalWeeks });
 	};
 
 	const removeFromCart = (productId: number) => {
@@ -297,6 +338,10 @@ export function CartProvider({ children }: CartProviderProps) {
 
 	const updateQuantity = (productId: number, quantity: number) => {
 		dispatch({ type: "UPDATE_QUANTITY", productId, quantity });
+	};
+
+	const updateRentalWeeks = (productId: number, weeks: number) => {
+		dispatch({ type: "UPDATE_RENTAL_WEEKS", productId, weeks });
 	};
 
 	const clearCart = () => {
@@ -320,6 +365,7 @@ export function CartProvider({ children }: CartProviderProps) {
 		addToCart,
 		removeFromCart,
 		updateQuantity,
+		updateRentalWeeks,
 		clearCart,
 		isCartOpen: state.isCartOpen,
 		openCart,

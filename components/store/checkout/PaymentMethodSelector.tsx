@@ -1,0 +1,79 @@
+"use client";
+
+import { PaymentMethod } from "@/lib/order-types";
+import { Card, CardContent } from "@/components/ui/card";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Banknote, CreditCard } from "lucide-react";
+
+interface PaymentMethodSelectorProps {
+	selectedMethod: PaymentMethod;
+	onSelectMethod: (method: PaymentMethod) => void;
+}
+
+export function PaymentMethodSelector({
+	selectedMethod,
+	onSelectMethod,
+}: PaymentMethodSelectorProps) {
+	const paymentMethods = [
+		{
+			value: "cash_on_delivery" as PaymentMethod,
+			label: "Cash on Delivery",
+			description: "Pay when you receive your order",
+			icon: Banknote,
+		},
+		{
+			value: "online" as PaymentMethod,
+			label: "Online Payment",
+			description: "Pay securely online (Coming soon)",
+			icon: CreditCard,
+			disabled: true,
+		},
+	];
+
+	return (
+		<RadioGroup
+			value={selectedMethod}
+			onValueChange={(value) => onSelectMethod(value as PaymentMethod)}
+			className="space-y-3"
+		>
+			{paymentMethods.map((method) => (
+				<Card
+					key={method.value}
+					className={`cursor-pointer transition-colors ${
+						method.disabled
+							? "opacity-50 cursor-not-allowed"
+							: selectedMethod === method.value
+							? "border-primary bg-primary/5"
+							: "hover:border-primary/50"
+					}`}
+				>
+					<CardContent className="p-4">
+						<div className="flex items-start gap-3">
+							<RadioGroupItem
+								value={method.value}
+								id={`payment-${method.value}`}
+								className="mt-1"
+								disabled={method.disabled}
+							/>
+							<Label
+								htmlFor={`payment-${method.value}`}
+								className={`flex-1 ${
+									method.disabled ? "cursor-not-allowed" : "cursor-pointer"
+								}`}
+							>
+								<div className="flex items-center gap-2 mb-1">
+									<method.icon className="h-5 w-5 text-muted-foreground" />
+									<span className="font-medium">{method.label}</span>
+								</div>
+								<p className="text-sm text-muted-foreground">
+									{method.description}
+								</p>
+							</Label>
+						</div>
+					</CardContent>
+				</Card>
+			))}
+		</RadioGroup>
+	);
+}

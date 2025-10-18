@@ -51,6 +51,7 @@ export async function syncCartToServer(
 				items: items.map((item) => ({
 					product_id: item.product.id,
 					quantity: item.quantity,
+					rental_weeks: item.rental_weeks,
 				})),
 			}),
 		});
