@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { MenuIcon, X, ChevronRight } from "lucide-react";
-import { services } from "../services-data";
+import { services } from "@/components/sections/services-data";
 import { LanguageDropdown } from "./language-dropdown";
 import { CartIcon } from "@/components/store/CartIcon";
-import { UserNav } from "@/components/user-nav";
+import { UserNav } from "@/components/layout/user-nav";
 
 // Enhanced navigation data structure for expanded dropdowns
 const navigationData = {
