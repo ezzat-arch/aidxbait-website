@@ -114,3 +114,26 @@ export async function removeCartItemFromServer(
 		}
 	});
 }
+
+/**
+ * Clear entire cart on server
+ * Used for immediate cart clearing (e.g., after successful order creation)
+ */
+export async function clearCartOnServer(userId: number): Promise<void> {
+	await withRetry(async () => {
+		const response = await fetch("/api/cart/clear", {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ userId }),
+		});
+
+		if (!response.ok) {
+			const error = await response
+				.json()
+				.catch(() => ({ error: "Unknown error" }));
+			throw new Error(error.error || "Failed to clear cart");
+		}
+
+		return await response.json();
+	});
+}

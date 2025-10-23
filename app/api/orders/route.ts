@@ -325,6 +325,9 @@ export async function POST(request: NextRequest) {
 				payment_method: body.payment_method,
 				payment_status: "pending",
 				order_status: "pending",
+				paymob_order_id: null,
+				paymob_transaction_id: null,
+				paymob_payment_key: null,
 			})
 			.select()
 			.single();
@@ -430,6 +433,11 @@ export async function POST(request: NextRequest) {
 		}
 
 		// Clear the user's cart (use user_id from patient)
+		// NOTE: This is the single source of truth for server-side cart clearing
+		// The cart is cleared immediately after successful order creation, regardless of payment method
+		// For online payments: Client also clears cart before redirecting to payment gateway
+		// For cash on delivery: Client clears cart after order creation
+		// Payment callbacks do NOT need to clear the cart again (it's already cleared here)
 		const { data: patientData } = await supabaseAdmin
 			.from("patients")
 			.select("user_id")
@@ -441,6 +449,7 @@ export async function POST(request: NextRequest) {
 				.from("user_cart")
 				.delete()
 				.eq("user_id", patientData.user_id);
+			console.log("[Orders API] Cart cleared for user:", patientData.user_id);
 		}
 
 		// Fetch the complete order with items

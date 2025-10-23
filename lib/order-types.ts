@@ -95,6 +95,10 @@ export interface Order {
 	soft_deleted: boolean;
 	created_at: string;
 	updated_at: string;
+	// Paymob payment tracking
+	paymob_order_id: string | null;
+	paymob_transaction_id: string | null;
+	paymob_payment_key: string | null;
 	// Optional joined data
 	order_items?: OrderItem[];
 	shipping_address?: PatientAddress;

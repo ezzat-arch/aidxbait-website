@@ -16,6 +16,7 @@ import {
 	saveCartToLocalStorage,
 	syncCartToServer,
 	fetchCartFromServer,
+	clearCartOnServer,
 } from "@/lib/cart/cart-service";
 import { toast } from "@/hooks/use-toast";
 
@@ -29,7 +30,7 @@ interface CartContextType {
 	removeFromCart: (productId: number) => void;
 	updateQuantity: (productId: number, quantity: number) => void;
 	updateRentalWeeks: (productId: number, weeks: number) => void;
-	clearCart: () => void;
+	clearCart: () => Promise<void>;
 	isCartOpen: boolean;
 	openCart: () => void;
 	closeCart: () => void;
@@ -245,6 +246,7 @@ export function CartProvider({ children }: CartProviderProps) {
 	const isInitialized = useRef(false);
 	const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 	const previousUserIdRef = useRef<number | null>(null);
+	const isManualClearRef = useRef(false);
 
 	const performSync = useCallback(
 		async (items: CartItem[]) => {
@@ -311,6 +313,12 @@ export function CartProvider({ children }: CartProviderProps) {
 
 		saveCartToLocalStorage(state.cart.items);
 
+		// Skip debounced sync if this was a manual clear (clearCart() handles sync immediately)
+		if (isManualClearRef.current) {
+			isManualClearRef.current = false;
+			return;
+		}
+
 		if (syncTimeoutRef.current) {
 			clearTimeout(syncTimeoutRef.current);
 		}
@@ -344,8 +352,30 @@ export function CartProvider({ children }: CartProviderProps) {
 		dispatch({ type: "UPDATE_RENTAL_WEEKS", productId, weeks });
 	};
 
-	const clearCart = () => {
+	const clearCart = async () => {
+		// Set flag to prevent debounced sync from firing
+		isManualClearRef.current = true;
+
+		// Immediately clear client-side state and localStorage
 		dispatch({ type: "CLEAR_CART" });
+
+		// Immediately sync to server if user is logged in
+		if (userProfile?.id) {
+			try {
+				setIsSyncing(true);
+				setSyncError(null);
+				await clearCartOnServer(userProfile.id);
+				console.log("[CartContext] Cart cleared successfully on server");
+			} catch (error) {
+				console.error("[CartContext] Failed to clear cart on server:", error);
+				setSyncError(
+					error instanceof Error ? error.message : "Failed to clear cart"
+				);
+				// Don't show toast here - let the calling component handle UI feedback
+			} finally {
+				setIsSyncing(false);
+			}
+		}
 	};
 
 	const openCart = () => {

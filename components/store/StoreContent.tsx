@@ -6,6 +6,7 @@ import { ProductGrid } from "@/components/store/ProductGrid";
 import { HorizontalFilters } from "@/components/store/HorizontalFilters";
 import { FilterOptions, Product } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
+import { toast } from "@/hooks/use-toast";
 
 const initialFilters: FilterOptions = {
 	joints: [],
@@ -19,10 +20,55 @@ export function StoreContent() {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const { openCart } = useCart();
+	const { openCart, clearCart } = useCart();
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const hasHandledCartOpen = useRef(false);
+	const hasHandledPayment = useRef(false);
+
+	// Handle payment callback (success/failure)
+	useEffect(() => {
+		const paymentStatus = searchParams.get("payment");
+		const orderId = searchParams.get("order_id");
+		const paymentError = searchParams.get("error");
+		const reason = searchParams.get("reason");
+
+		if (paymentStatus && !hasHandledPayment.current) {
+			hasHandledPayment.current = true;
+
+			if (paymentStatus === "success") {
+				// Clear cart on successful payment
+				clearCart();
+				toast({
+					title: "Payment Successful! 🎉",
+					description: orderId
+						? `Your order #${orderId} has been placed successfully. We'll process it shortly.`
+						: "Your payment was successful. Thank you for your order!",
+				});
+			} else if (paymentStatus === "failed") {
+				const errorMessage = paymentError
+					? `Error: ${paymentError}`
+					: reason
+					? `Reason: ${reason}`
+					: "Please try again or contact support.";
+				toast({
+					title: "Payment Failed",
+					description: errorMessage,
+					variant: "destructive",
+				});
+			} else if (paymentStatus === "pending") {
+				toast({
+					title: "Payment Pending",
+					description: orderId
+						? `Your order #${orderId} is pending payment confirmation.`
+						: "Your payment is being processed. We'll notify you once confirmed.",
+				});
+			}
+
+			// Clean up URL without adding to history
+			router.replace("/services/store");
+		}
+	}, [searchParams, router, clearCart]);
 
 	// Auto-open cart drawer if openCart param is present
 	useEffect(() => {

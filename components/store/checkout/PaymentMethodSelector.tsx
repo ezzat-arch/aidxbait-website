@@ -25,9 +25,9 @@ export function PaymentMethodSelector({
 		{
 			value: "online" as PaymentMethod,
 			label: "Online Payment",
-			description: "Pay securely online (Coming soon)",
+			description: "Pay securely with your card",
 			icon: CreditCard,
-			disabled: true,
+			disabled: false,
 		},
 	];
 

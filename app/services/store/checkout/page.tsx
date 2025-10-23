@@ -148,15 +148,56 @@ export default function CheckoutPage() {
 				payment_method: paymentMethod,
 			});
 
-			// Clear cart and redirect to order confirmation
-			clearCart();
+			// Handle based on payment method
+			if (paymentMethod === "online") {
+				// For online payment, create payment intention and redirect to Paymob
+				try {
+					const response = await fetch(
+						"/api/payments/paymob/create-intention",
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({ order_id: order.id }),
+						}
+					);
 
-			toast({
-				title: "Order Placed!",
-				description: "Your order has been placed successfully.",
-			});
+					const data = await response.json();
 
-			router.push(`/profile/my-orders/${order.id}`);
+					if (!response.ok || !data.success) {
+						throw new Error(data.error || "Failed to create payment intention");
+					}
+
+					// Clear cart before redirecting to payment gateway
+					// This ensures client and server are both cleared when order is created
+					await clearCart();
+
+					// Redirect to Paymob payment page
+					window.location.href = data.payment_url;
+				} catch (paymentError) {
+					console.error("Error creating payment:", paymentError);
+					toast({
+						title: "Payment Error",
+						description:
+							paymentError instanceof Error
+								? paymentError.message
+								: "Failed to initialize payment. Please try again.",
+						variant: "destructive",
+					});
+					setIsSubmitting(false);
+				}
+			} else {
+				// For cash on delivery, clear cart and redirect
+				await clearCart();
+
+				toast({
+					title: "Order Placed!",
+					description: "Your order has been placed successfully.",
+				});
+
+				router.push(`/profile/my-orders/${order.id}`);
+			}
 		} catch (error) {
 			console.error("Error placing order:", error);
 			toast({
@@ -167,7 +208,6 @@ export default function CheckoutPage() {
 						: "Failed to place order. Please try again.",
 				variant: "destructive",
 			});
-		} finally {
 			setIsSubmitting(false);
 		}
 	};
