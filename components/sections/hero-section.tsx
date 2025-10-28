@@ -38,7 +38,10 @@ export const HeroSection = React.forwardRef<
 							className="flex flex-col gap-6"
 						>
 							<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight leading-tight">
-								Unlock The Potentials of{" "}
+								Unlock
+								<br />
+								The Potentials of
+								<br />
 								<span className="text-primary">Home Care</span>
 							</h1>
 							<p className="text-base sm:text-lg text-white/90 max-w-xl leading-relaxed">
@@ -75,8 +78,8 @@ export const HeroSection = React.forwardRef<
 								lg:absolute lg:top-4 lg:left-4 lg:w-full lg:h-full lg:p-6 lg:flex lg:items-center lg:justify-center"
 							>
 								<Image
-									src="/images/services4.png"
-									alt="Medical Technology and Healthcare Services"
+									src="/images/hero_image_in.png"
+									alt="Patient connecting with healthcare professional at home"
 									width={400}
 									height={400}
 									className="rounded-xl shadow-lg w-full h-full object-cover"
@@ -107,7 +110,7 @@ export const HeroSection = React.forwardRef<
 						>
 							<div className="relative max-w-sm mx-auto lg:max-w-md lg:mx-0">
 								<Image
-									src="/images/services1.png"
+									src="/images/logo_phone.png"
 									alt="Home medical care - Doctor visiting patient at home"
 									width={400}
 									height={300}

@@ -15,7 +15,7 @@ export function CartIcon() {
 			className="relative"
 			onClick={toggleCart}
 		>
-			<ShoppingCart className="h-5 w-5" />
+			<ShoppingCart className="h-6 w-6" />
 			{cart.itemCount > 0 && (
 				<Badge
 					variant="destructive"

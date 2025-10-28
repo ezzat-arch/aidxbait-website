@@ -6,8 +6,7 @@ export function ContactSection() {
 			id="contact"
 			className="min-h-screen bg-cover bg-center bg-no-repeat"
 			style={{
-				backgroundImage:
-					"url('https://images.unsplash.com/photo-1551190822-a9333d879b1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+				backgroundImage: "url('/images/contact_bg.png')",
 			}}
 		>
 			<div className="flex flex-col min-h-screen bg-black/60">
@@ -33,6 +32,7 @@ export function ContactSection() {
 								<h3 className="text-gray-300">Follow us</h3>
 
 								<div className="flex mt-4 -mx-1.5">
+									{/* Twitter */}
 									<a
 										className="mx-1.5 text-white transition-colors duration-300 transform hover:text-blue-500"
 										href="#"
@@ -47,6 +47,7 @@ export function ContactSection() {
 										</svg>
 									</a>
 
+									{/* TikTok */}
 									<a
 										className="mx-1.5 text-white transition-colors duration-300 transform hover:text-blue-500"
 										href="#"
@@ -58,20 +59,13 @@ export function ContactSection() {
 											xmlns="http://www.w3.org/2000/svg"
 										>
 											<path
-												d="M15.2 8.80005C16.4731 8.80005 17.694 9.30576 18.5941 10.2059C19.4943 11.1061 20 12.327 20 13.6V19.2H16.8V13.6C16.8 13.1757 16.6315 12.7687 16.3314 12.4687C16.0313 12.1686 15.6244 12 15.2 12C14.7757 12 14.3687 12.1686 14.0687 12.4687C13.7686 12.7687 13.6 13.1757 13.6 13.6V19.2H10.4V13.6C10.4 12.327 10.9057 11.1061 11.8059 10.2059C12.7061 9.30576 13.927 8.80005 15.2 8.80005Z"
-												fill="currentColor"
-											/>
-											<path
-												d="M7.2 9.6001H4V19.2001H7.2V9.6001Z"
-												fill="currentColor"
-											/>
-											<path
-												d="M5.6 7.2C6.48366 7.2 7.2 6.48366 7.2 5.6C7.2 4.71634 6.48366 4 5.6 4C4.71634 4 4 4.71634 4 5.6C4 6.48366 4.71634 7.2 5.6 7.2Z"
+												d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
 												fill="currentColor"
 											/>
 										</svg>
 									</a>
 
+									{/* Facebook */}
 									<a
 										className="mx-1.5 text-white transition-colors duration-300 transform hover:text-blue-500"
 										href="#"
@@ -89,6 +83,7 @@ export function ContactSection() {
 										</svg>
 									</a>
 
+									{/* Instagram */}
 									<a
 										className="mx-1.5 text-white transition-colors duration-300 transform hover:text-blue-500"
 										href="#"

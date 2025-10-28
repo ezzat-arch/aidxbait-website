@@ -70,6 +70,8 @@ export const UserNav = () => {
 			? `${userProfile.first_name} ${userProfile.last_name}`
 			: null;
 
+	const firstName = userProfile?.first_name || "User";
+
 	console.log("[UserNav] Rendering authenticated state with user:", {
 		email: user.email,
 		fullName,
@@ -78,12 +80,10 @@ export const UserNav = () => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="ghost" className="relative h-8 w-8 rounded-full">
-					<Avatar className="h-8 w-8">
-						<AvatarFallback className="bg-blue-600 text-white">
-							<UserCircle className="h-5 w-5" />
-						</AvatarFallback>
-					</Avatar>
+				<Button variant="ghost" className="relative px-4 py-2 h-auto">
+					<span className="text-md font-medium">
+						Hello, <span className="font-bold">{firstName}</span>
+					</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="end" forceMount>

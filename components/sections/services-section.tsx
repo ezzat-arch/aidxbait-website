@@ -103,7 +103,7 @@ export function ServicesSection() {
 					</motion.ul>
 					{/* Preview on the right with entrance animation */}
 					<motion.div
-						className="w-full md:w-3/5 flex justify-center min-h-[32rem]"
+						className="w-full md:w-3/5 flex justify-center min-h-[40rem]"
 						initial={{ opacity: 0, x: 60 }}
 						whileInView={{ opacity: 1, x: 0 }}
 						viewport={{ once: true, amount: 0.3 }}

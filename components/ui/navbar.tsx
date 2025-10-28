@@ -523,9 +523,9 @@ const Navbar = ({ className }: { className?: string }) => {
 			<Image
 				src="/images/logo.png"
 				alt="AidXBait Logo"
-				width={140}
-				height={70}
-				className="object-contain sm:w-[160px] sm:h-[80px]"
+				width={180}
+				height={90}
+				className="object-contain sm:w-[200px] sm:h-[100px]"
 				priority
 			/>
 		</Link>

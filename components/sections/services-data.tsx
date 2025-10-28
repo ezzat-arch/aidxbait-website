@@ -1,11 +1,12 @@
 import {
-        Activity,
-        Video,
-        ShoppingBag,
-        TestTube,
+	Activity,
+	Video,
+	ShoppingBag,
+	TestTube,
 	Stethoscope,
 	BookOpen,
 	Heart,
+	UserRound,
 } from "lucide-react";
 
 export const services = [
@@ -15,6 +16,14 @@ export const services = [
 		title: "Home Physical Therapy",
 		description:
 			"Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
+		image: "/images/services1.png",
+	},
+	{
+		slug: "home-doctor-visits",
+		icon: <UserRound className="h-10 w-10 text-green-600" />,
+		title: "Home Doctor Visits",
+		description:
+			"Licensed doctors provide one-on-one consultation at your home, including post-operative care and chronic condition management.",
 		image: "/images/services1.png",
 	},
 	{
