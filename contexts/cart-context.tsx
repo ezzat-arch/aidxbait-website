@@ -19,6 +19,7 @@ import {
 	clearCartOnServer,
 } from "@/lib/cart/cart-service";
 import { toast } from "@/hooks/use-toast";
+import { eventService } from "@/lib/tracking/event-service";
 
 interface CartContextType {
 	cart: Cart;
@@ -338,14 +339,67 @@ export function CartProvider({ children }: CartProviderProps) {
 
 	const addToCart = (product: Product, quantity = 1, rentalWeeks?: number) => {
 		dispatch({ type: "ADD_TO_CART", product, quantity, rentalWeeks });
+
+		// Track cart event
+		const newCartValue =
+			state.cart.total +
+			(product.discounted_price || product.price) * quantity;
+		const newItemCount = state.cart.itemCount + quantity;
+
+		eventService.trackCartEvent("add", {
+			productId: product.id,
+			quantity,
+			rentalWeeks,
+			cartValue: newCartValue,
+			cartItemCount: newItemCount,
+		});
 	};
 
 	const removeFromCart = (productId: number) => {
+		// Find the item being removed to track its quantity
+		const item = state.cart.items.find((i) => i.product.id === productId);
+		const removedQuantity = item?.quantity || 0;
+
 		dispatch({ type: "REMOVE_FROM_CART", productId });
+
+		// Track cart event
+		const newCartValue = item
+			? state.cart.total -
+			  (item.product.discounted_price || item.product.price) * item.quantity
+			: state.cart.total;
+		const newItemCount = state.cart.itemCount - removedQuantity;
+
+		eventService.trackCartEvent("remove", {
+			productId,
+			quantity: removedQuantity,
+			cartValue: newCartValue,
+			cartItemCount: newItemCount,
+		});
 	};
 
 	const updateQuantity = (productId: number, quantity: number) => {
+		// Find the item to get previous quantity
+		const item = state.cart.items.find((i) => i.product.id === productId);
+		const previousQuantity = item?.quantity || 0;
+
 		dispatch({ type: "UPDATE_QUANTITY", productId, quantity });
+
+		// Calculate new cart value
+		const quantityDiff = quantity - previousQuantity;
+		const newCartValue = item
+			? state.cart.total +
+			  (item.product.discounted_price || item.product.price) * quantityDiff
+			: state.cart.total;
+		const newItemCount = state.cart.itemCount + quantityDiff;
+
+		// Track cart event
+		eventService.trackCartEvent("update_quantity", {
+			productId,
+			quantity,
+			previousQuantity,
+			cartValue: newCartValue,
+			cartItemCount: newItemCount,
+		});
 	};
 
 	const updateRentalWeeks = (productId: number, weeks: number) => {
@@ -355,6 +409,12 @@ export function CartProvider({ children }: CartProviderProps) {
 	const clearCart = async () => {
 		// Set flag to prevent debounced sync from firing
 		isManualClearRef.current = true;
+
+		// Track clear event before clearing
+		eventService.trackCartEvent("clear", {
+			cartValue: state.cart.total,
+			cartItemCount: state.cart.itemCount,
+		});
 
 		// Immediately clear client-side state and localStorage
 		dispatch({ type: "CLEAR_CART" });
@@ -380,14 +440,27 @@ export function CartProvider({ children }: CartProviderProps) {
 
 	const openCart = () => {
 		dispatch({ type: "OPEN_CART" });
+		eventService.trackCartEvent("open", {
+			cartValue: state.cart.total,
+			cartItemCount: state.cart.itemCount,
+		});
 	};
 
 	const closeCart = () => {
 		dispatch({ type: "CLOSE_CART" });
+		eventService.trackCartEvent("close", {
+			cartValue: state.cart.total,
+			cartItemCount: state.cart.itemCount,
+		});
 	};
 
 	const toggleCart = () => {
 		dispatch({ type: "TOGGLE_CART" });
+		const eventType = state.isCartOpen ? "close" : "open";
+		eventService.trackCartEvent(eventType, {
+			cartValue: state.cart.total,
+			cartItemCount: state.cart.itemCount,
+		});
 	};
 
 	const value: CartContextType = {

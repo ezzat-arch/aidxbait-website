@@ -75,19 +75,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 						const { data, error } = await supabase
 							.from("users")
 							.select(
-								"id, phone_number, email, first_name, last_name, user_type, image_url, patients!inner(id)"
+								"id, phone_number, email, first_name, last_name, user_type, image_url, patients(id)"
 							)
 							.eq("supabase_id", user.id)
-							.single();
+							.maybeSingle();
 
 						if (error) {
-							console.error("[AuthContext] Profile fetch error:", error);
+							console.error(
+								"[AuthContext] Profile fetch error:",
+								JSON.stringify(error, null, 2)
+							);
+						} else if (!data) {
+							console.warn(
+								"[AuthContext] No profile found for user. User may need to complete registration."
+							);
 						} else {
 							console.log("[AuthContext] Profile fetched:", data);
 							// Extract patient_id from the nested patients object
 							const profileData = {
 								...data,
-								patient_id: (data as any).patients?.id,
+								patient_id: (data as any).patients?.id || null,
 							};
 							delete (profileData as any).patients;
 							setUserProfile(profileData);
@@ -95,7 +102,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 					} catch (profileError) {
 						console.error(
 							"[AuthContext] Profile fetch exception:",
-							profileError
+							JSON.stringify(profileError, null, 2)
 						);
 					} finally {
 						setProfileLoading(false);
@@ -141,22 +148,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 					const { data, error } = await supabase
 						.from("users")
 						.select(
-							"id, phone_number, email, first_name, last_name, user_type, image_url, patients!inner(id)"
+							"id, phone_number, email, first_name, last_name, user_type, image_url, patients(id)"
 						)
 						.eq("supabase_id", session.user.id)
-						.single();
+						.maybeSingle();
 
 					if (error) {
 						console.error(
 							"[AuthContext] Profile fetch error (auth change):",
-							error
+							JSON.stringify(error, null, 2)
+						);
+					} else if (!data) {
+						console.warn(
+							"[AuthContext] No profile found for user (auth change). User may need to complete registration."
 						);
 					} else {
 						console.log("[AuthContext] Profile fetched (auth change):", data);
 						// Extract patient_id from the nested patients object
 						const profileData = {
 							...data,
-							patient_id: (data as any).patients?.id,
+							patient_id: (data as any).patients?.id || null,
 						};
 						delete (profileData as any).patients;
 						setUserProfile(profileData);
@@ -164,7 +175,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 				} catch (profileError) {
 					console.error(
 						"[AuthContext] Profile fetch exception (auth change):",
-						profileError
+						JSON.stringify(profileError, null, 2)
 					);
 				} finally {
 					setProfileLoading(false);

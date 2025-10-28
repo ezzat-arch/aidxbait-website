@@ -3,6 +3,7 @@ import "./globals.css";
 import NavbarDiv from "@/components/ui/navbar";
 import { CartProvider } from "@/contexts/cart-context";
 import { AuthProvider } from "@/contexts/auth-context";
+import { TrackingProvider } from "@/contexts/tracking-context";
 import { CartSidebar } from "@/components/store/CartSidebar";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -32,16 +33,18 @@ export default function RootLayout({
 					rel="stylesheet"
 				/>
 			</head>
-			<body className="font-sans" suppressHydrationWarning={true}>
-				<AuthProvider>
+		<body className="font-sans" suppressHydrationWarning={true}>
+			<AuthProvider>
+				<TrackingProvider>
 					<CartProvider>
 						<NavbarDiv />
 						{children}
 						<CartSidebar />
 						<Toaster />
 					</CartProvider>
-				</AuthProvider>
-			</body>
+				</TrackingProvider>
+			</AuthProvider>
+		</body>
 		</html>
 	);
 }

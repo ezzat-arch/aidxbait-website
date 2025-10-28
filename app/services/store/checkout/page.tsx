@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Lock, ShoppingBag } from "lucide-react";
@@ -22,11 +22,12 @@ import {
 	CreateOrderItemRequest,
 } from "@/lib/order-types";
 import { toast } from "@/hooks/use-toast";
+import { eventService } from "@/lib/tracking/event-service";
 
 export default function CheckoutPage() {
 	const router = useRouter();
 	const { cart, clearCart } = useCart();
-	const { user, userProfile, loading: authLoading } = useAuth();
+	const { user, userProfile, loading: authLoading, profileLoading } = useAuth();
 
 	const [addresses, setAddresses] = useState<PatientAddress[]>([]);
 	const [selectedAddressId, setSelectedAddressId] = useState<number | null>(
@@ -34,8 +35,21 @@ export default function CheckoutPage() {
 	);
 	const [paymentMethod, setPaymentMethod] =
 		useState<PaymentMethod>("cash_on_delivery");
+
+	// Track payment method selection
+	const handlePaymentMethodChange = (method: PaymentMethod) => {
+		setPaymentMethod(method);
+		eventService.trackCheckoutEvent("payment_method_selected", {
+			cartValue: cart.total,
+			cartItemCount: cart.itemCount,
+			paymentMethod: method,
+		});
+	};
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [loadingAddresses, setLoadingAddresses] = useState(true);
+	const [loadingAddresses, setLoadingAddresses] = useState(false);
+
+	// Ref to track if checkout events have been handled
+	const hasHandledCheckoutStart = useRef(false);
 
 	// Redirect to login if not authenticated
 	useEffect(() => {
@@ -46,21 +60,34 @@ export default function CheckoutPage() {
 		}
 	}, [user, authLoading, router]);
 
-	// Redirect to store if cart is empty
+	// Track checkout started and redirect to store if cart is empty
 	useEffect(() => {
-		if (!authLoading && cart.items.length === 0) {
-			router.push("/services/store");
-		}
-	}, [cart.items.length, authLoading, router]);
+		if (!authLoading && !profileLoading && !hasHandledCheckoutStart.current) {
+			if (cart.items.length === 0) {
+				router.push("/services/store");
+			} else {
+				hasHandledCheckoutStart.current = true;
+				// Track checkout started
+				eventService.trackCheckoutEvent("started", {
+					cartValue: cart.total,
+					cartItemCount: cart.itemCount,
+				});
 
-	// Load addresses
-	useEffect(() => {
-		if (userProfile?.patient_id) {
-			loadAddresses();
+				// Create cart snapshot for abandonment tracking
+				eventService.createCartSnapshot(cart.items, cart.total);
+			}
 		}
-	}, [userProfile?.patient_id]);
+	}, [
+		authLoading,
+		profileLoading,
+		cart.items,
+		cart.total,
+		cart.itemCount,
+		router,
+	]);
 
-	const loadAddresses = async () => {
+	// Load addresses - memoized with useCallback
+	const loadAddresses = useCallback(async () => {
 		if (!userProfile?.patient_id) return;
 
 		try {
@@ -72,8 +99,18 @@ export default function CheckoutPage() {
 			const primaryAddress = data.find((addr) => addr.is_primary);
 			if (primaryAddress) {
 				setSelectedAddressId(primaryAddress.id);
+				// Track address selected
+				eventService.trackCheckoutEvent("address_selected", {
+					cartValue: cart.total,
+					cartItemCount: cart.itemCount,
+				});
 			} else if (data.length > 0) {
 				setSelectedAddressId(data[0].id);
+				// Track address selected
+				eventService.trackCheckoutEvent("address_selected", {
+					cartValue: cart.total,
+					cartItemCount: cart.itemCount,
+				});
 			}
 		} catch (error) {
 			console.error("Error loading addresses:", error);
@@ -85,7 +122,19 @@ export default function CheckoutPage() {
 		} finally {
 			setLoadingAddresses(false);
 		}
-	};
+	}, [userProfile?.patient_id, cart.total, cart.itemCount]);
+
+	// Load addresses when user profile is available
+	useEffect(() => {
+		if (userProfile) {
+			if (userProfile.patient_id) {
+				loadAddresses();
+			} else {
+				// No patient_id - user profile exists but is incomplete
+				setLoadingAddresses(false);
+			}
+		}
+	}, [userProfile, loadAddresses]);
 
 	const handlePlaceOrder = async () => {
 		if (!userProfile?.patient_id) {
@@ -117,6 +166,13 @@ export default function CheckoutPage() {
 
 		try {
 			setIsSubmitting(true);
+
+			// Track order submission
+			eventService.trackCheckoutEvent("order_submitted", {
+				cartValue: cart.total,
+				cartItemCount: cart.itemCount,
+				paymentMethod,
+			});
 
 			// Prepare order items with rental dates
 			const now = new Date();
@@ -152,6 +208,14 @@ export default function CheckoutPage() {
 			if (paymentMethod === "online") {
 				// For online payment, create payment intention and redirect to Paymob
 				try {
+					// Track payment initiated
+					eventService.trackCheckoutEvent("payment_initiated", {
+						orderId: order.id,
+						cartValue: cart.total,
+						cartItemCount: cart.itemCount,
+						paymentMethod: "online",
+					});
+
 					const response = await fetch(
 						"/api/payments/paymob/create-intention",
 						{
@@ -166,6 +230,15 @@ export default function CheckoutPage() {
 					const data = await response.json();
 
 					if (!response.ok || !data.success) {
+						// Track payment failure
+						eventService.trackCheckoutEvent("payment_failed", {
+							orderId: order.id,
+							cartValue: cart.total,
+							cartItemCount: cart.itemCount,
+							paymentMethod: "online",
+							failureReason: data.error || "Failed to create payment intention",
+						});
+
 						throw new Error(data.error || "Failed to create payment intention");
 					}
 
@@ -188,7 +261,14 @@ export default function CheckoutPage() {
 					setIsSubmitting(false);
 				}
 			} else {
-				// For cash on delivery, clear cart and redirect
+				// For cash on delivery, track completion, clear cart and redirect
+				eventService.trackCheckoutEvent("payment_completed", {
+					orderId: order.id,
+					cartValue: cart.total,
+					cartItemCount: cart.itemCount,
+					paymentMethod: "cash_on_delivery",
+				});
+
 				await clearCart();
 
 				toast({
@@ -215,9 +295,9 @@ export default function CheckoutPage() {
 	// Calculate order totals
 	const orderCalculation = calculateOrderTotals(cart.total);
 
-	if (authLoading || loadingAddresses) {
+	if (authLoading || profileLoading || loadingAddresses) {
 		return (
-			<div className="min-h-screen bg-background pt-20 flex items-center justify-center">
+			<div className="min-h-screen bg-background pt-28 flex items-center justify-center">
 				<div className="text-center">
 					<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
 					<p className="text-muted-foreground">Loading...</p>
@@ -231,7 +311,7 @@ export default function CheckoutPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-background pt-20">
+		<div className="min-h-screen bg-background pt-28">
 			<div className="container mx-auto px-4 py-8">
 				{/* Header */}
 				<div className="flex items-center gap-4 mb-8">
@@ -294,7 +374,7 @@ export default function CheckoutPage() {
 							<CardContent>
 								<PaymentMethodSelector
 									selectedMethod={paymentMethod}
-									onSelectMethod={setPaymentMethod}
+									onSelectMethod={handlePaymentMethodChange}
 								/>
 							</CardContent>
 						</Card>

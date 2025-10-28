@@ -28,6 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Product } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
+import { eventService } from "@/lib/tracking/event-service";
 
 interface ProductPageProps {
 	params: Promise<{
@@ -51,6 +52,27 @@ export default function ProductPage({ params }: ProductPageProps) {
 	const [isLiked, setIsLiked] = useState(false);
 	const [isAddingToCart, setIsAddingToCart] = useState(false);
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+	const [viewStartTime, setViewStartTime] = useState<number>(0);
+
+	// Track product view
+	useEffect(() => {
+		if (product) {
+			// Track view
+			eventService.trackProductView(product.id, document.referrer);
+
+			// Record start time for duration tracking
+			const startTime = Date.now();
+			setViewStartTime(startTime);
+
+			// Track duration on unmount
+			return () => {
+				const durationSeconds = Math.floor((Date.now() - startTime) / 1000);
+				if (durationSeconds > 0) {
+					eventService.trackProductViewDuration(product.id, durationSeconds);
+				}
+			};
+		}
+	}, [product]);
 
 	// Fetch product and related products
 	useEffect(() => {

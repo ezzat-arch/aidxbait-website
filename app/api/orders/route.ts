@@ -450,6 +450,16 @@ export async function POST(request: NextRequest) {
 				.delete()
 				.eq("user_id", patientData.user_id);
 			console.log("[Orders API] Cart cleared for user:", patientData.user_id);
+
+			// Mark most recent cart snapshot as converted
+			await supabaseAdmin
+				.from("cart_snapshots")
+				.update({ converted_to_order_id: newOrder.id, updated_at: new Date().toISOString() })
+				.eq("user_id", patientData.user_id)
+				.is("converted_to_order_id", null)
+				.order("snapshot_at", { ascending: false })
+				.limit(1);
+			console.log("[Orders API] Cart snapshot marked as converted to order:", newOrder.id);
 		}
 
 		// Fetch the complete order with items
