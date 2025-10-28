@@ -119,7 +119,7 @@ export const HoveredLink = ({ children, ...rest }: any) => {
 	return (
 		<a
 			{...rest}
-			className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150 font-medium"
+			className="block py-2.5 px-3 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-150 font-medium text-sm"
 		>
 			{children}
 		</a>
