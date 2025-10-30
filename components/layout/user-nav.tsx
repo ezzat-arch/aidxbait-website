@@ -53,13 +53,17 @@ export const UserNav = () => {
 		);
 		// Show login/register buttons when not authenticated
 		return (
-			<div className="flex items-center space-x-2">
-				<Button variant="ghost" size="sm" asChild>
-					<Link href="/login">Log In</Link>
-				</Button>
+			<div className="flex flex-col items-center gap-1">
 				<Button size="sm" asChild>
 					<Link href="/register">Create an Account</Link>
 				</Button>
+				<Link
+					href="/login"
+					className="text-xs text-muted-foreground hover:text-primary transition-colors"
+				>
+					Already have an account?{" "}
+					<span className="underline font-medium">Log In</span>
+				</Link>
 			</div>
 		);
 	}

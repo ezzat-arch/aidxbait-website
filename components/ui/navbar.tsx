@@ -173,7 +173,7 @@ const Navbar = ({ className }: { className?: string }) => {
 		<>
 			<div
 				className={cn(
-					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-7xl px-2 sm:px-4 md:px-6",
+					"fixed inset-x-0 mx-auto z-50 transition-all duration-300 max-w-8xl px-2 sm:px-4 md:px-6",
 					isScrolled ? "top-0" : "top-4",
 					className
 				)}
@@ -183,7 +183,7 @@ const Navbar = ({ className }: { className?: string }) => {
 						"border border-transparent shadow-input flex items-center transition-all duration-200 z-50",
 						isScrolled
 							? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 2xl:px-64 py-1 justify-between shadow-2xl drop-shadow-lg"
-							: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-2 md:py-1 mx-auto mt-4 max-w-6xl justify-between shadow-2xl drop-shadow-lg"
+							: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-2 md:py-1 mx-auto mt-4 max-w-8xl justify-between shadow-2xl drop-shadow-lg"
 					)}
 				>
 					{/* Logo */}
@@ -192,17 +192,19 @@ const Navbar = ({ className }: { className?: string }) => {
 					</div>
 
 					{/* Left Menu Items */}
-					<div className="hidden lg:flex items-center space-x-1 xl:space-x-3">
+					<div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
 						{/* Home Visits Menu */}
 						<div
 							onMouseEnter={() => setActive("HomeVisits")}
 							onMouseLeave={() => setActive(null)}
 							className="relative"
 						>
-							<span className="text-sm px-3 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex flex-col items-center justify-center">
-								<span>Home Visits</span>
-								<span className="text-[9px] font-light text-blue-600 italic -mt-0.5">
-									coming soon
+							<span className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center">
+								<span className="relative inline-block">
+									<span>Home Visits</span>
+									<span className="absolute -bottom-3.5 right-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
+										coming soon
+									</span>
 								</span>
 							</span>
 							{active === "HomeVisits" && (
@@ -265,11 +267,13 @@ const Navbar = ({ className }: { className?: string }) => {
 						<Link
 							href="/services/online-consultations"
 							onMouseEnter={() => setActive(null)}
-							className="text-sm px-3 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm flex flex-col items-center text-center"
+							className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm flex items-center justify-center text-center"
 						>
-							<span>Online Consultations</span>
-							<span className="text-[9px] font-light text-blue-600 italic -mt-0.5">
-								coming soon
+							<span className="relative inline-block">
+								<span>Online Consultations</span>
+								<span className="absolute -bottom-3.5 right-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
+									coming soon
+								</span>
 							</span>
 						</Link>
 
@@ -401,14 +405,14 @@ const Navbar = ({ className }: { className?: string }) => {
 					<div className="flex-grow"></div>
 
 					{/* Right Side Menu Items */}
-					<div className="hidden lg:flex items-center space-x-2 xl:space-x-3 ml-4 lg:ml-6">
+					<div className="hidden lg:flex items-center space-x-3 xl:space-x-4 ml-4 lg:ml-6">
 						{/* Contact & About - Stacked Vertically */}
 						<div className="flex flex-col gap-1">
 							{/* Contact */}
 							<Link
 								href="/contact"
 								onMouseEnter={() => setActive(null)}
-								className="text-xs px-3 py-1 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm text-center whitespace-nowrap"
+								className="text-sm px-3 py-1 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm text-center whitespace-nowrap"
 							>
 								Contact Us
 							</Link>
@@ -419,7 +423,7 @@ const Navbar = ({ className }: { className?: string }) => {
 								onMouseLeave={() => setActive(null)}
 								className="relative"
 							>
-								<span className="text-xs px-3 py-1 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center whitespace-nowrap block">
+								<span className="text-sm px-3 py-1 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center whitespace-nowrap block">
 									About Us
 								</span>
 								{active === "About" && (

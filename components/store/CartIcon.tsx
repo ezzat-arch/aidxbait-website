@@ -11,11 +11,10 @@ export function CartIcon() {
 	return (
 		<Button
 			variant="ghost"
-			size="icon"
-			className="relative"
+			className="relative p-2 h-auto w-auto group"
 			onClick={toggleCart}
 		>
-			<ShoppingCart className="h-6 w-6" />
+			<ShoppingCart className="!h-8 !w-8 text-blue-600 group-hover:text-white transition-colors" />
 			{cart.itemCount > 0 && (
 				<Badge
 					variant="destructive"

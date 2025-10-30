@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useAuth } from "@/contexts/auth-context";
 
@@ -47,23 +46,28 @@ export const HeroSection = React.forwardRef<
 							<p className="text-base sm:text-lg text-white/90 max-w-xl leading-relaxed">
 								Stay at Home and order all medical services with a finger click
 							</p>
-							{!loading && !user && (
-								<div className="flex flex-col sm:flex-row gap-4 mt-4">
-									<Button
-										size="lg"
-										className="bg-primary hover:bg-primary/90 text-white transition-all duration-500 w-full sm:w-auto"
-									>
-										Create an Account <ArrowRight className="ml-2 h-4 w-4" />
-									</Button>
-									<Button
-										size="lg"
-										variant="outline"
-										className="border-white text-white bg-transparent hover:bg-white hover:text-black transition-all duration-500 w-full sm:w-auto"
-									>
-										Log In
-									</Button>
-								</div>
-							)}
+							<div className="flex flex-col sm:flex-row gap-4 mt-6">
+								<Link
+									href="/download/ios"
+									className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
+								>
+									<img
+										src="/images/app-store-badge-black.svg"
+										alt="Download on the App Store"
+										className="h-[50px] w-auto"
+									/>
+								</Link>
+								<Link
+									href="/download/android"
+									className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
+								>
+									<img
+										src="/images/google-play-badge.png"
+										alt="Get it on Google Play"
+										className="h-[50px] w-auto"
+									/>
+								</Link>
+							</div>
 						</motion.div>
 						<motion.div
 							initial={{ opacity: 0, x: 100 }}
