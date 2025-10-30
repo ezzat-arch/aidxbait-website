@@ -4,7 +4,7 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 const whyItems = [
 	{
-		title: "24-Hour Response",
+		title: "Less than 24-Hour Response",
 		description:
 			"Get connected to healthcare professionals within hours, not days. Our rapid response system ensures you receive care when you need it most.",
 		link: "#response",

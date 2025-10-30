@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { FooterLink } from "./footer-link";
 
 export function Footer() {
 	return (
 		<footer className="bg-gray-900 text-gray-300">
 			<div className="container py-12">
-				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 					<div>
 						<Link href="/" className="inline-block mb-6">
 							<Image
@@ -59,34 +60,10 @@ export function Footer() {
 							</li>
 							<li>
 								<Link
-									href="#services"
-									className="hover:text-primary transition-colors"
-								>
-									Services
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="#how-it-works"
-									className="hover:text-primary transition-colors"
-								>
-									How It Works
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="#app"
-									className="hover:text-primary transition-colors"
-								>
-									Our App
-								</Link>
-							</li>
-							<li>
-								<Link
 									href="#testimonials"
 									className="hover:text-primary transition-colors"
 								>
-									Testimonials
+									Reviews
 								</Link>
 							</li>
 							<li>
@@ -94,46 +71,114 @@ export function Footer() {
 									href="#contact"
 									className="hover:text-primary transition-colors"
 								>
-									Contact
+									Contact Us
+								</Link>
+							</li>
+							<li>
+								<Link
+									href="#about"
+									className="hover:text-primary transition-colors"
+								>
+									About Us
 								</Link>
 							</li>
 						</ul>
 					</div>
 
-					<div>
+					<div className="lg:col-span-2 hidden">
 						<h3 className="text-lg font-bold mb-6 text-white">Services</h3>
-						<ul className="space-y-3">
-							<li>
-								<Link href="#" className="hover:text-primary transition-colors">
-									Physical Therapy
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="hover:text-primary transition-colors">
-									Virtual Consultations
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="hover:text-primary transition-colors">
-									Exercise Protocols
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="hover:text-primary transition-colors">
-									Appointment Booking
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="hover:text-primary transition-colors">
-									Recovery Tracking
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="hover:text-primary transition-colors">
-									Specialist Network
-								</Link>
-							</li>
-						</ul>
+						<div className="grid grid-cols-2 gap-x-12">
+							<ul className="space-y-2.5">
+								{/* Home visits */}
+								<li>
+									<FooterLink href="#" isParent comingSoon>
+										Home visits
+									</FooterLink>
+								</li>
+								<li className="pl-3">
+									<FooterLink href="#" level={2}>
+										Physical therapy
+									</FooterLink>
+								</li>
+								<li className="pl-3">
+									<FooterLink href="#" level={2}>
+										Specialist doctors
+									</FooterLink>
+								</li>
+								<li className="pl-3">
+									<FooterLink href="#" level={2}>
+										Nursing
+									</FooterLink>
+								</li>
+								<li className="pl-3">
+									<FooterLink href="#" level={2}>
+										Imaging
+									</FooterLink>
+								</li>
+								<li className="pl-3">
+									<FooterLink href="#" level={2}>
+										Lab services
+									</FooterLink>
+								</li>
+
+								{/* Online consultations */}
+								<li className="mt-4">
+									<FooterLink href="#" isParent comingSoon>
+										Online consultations
+									</FooterLink>
+								</li>
+
+								{/* Exercise Programs */}
+								<li className="mt-4">
+									<FooterLink href="#" isParent>
+										Exercise Programs
+									</FooterLink>
+								</li>
+							</ul>
+							<ul className="space-y-2.5">
+								{/* Store */}
+								<li>
+									<FooterLink href="#" isParent>
+										Store
+									</FooterLink>
+								</li>
+								<li className="pl-3">
+									<FooterLink href="#" level={2}>
+										Support, Braces & walking Aids
+									</FooterLink>
+								</li>
+								<li className="pl-3">
+									<FooterLink href="#" level={2}>
+										Medical devices
+									</FooterLink>
+								</li>
+								<li className="pl-6">
+									<FooterLink href="#" level={3}>
+										Blood glucose monitoring
+									</FooterLink>
+								</li>
+								<li className="pl-6">
+									<FooterLink href="#" level={3}>
+										Blood pressure monitoring
+									</FooterLink>
+								</li>
+								<li className="pl-6">
+									<FooterLink href="#" level={3}>
+										Oximeters
+									</FooterLink>
+								</li>
+								<li className="pl-6">
+									<FooterLink href="#" level={3}>
+										Thermometers
+									</FooterLink>
+								</li>
+								<li className="pl-3">
+									<FooterLink href="#" level={2}>
+										Rental of equipment
+									</FooterLink>
+								</li>
+							</ul>
+						</div>
 					</div>
 
 					<div>
