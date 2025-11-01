@@ -181,10 +181,11 @@ export async function GET(request: NextRequest) {
 		let filteredProducts = products;
 		if (jointFilter) {
 			filteredProducts = products.filter((product) =>
-				product.joints.some(
-					(joint) =>
-						joint.joint_name.toLowerCase() === jointFilter.toLowerCase()
-				)
+				product.joints.some((joint) => {
+					// Extract just the joint name (first word) from "Knee Support" -> "knee"
+					const jointName = joint.joint_name.toLowerCase().split(' ')[0];
+					return jointName === jointFilter.toLowerCase();
+				})
 			);
 		}
 

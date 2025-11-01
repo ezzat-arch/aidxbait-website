@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FilterOptions, Joint } from "@/lib/store-types";
-import { JointCapsuleFilter } from "./JointCapsuleFilter";
+import { MultiSelect } from "@/components/ui/multi-select";
 import { PriceRangeFilter } from "./PriceRangeFilter";
+import { JOINT_CATEGORIES } from "@/lib/store-data";
 
 interface HorizontalFiltersProps {
 	filters: FilterOptions;
@@ -63,10 +64,18 @@ export function HorizontalFilters({
 		return count;
 	};
 
+	// Prepare joint options for MultiSelect (exclude "all")
+	const jointOptions = JOINT_CATEGORIES.filter(
+		(joint) => joint.value !== "all"
+	).map((joint) => ({
+		value: joint.value,
+		label: joint.label,
+	}));
+
 	return (
-		<div className="space-y-6 bg-background border-b pb-6">
-			{/* Search, Price Range, and In Stock - All in one row */}
-			<div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
+		<div className="space-y-4 bg-background border-b pb-6">
+			{/* Desktop: Single row with all filters */}
+			<div className="hidden lg:flex gap-3 items-center">
 				{/* Search Bar */}
 				<div className="relative flex-1 min-w-0">
 					<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4 z-10" />
@@ -88,8 +97,21 @@ export function HorizontalFilters({
 					)}
 				</div>
 
-				{/* Price Range Filter - Inline */}
-				<div className="lg:flex-1 lg:max-w-md">
+				{/* Body Part MultiSelect */}
+				<div className="w-[200px]">
+					<MultiSelect
+						options={jointOptions}
+						selected={filters.joints}
+						onChange={handleJointsChange}
+						placeholder="Body Part"
+						searchPlaceholder="Search body parts..."
+						emptyText="No body parts found."
+						maxDisplayed={2}
+					/>
+				</div>
+
+				{/* Price Range Filter */}
+				<div className="flex-1 max-w-sm">
 					<PriceRangeFilter
 						priceRange={filters.priceRange}
 						onPriceRangeChange={handlePriceRangeChange}
@@ -97,7 +119,7 @@ export function HorizontalFilters({
 				</div>
 
 				{/* In Stock Toggle */}
-				<div className="flex items-center space-x-3 px-5 py-3 bg-gradient-to-br from-muted/40 to-background border-2 border-border/60 rounded-xl shadow-md hover:shadow-lg transition-shadow whitespace-nowrap">
+				<div className="flex items-center space-x-3 px-4 py-3 bg-gradient-to-br from-muted/40 to-background border-2 border-border/60 rounded-xl shadow-md hover:shadow-lg transition-shadow whitespace-nowrap">
 					<Checkbox
 						id="inStock"
 						checked={filters.inStock}
@@ -113,11 +135,72 @@ export function HorizontalFilters({
 				</div>
 			</div>
 
-			{/* Joint Filter - Moved below */}
-			<JointCapsuleFilter
-				selectedJoints={filters.joints}
-				onJointsChange={handleJointsChange}
-			/>
+			{/* Mobile: Two rows */}
+			<div className="lg:hidden space-y-3">
+				{/* Row 1: Search + Body Part */}
+				<div className="flex gap-3">
+					{/* Search Bar */}
+					<div className="relative flex-1 min-w-0">
+						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4 z-10" />
+						<Input
+							placeholder="Search products..."
+							value={searchQuery}
+							onChange={(e) => onSearchChange(e.target.value)}
+							className="pl-10 pr-10 h-12 border-2 shadow-sm w-full"
+						/>
+						{searchQuery && (
+							<button
+								type="button"
+								aria-label="Clear search"
+								onClick={() => onSearchChange("")}
+								className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
+							>
+								<X className="h-4 w-4" />
+							</button>
+						)}
+					</div>
+
+					{/* Body Part MultiSelect */}
+					<div className="w-[140px]">
+						<MultiSelect
+							options={jointOptions}
+							selected={filters.joints}
+							onChange={handleJointsChange}
+							placeholder="Body Part"
+							searchPlaceholder="Search..."
+							emptyText="No results."
+							maxDisplayed={1}
+						/>
+					</div>
+				</div>
+
+				{/* Row 2: Price Range + In Stock */}
+				<div className="flex gap-3 items-center">
+					{/* Price Range Filter */}
+					<div className="flex-1">
+						<PriceRangeFilter
+							priceRange={filters.priceRange}
+							onPriceRangeChange={handlePriceRangeChange}
+						/>
+					</div>
+
+					{/* In Stock Toggle */}
+					<div className="flex items-center space-x-2 px-3 py-3 bg-gradient-to-br from-muted/40 to-background border-2 border-border/60 rounded-xl shadow-md whitespace-nowrap">
+						<Checkbox
+							id="inStock-mobile"
+							checked={filters.inStock}
+							onCheckedChange={handleInStockChange}
+							className="w-5 h-5"
+						/>
+						<label
+							htmlFor="inStock-mobile"
+							className="text-xs font-semibold leading-none cursor-pointer select-none"
+						>
+							In Stock
+						</label>
+					</div>
+				</div>
+			</div>
 
 			{/* Results Count and Clear Filters */}
 			<div className="flex items-center justify-between gap-4">

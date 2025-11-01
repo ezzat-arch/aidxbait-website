@@ -304,14 +304,17 @@ export const DUMMY_PRODUCTS: Product[] = [
 
 export const JOINT_CATEGORIES = [
 	{ value: "all", label: "All Joints", icon: "🔄" },
-	{ value: "knee", label: "Knee", icon: "/icons/joints/knee.png" },
-	{ value: "shoulder", label: "Shoulder", icon: "/icons/joints/shoulder.png" },
-	{ value: "back", label: "Back", icon: "/icons/joints/back.png" },
-	{ value: "hip", label: "Hip", icon: "/icons/joints/thigh.png" },
-	{ value: "ankle", label: "Ankle", icon: "/icons/joints/ankle.png" },
-	{ value: "wrist", label: "Wrist", icon: "/icons/joints/wrist.png" },
-	{ value: "elbow", label: "Elbow", icon: "/icons/joints/elbow.png" },
-	{ value: "neck", label: "Neck", icon: "/icons/joints/neck.png" },
+	{ value: "neck", label: "Neck Support", icon: "/icons/joints/neck.png" },
+	{ value: "shoulder", label: "Shoulder Support", icon: "/icons/joints/shoulder.png" },
+	{ value: "elbow", label: "Elbow Support", icon: "/icons/joints/elbow.png" },
+	{ value: "wrist", label: "Wrist Support", icon: "/icons/joints/wrist.png" },
+	{ value: "back", label: "Back Support", icon: "/icons/joints/back.png" },
+	{ value: "thigh", label: "Thigh Support", icon: "/icons/joints/thigh.png" },
+	{ value: "knee", label: "Knee Support", icon: "/icons/joints/knee.png" },
+	{ value: "ankle", label: "Ankle Support", icon: "/icons/joints/ankle.png" },
+	{ value: "abdomen", label: "Abdomen Support", icon: "/icons/joints/abdomen.png" },
+	{ value: "calf", label: "Calf Support", icon: "/icons/joints/calf.png" },
+	{ value: "chest", label: "Chest Support", icon: "/icons/joints/chest.png" },
 ];
 
 export const PRODUCT_CATEGORIES = [

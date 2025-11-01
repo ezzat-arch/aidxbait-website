@@ -28,7 +28,7 @@ function parseFiltersFromURL(searchParams: URLSearchParams): {
 	// Parse joints - support both singular 'joint' and plural 'joints'
 	const jointParam = searchParams.get("joint");
 	const jointsParam = searchParams.get("joints");
-	
+
 	if (jointParam) {
 		// Single joint from body map navigation
 		const validJoint = jointParam.toLowerCase() as Joint;
@@ -288,9 +288,11 @@ export function StoreContent() {
 		// Joint filter - supports multiple joints
 		if (filters.joints.length > 0) {
 			results = results.filter((product) =>
-				product.joints.some((joint) =>
-					filters.joints.includes(joint.joint_name.toLowerCase() as any)
-				)
+				product.joints.some((joint) => {
+					// Extract just the joint name (first word) from "Knee Support" -> "knee"
+					const jointName = joint.joint_name.toLowerCase().split(" ")[0];
+					return filters.joints.includes(jointName as any);
+				})
 			);
 		}
 
