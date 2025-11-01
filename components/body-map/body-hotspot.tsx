@@ -36,7 +36,7 @@ export function BodyHotspot({
 	index,
 }: BodyHotspotProps) {
 	return (
-		<TooltipProvider delayDuration={200}>
+		<TooltipProvider delayDuration={75}>
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<motion.button
@@ -84,16 +84,16 @@ export function BodyHotspot({
 							}}
 						/>
 
-						{/* Main hotspot circle */}
-						<div
-							className={`relative rounded-full transition-all duration-300 w-5 h-5 md:w-6 md:h-6 ${
-								isSelected
-									? "bg-orange-600 shadow-lg shadow-orange-600/50 ring-2 ring-white"
-									: isHovered
-									? "bg-yellow-500 shadow-md shadow-yellow-500/50 ring-2 ring-white"
-									: "bg-orange-500 hover:bg-orange-600 ring-1 ring-white/50"
-							}`}
-						>
+					{/* Main hotspot circle */}
+					<div
+						className={`relative rounded-full transition-all duration-300 w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 ${
+							isSelected
+								? "bg-orange-600 shadow-lg shadow-orange-600/50 ring-2 ring-white"
+								: isHovered
+								? "bg-yellow-500 shadow-md shadow-yellow-500/50 ring-2 ring-white"
+								: "bg-orange-500 hover:bg-orange-600 ring-1 ring-white/50"
+						}`}
+					>
 							{/* Inner glow */}
 							<div
 								className={`absolute inset-0 rounded-full ${
@@ -108,15 +108,15 @@ export function BodyHotspot({
 							/>
 						</div>
 
-						{/* Touch target for mobile (invisible but increases clickable area) */}
-						<div
-							className="absolute inset-0 rounded-full md:hidden w-11 h-11"
-							style={{
-								transform: "translate(-50%, -50%)",
-								left: "50%",
-								top: "50%",
-							}}
-						/>
+					{/* Touch target for mobile (invisible but increases clickable area) */}
+					<div
+						className="absolute inset-0 rounded-full md:hidden w-10 h-10"
+						style={{
+							transform: "translate(-50%, -50%)",
+							left: "50%",
+							top: "50%",
+						}}
+					/>
 					</motion.button>
 				</TooltipTrigger>
 				<TooltipContent
