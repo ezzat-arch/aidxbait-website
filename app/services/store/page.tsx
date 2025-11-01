@@ -1,5 +1,44 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { StoreContent } from "@/components/store/StoreContent";
+
+export const metadata: Metadata = {
+	title: "Medical Equipment & Physical Therapy Products | AidXBait Store",
+	description:
+		"Browse our comprehensive collection of medical equipment, physical therapy products, braces, supports, and rehabilitation tools. Premium quality products for knee, shoulder, back, hip, ankle, wrist, elbow, and neck support. Fast delivery across Egypt.",
+	keywords:
+		"medical equipment, physical therapy products, knee brace, shoulder support, back support, lumbar belt, ankle stabilizer, wrist brace, medical supplies, rehabilitation equipment, compression wear, sports medicine, therapy equipment, Egypt medical store, AidXBait",
+	alternates: {
+		canonical: `${
+			process.env.NEXT_PUBLIC_SITE_URL || "https://aidxbait.com"
+		}/services/store`,
+	},
+	openGraph: {
+		title: "Medical Equipment & Physical Therapy Products | AidXBait Store",
+		description:
+			"Browse our comprehensive collection of medical equipment and physical therapy products. Premium quality products for all your rehabilitation needs.",
+		url: `${
+			process.env.NEXT_PUBLIC_SITE_URL || "https://aidxbait.com"
+		}/services/store`,
+		type: "website",
+		images: [
+			{
+				url: "/images/store-og-image.png",
+				width: 1200,
+				height: 630,
+				alt: "AidXBait Medical Store",
+			},
+		],
+		siteName: "AidXBait",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Medical Equipment & Physical Therapy Products | AidXBait Store",
+		description:
+			"Browse our comprehensive collection of medical equipment and physical therapy products. Premium quality products for all your rehabilitation needs.",
+		images: ["/images/store-og-image.png"],
+	},
+};
 
 function StoreLoadingFallback() {
 	return (
