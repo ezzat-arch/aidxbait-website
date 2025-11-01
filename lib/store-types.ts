@@ -20,6 +20,10 @@ export type Joint =
 	| "wrist"
 	| "elbow"
 	| "neck"
+	| "thigh"
+	| "abdomen"
+	| "calf"
+	| "chest"
 	| "general";
 
 // Core product data from products table

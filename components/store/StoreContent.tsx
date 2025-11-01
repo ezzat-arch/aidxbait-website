@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { HorizontalFilters } from "@/components/store/HorizontalFilters";
-import { FilterOptions, Product } from "@/lib/store-types";
+import { FilterOptions, Product, Joint } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
 import { toast } from "@/hooks/use-toast";
 
@@ -14,6 +14,97 @@ const initialFilters: FilterOptions = {
 	inStock: false,
 };
 
+/**
+ * Parse URL search params into FilterOptions and search query
+ * Supports both 'joint' (singular) and 'joints' (plural) for backward compatibility
+ */
+function parseFiltersFromURL(searchParams: URLSearchParams): {
+	filters: FilterOptions;
+	search: string;
+} {
+	const filters: FilterOptions = { ...initialFilters };
+	let search = "";
+
+	// Parse joints - support both singular 'joint' and plural 'joints'
+	const jointParam = searchParams.get("joint");
+	const jointsParam = searchParams.get("joints");
+	
+	if (jointParam) {
+		// Single joint from body map navigation
+		const validJoint = jointParam.toLowerCase() as Joint;
+		filters.joints = [validJoint];
+	} else if (jointsParam) {
+		// Multiple joints comma-separated
+		const joints = jointsParam
+			.split(",")
+			.map((j) => j.trim().toLowerCase() as Joint)
+			.filter(Boolean);
+		filters.joints = joints;
+	}
+
+	// Parse price range
+	const minPrice = searchParams.get("minPrice");
+	const maxPrice = searchParams.get("maxPrice");
+	if (minPrice) {
+		const parsed = parseInt(minPrice, 10);
+		if (!isNaN(parsed)) filters.priceRange.min = parsed;
+	}
+	if (maxPrice) {
+		const parsed = parseInt(maxPrice, 10);
+		if (!isNaN(parsed)) filters.priceRange.max = parsed;
+	}
+
+	// Parse inStock
+	const inStock = searchParams.get("inStock");
+	if (inStock === "true") {
+		filters.inStock = true;
+	}
+
+	// Parse search query
+	const searchParam = searchParams.get("search");
+	if (searchParam) {
+		search = searchParam;
+	}
+
+	return { filters, search };
+}
+
+/**
+ * Build URLSearchParams from filters and search query
+ * Only includes non-default values to keep URL clean
+ */
+function buildURLFromFilters(
+	filters: FilterOptions,
+	searchQuery: string
+): URLSearchParams {
+	const params = new URLSearchParams();
+
+	// Add joints if any selected
+	if (filters.joints.length > 0) {
+		params.set("joints", filters.joints.join(","));
+	}
+
+	// Add price range if not default
+	if (filters.priceRange.min !== 0) {
+		params.set("minPrice", filters.priceRange.min.toString());
+	}
+	if (filters.priceRange.max !== 10000) {
+		params.set("maxPrice", filters.priceRange.max.toString());
+	}
+
+	// Add inStock if true
+	if (filters.inStock) {
+		params.set("inStock", "true");
+	}
+
+	// Add search query if not empty
+	if (searchQuery.trim()) {
+		params.set("search", searchQuery.trim());
+	}
+
+	return params;
+}
+
 export function StoreContent() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filters, setFilters] = useState<FilterOptions>(initialFilters);
@@ -22,9 +113,38 @@ export function StoreContent() {
 	const [error, setError] = useState<string | null>(null);
 	const { openCart, clearCart } = useCart();
 	const router = useRouter();
+	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const hasHandledCartOpen = useRef(false);
 	const hasHandledPayment = useRef(false);
+	const isInitialized = useRef(false);
+
+	// Initialize filters and search from URL params on mount
+	useEffect(() => {
+		if (!isInitialized.current) {
+			isInitialized.current = true;
+			const { filters: urlFilters, search: urlSearch } =
+				parseFiltersFromURL(searchParams);
+			setFilters(urlFilters);
+			setSearchQuery(urlSearch);
+		}
+	}, [searchParams]);
+
+	// Update URL when filters or search change (debounced)
+	useEffect(() => {
+		// Skip URL update during initial load
+		if (!isInitialized.current) return;
+
+		const timer = setTimeout(() => {
+			const params = buildURLFromFilters(filters, searchQuery);
+			const newUrl = params.toString()
+				? `${pathname}?${params.toString()}`
+				: pathname;
+			router.replace(newUrl, { scroll: false });
+		}, 300); // 300ms debounce
+
+		return () => clearTimeout(timer);
+	}, [filters, searchQuery, pathname, router]);
 
 	// Handle payment callback (success/failure)
 	useEffect(() => {
@@ -65,10 +185,18 @@ export function StoreContent() {
 				});
 			}
 
-			// Clean up URL without adding to history
-			router.replace("/services/store");
+			// Clean up payment params while preserving filters
+			const newParams = new URLSearchParams(searchParams);
+			newParams.delete("payment");
+			newParams.delete("order_id");
+			newParams.delete("error");
+			newParams.delete("reason");
+			const newUrl = newParams.toString()
+				? `${pathname}?${newParams.toString()}`
+				: pathname;
+			router.replace(newUrl);
 		}
-	}, [searchParams, router, clearCart]);
+	}, [searchParams, router, clearCart, pathname]);
 
 	// Auto-open cart drawer if openCart param is present
 	useEffect(() => {
@@ -76,10 +204,15 @@ export function StoreContent() {
 		if (shouldOpenCart === "true" && !hasHandledCartOpen.current) {
 			hasHandledCartOpen.current = true;
 			openCart();
-			// Clean up URL without adding to history
-			router.replace("/services/store");
+			// Clean up openCart param while preserving filters
+			const newParams = new URLSearchParams(searchParams);
+			newParams.delete("openCart");
+			const newUrl = newParams.toString()
+				? `${pathname}?${newParams.toString()}`
+				: pathname;
+			router.replace(newUrl);
 		}
-	}, [searchParams, openCart, router]);
+	}, [searchParams, openCart, router, pathname]);
 
 	// Fetch products from API
 	useEffect(() => {
