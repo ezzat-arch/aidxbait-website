@@ -137,6 +137,11 @@ export default function CheckoutPage() {
 	}, [userProfile, loadAddresses]);
 
 	const handlePlaceOrder = async () => {
+		// Prevent duplicate submissions
+		if (isSubmitting) {
+			return;
+		}
+
 		if (!userProfile?.patient_id) {
 			toast({
 				title: "Error",
