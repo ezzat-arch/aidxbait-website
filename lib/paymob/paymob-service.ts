@@ -199,16 +199,23 @@ export function verifyHMAC(callbackData: Record<string, any>, requireHmac: boole
 		
 		const receivedHmac = callbackData.hmac;
 		
-		if (!receivedHmac) {
-			if (!requireHmac) {
-				console.warn("[Paymob HMAC] No HMAC signature found, but HMAC not required for this callback type. Proceeding without verification.");
-				return true;
+		// If HMAC verification is not required, skip it entirely
+		if (!requireHmac) {
+			if (!receivedHmac) {
+				console.warn("[Paymob HMAC] No HMAC signature found, but HMAC verification is disabled. Proceeding without verification.");
+			} else {
+				console.warn("[Paymob HMAC] HMAC signature found, but HMAC verification is disabled. Skipping verification.");
 			}
-			console.error("[Paymob HMAC] No HMAC signature found in callback data");
+			return true;
+		}
+		
+		// HMAC is required - check if it's present
+		if (!receivedHmac) {
+			console.error("[Paymob HMAC] No HMAC signature found in callback data (HMAC required)");
 			return false;
 		}
 		
-		// If HMAC is present, always verify it regardless of requireHmac flag
+		// HMAC is required and present - verify it
 		console.log("[Paymob HMAC] HMAC signature found, proceeding with verification...");
 
 		// Extract field values - handle both nested (POST) and flat (GET) structures
