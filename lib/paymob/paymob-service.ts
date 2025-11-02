@@ -9,6 +9,11 @@ const PAYMOB_SECRET_KEY = process.env.PAYMOB_SECRET_KEY!;
 const PAYMOB_INTEGRATION_ID = process.env.PAYMOB_INTEGRATION_ID!;
 const PAYMOB_IFRAME_ID = process.env.PAYMOB_IFRAME_ID!;
 
+// HMAC Configuration
+// Set to true to allow callbacks without HMAC (lenient mode)
+// Set to false to require HMAC verification (strict mode)
+export const ALLOW_CALLBACKS_WITHOUT_HMAC = true;
+
 // Type definitions for Paymob API
 export interface PaymobAuthResponse {
 	token: string;

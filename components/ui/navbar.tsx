@@ -182,7 +182,7 @@ const Navbar = ({ className }: { className?: string }) => {
 					className={cn(
 						"border border-transparent shadow-input flex items-center transition-all duration-200 z-50",
 						isScrolled
-							? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 2xl:px-64 py-1 justify-between shadow-2xl drop-shadow-lg"
+							? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-3 justify-between shadow-2xl drop-shadow-lg"
 							: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-2 md:py-1 mx-auto mt-4 max-w-8xl justify-between shadow-2xl drop-shadow-lg"
 					)}
 				>
@@ -192,7 +192,7 @@ const Navbar = ({ className }: { className?: string }) => {
 					</div>
 
 					{/* Left Menu Items */}
-					<div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
+					<div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
 						{/* Home Visits Menu */}
 						<div
 							onMouseEnter={() => setActive("HomeVisits")}
@@ -405,7 +405,7 @@ const Navbar = ({ className }: { className?: string }) => {
 					<div className="flex-grow"></div>
 
 					{/* Right Side Menu Items */}
-					<div className="hidden lg:flex items-center space-x-3 xl:space-x-4 ml-4 lg:ml-6">
+					<div className="hidden lg:flex items-center space-x-4 xl:space-x-6 ml-8 lg:ml-12">
 						{/* Contact & About - Stacked Vertically */}
 						<div className="flex flex-col gap-1">
 							{/* Contact */}

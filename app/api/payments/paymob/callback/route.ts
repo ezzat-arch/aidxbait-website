@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { verifyHMAC } from "@/lib/paymob/paymob-service";
+import {
+	verifyHMAC,
+	ALLOW_CALLBACKS_WITHOUT_HMAC,
+} from "@/lib/paymob/paymob-service";
 
 const supabaseAdmin = createClient(
 	process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -76,9 +79,11 @@ export async function GET(request: NextRequest) {
 
 		// Step 1: Verify HMAC signature
 		console.log("[Paymob Callback GET] Starting HMAC verification...");
-		const isValidHmac = verifyHMAC(callbackData);
+		// Check if HMAC verification should be optional based on configuration
+		const requireHmac = !ALLOW_CALLBACKS_WITHOUT_HMAC;
+		const isValidHmac = verifyHMAC(callbackData, requireHmac);
 		if (!isValidHmac) {
-			console.error("[Paymob Callback] Invalid HMAC signature");
+			console.error("[Paymob Callback GET] Invalid HMAC signature");
 			return NextResponse.redirect(
 				`${
 					process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
@@ -263,7 +268,9 @@ export async function POST(request: NextRequest) {
 
 		// Verify HMAC signature (POST callbacks may not include HMAC)
 		console.log("[Paymob Callback POST] Starting HMAC verification...");
-		const isValidHmac = verifyHMAC(transactionData, false);
+		// Check if HMAC verification should be optional based on configuration
+		const requireHmac = !ALLOW_CALLBACKS_WITHOUT_HMAC;
+		const isValidHmac = verifyHMAC(transactionData, requireHmac);
 		if (!isValidHmac) {
 			console.error("[Paymob Callback POST] Invalid HMAC signature");
 			return NextResponse.json(
