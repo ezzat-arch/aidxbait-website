@@ -16,7 +16,7 @@ const PAYMOB_HMAC_SECRET = process.env.PAYMOB_HMAC_SECRET || PAYMOB_SECRET_KEY;
 // HMAC Configuration
 // Set to true to allow callbacks without HMAC (lenient mode)
 // Set to false to require HMAC verification (strict mode)
-export const ALLOW_CALLBACKS_WITHOUT_HMAC = true;
+export const ALLOW_CALLBACKS_WITHOUT_HMAC = false;
 
 // Type definitions for Paymob API
 export interface PaymobAuthResponse {
