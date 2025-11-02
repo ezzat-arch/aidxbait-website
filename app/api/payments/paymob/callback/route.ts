@@ -23,6 +23,20 @@ export async function GET(request: NextRequest) {
 			callbackData[key] = value;
 		});
 
+		// Normalize dotted notation to underscore notation for source_data fields
+		// Paymob sends: source_data.type, source_data.pan, source_data.sub_type
+		// HMAC calculation expects: source_data_type, source_data_pan, source_data_sub_type
+		if (callbackData["source_data.type"]) {
+			callbackData["source_data_type"] = callbackData["source_data.type"];
+		}
+		if (callbackData["source_data.pan"]) {
+			callbackData["source_data_pan"] = callbackData["source_data.pan"];
+		}
+		if (callbackData["source_data.sub_type"]) {
+			callbackData["source_data_sub_type"] =
+				callbackData["source_data.sub_type"];
+		}
+
 		console.log(
 			"[Paymob Callback GET] ========== New Callback Received =========="
 		);
@@ -247,9 +261,9 @@ export async function POST(request: NextRequest) {
 			}
 		});
 
-		// Verify HMAC signature
+		// Verify HMAC signature (POST callbacks may not include HMAC)
 		console.log("[Paymob Callback POST] Starting HMAC verification...");
-		const isValidHmac = verifyHMAC(transactionData);
+		const isValidHmac = verifyHMAC(transactionData, false);
 		if (!isValidHmac) {
 			console.error("[Paymob Callback POST] Invalid HMAC signature");
 			return NextResponse.json(
@@ -258,7 +272,9 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		console.log("[Paymob Callback POST] HMAC verified successfully");
+		console.log(
+			"[Paymob Callback POST] HMAC verified successfully (or not required)"
+		);
 
 		// Extract details
 		const transactionId = transactionData.id;

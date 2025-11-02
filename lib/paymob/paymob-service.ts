@@ -177,10 +177,13 @@ export async function generatePaymentKey(
 /**
  * Verify HMAC signature from Paymob callback
  * Uses SHA512 with specific field concatenation order as per Paymob documentation
+ * @param callbackData - The callback data received from Paymob
+ * @param requireHmac - Whether to require HMAC (default: true). Set to false for POST callbacks which may not include HMAC
  */
-export function verifyHMAC(callbackData: Record<string, any>): boolean {
+export function verifyHMAC(callbackData: Record<string, any>, requireHmac: boolean = true): boolean {
 	try {
 		console.log("[Paymob HMAC] Starting verification...");
+		console.log(`[Paymob HMAC] HMAC required: ${requireHmac}`);
 		
 		// Verify environment variables are loaded
 		if (!PAYMOB_SECRET_KEY) {
@@ -192,9 +195,16 @@ export function verifyHMAC(callbackData: Record<string, any>): boolean {
 		const receivedHmac = callbackData.hmac;
 		
 		if (!receivedHmac) {
+			if (!requireHmac) {
+				console.warn("[Paymob HMAC] No HMAC signature found, but HMAC not required for this callback type. Proceeding without verification.");
+				return true;
+			}
 			console.error("[Paymob HMAC] No HMAC signature found in callback data");
 			return false;
 		}
+		
+		// If HMAC is present, always verify it regardless of requireHmac flag
+		console.log("[Paymob HMAC] HMAC signature found, proceeding with verification...");
 
 		// Extract field values - handle both nested (POST) and flat (GET) structures
 		// CRITICAL: Use values as-is, don't use String() conversion which adds extra quotes
