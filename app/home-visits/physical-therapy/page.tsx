@@ -1,11 +1,11 @@
+import { ServiceComingSoon } from "@/components/sections/service-coming-soon";
+
 export default function PhysicalTherapyPage() {
 	return (
-		<div className="container mx-auto px-4 py-16">
-			<h1 className="text-4xl font-bold mb-6">Physical Therapy Home Visits</h1>
-			<p className="text-lg text-gray-600">
-				This page is under construction. Coming soon!
-			</p>
-		</div>
+		<ServiceComingSoon
+			serviceName="Physical Therapy Home Visits"
+			description="Professional physical therapy sessions delivered at your home by certified therapists."
+		/>
 	);
 }
 

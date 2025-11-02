@@ -1,11 +1,11 @@
+import { ServiceComingSoon } from "@/components/sections/service-coming-soon";
+
 export default function NursingPage() {
 	return (
-		<div className="container mx-auto px-4 py-16">
-			<h1 className="text-4xl font-bold mb-6">Nursing Home Visits</h1>
-			<p className="text-lg text-gray-600">
-				This page is under construction. Coming soon!
-			</p>
-		</div>
+		<ServiceComingSoon
+			serviceName="Nursing Home Visits"
+			description="Professional nursing care services delivered at your doorstep by qualified nurses."
+		/>
 	);
 }
 
