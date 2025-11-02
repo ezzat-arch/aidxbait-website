@@ -6,6 +6,7 @@ import { AuthProvider } from "@/contexts/auth-context";
 import { TrackingProvider } from "@/contexts/tracking-context";
 import { CartSidebar } from "@/components/store/CartSidebar";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
 	title: "AidXBait | Your Health Companion",
@@ -44,6 +45,7 @@ export default function RootLayout({
 					</CartProvider>
 				</TrackingProvider>
 			</AuthProvider>
+			<Analytics />
 		</body>
 		</html>
 	);
