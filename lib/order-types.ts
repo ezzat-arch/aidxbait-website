@@ -4,10 +4,10 @@
 export const TAX_RATE = 0.14; // 14% tax
 export const SHIPPING_COST = 50; // 50 EGP flat shipping fee
 
-// Database enums
+// Database enums - matching Supabase schema exactly
 export type OrderType = "purchase" | "rental";
 export type PaymentMethod = "cash_on_delivery" | "online";
-export type PaymentStatus = "pending" | "paid" | "failed";
+export type PaymentStatus = "pending" | "completed" | "failed" | "refunded";
 export type OrderStatus =
 	| "pending"
 	| "confirmed"

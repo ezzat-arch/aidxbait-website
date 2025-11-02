@@ -277,9 +277,9 @@ export function verifyHMAC(callbackData: Record<string, any>, requireHmac: boole
 		].join("");
 
 		console.log(
-			`[Paymob HMAC] Concatenated string (length: ${concatenatedString.length}):`,
-			concatenatedString.substring(0, 100) + "..."
+			`[Paymob HMAC] Concatenated string (length: ${concatenatedString.length}):`
 		);
+		console.log(`[Paymob HMAC] Full concatenated string: "${concatenatedString}"`);
 
 		// Generate HMAC using SHA512
 		const calculatedHmac = crypto

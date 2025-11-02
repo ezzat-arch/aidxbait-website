@@ -113,12 +113,12 @@ export async function GET(request: NextRequest) {
 		console.log("[Paymob Callback] Order found:", order.id);
 
 		// Step 4: Update order based on transaction status
-		let paymentStatus: "pending" | "paid" | "failed" = "pending";
+		let paymentStatus: "pending" | "completed" | "failed" = "pending";
 		let orderStatus: "pending" | "confirmed" = "pending";
 
 		if (success && !pending) {
 			// Payment successful
-			paymentStatus = "paid";
+			paymentStatus = "completed";
 			orderStatus = "confirmed";
 			console.log("[Paymob Callback] Payment successful");
 		} else if (!success && !pending) {
@@ -301,11 +301,11 @@ export async function POST(request: NextRequest) {
 		}
 
 		// Update order status
-		let paymentStatus: "pending" | "paid" | "failed" = "pending";
+		let paymentStatus: "pending" | "completed" | "failed" = "pending";
 		let orderStatus: "pending" | "confirmed" = "pending";
 
 		if (success && !pending) {
-			paymentStatus = "paid";
+			paymentStatus = "completed";
 			orderStatus = "confirmed";
 		} else if (!success && !pending) {
 			paymentStatus = "failed";
