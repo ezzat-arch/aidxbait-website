@@ -182,6 +182,13 @@ export function verifyHMAC(callbackData: Record<string, any>): boolean {
 	try {
 		console.log("[Paymob HMAC] Starting verification...");
 		
+		// Verify environment variables are loaded
+		if (!PAYMOB_SECRET_KEY) {
+			console.error("[Paymob HMAC] PAYMOB_SECRET_KEY is not defined!");
+			return false;
+		}
+		console.log(`[Paymob HMAC] Secret key loaded: ${PAYMOB_SECRET_KEY.substring(0, 10)}...${PAYMOB_SECRET_KEY.substring(PAYMOB_SECRET_KEY.length - 10)} (length: ${PAYMOB_SECRET_KEY.length})`);
+		
 		const receivedHmac = callbackData.hmac;
 		
 		if (!receivedHmac) {
@@ -190,45 +197,43 @@ export function verifyHMAC(callbackData: Record<string, any>): boolean {
 		}
 
 		// Extract field values - handle both nested (POST) and flat (GET) structures
-		// Using String() conversion and ?? operator for proper null/undefined handling
+		// CRITICAL: Use values as-is, don't use String() conversion which adds extra quotes
+		// For GET requests, values are already strings; for POST they are proper types
 		const extractOrderId = () => {
 			if (typeof callbackData.order === "object" && callbackData.order !== null) {
-				return String(callbackData.order.id ?? "");
+				return callbackData.order.id ?? "";
 			}
-			return String(callbackData.order ?? "");
+			return callbackData.order ?? "";
 		};
 
 		const fields = {
-			amount_cents: String(callbackData.amount_cents ?? ""),
-			created_at: String(callbackData.created_at ?? ""),
-			currency: String(callbackData.currency ?? ""),
-			error_occured: String(callbackData.error_occured ?? ""),
-			has_parent_transaction: String(callbackData.has_parent_transaction ?? ""),
-			id: String(callbackData.id ?? ""),
-			integration_id: String(callbackData.integration_id ?? ""),
-			is_3d_secure: String(callbackData.is_3d_secure ?? ""),
-			is_auth: String(callbackData.is_auth ?? ""),
-			is_capture: String(callbackData.is_capture ?? ""),
-			is_refunded: String(callbackData.is_refunded ?? ""),
-			is_standalone_payment: String(callbackData.is_standalone_payment ?? ""),
-			is_voided: String(callbackData.is_voided ?? ""),
+			amount_cents: callbackData.amount_cents ?? "",
+			created_at: callbackData.created_at ?? "",
+			currency: callbackData.currency ?? "",
+			error_occured: callbackData.error_occured ?? "",
+			has_parent_transaction: callbackData.has_parent_transaction ?? "",
+			id: callbackData.id ?? "",
+			integration_id: callbackData.integration_id ?? "",
+			is_3d_secure: callbackData.is_3d_secure ?? "",
+			is_auth: callbackData.is_auth ?? "",
+			is_capture: callbackData.is_capture ?? "",
+			is_refunded: callbackData.is_refunded ?? "",
+			is_standalone_payment: callbackData.is_standalone_payment ?? "",
+			is_voided: callbackData.is_voided ?? "",
 			order_id: extractOrderId(),
-			owner: String(callbackData.owner ?? ""),
-			pending: String(callbackData.pending ?? ""),
-			source_data_pan: String(
+			owner: callbackData.owner ?? "",
+			pending: callbackData.pending ?? "",
+			source_data_pan:
 				callbackData.source_data?.pan ??
-					callbackData.source_data_pan ??
-					""
-			),
-			source_data_sub_type: String(
+				callbackData.source_data_pan ??
+				"",
+			source_data_sub_type:
 				callbackData.source_data?.sub_type ??
-					callbackData.source_data_sub_type ??
-					""
-			),
-			source_data_type: String(
-				callbackData.source_data?.type ?? callbackData.source_data_type ?? ""
-			),
-			success: String(callbackData.success ?? ""),
+				callbackData.source_data_sub_type ??
+				"",
+			source_data_type:
+				callbackData.source_data?.type ?? callbackData.source_data_type ?? "",
+			success: callbackData.success ?? "",
 		};
 
 		// Debug logging - log all field values

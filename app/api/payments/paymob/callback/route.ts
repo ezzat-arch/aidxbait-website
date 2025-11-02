@@ -23,7 +23,9 @@ export async function GET(request: NextRequest) {
 			callbackData[key] = value;
 		});
 
-		console.log("[Paymob Callback GET] ========== New Callback Received ==========");
+		console.log(
+			"[Paymob Callback GET] ========== New Callback Received =========="
+		);
 		console.log("[Paymob Callback GET] Transaction summary:", {
 			transaction_id: callbackData.id,
 			order_id: callbackData.order,
@@ -36,11 +38,27 @@ export async function GET(request: NextRequest) {
 		console.log("[Paymob Callback GET] All query parameters:");
 		const paramCount = Array.from(searchParams.keys()).length;
 		console.log(`  Total parameters: ${paramCount}`);
+
+		// Log ALL parameters to see if we're missing any
+		const allParams: string[] = [];
 		searchParams.forEach((value, key) => {
-			// Truncate long values for readability
-			const displayValue = value.length > 50 ? value.substring(0, 50) + "..." : value;
-			console.log(`  ${key}: "${displayValue}"`);
+			allParams.push(key);
+			// Truncate long values for readability (except hmac - show first/last)
+			if (key === "hmac") {
+				console.log(
+					`  ${key}: ${value.substring(0, 20)}...${value.substring(
+						value.length - 20
+					)}`
+				);
+			} else {
+				const displayValue =
+					value.length > 50 ? value.substring(0, 50) + "..." : value;
+				console.log(`  ${key}: "${displayValue}"`);
+			}
 		});
+		console.log(
+			`[Paymob Callback GET] All parameter keys: ${allParams.join(", ")}`
+		);
 
 		// Step 1: Verify HMAC signature
 		console.log("[Paymob Callback GET] Starting HMAC verification...");
@@ -163,37 +181,70 @@ export async function POST(request: NextRequest) {
 	try {
 		const callbackData = await request.json();
 
-		console.log("[Paymob Callback POST] ========== New Callback Received ==========");
+		console.log(
+			"[Paymob Callback POST] ========== New Callback Received =========="
+		);
 		console.log("[Paymob Callback POST] Raw callback structure:", {
 			hasObj: !!callbackData.obj,
 			topLevelKeys: Object.keys(callbackData).join(", "),
 		});
 
 		// Extract transaction details from nested object
+		// Important: HMAC is at top level, transaction data is in 'obj'
 		const transactionData = callbackData.obj || callbackData;
+		if (callbackData.obj && callbackData.hmac) {
+			transactionData.hmac = callbackData.hmac;
+			console.log(
+				"[Paymob Callback POST] HMAC found at parent level, attached to transaction data"
+			);
+		}
 
 		console.log("[Paymob Callback POST] Transaction summary:", {
 			transaction_id: transactionData.id,
-			order_id: typeof transactionData.order === "object" 
-				? transactionData.order?.id 
-				: transactionData.order,
+			order_id:
+				typeof transactionData.order === "object"
+					? transactionData.order?.id
+					: transactionData.order,
 			success: transactionData.success,
 			pending: transactionData.pending,
 			amount_cents: transactionData.amount_cents,
+			has_hmac: !!transactionData.hmac,
 		});
 
 		// Log key transaction fields
 		console.log("[Paymob Callback POST] Key transaction fields:");
 		const keyFields = [
-			"id", "amount_cents", "success", "pending", "currency",
-			"integration_id", "order", "hmac", "created_at"
+			"id",
+			"amount_cents",
+			"success",
+			"pending",
+			"currency",
+			"integration_id",
+			"order",
+			"hmac",
+			"created_at",
 		];
-		keyFields.forEach(field => {
+		keyFields.forEach((field) => {
 			const value = transactionData[field];
-			const displayValue = typeof value === "string" && value.length > 50 
-				? value.substring(0, 50) + "..."
-				: value;
-			console.log(`  ${field}: ${JSON.stringify(displayValue)}`);
+			if (field === "hmac") {
+				// Show first and last 20 chars of HMAC
+				const hmacStr = value ? String(value) : "undefined";
+				console.log(
+					`  ${field}: ${
+						hmacStr.length > 40
+							? hmacStr.substring(0, 20) +
+							  "..." +
+							  hmacStr.substring(hmacStr.length - 20)
+							: hmacStr
+					}`
+				);
+			} else {
+				const displayValue =
+					typeof value === "string" && value.length > 50
+						? value.substring(0, 50) + "..."
+						: value;
+				console.log(`  ${field}: ${JSON.stringify(displayValue)}`);
+			}
 		});
 
 		// Verify HMAC signature
