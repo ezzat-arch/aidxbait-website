@@ -17,19 +17,33 @@ export async function GET(request: NextRequest) {
 	try {
 		const { searchParams } = new URL(request.url);
 
-		// Extract all callback parameters
+		// Extract all callback parameters (GET request - all values are strings)
 		const callbackData: Record<string, any> = {};
 		searchParams.forEach((value, key) => {
 			callbackData[key] = value;
 		});
 
-		console.log("[Paymob Callback] Received callback for transaction:", {
+		console.log("[Paymob Callback GET] ========== New Callback Received ==========");
+		console.log("[Paymob Callback GET] Transaction summary:", {
 			transaction_id: callbackData.id,
 			order_id: callbackData.order,
 			success: callbackData.success,
+			pending: callbackData.pending,
+			amount_cents: callbackData.amount_cents,
+		});
+
+		// Log all query parameters for debugging
+		console.log("[Paymob Callback GET] All query parameters:");
+		const paramCount = Array.from(searchParams.keys()).length;
+		console.log(`  Total parameters: ${paramCount}`);
+		searchParams.forEach((value, key) => {
+			// Truncate long values for readability
+			const displayValue = value.length > 50 ? value.substring(0, 50) + "..." : value;
+			console.log(`  ${key}: "${displayValue}"`);
 		});
 
 		// Step 1: Verify HMAC signature
+		console.log("[Paymob Callback GET] Starting HMAC verification...");
 		const isValidHmac = verifyHMAC(callbackData);
 		if (!isValidHmac) {
 			console.error("[Paymob Callback] Invalid HMAC signature");
@@ -149,16 +163,41 @@ export async function POST(request: NextRequest) {
 	try {
 		const callbackData = await request.json();
 
-		console.log("[Paymob Callback POST] Received callback for transaction:", {
-			transaction_id: callbackData.obj?.id,
-			order_id: callbackData.obj?.order?.id,
-			success: callbackData.obj?.success,
+		console.log("[Paymob Callback POST] ========== New Callback Received ==========");
+		console.log("[Paymob Callback POST] Raw callback structure:", {
+			hasObj: !!callbackData.obj,
+			topLevelKeys: Object.keys(callbackData).join(", "),
 		});
 
 		// Extract transaction details from nested object
 		const transactionData = callbackData.obj || callbackData;
 
+		console.log("[Paymob Callback POST] Transaction summary:", {
+			transaction_id: transactionData.id,
+			order_id: typeof transactionData.order === "object" 
+				? transactionData.order?.id 
+				: transactionData.order,
+			success: transactionData.success,
+			pending: transactionData.pending,
+			amount_cents: transactionData.amount_cents,
+		});
+
+		// Log key transaction fields
+		console.log("[Paymob Callback POST] Key transaction fields:");
+		const keyFields = [
+			"id", "amount_cents", "success", "pending", "currency",
+			"integration_id", "order", "hmac", "created_at"
+		];
+		keyFields.forEach(field => {
+			const value = transactionData[field];
+			const displayValue = typeof value === "string" && value.length > 50 
+				? value.substring(0, 50) + "..."
+				: value;
+			console.log(`  ${field}: ${JSON.stringify(displayValue)}`);
+		});
+
 		// Verify HMAC signature
+		console.log("[Paymob Callback POST] Starting HMAC verification...");
 		const isValidHmac = verifyHMAC(transactionData);
 		if (!isValidHmac) {
 			console.error("[Paymob Callback POST] Invalid HMAC signature");

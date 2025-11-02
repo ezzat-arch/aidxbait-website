@@ -176,36 +176,95 @@ export async function generatePaymentKey(
 
 /**
  * Verify HMAC signature from Paymob callback
+ * Uses SHA512 with specific field concatenation order as per Paymob documentation
  */
 export function verifyHMAC(callbackData: Record<string, any>): boolean {
 	try {
+		console.log("[Paymob HMAC] Starting verification...");
+		
 		const receivedHmac = callbackData.hmac;
+		
+		if (!receivedHmac) {
+			console.error("[Paymob HMAC] No HMAC signature found in callback data");
+			return false;
+		}
 
-		// Concatenate the required fields in the specific order
+		// Extract field values - handle both nested (POST) and flat (GET) structures
+		// Using String() conversion and ?? operator for proper null/undefined handling
+		const extractOrderId = () => {
+			if (typeof callbackData.order === "object" && callbackData.order !== null) {
+				return String(callbackData.order.id ?? "");
+			}
+			return String(callbackData.order ?? "");
+		};
+
+		const fields = {
+			amount_cents: String(callbackData.amount_cents ?? ""),
+			created_at: String(callbackData.created_at ?? ""),
+			currency: String(callbackData.currency ?? ""),
+			error_occured: String(callbackData.error_occured ?? ""),
+			has_parent_transaction: String(callbackData.has_parent_transaction ?? ""),
+			id: String(callbackData.id ?? ""),
+			integration_id: String(callbackData.integration_id ?? ""),
+			is_3d_secure: String(callbackData.is_3d_secure ?? ""),
+			is_auth: String(callbackData.is_auth ?? ""),
+			is_capture: String(callbackData.is_capture ?? ""),
+			is_refunded: String(callbackData.is_refunded ?? ""),
+			is_standalone_payment: String(callbackData.is_standalone_payment ?? ""),
+			is_voided: String(callbackData.is_voided ?? ""),
+			order_id: extractOrderId(),
+			owner: String(callbackData.owner ?? ""),
+			pending: String(callbackData.pending ?? ""),
+			source_data_pan: String(
+				callbackData.source_data?.pan ??
+					callbackData.source_data_pan ??
+					""
+			),
+			source_data_sub_type: String(
+				callbackData.source_data?.sub_type ??
+					callbackData.source_data_sub_type ??
+					""
+			),
+			source_data_type: String(
+				callbackData.source_data?.type ?? callbackData.source_data_type ?? ""
+			),
+			success: String(callbackData.success ?? ""),
+		};
+
+		// Debug logging - log all field values
+		console.log("[Paymob HMAC] Field values:");
+		Object.entries(fields).forEach(([key, value]) => {
+			console.log(`  ${key}: "${value}" (type: ${typeof value})`);
+		});
+
+		// Concatenate fields in the exact order specified by Paymob
 		const concatenatedString = [
-			callbackData.amount_cents || "",
-			callbackData.created_at || "",
-			callbackData.currency || "",
-			callbackData.error_occured || "",
-			callbackData.has_parent_transaction || "",
-			callbackData.id || "",
-			callbackData.integration_id || "",
-			callbackData.is_3d_secure || "",
-			callbackData.is_auth || "",
-			callbackData.is_capture || "",
-			callbackData.is_refunded || "",
-			callbackData.is_standalone_payment || "",
-			callbackData.is_voided || "",
-			callbackData.order?.id || callbackData.order || "",
-			callbackData.owner || "",
-			callbackData.pending || "",
-			callbackData.source_data?.pan || callbackData.source_data_pan || "",
-			callbackData.source_data?.sub_type ||
-				callbackData.source_data_sub_type ||
-				"",
-			callbackData.source_data?.type || callbackData.source_data_type || "",
-			callbackData.success || "",
+			fields.amount_cents,
+			fields.created_at,
+			fields.currency,
+			fields.error_occured,
+			fields.has_parent_transaction,
+			fields.id,
+			fields.integration_id,
+			fields.is_3d_secure,
+			fields.is_auth,
+			fields.is_capture,
+			fields.is_refunded,
+			fields.is_standalone_payment,
+			fields.is_voided,
+			fields.order_id,
+			fields.owner,
+			fields.pending,
+			fields.source_data_pan,
+			fields.source_data_sub_type,
+			fields.source_data_type,
+			fields.success,
 		].join("");
+
+		console.log(
+			`[Paymob HMAC] Concatenated string (length: ${concatenatedString.length}):`,
+			concatenatedString.substring(0, 100) + "..."
+		);
 
 		// Generate HMAC using SHA512
 		const calculatedHmac = crypto
@@ -213,9 +272,32 @@ export function verifyHMAC(callbackData: Record<string, any>): boolean {
 			.update(concatenatedString)
 			.digest("hex");
 
-		return calculatedHmac === receivedHmac;
+		// Log HMAC comparison
+		console.log(
+			`[Paymob HMAC] Calculated HMAC (first 40 chars): ${calculatedHmac.substring(
+				0,
+				40
+			)}...`
+		);
+		console.log(
+			`[Paymob HMAC] Received HMAC (first 40 chars):   ${receivedHmac.substring(
+				0,
+				40
+			)}...`
+		);
+
+		const isValid = calculatedHmac === receivedHmac;
+		console.log(`[Paymob HMAC] Verification result: ${isValid ? "✓ PASSED" : "✗ FAILED"}`);
+
+		if (!isValid) {
+			console.error("[Paymob HMAC] HMAC mismatch detected!");
+			console.error(`[Paymob HMAC] Full calculated: ${calculatedHmac}`);
+			console.error(`[Paymob HMAC] Full received:   ${receivedHmac}`);
+		}
+
+		return isValid;
 	} catch (error) {
-		console.error("[Paymob] HMAC verification error:", error);
+		console.error("[Paymob HMAC] Verification error:", error);
 		return false;
 	}
 }
