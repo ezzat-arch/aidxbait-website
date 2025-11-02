@@ -79,7 +79,7 @@ export async function GET(request: NextRequest) {
 
 		// Step 1: Verify HMAC signature
 		console.log("[Paymob Callback GET] Starting HMAC verification...");
-		// Check if HMAC verification should be optional based on configuration
+		// GET callbacks (user redirects) should always verify HMAC when configured
 		const requireHmac = !ALLOW_CALLBACKS_WITHOUT_HMAC;
 		const isValidHmac = verifyHMAC(callbackData, requireHmac);
 		if (!isValidHmac) {
@@ -199,6 +199,10 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
 	try {
 		const callbackData = await request.json();
+		
+		// Extract HMAC from URL query parameters (Paymob sends HMAC in URL, not body)
+		const { searchParams } = new URL(request.url);
+		const urlHmac = searchParams.get("hmac");
 
 		console.log(
 			"[Paymob Callback POST] ========== New Callback Received =========="
@@ -206,15 +210,23 @@ export async function POST(request: NextRequest) {
 		console.log("[Paymob Callback POST] Raw callback structure:", {
 			hasObj: !!callbackData.obj,
 			topLevelKeys: Object.keys(callbackData).join(", "),
+			hasUrlHmac: !!urlHmac,
 		});
 
 		// Extract transaction details from nested object
-		// Important: HMAC is at top level, transaction data is in 'obj'
+		// Important: HMAC is in URL query params, transaction data is in 'obj'
 		const transactionData = callbackData.obj || callbackData;
-		if (callbackData.obj && callbackData.hmac) {
+		
+		// Check for HMAC in multiple locations (URL, parent level, or transaction level)
+		if (urlHmac) {
+			transactionData.hmac = urlHmac;
+			console.log(
+				"[Paymob Callback POST] HMAC found in URL query parameters"
+			);
+		} else if (callbackData.obj && callbackData.hmac) {
 			transactionData.hmac = callbackData.hmac;
 			console.log(
-				"[Paymob Callback POST] HMAC found at parent level, attached to transaction data"
+				"[Paymob Callback POST] HMAC found at parent level in body"
 			);
 		}
 
@@ -266,9 +278,9 @@ export async function POST(request: NextRequest) {
 			}
 		});
 
-		// Verify HMAC signature (POST callbacks may not include HMAC)
+		// Verify HMAC signature (POST callbacks send HMAC in URL query parameters)
 		console.log("[Paymob Callback POST] Starting HMAC verification...");
-		// Check if HMAC verification should be optional based on configuration
+		// POST callbacks should verify HMAC when configured (HMAC is in URL params)
 		const requireHmac = !ALLOW_CALLBACKS_WITHOUT_HMAC;
 		const isValidHmac = verifyHMAC(transactionData, requireHmac);
 		if (!isValidHmac) {
