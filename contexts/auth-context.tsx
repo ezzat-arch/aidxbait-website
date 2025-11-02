@@ -43,35 +43,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [profileLoading, setProfileLoading] = useState(false);
 
 	useEffect(() => {
-		console.log("[AuthContext] Provider mounted, initializing...");
+		console.log("[AUTH-DEBUG] Provider mounted, initializing at", new Date().toISOString());
+		console.log("[AUTH-DEBUG] Initial states:", { loading: true, profileLoading: false });
 		const supabase = createClient();
 		let isInitialLoad = true;
 
 		// Get initial user
 		const getUser = async () => {
+			const startTime = Date.now();
 			try {
-				console.log("[AuthContext] Fetching initial user...");
+				console.log("[AUTH-DEBUG] Fetching initial user at", new Date().toISOString());
 				const {
 					data: { user },
 					error: authError,
 				} = await supabase.auth.getUser();
 
 				if (authError) {
-					console.error("[AuthContext] Auth error:", authError);
+					console.error("[AUTH-DEBUG] Auth error:", authError);
 				}
 
-				console.log(
-					"[AuthContext] User fetched:",
-					user ? "Authenticated" : "Not authenticated"
-				);
+				const authDuration = Date.now() - startTime;
+				console.log("[AUTH-DEBUG] User fetched:", {
+					authenticated: !!user,
+					durationMs: authDuration,
+					timestamp: new Date().toISOString(),
+				});
 				setUser(user);
 
 				// Fetch user profile if user exists
 				if (user) {
-					console.log("[AuthContext] User ID:", user.id);
+					console.log("[AUTH-DEBUG] User authenticated, fetching profile. User ID:", user.id);
+					console.log("[AUTH-DEBUG] Setting profileLoading to true");
 					setProfileLoading(true);
 					try {
-						console.log("[AuthContext] Fetching user profile from database...");
+						console.log("[AUTH-DEBUG] Fetching user profile from database...");
+						const profileStartTime = Date.now();
+						
 						const { data, error } = await supabase
 							.from("users")
 							.select(
@@ -80,38 +87,61 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 							.eq("supabase_id", user.id)
 							.maybeSingle();
 
+						const profileDuration = Date.now() - profileStartTime;
+						
 						if (error) {
-							console.error(
-								"[AuthContext] Profile fetch error:",
-								JSON.stringify(error, null, 2)
-							);
+							console.error("[AUTH-DEBUG] Profile fetch error:", {
+								error: JSON.stringify(error, null, 2),
+								durationMs: profileDuration,
+								timestamp: new Date().toISOString(),
+							});
 						} else if (!data) {
-							console.warn(
-								"[AuthContext] No profile found for user. User may need to complete registration."
-							);
+							console.warn("[AUTH-DEBUG] No profile found for user:", {
+								userId: user.id,
+								durationMs: profileDuration,
+								timestamp: new Date().toISOString(),
+							});
 						} else {
-							console.log("[AuthContext] Profile fetched:", data);
+							const patientId = (data as any).patients?.id || null;
+							console.log("[AUTH-DEBUG] Profile fetched successfully:", {
+								userId: data.id,
+								patientId,
+								userType: data.user_type,
+								durationMs: profileDuration,
+								timestamp: new Date().toISOString(),
+							});
 							// Extract patient_id from the nested patients object
 							const profileData = {
 								...data,
-								patient_id: (data as any).patients?.id || null,
+								patient_id: patientId,
 							};
 							delete (profileData as any).patients;
 							setUserProfile(profileData);
 						}
 					} catch (profileError) {
-						console.error(
-							"[AuthContext] Profile fetch exception:",
-							JSON.stringify(profileError, null, 2)
-						);
+						console.error("[AUTH-DEBUG] Profile fetch exception:", {
+							error: JSON.stringify(profileError, null, 2),
+							timestamp: new Date().toISOString(),
+						});
 					} finally {
+						console.log("[AUTH-DEBUG] Setting profileLoading to false");
 						setProfileLoading(false);
 					}
 				}
 			} catch (error) {
-				console.error("[AuthContext] GetUser exception:", error);
+				console.error("[AUTH-DEBUG] GetUser exception:", {
+					error: error instanceof Error ? error.message : String(error),
+					stack: error instanceof Error ? error.stack : undefined,
+					timestamp: new Date().toISOString(),
+				});
 			} finally {
-				console.log("[AuthContext] Setting loading to false");
+				const totalDuration = Date.now() - startTime;
+				console.log("[AUTH-DEBUG] Auth initialization complete:", {
+					loading: false,
+					totalDurationMs: totalDuration,
+					timestamp: new Date().toISOString(),
+				});
+				console.log("[AUTH-DEBUG] Setting loading to false");
 				setLoading(false);
 				isInitialLoad = false;
 			}
@@ -197,11 +227,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		await signOut();
 	};
 
-	console.log("[AuthContext] Provider render state:", {
-		loading,
-		user: !!user,
-		profileLoading,
-	});
+	// DEBUG: Log state on every render
+	useEffect(() => {
+		console.log("[AUTH-DEBUG] State update:", {
+			loading,
+			hasUser: !!user,
+			profileLoading,
+			hasUserProfile: !!userProfile,
+			patientId: userProfile?.patient_id,
+			timestamp: new Date().toISOString(),
+		});
+	}, [loading, user, profileLoading, userProfile]);
 
 	return (
 		<AuthContext.Provider

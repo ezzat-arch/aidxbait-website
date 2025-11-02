@@ -29,6 +29,22 @@ export default function CheckoutPage() {
 	const { cart, clearCart } = useCart();
 	const { user, userProfile, loading: authLoading, profileLoading } = useAuth();
 
+	// DEBUG: Log component mount
+	useEffect(() => {
+		console.log(
+			"[CHECKOUT-DEBUG] Component mounted at",
+			new Date().toISOString()
+		);
+		console.log("[CHECKOUT-DEBUG] Initial state:", {
+			authLoading,
+			profileLoading,
+			hasUser: !!user,
+			hasUserProfile: !!userProfile,
+			patientId: userProfile?.patient_id,
+			cartItemCount: cart.items.length,
+		});
+	}, []);
+
 	const [addresses, setAddresses] = useState<PatientAddress[]>([]);
 	const [selectedAddressId, setSelectedAddressId] = useState<number | null>(
 		null
@@ -53,7 +69,14 @@ export default function CheckoutPage() {
 
 	// Redirect to login if not authenticated
 	useEffect(() => {
+		console.log("[CHECKOUT-DEBUG] Auth redirect effect triggered:", {
+			authLoading,
+			hasUser: !!user,
+			timestamp: new Date().toISOString(),
+		});
+
 		if (!authLoading && !user) {
+			console.log("[CHECKOUT-DEBUG] Redirecting to login - no user found");
 			router.push(
 				`/login?redirect=${encodeURIComponent("/services/store/checkout")}`
 			);
@@ -62,10 +85,20 @@ export default function CheckoutPage() {
 
 	// Track checkout started and redirect to store if cart is empty
 	useEffect(() => {
+		console.log("[CHECKOUT-DEBUG] Checkout start effect triggered:", {
+			authLoading,
+			profileLoading,
+			hasHandledCheckoutStart: hasHandledCheckoutStart.current,
+			cartItemsLength: cart.items.length,
+			timestamp: new Date().toISOString(),
+		});
+
 		if (!authLoading && !profileLoading && !hasHandledCheckoutStart.current) {
 			if (cart.items.length === 0) {
+				console.log("[CHECKOUT-DEBUG] Redirecting to store - empty cart");
 				router.push("/services/store");
 			} else {
+				console.log("[CHECKOUT-DEBUG] Checkout started - tracking event");
 				hasHandledCheckoutStart.current = true;
 				// Track checkout started
 				eventService.trackCheckoutEvent("started", {
@@ -88,16 +121,40 @@ export default function CheckoutPage() {
 
 	// Load addresses - memoized with useCallback
 	const loadAddresses = useCallback(async () => {
-		if (!userProfile?.patient_id) return;
+		const startTime = Date.now();
+		console.log("[CHECKOUT-DEBUG] loadAddresses called:", {
+			patientId: userProfile?.patient_id,
+			timestamp: new Date().toISOString(),
+		});
+
+		if (!userProfile?.patient_id) {
+			console.log("[CHECKOUT-DEBUG] loadAddresses skipped - no patient_id");
+			return;
+		}
 
 		try {
+			console.log("[CHECKOUT-DEBUG] Setting loadingAddresses to true");
 			setLoadingAddresses(true);
+
+			console.log("[CHECKOUT-DEBUG] Fetching addresses from API...");
 			const data = await fetchAddresses(userProfile.patient_id);
+			const fetchDuration = Date.now() - startTime;
+
+			console.log("[CHECKOUT-DEBUG] Addresses fetched successfully:", {
+				addressCount: data.length,
+				fetchDurationMs: fetchDuration,
+				timestamp: new Date().toISOString(),
+			});
+
 			setAddresses(data);
 
 			// Auto-select primary address
 			const primaryAddress = data.find((addr) => addr.is_primary);
 			if (primaryAddress) {
+				console.log(
+					"[CHECKOUT-DEBUG] Auto-selecting primary address:",
+					primaryAddress.id
+				);
 				setSelectedAddressId(primaryAddress.id);
 				// Track address selected
 				eventService.trackCheckoutEvent("address_selected", {
@@ -105,34 +162,60 @@ export default function CheckoutPage() {
 					cartItemCount: cart.itemCount,
 				});
 			} else if (data.length > 0) {
+				console.log(
+					"[CHECKOUT-DEBUG] Auto-selecting first address:",
+					data[0].id
+				);
 				setSelectedAddressId(data[0].id);
 				// Track address selected
 				eventService.trackCheckoutEvent("address_selected", {
 					cartValue: cart.total,
 					cartItemCount: cart.itemCount,
 				});
+			} else {
+				console.log("[CHECKOUT-DEBUG] No addresses found to auto-select");
 			}
 		} catch (error) {
-			console.error("Error loading addresses:", error);
+			const fetchDuration = Date.now() - startTime;
+			console.error("[CHECKOUT-DEBUG] Error loading addresses:", {
+				error: error instanceof Error ? error.message : String(error),
+				stack: error instanceof Error ? error.stack : undefined,
+				patientId: userProfile?.patient_id,
+				fetchDurationMs: fetchDuration,
+				timestamp: new Date().toISOString(),
+			});
 			toast({
 				title: "Error",
 				description: "Failed to load addresses. Please try again.",
 				variant: "destructive",
 			});
 		} finally {
+			console.log("[CHECKOUT-DEBUG] Setting loadingAddresses to false");
 			setLoadingAddresses(false);
 		}
 	}, [userProfile?.patient_id, cart.total, cart.itemCount]);
 
 	// Load addresses when user profile is available
 	useEffect(() => {
+		console.log("[CHECKOUT-DEBUG] Load addresses effect triggered:", {
+			hasUserProfile: !!userProfile,
+			patientId: userProfile?.patient_id,
+			timestamp: new Date().toISOString(),
+		});
+
 		if (userProfile) {
 			if (userProfile.patient_id) {
+				console.log("[CHECKOUT-DEBUG] Calling loadAddresses()");
 				loadAddresses();
 			} else {
+				console.log(
+					"[CHECKOUT-DEBUG] No patient_id - setting loadingAddresses to false"
+				);
 				// No patient_id - user profile exists but is incomplete
 				setLoadingAddresses(false);
 			}
+		} else {
+			console.log("[CHECKOUT-DEBUG] No userProfile yet - waiting");
 		}
 	}, [userProfile, loadAddresses]);
 
@@ -300,7 +383,25 @@ export default function CheckoutPage() {
 	// Calculate order totals
 	const orderCalculation = calculateOrderTotals(cart.total);
 
+	// DEBUG: Log loading state changes
+	useEffect(() => {
+		console.log("[CHECKOUT-DEBUG] Loading states changed:", {
+			authLoading,
+			profileLoading,
+			loadingAddresses,
+			isBlocked: authLoading || profileLoading || loadingAddresses,
+			timestamp: new Date().toISOString(),
+		});
+	}, [authLoading, profileLoading, loadingAddresses]);
+
 	if (authLoading || profileLoading || loadingAddresses) {
+		console.log("[CHECKOUT-DEBUG] Rendering loading screen:", {
+			authLoading,
+			profileLoading,
+			loadingAddresses,
+			timestamp: new Date().toISOString(),
+		});
+
 		return (
 			<div className="min-h-screen bg-background pt-28 flex items-center justify-center">
 				<div className="text-center">
@@ -310,6 +411,8 @@ export default function CheckoutPage() {
 			</div>
 		);
 	}
+
+	console.log("[CHECKOUT-DEBUG] Rendering checkout page content");
 
 	if (!user || cart.items.length === 0) {
 		return null;

@@ -19,17 +19,28 @@ const supabaseAdmin = createClient(
 
 // GET - Fetch patient addresses
 export async function GET(request: NextRequest) {
+	const startTime = Date.now();
+	
 	try {
 		const { searchParams } = new URL(request.url);
 		const patientId = searchParams.get("patient_id");
 
+		console.log("[ADDRESS-API-DEBUG] GET request received:", {
+			patientId,
+			timestamp: new Date().toISOString(),
+		});
+
 		if (!patientId) {
+			console.log("[ADDRESS-API-DEBUG] Request rejected - missing patient_id");
 			return NextResponse.json(
 				{ success: false, error: "Patient ID is required" },
 				{ status: 400 }
 			);
 		}
 
+		console.log("[ADDRESS-API-DEBUG] Querying database for addresses...");
+		const queryStartTime = Date.now();
+		
 		const { data: addresses, error } = await supabaseAdmin
 			.from("patient_addresses")
 			.select("*")
@@ -38,17 +49,41 @@ export async function GET(request: NextRequest) {
 			.order("is_primary", { ascending: false })
 			.order("created_at", { ascending: false });
 
+		const queryDuration = Date.now() - queryStartTime;
+		
 		if (error) {
-			console.error("[Addresses API] Error fetching addresses:", error);
+			console.error("[ADDRESS-API-DEBUG] Database query error:", {
+				error: error.message,
+				code: error.code,
+				details: error.details,
+				hint: error.hint,
+				patientId,
+				queryDurationMs: queryDuration,
+				timestamp: new Date().toISOString(),
+			});
 			return NextResponse.json(
 				{ success: false, error: "Failed to fetch addresses" },
 				{ status: 500 }
 			);
 		}
 
+		const totalDuration = Date.now() - startTime;
+		console.log("[ADDRESS-API-DEBUG] Request completed successfully:", {
+			addressCount: addresses?.length || 0,
+			queryDurationMs: queryDuration,
+			totalDurationMs: totalDuration,
+			timestamp: new Date().toISOString(),
+		});
+
 		return NextResponse.json({ success: true, data: addresses });
 	} catch (error) {
-		console.error("[Addresses API] Unexpected error:", error);
+		const totalDuration = Date.now() - startTime;
+		console.error("[ADDRESS-API-DEBUG] Unexpected error:", {
+			error: error instanceof Error ? error.message : String(error),
+			stack: error instanceof Error ? error.stack : undefined,
+			totalDurationMs: totalDuration,
+			timestamp: new Date().toISOString(),
+		});
 		return NextResponse.json(
 			{ success: false, error: "Internal server error" },
 			{ status: 500 }

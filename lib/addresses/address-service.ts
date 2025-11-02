@@ -12,25 +12,70 @@ import type {
 export async function fetchAddresses(
 	patientId: number
 ): Promise<PatientAddress[]> {
+	const startTime = Date.now();
+	console.log("[ADDRESS-SERVICE-DEBUG] fetchAddresses called:", {
+		patientId,
+		timestamp: new Date().toISOString(),
+	});
+	
 	try {
+		console.log("[ADDRESS-SERVICE-DEBUG] Initiating fetch request to /api/addresses");
+		const fetchStartTime = Date.now();
+		
 		const response = await fetch(`/api/addresses?patient_id=${patientId}`);
+		
+		const fetchDuration = Date.now() - fetchStartTime;
+		console.log("[ADDRESS-SERVICE-DEBUG] Fetch request completed:", {
+			status: response.status,
+			statusText: response.statusText,
+			ok: response.ok,
+			fetchDurationMs: fetchDuration,
+			timestamp: new Date().toISOString(),
+		});
 
 		if (!response.ok) {
+			console.error("[ADDRESS-SERVICE-DEBUG] Response not OK - attempting to parse error");
 			const error = await response
 				.json()
 				.catch(() => ({ error: "Failed to fetch addresses" }));
+			console.error("[ADDRESS-SERVICE-DEBUG] Error response:", {
+				status: response.status,
+				error,
+				timestamp: new Date().toISOString(),
+			});
 			throw new Error(error.error || "Failed to fetch addresses");
 		}
 
+		console.log("[ADDRESS-SERVICE-DEBUG] Parsing successful response...");
 		const data: AddressesResponse = await response.json();
 
 		if (!data.success || !data.data) {
+			console.error("[ADDRESS-SERVICE-DEBUG] Response indicates failure:", {
+				success: data.success,
+				hasData: !!data.data,
+				error: data.error,
+				timestamp: new Date().toISOString(),
+			});
 			throw new Error(data.error || "Failed to fetch addresses");
 		}
 
+		const totalDuration = Date.now() - startTime;
+		console.log("[ADDRESS-SERVICE-DEBUG] Addresses fetched successfully:", {
+			addressCount: data.data.length,
+			totalDurationMs: totalDuration,
+			timestamp: new Date().toISOString(),
+		});
+
 		return data.data;
 	} catch (error) {
-		console.error("[AddressService] Error fetching addresses:", error);
+		const totalDuration = Date.now() - startTime;
+		console.error("[ADDRESS-SERVICE-DEBUG] Error fetching addresses:", {
+			error: error instanceof Error ? error.message : String(error),
+			stack: error instanceof Error ? error.stack : undefined,
+			patientId,
+			totalDurationMs: totalDuration,
+			timestamp: new Date().toISOString(),
+		});
 		throw error;
 	}
 }
