@@ -9,6 +9,10 @@ const PAYMOB_SECRET_KEY = process.env.PAYMOB_SECRET_KEY!;
 const PAYMOB_INTEGRATION_ID = process.env.PAYMOB_INTEGRATION_ID!;
 const PAYMOB_IFRAME_ID = process.env.PAYMOB_IFRAME_ID!;
 
+// HMAC key - separate key from Paymob dashboard specifically for callback verification
+// Falls back to PAYMOB_SECRET_KEY if PAYMOB_HMAC_SECRET is not set (for backward compatibility)
+const PAYMOB_HMAC_SECRET = process.env.PAYMOB_HMAC_SECRET || PAYMOB_SECRET_KEY;
+
 // HMAC Configuration
 // Set to true to allow callbacks without HMAC (lenient mode)
 // Set to false to require HMAC verification (strict mode)
@@ -191,11 +195,13 @@ export function verifyHMAC(callbackData: Record<string, any>, requireHmac: boole
 		console.log(`[Paymob HMAC] HMAC required: ${requireHmac}`);
 		
 		// Verify environment variables are loaded
-		if (!PAYMOB_SECRET_KEY) {
-			console.error("[Paymob HMAC] PAYMOB_SECRET_KEY is not defined!");
+		if (!PAYMOB_HMAC_SECRET) {
+			console.error("[Paymob HMAC] PAYMOB_HMAC_SECRET is not defined!");
 			return false;
 		}
-		console.log(`[Paymob HMAC] Secret key loaded: ${PAYMOB_SECRET_KEY.substring(0, 10)}...${PAYMOB_SECRET_KEY.substring(PAYMOB_SECRET_KEY.length - 10)} (length: ${PAYMOB_SECRET_KEY.length})`);
+		const usingDedicatedHmacKey = process.env.PAYMOB_HMAC_SECRET !== undefined;
+		console.log(`[Paymob HMAC] Using ${usingDedicatedHmacKey ? 'dedicated HMAC key' : 'secret key as fallback'}`);
+		console.log(`[Paymob HMAC] HMAC key loaded: ${PAYMOB_HMAC_SECRET.substring(0, 10)}...${PAYMOB_HMAC_SECRET.substring(PAYMOB_HMAC_SECRET.length - 10)} (length: ${PAYMOB_HMAC_SECRET.length})`);
 		
 		const receivedHmac = callbackData.hmac;
 		
@@ -295,7 +301,7 @@ export function verifyHMAC(callbackData: Record<string, any>, requireHmac: boole
 
 		// Generate HMAC using SHA512
 		const calculatedHmac = crypto
-			.createHmac("sha512", PAYMOB_SECRET_KEY)
+			.createHmac("sha512", PAYMOB_HMAC_SECRET)
 			.update(concatenatedString)
 			.digest("hex");
 
