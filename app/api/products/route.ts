@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
 		// Get query parameters for filtering
 		const searchParams = request.nextUrl.searchParams;
 		const jointFilter = searchParams.get("joint");
+		const categoryId = searchParams.get("category_id");
 		const currency = searchParams.get("currency");
 		const isBestSeller = searchParams.get("is_best_seller");
 		const isFeatured = searchParams.get("is_featured");
@@ -45,6 +46,13 @@ export async function GET(request: NextRequest) {
 					soft_deleted,
 					created_at,
 					updated_at
+				),
+				store_categories!left (
+					id,
+					name,
+					name_ar,
+					created_at,
+					updated_at
 				)
 			`
 			)
@@ -55,6 +63,13 @@ export async function GET(request: NextRequest) {
 		if (jointFilter) {
 			// Note: This requires a join with product_joints and product_joint_names
 			// We'll filter this in-memory after fetching
+		}
+
+		if (categoryId) {
+			const categoryIdNum = parseInt(categoryId, 10);
+			if (!isNaN(categoryIdNum)) {
+				query = query.eq("category_id", categoryIdNum);
+			}
 		}
 
 		if (currency) {
@@ -147,6 +162,15 @@ export async function GET(request: NextRequest) {
 				updated_at: review.updated_at,
 			}));
 
+			// Map category (if available)
+			const category = product.store_categories ? {
+				id: product.store_categories.id,
+				name: product.store_categories.name,
+				name_ar: product.store_categories.name_ar,
+				created_at: product.store_categories.created_at,
+				updated_at: product.store_categories.updated_at,
+			} : undefined;
+
 			return {
 				id: product.id,
 				name: product.name,
@@ -166,12 +190,14 @@ export async function GET(request: NextRequest) {
 				is_for_rent: product.is_for_rent,
 				rent_term: product.rent_term,
 				tags: product.tags,
+				category_id: product.category_id,
 				soft_deleted: product.soft_deleted,
 				created_at: product.created_at,
 				updated_at: product.updated_at,
 				images,
 				joints,
 				reviews,
+				category,
 				rating: Math.round(rating * 10) / 10, // Round to 1 decimal place
 				reviewCount: activeReviews.length,
 			};

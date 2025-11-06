@@ -20,7 +20,7 @@ export const HeroSection = React.forwardRef<
 			{/* First Hero Section */}
 			<section
 				ref={ref}
-				className="relative min-h-screen h-[100vh] flex items-center bg-cover bg-center bg-no-repeat p-0 m-0"
+				className="relative min-h-screen hero-height flex items-center bg-cover bg-center bg-no-repeat p-0 m-0"
 				style={{ backgroundImage: "url('/images/hero_image.jpg')" }}
 			>
 				{navbar && (
@@ -28,25 +28,25 @@ export const HeroSection = React.forwardRef<
 				)}
 				<div className="absolute inset-0 bg-black/50 z-0" />
 				<div className="container relative z-20 px-4 sm:px-6 lg:px-8">
-					<div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center pt-20 sm:pt-24 md:pt-28 lg:pt-0">
+					<div className="grid gap-4 sm:gap-8 lg:grid-cols-2 lg:gap-12 items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 hero-content">
 						<motion.div
 							initial={{ opacity: 0, x: -100 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.7 }}
 							viewport={{ once: true, amount: 0.5 }}
-							className="flex flex-col gap-6"
+							className="flex flex-col gap-4 sm:gap-6 text-center lg:text-left items-center lg:items-start"
 						>
-							<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight leading-tight">
+							<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold tracking-tight leading-tight hero-heading">
 								Unlock
 								<br />
 								The Potentials of
 								<br />
 								<span className="text-primary">Home Care</span>
 							</h1>
-							<p className="text-base sm:text-lg text-white/90 max-w-xl leading-relaxed">
+							<p className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl leading-relaxed hero-description">
 								Stay at Home and order all medical services with a finger click
 							</p>
-							<div className="flex flex-col sm:flex-row gap-4 mt-6">
+							<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 hero-badges justify-center lg:justify-start">
 								<Link
 									href="/download/ios"
 									className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
@@ -54,7 +54,7 @@ export const HeroSection = React.forwardRef<
 									<img
 										src="/images/app-store-badge-black.svg"
 										alt="Download on the App Store"
-										className="h-[50px] w-auto"
+										className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
 									/>
 								</Link>
 								<Link
@@ -64,7 +64,7 @@ export const HeroSection = React.forwardRef<
 									<img
 										src="/images/google-play-badge.png"
 										alt="Get it on Google Play"
-										className="h-[50px] w-auto"
+										className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
 									/>
 								</Link>
 							</div>
@@ -74,7 +74,7 @@ export const HeroSection = React.forwardRef<
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.7 }}
 							viewport={{ once: true, amount: 0.5 }}
-							className="relative flex justify-center items-center h-[300px] sm:h-[400px] lg:h-[500px] mt-8 lg:mt-0 lg:block lg:relative  lg:animate-float"
+							className="relative flex justify-center items-center h-[250px] sm:h-[300px] md:h-[350px] lg:h-[450px] mt-6 sm:mt-8 lg:mt-0 lg:block lg:relative lg:animate-float hero-image-container"
 						>
 							<div className="hidden lg:block absolute top-0 -left-14 w-full max-w-xs sm:max-w-md md:max-w-lg h-full bg-gradient-to-br from-primary/20 to-primary/10 rounded-3xl transform -rotate-3"></div>
 							<div
@@ -87,7 +87,7 @@ export const HeroSection = React.forwardRef<
 									width={400}
 									height={400}
 									className="rounded-xl shadow-lg w-full h-full object-cover"
-									style={{ minHeight: "250px" }}
+									style={{ minHeight: "200px" }}
 								/>
 							</div>
 						</motion.div>

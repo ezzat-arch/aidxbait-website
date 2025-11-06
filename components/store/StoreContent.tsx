@@ -4,7 +4,10 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { HorizontalFilters } from "@/components/store/HorizontalFilters";
+import { StoreCategoryTabs } from "@/components/store/StoreCategoryTabs";
+import { StoreBodyMapSection } from "@/components/store/StoreBodyMapSection";
 import { FilterOptions, Product, Joint } from "@/lib/store-types";
+import { shouldShowBodyMap } from "@/lib/store-categories";
 import { useCart } from "@/contexts/cart-context";
 import { toast } from "@/hooks/use-toast";
 
@@ -21,9 +24,21 @@ const initialFilters: FilterOptions = {
 function parseFiltersFromURL(searchParams: URLSearchParams): {
 	filters: FilterOptions;
 	search: string;
+	categoryId: number | null;
 } {
 	const filters: FilterOptions = { ...initialFilters };
 	let search = "";
+	let categoryId: number | null = null;
+
+	// Parse category
+	const categoryParam = searchParams.get("category");
+	if (categoryParam) {
+		const parsed = parseInt(categoryParam, 10);
+		if (!isNaN(parsed)) {
+			categoryId = parsed;
+			filters.categoryId = parsed;
+		}
+	}
 
 	// Parse joints - support both singular 'joint' and plural 'joints'
 	const jointParam = searchParams.get("joint");
@@ -66,7 +81,7 @@ function parseFiltersFromURL(searchParams: URLSearchParams): {
 		search = searchParam;
 	}
 
-	return { filters, search };
+	return { filters, search, categoryId };
 }
 
 /**
@@ -75,9 +90,15 @@ function parseFiltersFromURL(searchParams: URLSearchParams): {
  */
 function buildURLFromFilters(
 	filters: FilterOptions,
-	searchQuery: string
+	searchQuery: string,
+	categoryId: number | null
 ): URLSearchParams {
 	const params = new URLSearchParams();
+
+	// Add category if selected
+	if (categoryId !== null) {
+		params.set("category", categoryId.toString());
+	}
 
 	// Add joints if any selected
 	if (filters.joints.length > 0) {
@@ -108,6 +129,7 @@ function buildURLFromFilters(
 export function StoreContent() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filters, setFilters] = useState<FilterOptions>(initialFilters);
+	const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -119,24 +141,25 @@ export function StoreContent() {
 	const hasHandledPayment = useRef(false);
 	const isInitialized = useRef(false);
 
-	// Initialize filters and search from URL params on mount
+	// Initialize filters, search, and category from URL params on mount
 	useEffect(() => {
 		if (!isInitialized.current) {
 			isInitialized.current = true;
-			const { filters: urlFilters, search: urlSearch } =
+			const { filters: urlFilters, search: urlSearch, categoryId } =
 				parseFiltersFromURL(searchParams);
 			setFilters(urlFilters);
 			setSearchQuery(urlSearch);
+			setSelectedCategoryId(categoryId);
 		}
 	}, [searchParams]);
 
-	// Update URL when filters or search change (debounced)
+	// Update URL when filters, search, or category change (debounced)
 	useEffect(() => {
 		// Skip URL update during initial load
 		if (!isInitialized.current) return;
 
 		const timer = setTimeout(() => {
-			const params = buildURLFromFilters(filters, searchQuery);
+			const params = buildURLFromFilters(filters, searchQuery, selectedCategoryId);
 			const newUrl = params.toString()
 				? `${pathname}?${params.toString()}`
 				: pathname;
@@ -144,7 +167,7 @@ export function StoreContent() {
 		}, 300); // 300ms debounce
 
 		return () => clearTimeout(timer);
-	}, [filters, searchQuery, pathname, router]);
+	}, [filters, searchQuery, selectedCategoryId, pathname, router]);
 
 	// Handle payment callback (success/failure)
 	useEffect(() => {
@@ -223,6 +246,9 @@ export function StoreContent() {
 
 				// Build query params
 				const params = new URLSearchParams();
+				if (selectedCategoryId !== null) {
+					params.append("category_id", selectedCategoryId.toString());
+				}
 				if (filters.inStock) {
 					params.append("in_stock", "true");
 				}
@@ -257,6 +283,7 @@ export function StoreContent() {
 
 		fetchProducts();
 	}, [
+		selectedCategoryId,
 		filters.inStock,
 		filters.currency,
 		filters.isBestSeller,
@@ -313,10 +340,26 @@ export function StoreContent() {
 		setFilters(initialFilters);
 	};
 
+	const handleCategoryChange = (categoryId: number | null) => {
+		setSelectedCategoryId(categoryId);
+		// Update filters to include the new category
+		setFilters((prev) => ({ ...prev, categoryId }));
+		// Clear joint filters when changing category
+		setFilters((prev) => ({ ...prev, joints: [] }));
+	};
+
+	const handleJointSelect = (joint: Joint) => {
+		// Add the selected joint to the filters
+		setFilters((prev) => ({
+			...prev,
+			joints: prev.joints.includes(joint) ? prev.joints : [...prev.joints, joint],
+		}));
+	};
+
 	return (
 		<div className="min-h-screen bg-background pt-20">
 			{/* Hero Section */}
-			<div className="relative h-[40vh] min-h-[300px] max-h-[500px] overflow-hidden">
+			<div className="relative min-h-[400px] sm:h-[45vh] md:h-[50vh] lg:h-[40vh] max-h-[600px] overflow-hidden">
 				{/* Background Image with Overlay */}
 				<div
 					className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -345,7 +388,7 @@ export function StoreContent() {
 
 				{/* Content */}
 				<div className="relative h-full flex items-center justify-center">
-					<div className="text-center px-4 max-w-4xl mx-auto">
+					<div className="text-center px-4 max-w-5xl mx-auto">
 						{/* Badge */}
 						<div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 mb-6">
 							<span className="text-white/90 text-sm font-medium">
@@ -355,19 +398,27 @@ export function StoreContent() {
 						</div>
 
 						{/* Main Heading */}
-						<h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white drop-shadow-2xl mb-6">
+						<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white drop-shadow-2xl mb-4 sm:mb-6">
 							Shop Physical Therapy Products
 						</h1>
 
 						{/* Subtle Divider */}
-						<div className="flex items-center justify-center gap-3 mb-6">
+						<div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
 							<div className="h-px w-16 bg-white/40" />
 							<div className="w-2 h-2 rounded-full bg-white/60" />
 							<div className="h-px w-16 bg-white/40" />
 						</div>
 
+						{/* Category Tabs */}
+						<div className="mb-4 sm:mb-6">
+							<StoreCategoryTabs
+								selectedCategoryId={selectedCategoryId}
+								onCategoryChange={handleCategoryChange}
+							/>
+						</div>
+
 						{/* Mini Stats/Features */}
-						<div className="flex flex-wrap items-center justify-center gap-6 text-white/90">
+						<div className="hidden sm:flex flex-wrap items-center justify-center gap-6 text-white/90 mt-6">
 							<div className="flex items-center gap-2">
 								<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
 									🏥
@@ -390,6 +441,11 @@ export function StoreContent() {
 					</div>
 				</div>
 			</div>
+
+			{/* Body Map Section - Only show for Support, Braces & Walking Aids */}
+			{shouldShowBodyMap(selectedCategoryId) && (
+				<StoreBodyMapSection onJointSelect={handleJointSelect} />
+			)}
 
 			{/* Main Content */}
 			<div className="container mx-auto px-4 py-8">

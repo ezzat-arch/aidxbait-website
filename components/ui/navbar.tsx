@@ -163,7 +163,7 @@ const Navbar = ({ className }: { className?: string }) => {
 				alt="AidXBait Logo"
 				width={180}
 				height={90}
-				className="object-contain w-[140px] h-[70px] sm:w-[160px] sm:h-[80px] md:w-[180px] md:h-[90px] lg:w-[200px] lg:h-[100px]"
+				className="object-contain w-[130px] h-[65px] sm:w-[140px] sm:h-[70px] md:w-[160px] md:h-[80px] lg:w-[180px] lg:h-[90px] logo-responsive"
 				priority
 			/>
 		</Link>
@@ -180,14 +180,14 @@ const Navbar = ({ className }: { className?: string }) => {
 			>
 				<nav
 					className={cn(
-						"border border-transparent shadow-input flex items-center transition-all duration-200 z-50",
+						"border border-transparent shadow-input flex items-center transition-all duration-200 z-50 navbar-height",
 						isScrolled
-							? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-3 justify-between shadow-2xl drop-shadow-lg"
-							: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-2 md:py-1 mx-auto mt-4 max-w-8xl justify-between shadow-2xl drop-shadow-lg"
+							? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-1.5 sm:py-2 justify-between shadow-2xl drop-shadow-lg"
+							: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-4 sm:px-6 md:px-8 lg:px-10 py-1.5 sm:py-1 md:py-1 mx-auto mt-4 max-w-8xl justify-between shadow-2xl drop-shadow-lg"
 					)}
 				>
 					{/* Logo */}
-					<div className="flex-shrink-0 mr-2 sm:mr-4 md:mr-6 lg:mr-8">
+					<div className="flex-shrink-0 mr-1 sm:mr-2 md:mr-4 lg:mr-8">
 						{logo}
 					</div>
 

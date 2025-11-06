@@ -26,6 +26,15 @@ export type Joint =
 	| "chest"
 	| "general";
 
+// Product category from store_categories table
+export interface ProductCategory {
+	id: number;
+	name: string;
+	name_ar: string;
+	created_at: string;
+	updated_at: string;
+}
+
 // Core product data from products table
 export interface Product {
 	id: number;
@@ -44,6 +53,7 @@ export interface Product {
 	is_for_rent: boolean;
 	rent_term: RentTerm | null;
 	tags: string[] | null;
+	category_id: number;
 	soft_deleted: boolean;
 	created_at: string;
 	updated_at: string;
@@ -51,6 +61,7 @@ export interface Product {
 	images: ProductImage[];
 	joints: ProductJoint[];
 	reviews: ProductReview[];
+	category?: ProductCategory;
 	// Computed fields
 	rating: number;
 	reviewCount: number;
@@ -112,6 +123,7 @@ export interface FilterOptions {
 		max: number;
 	};
 	inStock: boolean;
+	categoryId?: number | null;
 	currency?: Currency;
 	isBestSeller?: boolean;
 	isFeatured?: boolean;
