@@ -30,7 +30,7 @@ export const HeroSection = React.forwardRef<
 			{/* First Hero Section */}
 			<section
 				ref={ref}
-				className="relative min-h-screen hero-height flex items-center p-0 m-0"
+				className="relative min-h-screen hero-height flex items-center p-0 m-0 overflow-x-hidden"
 			>
 				<Image
 					src="/images/hero_image.jpg"
@@ -44,15 +44,16 @@ export const HeroSection = React.forwardRef<
 					<div className="fixed top-0 left-0 w-full z-50">{navbar}</div>
 				)}
 				<div className="absolute inset-0 bg-black/70 z-10" />
-				<div className="container relative z-20 px-4 sm:px-6 lg:px-8">
+				<div className="container relative z-20 px-4 sm:px-6 lg:px-8 max-w-full overflow-x-hidden">
 					<div className="grid gap-4 sm:gap-8 lg:grid-cols-2 lg:gap-12 items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 hero-content">
-						<motion.div
-							initial={{ opacity: 0, x: -100 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.7 }}
-							viewport={{ once: true, amount: 0.5 }}
-							className="flex flex-col gap-4 sm:gap-6 text-center ltr:lg:text-left rtl:lg:text-right items-center ltr:lg:items-start rtl:lg:items-end"
-						>
+						<div className="overflow-x-hidden">
+							<motion.div
+								initial={{ opacity: 0, x: -100 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.7 }}
+								viewport={{ once: true, amount: 0.5 }}
+								className="flex flex-col gap-4 sm:gap-6 text-center ltr:lg:text-left rtl:lg:text-right items-center ltr:lg:items-start rtl:lg:items-end"
+							>
 							<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold tracking-tight leading-tight hero-heading">
 								{t("unlock")}
 								<br />
@@ -92,14 +93,16 @@ export const HeroSection = React.forwardRef<
 								</Link>
 							</div>
 						</motion.div>
-						<motion.div
-							initial={{ opacity: 0, x: 100 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.7 }}
-							viewport={{ once: true, amount: 0.5 }}
-							className="relative flex justify-center items-center h-[250px] sm:h-[300px] md:h-[350px] lg:h-[450px] mt-6 sm:mt-8 lg:mt-0 lg:block lg:relative lg:animate-float hero-image-container"
-						>
-							<div className="hidden lg:block absolute top-0 -left-14 w-full max-w-xs sm:max-w-md md:max-w-lg h-full bg-gradient-to-br from-primary/20 to-primary/10 rounded-3xl transform -rotate-3"></div>
+						</div>
+						<div className="overflow-x-hidden">
+							<motion.div
+								initial={{ opacity: 0, x: 100 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.7 }}
+								viewport={{ once: true, amount: 0.5 }}
+								className="relative flex justify-center items-center h-[250px] sm:h-[300px] md:h-[350px] lg:h-[450px] mt-6 sm:mt-8 lg:mt-0 lg:block lg:relative lg:animate-float hero-image-container"
+							>
+							<div className="hidden lg:block absolute top-0 -left-14 w-full max-w-xs sm:max-w-md md:max-w-lg h-full bg-gradient-to-br from-primary/20 to-primary/10 rounded-3xl transform -rotate-3" style={{ maxWidth: 'calc(100% - 2rem)' }}></div>
 							<div
 								className="relative w-full max-w-xs sm:max-w-md md:max-w-lg h-full bg-white rounded-3xl shadow-xl p-4 sm:p-6 flex items-center justify-center mx-auto
 								lg:absolute lg:top-4 lg:left-4 lg:w-full lg:h-full lg:p-6 lg:flex lg:items-center lg:justify-center"
@@ -116,6 +119,7 @@ export const HeroSection = React.forwardRef<
 								/>
 							</div>
 						</motion.div>
+						</div>
 					</div>
 				</div>
 				<div
@@ -126,17 +130,18 @@ export const HeroSection = React.forwardRef<
 			</section>
 
 			{/* Second Hero Section - Uber Style */}
-			<section className="py-16 lg:py-24 bg-white">
-				<div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+			<section className="py-16 lg:py-24 bg-white overflow-x-hidden">
+				<div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl overflow-x-hidden">
 					<div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
 						{/* Left side - Image */}
-						<motion.div
-							initial={{ opacity: 0, x: -50 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.8, ease: "easeOut" }}
-							viewport={{ once: true, amount: 0.3 }}
-							className="w-full lg:w-1/2 order-1 lg:order-1"
-						>
+						<div className="overflow-x-hidden w-full lg:w-1/2">
+							<motion.div
+								initial={{ opacity: 0, x: -50 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.8, ease: "easeOut" }}
+								viewport={{ once: true, amount: 0.3 }}
+								className="w-full order-1 lg:order-1"
+							>
 							<div className="relative max-w-sm mx-auto lg:max-w-md lg:mx-0">
 								<Image
 									src="/images/logo_phone.png"
@@ -150,15 +155,17 @@ export const HeroSection = React.forwardRef<
 								<div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-blue-400/20 rounded-2xl pointer-events-none" />
 							</div>
 						</motion.div>
+						</div>
 
 						{/* Right side - Content */}
-						<motion.div
-							initial={{ opacity: 0, x: 50 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-							viewport={{ once: true, amount: 0.3 }}
-							className="w-full lg:w-1/2 order-2 lg:order-2"
-						>
+						<div className="overflow-x-hidden w-full lg:w-1/2">
+							<motion.div
+								initial={{ opacity: 0, x: 50 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+								viewport={{ once: true, amount: 0.3 }}
+								className="w-full order-2 lg:order-2"
+							>
 							<div className="lg:pl-8">
 								{/* Headline */}
 								<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -214,6 +221,7 @@ export const HeroSection = React.forwardRef<
 								</div>
 							</div>
 						</motion.div>
+						</div>
 					</div>
 				</div>
 			</section>

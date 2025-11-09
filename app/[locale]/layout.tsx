@@ -64,6 +64,7 @@ export default async function LocaleLayout({
 	return (
 		<html lang={locale} dir={direction}>
 			<head>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link
 					rel="preconnect"
