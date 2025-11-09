@@ -38,79 +38,79 @@ const ComingSoonText = () => {
 	);
 };
 
-// New navigation data structure
-const homeVisitsItems = [
+// New navigation data structure - converted to functions to support translations
+const getHomeVisitsItems = (t: any) => [
 	{
-		name: "Physical Therapy",
+		name: t("home_visits_physical_therapy"),
 		href: "/home-visits/physical-therapy",
-		description: "Professional physical therapy sessions at your home.",
+		description: t("home_visits_physical_therapy_desc"),
 		comingSoon: true,
 	},
 	{
-		name: "Specialist Doctors",
+		name: t("home_visits_specialist_doctors"),
 		href: "/home-visits/specialist-doctors",
-		description: "Consult with specialist doctors in the comfort of your home.",
+		description: t("home_visits_specialist_doctors_desc"),
 		comingSoon: true,
 	},
 	{
-		name: "Nursing",
+		name: t("home_visits_nursing"),
 		href: "/home-visits/nursing",
-		description: "Professional nursing care at your doorstep.",
+		description: t("home_visits_nursing_desc"),
 		comingSoon: true,
 	},
 	{
-		name: "Imaging",
+		name: t("home_visits_imaging"),
 		href: "/home-visits/imaging",
-		description: "Medical imaging services at home.",
+		description: t("home_visits_imaging_desc"),
 		comingSoon: true,
 	},
 	{
-		name: "Lab Services",
+		name: t("home_visits_lab_services"),
 		href: "/home-visits/lab-services",
-		description: "Laboratory tests done from home.",
+		description: t("home_visits_lab_services_desc"),
 		comingSoon: true,
 	},
 ];
 
-const storeItems = [
+const getStoreItems = (t: any) => [
 	{
-		name: "Support, Braces\n& Walking Aids",
+		name: t("store_support_braces_walking_aids"),
 		href: "/services/store/",
-		description: "Browse our collection of support braces and walking aids.",
+		description: t("store_support_braces_desc"),
 		comingSoon: false,
 	},
 	{
-		name: "Blood Glucose Monitoring",
+		name: t("store_blood_glucose_monitoring"),
 		href: "/services/store/",
-		description: "Shop blood glucose monitors and testing supplies.",
-		comingSoon: false,
-		category: "Medical Devices",
-	},
-	{
-		name: "Blood Pressure Monitoring",
-		href: "/services/store/",
-		description: "Shop blood pressure monitors and equipment.",
+		description: t("store_blood_glucose_desc"),
 		comingSoon: false,
 		category: "Medical Devices",
 	},
 	{
-		name: "Oximeters",
+		name: t("store_blood_pressure_monitoring"),
 		href: "/services/store/",
-		description: "Shop pulse oximeters for oxygen monitoring.",
+		description: t("store_blood_pressure_desc"),
 		comingSoon: false,
 		category: "Medical Devices",
 	},
 	{
-		name: "Thermometers",
+		name: t("store_oximeters"),
 		href: "/services/store/",
-		description: "Shop digital and infrared thermometers.",
+		description: t("store_oximeters_desc"),
 		comingSoon: false,
 		category: "Medical Devices",
 	},
 	{
-		name: "Rental of Equipment",
+		name: t("store_thermometers"),
 		href: "/services/store/",
-		description: "Rent medical equipment for short or long-term use.",
+		description: t("store_thermometers_desc"),
+		comingSoon: false,
+		category: "Medical Devices",
+	},
+	{
+		name: t("store_rental_equipment"),
+		href: "/services/store/",
+		description: t("store_rental_desc"),
 		comingSoon: false,
 	},
 ];
@@ -135,6 +135,10 @@ const Navbar = ({ className }: { className?: string }) => {
 		new Set(["home-visits"])
 	);
 	const { cart, toggleCart } = useCart();
+
+	// Initialize navigation items with translations
+	const homeVisitsItems = getHomeVisitsItems(tNav);
+	const storeItems = getStoreItems(tNav);
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -220,15 +224,15 @@ const Navbar = ({ className }: { className?: string }) => {
 								</span>
 							</span>
 							{active === "HomeVisits" && (
-								<div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 z-50">
+								<div className="absolute top-full ltr:left-0 rtl:right-0 pt-2 z-50">
 									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-6 w-[680px] animate-in fade-in slide-in-from-top-2 duration-200">
 										<div className="flex">
-											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
+											<ul className="space-y-1 ltr:pr-4 rtl:pl-4 ltr:border-r rtl:border-l border-gray-200 w-[220px] flex-shrink-0">
 												{homeVisitsItems.map((item, idx) => (
 													<li key={item.name}>
 														<Link href={item.href}>
 															<button
-																className={`w-full text-left px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium ${
+																className={`w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium ${
 																	idx === activeHomeVisitsIdx
 																		? "bg-blue-50 text-blue-700 border border-blue-200 shadow-sm"
 																		: "hover:bg-gray-50 text-gray-700 hover:shadow-sm"
@@ -246,8 +250,8 @@ const Navbar = ({ className }: { className?: string }) => {
 													</li>
 												))}
 											</ul>
-											<div className="flex flex-col justify-center px-4 w-[200px] border-r border-gray-100 flex-shrink-0">
-												<h4 className="font-semibold text-base mb-2 text-gray-900 leading-tight">
+											<div className="flex flex-col justify-center px-4 w-[200px] ltr:border-r rtl:border-l border-gray-100 flex-shrink-0">
+												<h4 className="font-semibold text-base mb-2 text-gray-900 leading-tight ltr:text-left rtl:text-right">
 													{
 														[
 															tNav("home_physical_therapy"),
@@ -258,7 +262,7 @@ const Navbar = ({ className }: { className?: string }) => {
 														][activeHomeVisitsIdx]
 													}
 												</h4>
-												<p className="text-xs text-gray-600 mb-4 leading-relaxed">
+												<p className="text-xs text-gray-600 mb-4 leading-relaxed ltr:text-left rtl:text-right">
 													{
 														[
 															tServicesDesc(
@@ -278,10 +282,10 @@ const Navbar = ({ className }: { className?: string }) => {
 													className="inline-flex items-center text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
 												>
 													{tNav("learn_more")}{" "}
-													<ChevronRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+													<ChevronRight className="ltr:ml-1 rtl:mr-1 h-3.5 w-3.5 transition-transform group-hover:ltr:translate-x-0.5 group-hover:rtl:-translate-x-0.5 rtl:rotate-180" />
 												</Link>
 											</div>
-											<div className="relative w-[240px] bg-gradient-to-br from-blue-50 to-blue-100/50 ml-4 rounded-xl p-4 shadow-inner">
+											<div className="relative w-[240px] bg-gradient-to-br from-blue-50 to-blue-100/50 ltr:ml-4 rtl:mr-4 rounded-xl p-4 shadow-inner">
 												<img
 													src="/images/services2.png"
 													alt={tFooterAlt("aidxbait_logo")}
@@ -331,21 +335,21 @@ const Navbar = ({ className }: { className?: string }) => {
 								{tNav("store")}
 							</Link>
 							{active === "Store" && (
-								<div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 z-50">
+								<div className="absolute top-full ltr:left-0 rtl:right-0 pt-2 z-50">
 									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-6 w-[680px] animate-in fade-in slide-in-from-top-2 duration-200">
 										<div className="flex">
-											<ul className="space-y-1 pr-4 border-r border-gray-200 w-[220px] flex-shrink-0">
+											<ul className="space-y-1 ltr:pr-4 rtl:pl-4 ltr:border-r rtl:border-l border-gray-200 w-[220px] flex-shrink-0">
 												{storeItems
 													.filter(
 														(item) =>
 															!item.category &&
-															item.name !== "Rental of Equipment"
+															item.name !== tNav("store_rental_equipment")
 													)
 													.map((item, idx) => (
 														<li key={item.name}>
 															<Link href={item.href}>
 																<button
-																	className={`w-full text-left px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium whitespace-pre-line ${
+																	className={`w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium whitespace-pre-line ${
 																		idx === activeStoreIdx
 																			? "bg-blue-50 text-blue-700 border border-blue-200 shadow-sm"
 																			: "hover:bg-gray-50 text-gray-700 hover:shadow-sm"
@@ -360,7 +364,7 @@ const Navbar = ({ className }: { className?: string }) => {
 														</li>
 													))}
 												<li>
-													<div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+													<div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide ltr:text-left rtl:text-right">
 														{tNav("medical_devices")}
 													</div>
 													{storeItems
@@ -369,56 +373,59 @@ const Navbar = ({ className }: { className?: string }) => {
 														)
 														.map((item) => (
 															<Link key={item.name} href={item.href}>
-																<button className="w-full text-left px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium hover:bg-gray-50 text-gray-700 hover:shadow-sm pl-5">
+																<button className="w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium hover:bg-gray-50 text-gray-700 hover:shadow-sm ltr:pl-5 rtl:pr-5">
 																	{item.name}
 																</button>
 															</Link>
 														))}
 												</li>
 												{storeItems
-													.filter((item) => item.name === "Rental of Equipment")
+													.filter(
+														(item) =>
+															item.name === tNav("store_rental_equipment")
+													)
 													.map((item) => (
 														<li key={item.name}>
 															<Link href={item.href}>
-																<button className="w-full text-left px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium hover:bg-gray-50 text-gray-700 hover:shadow-sm">
+																<button className="w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium hover:bg-gray-50 text-gray-700 hover:shadow-sm">
 																	{item.name}
 																</button>
 															</Link>
 														</li>
 													))}
 											</ul>
-											<div className="flex flex-col justify-center px-4 w-[200px] border-r border-gray-100 flex-shrink-0">
-												<h4 className="font-semibold text-base mb-2 text-gray-900 leading-tight whitespace-pre-line">
+											<div className="flex flex-col justify-center px-4 w-[200px] ltr:border-r rtl:border-l border-gray-100 flex-shrink-0">
+												<h4 className="font-semibold text-base mb-2 text-gray-900 leading-tight whitespace-pre-line ltr:text-left rtl:text-right">
 													{storeItems.filter(
 														(item) =>
 															!item.category &&
-															item.name !== "Rental of Equipment"
+															item.name !== tNav("store_rental_equipment")
 													)[activeStoreIdx]?.name ||
-														"Support, Braces\n& Walking Aids"}
+														tNav("store_support_braces_walking_aids")}
 												</h4>
-												<p className="text-xs text-gray-600 mb-4 leading-relaxed">
+												<p className="text-xs text-gray-600 mb-4 leading-relaxed ltr:text-left rtl:text-right">
 													{storeItems.filter(
 														(item) =>
 															!item.category &&
-															item.name !== "Rental of Equipment"
+															item.name !== tNav("store_rental_equipment")
 													)[activeStoreIdx]?.description ||
-														"Browse our collection"}
+														tNav("store_support_braces_desc")}
 												</p>
 												<Link
 													href={
 														storeItems.filter(
 															(item) =>
 																!item.category &&
-																item.name !== "Rental of Equipment"
+																item.name !== tNav("store_rental_equipment")
 														)[activeStoreIdx]?.href || "/services/store/"
 													}
 													className="inline-flex items-center text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
 												>
 													{tNav("shop_now")}{" "}
-													<ChevronRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+													<ChevronRight className="ltr:ml-1 rtl:mr-1 h-3.5 w-3.5 transition-transform group-hover:ltr:translate-x-0.5 group-hover:rtl:-translate-x-0.5 rtl:rotate-180" />
 												</Link>
 											</div>
-											<div className="relative w-[240px] bg-gradient-to-br from-blue-50 to-blue-100/50 ml-4 rounded-xl p-4 shadow-inner">
+											<div className="relative w-[240px] bg-gradient-to-br from-blue-50 to-blue-100/50 ltr:ml-4 rtl:mr-4 rounded-xl p-4 shadow-inner">
 												<img
 													src="/images/services1.png"
 													alt={tNav("store")}
@@ -459,7 +466,7 @@ const Navbar = ({ className }: { className?: string }) => {
 									{tNav("about")}
 								</span>
 								{active === "About" && (
-									<div className="absolute top-full right-0 pt-2 z-50">
+									<div className="absolute top-full ltr:right-0 rtl:left-0 pt-2 z-50">
 										<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-6 w-[480px] animate-in fade-in slide-in-from-top-2 duration-200">
 											<div className="flex flex-col gap-4">
 												<div>
@@ -482,14 +489,14 @@ const Navbar = ({ className }: { className?: string }) => {
 										</div>
 									</div>
 								)}
-					</div>
-				</div>
+							</div>
+						</div>
 
-				{/* Language Switcher */}
-				<LocaleSwitcher />
+						{/* Language Switcher */}
+						<LocaleSwitcher />
 
-				{/* Cart Icon */}
-				<CartIcon />
+						{/* Cart Icon */}
+						<CartIcon />
 
 						{/* User Navigation */}
 						<UserNav />
@@ -584,7 +591,7 @@ const Navbar = ({ className }: { className?: string }) => {
 													</HoveredLink>
 													{item.comingSoon && (
 														<span className="text-[10px] font-light text-blue-600 italic ml-3 mt-0.5">
-															coming soon
+															{tNav("coming_soon")}
 														</span>
 													)}
 												</div>

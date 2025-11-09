@@ -39,7 +39,12 @@ export const UserNav = () => {
 						</Avatar>
 					</Button>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent className="w-56" align="end" forceMount>
+				<DropdownMenuContent
+					className="w-56"
+					align="center"
+					alignOffset={-30}
+					forceMount
+				>
 					<div className="flex items-center justify-center p-4">
 						<div className="animate-pulse text-sm text-muted-foreground">
 							{tUser("loading")}
@@ -93,9 +98,14 @@ export const UserNav = () => {
 					</span>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-56" align="end" forceMount>
-				<div className="flex items-center justify-start gap-2 p-2">
-					<div className="flex flex-col space-y-1 leading-none">
+			<DropdownMenuContent
+				className="w-56"
+				align="center"
+				alignOffset={-50}
+				forceMount
+			>
+				<div className="flex items-center ltr:justify-start rtl:justify-end gap-2 p-2">
+					<div className="flex flex-col space-y-1 leading-none ltr:text-left rtl:text-right">
 						{profileLoading ? (
 							<div className="animate-pulse">
 								<div className="h-4 bg-gray-200 rounded w-32 mb-1"></div>
@@ -120,26 +130,26 @@ export const UserNav = () => {
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
 					<Link href="/profile/my-orders" className="flex items-center">
-						<Package className="mr-2 h-4 w-4" />
+						<Package className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
 						<span>{tUser("my_orders")}</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
 					<Link href="/profile/addresses" className="flex items-center">
-						<MapPin className="mr-2 h-4 w-4" />
+						<MapPin className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
 						<span>{tUser("my_addresses")}</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
 					<Link href="/settings" className="flex items-center">
-						<Settings className="mr-2 h-4 w-4" />
+						<Settings className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
 						<span>{tUser("settings")}</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={signOut} className="cursor-pointer">
-					<LogOut className="mr-2 h-4 w-4" />
+					<LogOut className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
 					<span>{tUser("sign_out")}</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
