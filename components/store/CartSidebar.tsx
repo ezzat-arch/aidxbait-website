@@ -16,11 +16,13 @@ import { CartItem } from "./CartItem";
 import { CartSummary } from "./CartSummary";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export function CartSidebar() {
 	const { cart, isCartOpen, closeCart, clearCart } = useCart();
 	const { user } = useAuth();
 	const router = useRouter();
+	const t = useTranslations("store.CartSidebar.text");
 
 	const isEmpty = cart.items.length === 0;
 
@@ -41,7 +43,7 @@ export function CartSidebar() {
 				<SheetHeader className="space-y-2.5 pr-6">
 					<SheetTitle className="flex items-center gap-2">
 						<ShoppingBag className="h-5 w-5" />
-						Shopping Cart ({cart.itemCount})
+						{t("shopping_cart")} ({cart.itemCount})
 					</SheetTitle>
 					{!isEmpty && (
 						<Button
@@ -51,7 +53,7 @@ export function CartSidebar() {
 							className="w-fit text-muted-foreground hover:text-destructive"
 						>
 							<Trash2 className="h-4 w-4 mr-2" />
-							Clear All
+							{t("clear_all")}
 						</Button>
 					)}
 				</SheetHeader>
@@ -61,12 +63,10 @@ export function CartSidebar() {
 						<div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
 							<ShoppingBag className="h-8 w-8 text-muted-foreground" />
 						</div>
-						<h3 className="font-semibold text-lg mb-2">Your cart is empty</h3>
-						<p className="text-muted-foreground text-center mb-6">
-							Add some products to get started
-						</p>
+						<h3 className="font-semibold text-lg mb-2">{t("your_cart_is_empty")}</h3>
+						<p className="text-muted-foreground text-center mb-6">{t("add_some_products_to_get_started")}</p>
 						<Button asChild onClick={closeCart}>
-							<Link href="/services/store">Continue Shopping</Link>
+							<Link href="/services/store">{t("continue_shopping")}</Link>
 						</Button>
 					</div>
 				) : (
@@ -93,7 +93,7 @@ export function CartSidebar() {
 									size="lg"
 									onClick={handleProceedToCheckout}
 								>
-									Proceed to Checkout
+									{t("proceed_to_checkout")}
 								</Button>
 
 								<Button
@@ -102,7 +102,7 @@ export function CartSidebar() {
 									onClick={closeCart}
 									asChild
 								>
-									<Link href="/services/store">Continue Shopping</Link>
+									<Link href="/services/store">{t("continue_shopping")}</Link>
 								</Button>
 							</div>
 						</div>

@@ -20,6 +20,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 } from "@/components/ui/drawer";
+import { useTranslations } from "next-intl";
 
 interface JointSelectionModalProps {
 	isOpen: boolean;
@@ -34,6 +35,7 @@ export function JointSelectionModal({
 }: JointSelectionModalProps) {
 	const router = useRouter();
 	const isMobile = useIsMobile();
+	const t = useTranslations();
 
 	const handleViewProducts = () => {
 		if (selectedPart) {
@@ -44,6 +46,9 @@ export function JointSelectionModal({
 
 	if (!selectedPart) return null;
 
+	// Get the translated label for the selected body part
+	const translatedLabel = t(selectedPart.translationKey);
+
 	// Mobile: Bottom Sheet (Drawer)
 	if (isMobile) {
 		return (
@@ -53,13 +58,13 @@ export function JointSelectionModal({
 						<DrawerTitle className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
 							Products for Your{" "}
 							<span className="text-primary">
-								{selectedPart.label}
+								{translatedLabel}
 							</span>
 						</DrawerTitle>
 						<DrawerDescription className="text-base text-gray-600 dark:text-gray-300">
 							Discover specialized gear designed to support and protect your{" "}
 							<span className="font-semibold text-gray-900 dark:text-white">
-								{selectedPart.label.toLowerCase()}
+								{translatedLabel.toLowerCase()}
 							</span>
 						</DrawerDescription>
 					</DrawerHeader>
@@ -86,13 +91,13 @@ export function JointSelectionModal({
 					<DialogTitle className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
 						Products for Your{" "}
 						<span className="text-primary">
-							{selectedPart.label}
+							{translatedLabel}
 						</span>
 					</DialogTitle>
 					<DialogDescription className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
 						Discover specialized gear designed to support and protect your{" "}
 						<span className="font-semibold text-gray-900 dark:text-white">
-							{selectedPart.label.toLowerCase()}
+							{translatedLabel.toLowerCase()}
 						</span>
 					</DialogDescription>
 				</DialogHeader>

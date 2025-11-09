@@ -17,10 +17,8 @@ export interface BodyPartCoordinate {
 export interface BodyPart {
 	/** Unique identifier for the body part */
 	id: string;
-	/** Display label for the body part */
-	label: string;
-	/** Display label in Arabic */
-	labelAr: string;
+	/** Translation key for the body part label */
+	translationKey: string;
 	/** Associated joint type from the store system */
 	joint: Joint;
 	/** Position coordinates on the body map */

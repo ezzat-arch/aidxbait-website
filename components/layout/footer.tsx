@@ -2,8 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { FooterLink } from "./footer-link";
+import { useTranslations } from "next-intl";
 
 export function Footer() {
+	const tFooter = useTranslations("layout.footer.text");
+	const tAlt = useTranslations("layout.footer.attr.alt");
+	const tNavbar = useTranslations("ui.navbar.text");
 	return (
 		<footer className="bg-gray-900 text-gray-300">
 			<div className="container py-12">
@@ -12,15 +16,14 @@ export function Footer() {
 						<Link href="/" className="inline-block mb-6">
 							<Image
 								src="/images/logo-icon.png"
-								alt="AidXBait Logo"
+								alt={tAlt("aidxbait_logo")}
 								width={50}
 								height={50}
 								className="h-12 w-auto"
 							/>
 						</Link>
 						<p className="mb-6 max-w-xs">
-							Revolutionizing orthopedic care through technology, making
-							recovery more accessible and effective.
+							{tFooter("revolutionizing_orthopedic_care_through_technology")}
 						</p>
 						<div className="flex gap-4">
 							<Link
@@ -51,11 +54,11 @@ export function Footer() {
 					</div>
 
 					<div>
-						<h3 className="text-lg font-bold mb-6 text-white">Quick Links</h3>
+						<h3 className="text-lg font-bold mb-6 text-white">{tFooter("quick_links")}</h3>
 						<ul className="space-y-3">
 							<li>
 								<Link href="#" className="hover:text-primary transition-colors">
-									Home
+									{tFooter("home")}
 								</Link>
 							</li>
 							<li>
@@ -63,7 +66,7 @@ export function Footer() {
 									href="#testimonials"
 									className="hover:text-primary transition-colors"
 								>
-									Reviews
+									{tFooter("testimonials")}
 								</Link>
 							</li>
 							<li>
@@ -71,7 +74,7 @@ export function Footer() {
 									href="#contact"
 									className="hover:text-primary transition-colors"
 								>
-									Contact Us
+									{tFooter("contact")}
 								</Link>
 							</li>
 							<li>
@@ -79,7 +82,7 @@ export function Footer() {
 									href="#about"
 									className="hover:text-primary transition-colors"
 								>
-									About Us
+									{tNavbar("about")}
 								</Link>
 							</li>
 						</ul>
@@ -182,10 +185,9 @@ export function Footer() {
 					</div>
 
 					<div>
-						<h3 className="text-lg font-bold mb-6 text-white">Download App</h3>
+						<h3 className="text-lg font-bold mb-6 text-white">{tFooter("download_app")}</h3>
 						<p className="mb-6">
-							Get the AidXBait app for iOS and Android to access all features on
-							the go.
+							{tFooter("get_the_aidxbait_app_for")}
 						</p>
 						<div className="flex flex-row gap-4">
 							<Link
@@ -194,7 +196,7 @@ export function Footer() {
 							>
 								<img
 									src="/images/app-store-badge-black.svg"
-									alt="Download on the App Store"
+									alt={`${tFooter("download_on_the")} ${tFooter("app_store")}`}
 									className="h-[40px] w-auto"
 								/>
 							</Link>
@@ -204,7 +206,7 @@ export function Footer() {
 							>
 								<img
 									src="/images/google-play-badge.png"
-									alt="Get it on Google Play"
+									alt={`${tFooter("get_it_on")} ${tFooter("google_play")}`}
 									className="h-[40px] w-auto"
 								/>
 							</Link>
@@ -215,25 +217,25 @@ export function Footer() {
 
 			<div className="border-t border-gray-800 py-6">
 				<div className="container flex flex-col sm:flex-row justify-between items-center">
-					<p className="text-sm">© 2025 AidXBait. All rights reserved.</p>
+					<p className="text-sm">{tFooter("2025_aidxbait_all_rights_reserved")}</p>
 					<div className="flex gap-6 mt-4 sm:mt-0">
 						<Link
 							href="#"
 							className="text-sm hover:text-primary transition-colors"
 						>
-							Privacy Policy
+							{tFooter("privacy_policy")}
 						</Link>
 						<Link
 							href="#"
 							className="text-sm hover:text-primary transition-colors"
 						>
-							Terms of Service
+							{tFooter("terms_of_service")}
 						</Link>
 						<Link
 							href="#"
 							className="text-sm hover:text-primary transition-colors"
 						>
-							Cookie Policy
+							{tFooter("cookie_policy")}
 						</Link>
 					</div>
 				</div>

@@ -10,6 +10,10 @@ const config = {
 		"*.{js,ts,jsx,tsx,mdx}",
 	],
 	prefix: "",
+	// Enable RTL support
+	future: {
+		hoverOnlyWhenSupported: true,
+	},
 	theme: {
 		container: {
 			center: true,
@@ -89,7 +93,23 @@ const config = {
 				move: "move 4s linear infinite",
 			},
 			fontFamily: {
-				sans: ["Inter", "ui-sans-serif", "system-ui"],
+				sans: [
+					"Inter", 
+					"ui-sans-serif", 
+					"system-ui", 
+					"-apple-system",
+					"BlinkMacSystemFont",
+					"Segoe UI",
+					"Roboto",
+					"Helvetica Neue",
+					"Arial",
+					"Noto Sans",
+					"sans-serif",
+					"Apple Color Emoji",
+					"Segoe UI Emoji",
+					"Segoe UI Symbol",
+					"Noto Color Emoji"
+				],
 			},
 		},
 	},

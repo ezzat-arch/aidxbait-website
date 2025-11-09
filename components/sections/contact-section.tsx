@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 export function ContactSection() {
+	const t = useTranslations("sections.contact.text");
 	return (
 		<section
 			id="contact"
@@ -14,22 +16,19 @@ export function ContactSection() {
 					<div className="flex-1 lg:flex lg:items-center lg:-mx-6">
 						<div className="text-white lg:w-1/2 lg:mx-6">
 							<h1 className="text-2xl font-semibold capitalize lg:text-3xl">
-								Ultimate Healthcare Solution
+								{t("ultimate_healthcare_solution")}
 							</h1>
 
 							<p className="max-w-xl mt-6">
-								AidXBait revolutionizes orthopedic care with cutting-edge
-								technology, personalized treatment plans, and comprehensive
-								support. Connect with our expert team to transform your recovery
-								journey and achieve optimal health outcomes.
+								{t("aidxbait_revolutionizes_orthopedic_care_with")}
 							</p>
 
 							<Button className="px-8 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">
-								Get in Touch
+								{t("get_in_touch")}
 							</Button>
 
 							<div className="mt-6 md:mt-8">
-								<h3 className="text-gray-300">Follow us</h3>
+								<h3 className="text-gray-300">{t("follow_us")}</h3>
 
 								<div className="flex mt-4 -mx-1.5">
 									{/* Twitter */}

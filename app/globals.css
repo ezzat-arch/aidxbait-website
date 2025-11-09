@@ -11,6 +11,60 @@
 			display: none;
 		}
 	}
+
+	/* RTL-specific utilities */
+	.rtl\:rotate-y-180 {
+		transform: scaleX(-1);
+	}
+
+	/* Direction-aware spacing utilities */
+	[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+		--tw-space-x-reverse: 1;
+	}
+
+	/* Ensure proper text alignment for RTL */
+	[dir="rtl"] {
+		text-align: right;
+	}
+
+	[dir="ltr"] {
+		text-align: left;
+	}
+
+	/* Override text alignment when explicitly set */
+	.text-left {
+		text-align: left !important;
+	}
+
+	.text-right {
+		text-align: right !important;
+	}
+
+	.text-center {
+		text-align: center !important;
+	}
+
+	/* RTL-aware transforms for icons and images */
+	[dir="rtl"] .rtl-mirror {
+		transform: scaleX(-1);
+	}
+
+	/* Logical property fallbacks */
+	.ms-auto {
+		margin-inline-start: auto;
+	}
+
+	.me-auto {
+		margin-inline-end: auto;
+	}
+
+	.ps-4 {
+		padding-inline-start: 1rem;
+	}
+
+	.pe-4 {
+		padding-inline-end: 1rem;
+	}
 }
 
 body {

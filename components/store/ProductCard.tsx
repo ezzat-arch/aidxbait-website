@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Heart, Star, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -9,6 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { Product } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
 import { useState } from "react";
+import { useLocale } from "next-intl";
+import { Locale } from "@/types/i18n";
+import { getLocalizedProductName, getLocalizedProductDescription, getLocalizedJointName } from "@/lib/i18n/data-utils";
 
 interface ProductCardProps {
 	product: Product;
@@ -17,9 +20,14 @@ interface ProductCardProps {
 
 export function ProductCard({ product, className }: ProductCardProps) {
 	const { addToCart } = useCart();
+	const locale = useLocale() as Locale;
 	const [isLiked, setIsLiked] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [rentalWeeks, setRentalWeeks] = useState(1);
+
+	// Get localized product fields
+	const productName = getLocalizedProductName(product, locale);
+	const productDescription = getLocalizedProductDescription(product, locale);
 
 	// Compute derived values from new product structure
 	const isInStock =
@@ -35,7 +43,9 @@ export function ProductCard({ product, className }: ProductCardProps) {
 		product.images.find((img) => img.is_main)?.image_url ||
 		product.images[0]?.image_url ||
 		"/placeholder.jpg";
-	const primaryJoint = product.joints[0]?.joint_name || "general";
+	const primaryJoint = product.joints[0] 
+		? getLocalizedJointName(product.joints[0], locale)
+		: "general";
 
 	const handleAddToCart = async (e: React.MouseEvent) => {
 		e.preventDefault();
@@ -67,7 +77,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 				<Link href={`/services/store/products/${product.id}`}>
 					<Image
 						src={mainImage}
-						alt={product.name}
+						alt={productName}
 						fill
 						className="object-cover transition-transform duration-300 group-hover:scale-105"
 						sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -154,7 +164,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
 					{/* Product Name */}
 					<h3 className="font-semibold text-lg line-clamp-2 mb-2 group-hover:text-primary transition-colors">
-						{product.name}
+						{productName}
 					</h3>
 
 					{/* Rating */}

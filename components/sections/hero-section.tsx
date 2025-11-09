@@ -2,10 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/contexts/auth-context";
+import { useLocale, useTranslations } from "next-intl";
+import { Locale } from "@/types/i18n";
 
 export const HeroSection = React.forwardRef<
 	HTMLElement,
@@ -15,6 +17,16 @@ export const HeroSection = React.forwardRef<
 	}
 >(function HeroSection({ navbar, sentinelRef }, ref) {
 	const { user, loading } = useAuth();
+	const locale = useLocale() as Locale;
+	const t = useTranslations("sections.hero.text");
+	const tAlt = useTranslations("sections.hero.attr.alt");
+	const tFooter = useTranslations("layout.footer.text");
+	const tCommon = useTranslations("common.text");
+	
+	// Note: Using English badges for now as Arabic versions may not be readily available
+	// This is a common practice as app store badges are often kept in English
+	const isRTL = locale === 'ar';
+	
 	return (
 		<div className="flex flex-col">
 			{/* First Hero Section */}
@@ -34,26 +46,24 @@ export const HeroSection = React.forwardRef<
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.7 }}
 							viewport={{ once: true, amount: 0.5 }}
-							className="flex flex-col gap-4 sm:gap-6 text-center lg:text-left items-center lg:items-start"
+							className="flex flex-col gap-4 sm:gap-6 text-center ltr:lg:text-left rtl:lg:text-right items-center ltr:lg:items-start rtl:lg:items-end"
 						>
 							<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold tracking-tight leading-tight hero-heading">
-								Unlock
+								{t("unlock_the_potentials_of")}
 								<br />
-								The Potentials of
-								<br />
-								<span className="text-primary">Home Care</span>
+								<span className="text-primary">{t("home_care")}</span>
 							</h1>
 							<p className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl leading-relaxed hero-description">
-								Stay at Home and order all medical services with a finger click
+								{t("stay_at_home_and_order")}
 							</p>
-							<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 hero-badges justify-center lg:justify-start">
+							<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 hero-badges justify-center ltr:lg:justify-start rtl:lg:justify-end">
 								<Link
 									href="/download/ios"
 									className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
 								>
 									<img
 										src="/images/app-store-badge-black.svg"
-										alt="Download on the App Store"
+										alt={`${tFooter("download_on_the")} ${tFooter("app_store")}`}
 										className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
 									/>
 								</Link>
@@ -63,7 +73,7 @@ export const HeroSection = React.forwardRef<
 								>
 									<img
 										src="/images/google-play-badge.png"
-										alt="Get it on Google Play"
+										alt={`${tFooter("get_it_on")} ${tFooter("google_play")}`}
 										className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
 									/>
 								</Link>
@@ -83,7 +93,7 @@ export const HeroSection = React.forwardRef<
 							>
 								<Image
 									src="/images/hero_image_in.png"
-									alt="Patient connecting with healthcare professional at home"
+									alt={tAlt("patient_connecting_with_healthcare_professional_at_home")}
 									width={400}
 									height={400}
 									className="rounded-xl shadow-lg w-full h-full object-cover"
@@ -137,16 +147,14 @@ export const HeroSection = React.forwardRef<
 							<div className="lg:pl-8">
 								{/* Headline */}
 								<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-									Get Medical Care{" "}
-									<span className="text-blue-600">at Home</span>, On Your
-									Schedule
+									{t("get_medical_care")}{" "}
+									<span className="text-blue-600">{t("at_home")}</span>
+									{t("on_your_schedule")}
 								</h1>
 
 								{/* Description */}
 								<p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-xl">
-									Book healthcare services from the comfort of home. Get lab
-									tests, consultations, and personalized plans—all without
-									stepping outside.
+									{t("book_healthcare_services_from_the")}
 								</p>
 
 								{/* CTA Section */}
@@ -157,7 +165,7 @@ export const HeroSection = React.forwardRef<
 											href="/app/ios"
 											className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl group"
 										>
-											Get Started
+											{t("get_started")}
 											<ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
 										</Link>
 
@@ -166,8 +174,8 @@ export const HeroSection = React.forwardRef<
 											href="/contact/general"
 											className="text-blue-600 hover:text-blue-800 font-medium hover:underline transition-colors duration-200"
 										>
-											Already have an account?{" "}
-											<span className="font-semibold">Log in</span>
+											{t("already_have_an_account")}{" "}
+											<span className="font-semibold">{t("log_in")}</span>
 										</Link>
 									</div>
 								)}
@@ -177,15 +185,15 @@ export const HeroSection = React.forwardRef<
 									<div className="flex items-center gap-8 text-sm text-gray-500">
 										<div className="flex items-center gap-2">
 											<div className="w-2 h-2 bg-green-500 rounded-full"></div>
-											<span>Licensed Professionals</span>
+											<span>{tCommon("licensed_professionals")}</span>
 										</div>
 										<div className="flex items-center gap-2">
 											<div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-											<span>24/7 Support</span>
+											<span>{t("24_7_support")}</span>
 										</div>
 										<div className="flex items-center gap-2">
 											<div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-											<span>Secure & Private</span>
+											<span>{t("secure_private")}</span>
 										</div>
 									</div>
 								</div>

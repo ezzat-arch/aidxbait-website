@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { HorizontalFilters } from "@/components/store/HorizontalFilters";
 import { StoreCategoryTabs } from "@/components/store/StoreCategoryTabs";
@@ -10,6 +11,9 @@ import { FilterOptions, Product, Joint } from "@/lib/store-types";
 import { shouldShowBodyMap } from "@/lib/store-categories";
 import { useCart } from "@/contexts/cart-context";
 import { toast } from "@/hooks/use-toast";
+import { useLocale } from "next-intl";
+import { Locale } from "@/types/i18n";
+import { localizeProducts } from "@/lib/i18n/data-utils";
 
 const initialFilters: FilterOptions = {
 	joints: [],
@@ -127,6 +131,7 @@ function buildURLFromFilters(
 }
 
 export function StoreContent() {
+	const locale = useLocale() as Locale;
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filters, setFilters] = useState<FilterOptions>(initialFilters);
 	const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
@@ -269,7 +274,9 @@ export function StoreContent() {
 				const result = await response.json();
 
 				if (result.success) {
-					setProducts(result.data || []);
+					// Localize products before setting them in state
+					const localizedProducts = localizeProducts(result.data || [], locale);
+					setProducts(localizedProducts);
 				} else {
 					setError(result.error || "Failed to fetch products");
 				}

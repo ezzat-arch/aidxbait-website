@@ -12,9 +12,12 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { LogOut, Settings, UserCircle, Package, MapPin } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
+import { useTranslations } from "next-intl";
 
 export const UserNav = () => {
 	const { user, userProfile, loading, profileLoading, signOut } = useAuth();
+	const tUser = useTranslations("layout.user.text");
+	const tHero = useTranslations("sections.hero.text");
 
 	console.log("[UserNav] Render state:", {
 		loading,
@@ -39,7 +42,7 @@ export const UserNav = () => {
 				<DropdownMenuContent className="w-56" align="end" forceMount>
 					<div className="flex items-center justify-center p-4">
 						<div className="animate-pulse text-sm text-muted-foreground">
-							Loading...
+							{tUser("loading")}
 						</div>
 					</div>
 				</DropdownMenuContent>
@@ -55,14 +58,14 @@ export const UserNav = () => {
 		return (
 			<div className="flex flex-col items-center gap-1">
 				<Button size="sm" asChild>
-					<Link href="/register">Create an Account</Link>
+					<Link href="/register">{tUser("create_an_account")}</Link>
 				</Button>
 				<Link
 					href="/login"
 					className="text-xs text-muted-foreground hover:text-primary transition-colors"
 				>
-					Already have an account?{" "}
-					<span className="underline font-medium">Log In</span>
+					{tHero("already_have_an_account")}{" "}
+					<span className="underline font-medium">{tHero("log_in")}</span>
 				</Link>
 			</div>
 		);
@@ -86,7 +89,7 @@ export const UserNav = () => {
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" className="relative px-4 py-2 h-auto">
 					<span className="text-md font-medium">
-						Hello, <span className="font-bold">{firstName}</span>
+						{tUser("hello_name", { name: firstName })}
 					</span>
 				</Button>
 			</DropdownMenuTrigger>
@@ -118,26 +121,26 @@ export const UserNav = () => {
 				<DropdownMenuItem asChild>
 					<Link href="/profile/my-orders" className="flex items-center">
 						<Package className="mr-2 h-4 w-4" />
-						<span>My Orders</span>
+						<span>{tUser("my_orders")}</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
 					<Link href="/profile/addresses" className="flex items-center">
 						<MapPin className="mr-2 h-4 w-4" />
-						<span>My Addresses</span>
+						<span>{tUser("my_addresses")}</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
 					<Link href="/settings" className="flex items-center">
 						<Settings className="mr-2 h-4 w-4" />
-						<span>Settings</span>
+						<span>{tUser("settings")}</span>
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={signOut} className="cursor-pointer">
 					<LogOut className="mr-2 h-4 w-4" />
-					<span>Sign out</span>
+					<span>{tUser("sign_out")}</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

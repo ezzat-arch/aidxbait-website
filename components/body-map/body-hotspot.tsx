@@ -8,6 +8,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useTranslations } from "next-intl";
 
 interface BodyHotspotProps {
 	/** The body part this hotspot represents */
@@ -35,6 +36,9 @@ export function BodyHotspot({
 	onHover,
 	index,
 }: BodyHotspotProps) {
+	const t = useTranslations();
+	const translatedLabel = t(bodyPart.translationKey);
+	
 	return (
 		<TooltipProvider delayDuration={75}>
 			<Tooltip>
@@ -60,7 +64,7 @@ export function BodyHotspot({
 							top: `${bodyPart.coordinates.y}%`,
 							transform: "translate(-50%, -50%)",
 						}}
-						aria-label={`${bodyPart.label} - ${bodyPart.description || ""}`}
+						aria-label={`${translatedLabel} - ${bodyPart.description || ""}`}
 						role="button"
 						tabIndex={0}
 					>
@@ -117,18 +121,18 @@ export function BodyHotspot({
 							top: "50%",
 						}}
 					/>
-					</motion.button>
-				</TooltipTrigger>
-				<TooltipContent
-					side="top"
-					className="bg-gray-900 text-white px-3 py-2 text-sm font-medium"
-				>
-					<p>{bodyPart.label}</p>
-					{bodyPart.side && (
-						<p className="text-xs text-gray-300 capitalize">{bodyPart.side}</p>
-					)}
-				</TooltipContent>
-			</Tooltip>
-		</TooltipProvider>
+				</motion.button>
+			</TooltipTrigger>
+			<TooltipContent
+				side="top"
+				className="bg-gray-900 text-white px-3 py-2 text-sm font-medium"
+			>
+				<p>{translatedLabel}</p>
+				{bodyPart.side && (
+					<p className="text-xs text-gray-300 capitalize">{bodyPart.side}</p>
+				)}
+			</TooltipContent>
+		</Tooltip>
+	</TooltipProvider>
 	);
 }

@@ -2,16 +2,18 @@
 
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { InteractiveBodyMap } from "@/components/body-map";
 import { JointSelectionModal } from "@/components/body-map/joint-selection-modal";
 import { BodyPart } from "@/types/body-map-types";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 export function BodyMapSection() {
 	const router = useRouter();
 	const [selectedPart, setSelectedPart] = useState<BodyPart | null>(null);
+	const t = useTranslations("sections.body_map.text");
 
 	const handlePartClick = useCallback((bodyPart: BodyPart) => {
 		setSelectedPart(bodyPart);
@@ -29,16 +31,17 @@ export function BodyMapSection() {
 					transition={{ duration: 0.8, type: "spring" }}
 				>
 					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-						Shop by Body Part
+						{t("shop_by_body_part")}
 					</h2>
 					<p className="text-lg text-gray-600 dark:text-gray-300">
-						Click on any area to discover products designed specifically for
-						your needs
+						{t(
+							"click_on_any_area_to_discover_products_designed_specifically_for_your_needs"
+						)}
 					</p>
 				</motion.div>
 
 				{/* Interactive Body Map */}
-				<div className="max-w-6xl mx-auto mb-[-150px] md:mb-[-250px] lg:mb-[-400px]">
+				<div className="max-w-6xl mx-auto mb-[-150px] md:mb-[-250px] lg:mb-[-400px] relative z-0">
 					<InteractiveBodyMap onPartClick={handlePartClick} className="" />
 				</div>
 
@@ -55,10 +58,10 @@ export function BodyMapSection() {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ delay: 0.5, duration: 0.6 }}
-						className="text-center mt-8 md:mt-12 px-4"
+						className="text-center mt-8 md:mt-12 px-4 relative z-10"
 					>
 						<p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-6">
-							Not sure what you need? Explore our full collection
+							{t("not_sure_what_you_need_explore_our_full_collection")}
 						</p>
 						<Button
 							onClick={() => router.push("/services/store")}
@@ -66,7 +69,7 @@ export function BodyMapSection() {
 							size="lg"
 							className="group w-full sm:w-auto"
 						>
-							Browse All Products
+							{t("browse_all_products")}
 							<ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
 						</Button>
 					</motion.div>

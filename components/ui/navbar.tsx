@@ -7,7 +7,7 @@ import {
 	ProductItem,
 } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import {
 	MenuIcon,
@@ -22,17 +22,21 @@ import {
 	Settings,
 	LogOut,
 } from "lucide-react";
-import { LanguageDropdown } from "./language-dropdown";
+import { LocaleSwitcher, LocaleSwitcherMobile } from "./locale-switcher";
 import { CartIcon } from "@/components/store/CartIcon";
 import { UserNav } from "@/components/layout/user-nav";
 import { useCart } from "@/contexts/cart-context";
+import { useTranslations } from "next-intl";
 
 // Coming Soon Text Component (for dropdown items)
-const ComingSoonText = () => (
-	<span className="block text-[10px] font-light text-blue-600 italic mt-0.5">
-		coming soon
-	</span>
-);
+const ComingSoonText = () => {
+	const t = useTranslations("ui.navbar.text");
+	return (
+		<span className="block text-[10px] font-light text-blue-600 italic mt-0.5">
+			{t("coming_soon")}
+		</span>
+	);
+};
 
 // New navigation data structure
 const homeVisitsItems = [
@@ -112,6 +116,14 @@ const storeItems = [
 ];
 
 const Navbar = ({ className }: { className?: string }) => {
+	const tNav = useTranslations("ui.navbar.text");
+	const tNavAlt = useTranslations("ui.navbar.attr.alt");
+	const tServicesDesc = useTranslations("sections.services.data.description");
+	const tFooterAlt = useTranslations("layout.footer.attr.alt");
+	const tUser = useTranslations("layout.user.text");
+	const tProfileLayout = useTranslations("profile.layout.text");
+	const tLogin = useTranslations("login.text");
+	const tCommon = useTranslations("common.text");
 	const [active, setActive] = useState<string | null>(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -160,7 +172,7 @@ const Navbar = ({ className }: { className?: string }) => {
 		<Link href="/" className="flex items-center gap-2">
 			<Image
 				src="/images/logo.png"
-				alt="AidXBait Logo"
+				alt={tNavAlt("aidxbait_logo")}
 				width={180}
 				height={90}
 				className="object-contain w-[130px] h-[65px] sm:w-[140px] sm:h-[70px] md:w-[160px] md:h-[80px] lg:w-[180px] lg:h-[90px] logo-responsive"
@@ -187,12 +199,12 @@ const Navbar = ({ className }: { className?: string }) => {
 					)}
 				>
 					{/* Logo */}
-					<div className="flex-shrink-0 mr-1 sm:mr-2 md:mr-4 lg:mr-8">
+					<div className="flex-shrink-0 ltr:mr-1 ltr:sm:mr-2 ltr:md:mr-4 ltr:lg:mr-8 rtl:ml-1 rtl:sm:ml-2 rtl:md:ml-4 rtl:lg:ml-8">
 						{logo}
 					</div>
 
 					{/* Left Menu Items */}
-					<div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+					<div className="hidden lg:flex items-center ltr:space-x-4 ltr:xl:space-x-6 rtl:space-x-reverse rtl:space-x-4 rtl:xl:space-x-6">
 						{/* Home Visits Menu */}
 						<div
 							onMouseEnter={() => setActive("HomeVisits")}
@@ -201,9 +213,9 @@ const Navbar = ({ className }: { className?: string }) => {
 						>
 							<span className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center">
 								<span className="relative inline-block">
-									<span>Home Visits</span>
-									<span className="absolute -bottom-3.5 right-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
-										coming soon
+									<span>{tNav("home_visits")}</span>
+									<span className="absolute -bottom-3.5 ltr:right-0 rtl:left-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
+										{tNav("coming_soon")}
 									</span>
 								</span>
 							</span>
@@ -236,23 +248,43 @@ const Navbar = ({ className }: { className?: string }) => {
 											</ul>
 											<div className="flex flex-col justify-center px-4 w-[200px] border-r border-gray-100 flex-shrink-0">
 												<h4 className="font-semibold text-base mb-2 text-gray-900 leading-tight">
-													{homeVisitsItems[activeHomeVisitsIdx].name}
+													{
+														[
+															tNav("home_physical_therapy"),
+															tNav("home_doctor_visits"),
+															tNav("home_nursing"),
+															tNav("home_imaging"),
+															tNav("home_lab_tests"),
+														][activeHomeVisitsIdx]
+													}
 												</h4>
 												<p className="text-xs text-gray-600 mb-4 leading-relaxed">
-													{homeVisitsItems[activeHomeVisitsIdx].description}
+													{
+														[
+															tServicesDesc(
+																"licensed_physical_therapists_provide_one"
+															),
+															tServicesDesc("licensed_doctors_provide_one"),
+															tServicesDesc(
+																"professional_nurses_available_for_home"
+															),
+															tServicesDesc("portable_x_rays_and_ultrasounds"),
+															tServicesDesc("we_send_a_nurse_to"),
+														][activeHomeVisitsIdx]
+													}
 												</p>
 												<Link
 													href={homeVisitsItems[activeHomeVisitsIdx].href}
 													className="inline-flex items-center text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
 												>
-													Learn More{" "}
+													{tNav("learn_more")}{" "}
 													<ChevronRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
 												</Link>
 											</div>
 											<div className="relative w-[240px] bg-gradient-to-br from-blue-50 to-blue-100/50 ml-4 rounded-xl p-4 shadow-inner">
 												<img
 													src="/images/services2.png"
-													alt={homeVisitsItems[activeHomeVisitsIdx].name}
+													alt={tFooterAlt("aidxbait_logo")}
 													className="w-full h-full object-cover rounded-lg shadow-md border border-white"
 													style={{ minHeight: "140px" }}
 												/>
@@ -270,9 +302,9 @@ const Navbar = ({ className }: { className?: string }) => {
 							className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm flex items-center justify-center text-center"
 						>
 							<span className="relative inline-block">
-								<span>Online Consultations</span>
-								<span className="absolute -bottom-3.5 right-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
-									coming soon
+								<span>{tNav("online_video_consultations")}</span>
+								<span className="absolute -bottom-3.5 ltr:right-0 rtl:left-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
+									{tNav("coming_soon")}
 								</span>
 							</span>
 						</Link>
@@ -283,7 +315,7 @@ const Navbar = ({ className }: { className?: string }) => {
 							onMouseEnter={() => setActive(null)}
 							className="text-sm px-3 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm text-center flex items-center justify-center"
 						>
-							Exercise Programs
+							{tNav("home_exercise_programs")}
 						</Link>
 
 						{/* Store Menu */}
@@ -296,7 +328,7 @@ const Navbar = ({ className }: { className?: string }) => {
 								href="/services/store/"
 								className="text-sm px-3 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center"
 							>
-								Store
+								{tNav("store")}
 							</Link>
 							{active === "Store" && (
 								<div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 z-50">
@@ -329,7 +361,7 @@ const Navbar = ({ className }: { className?: string }) => {
 													))}
 												<li>
 													<div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-														Medical Devices
+														{tNav("medical_devices")}
 													</div>
 													{storeItems
 														.filter(
@@ -382,14 +414,14 @@ const Navbar = ({ className }: { className?: string }) => {
 													}
 													className="inline-flex items-center text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
 												>
-													Shop Now{" "}
+													{tNav("shop_now")}{" "}
 													<ChevronRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
 												</Link>
 											</div>
 											<div className="relative w-[240px] bg-gradient-to-br from-blue-50 to-blue-100/50 ml-4 rounded-xl p-4 shadow-inner">
 												<img
 													src="/images/services1.png"
-													alt="Store"
+													alt={tNav("store")}
 													className="w-full h-full object-cover rounded-lg shadow-md border border-white"
 													style={{ minHeight: "140px" }}
 												/>
@@ -405,7 +437,7 @@ const Navbar = ({ className }: { className?: string }) => {
 					<div className="flex-grow"></div>
 
 					{/* Right Side Menu Items */}
-					<div className="hidden lg:flex items-center space-x-4 xl:space-x-6 ml-8 lg:ml-12">
+					<div className="hidden lg:flex items-center ltr:space-x-4 ltr:xl:space-x-6 rtl:space-x-reverse rtl:space-x-4 rtl:xl:space-x-6 ltr:ml-8 ltr:lg:ml-12 rtl:mr-8 rtl:lg:mr-12">
 						{/* Contact & About - Stacked Vertically */}
 						<div className="flex flex-col gap-1">
 							{/* Contact */}
@@ -414,7 +446,7 @@ const Navbar = ({ className }: { className?: string }) => {
 								onMouseEnter={() => setActive(null)}
 								className="text-sm px-3 py-1 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm text-center whitespace-nowrap"
 							>
-								Contact Us
+								{tNav("contact")}
 							</Link>
 
 							{/* About */}
@@ -424,7 +456,7 @@ const Navbar = ({ className }: { className?: string }) => {
 								className="relative"
 							>
 								<span className="text-sm px-3 py-1 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center whitespace-nowrap block">
-									About Us
+									{tNav("about")}
 								</span>
 								{active === "About" && (
 									<div className="absolute top-full right-0 pt-2 z-50">
@@ -432,40 +464,32 @@ const Navbar = ({ className }: { className?: string }) => {
 											<div className="flex flex-col gap-4">
 												<div>
 													<h4 className="font-semibold text-base mb-2 text-gray-900">
-														Our Vision
+														{tNav("our_vision")}
 													</h4>
 													<p className="text-sm text-gray-600 leading-relaxed">
-														To revolutionize healthcare delivery by making
-														quality medical services accessible at home.
+														{tNav("to_revolutionize_healthcare_delivery_by")}
 													</p>
 												</div>
 												<div>
 													<h4 className="font-semibold text-base mb-2 text-gray-900">
-														Our Mission
+														{tNav("our_mission")}
 													</h4>
 													<p className="text-sm text-gray-600 leading-relaxed">
-														Providing comprehensive, technology-driven
-														healthcare solutions that bridge the gap between
-														patients and medical professionals.
+														{tNav("we_are_committed_to_providing")}
 													</p>
 												</div>
 											</div>
 										</div>
 									</div>
 								)}
-							</div>
-						</div>
+					</div>
+				</div>
 
-						{/* Language Dropdown - Only show when not scrolled */}
-						{!isScrolled && (
-							<LanguageDropdown
-								currentLanguage={currentLanguage}
-								onLanguageChange={setCurrentLanguage}
-							/>
-						)}
+				{/* Language Switcher */}
+				<LocaleSwitcher />
 
-						{/* Cart Icon */}
-						<CartIcon />
+				{/* Cart Icon */}
+				<CartIcon />
 
 						{/* User Navigation */}
 						<UserNav />
@@ -505,9 +529,11 @@ const Navbar = ({ className }: { className?: string }) => {
 												<ShoppingBag className="w-4 h-4" />
 											</div>
 											<div>
-												<h3 className="font-bold text-sm">Medical Store</h3>
+												<h3 className="font-bold text-sm">
+													{tNav("medical_store")}
+												</h3>
 												<p className="text-[10px] text-blue-100">
-													Shop supplies
+													{tNav("shop_supplies")}
 												</p>
 											</div>
 										</div>
@@ -520,7 +546,9 @@ const Navbar = ({ className }: { className?: string }) => {
 										className="relative w-20 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition-all duration-200 flex flex-col items-center justify-center gap-1"
 									>
 										<ShoppingCart className="w-5 h-5" />
-										<span className="text-[10px] font-medium">Cart</span>
+										<span className="text-[10px] font-medium">
+											{tCommon("cart")}
+										</span>
 										{cart.itemCount > 0 && (
 											<span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
 												{cart.itemCount > 9 ? "9+" : cart.itemCount}
@@ -536,7 +564,7 @@ const Navbar = ({ className }: { className?: string }) => {
 										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
 									>
 										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
-											Home Visits
+											{tNav("home_visits")}
 										</h3>
 										<ChevronDown
 											className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
@@ -574,10 +602,10 @@ const Navbar = ({ className }: { className?: string }) => {
 									>
 										<div className="flex flex-col">
 											<h3 className="font-bold text-sm text-gray-900 dark:text-white">
-												Online Consultations
+												{tNav("online_video_consultations")}
 											</h3>
 											<span className="text-[10px] font-light text-blue-600 italic mt-0.5">
-												coming soon
+												{tNav("coming_soon")}
 											</span>
 										</div>
 										<ChevronRight className="w-4 h-4 text-gray-500" />
@@ -592,7 +620,7 @@ const Navbar = ({ className }: { className?: string }) => {
 										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
 									>
 										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
-											Exercise Programs
+											{tNav("home_exercise_programs")}
 										</h3>
 										<ChevronRight className="w-4 h-4 text-gray-500" />
 									</Link>
@@ -606,7 +634,7 @@ const Navbar = ({ className }: { className?: string }) => {
 										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
 									>
 										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
-											Contact Us
+											{tNav("contact")}
 										</h3>
 										<ChevronRight className="w-4 h-4 text-gray-500" />
 									</Link>
@@ -620,7 +648,7 @@ const Navbar = ({ className }: { className?: string }) => {
 										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
 									>
 										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
-											About Us
+											{tNav("about")}
 										</h3>
 										<ChevronRight className="w-4 h-4 text-gray-500" />
 									</Link>
@@ -633,7 +661,7 @@ const Navbar = ({ className }: { className?: string }) => {
 										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
 									>
 										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
-											My Account
+											{tProfileLayout("my_account")}
 										</h3>
 										<ChevronDown
 											className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
@@ -649,7 +677,7 @@ const Navbar = ({ className }: { className?: string }) => {
 												className="flex items-center gap-3 py-2.5 px-3 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-150 font-medium text-sm"
 											>
 												<Package className="w-4 h-4" />
-												<span>My Orders</span>
+												<span>{tUser("my_orders")}</span>
 											</Link>
 											<Link
 												href="/profile/addresses"
@@ -657,7 +685,7 @@ const Navbar = ({ className }: { className?: string }) => {
 												className="flex items-center gap-3 py-2.5 px-3 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-150 font-medium text-sm"
 											>
 												<MapPin className="w-4 h-4" />
-												<span>My Addresses</span>
+												<span>{tUser("my_addresses")}</span>
 											</Link>
 											<Link
 												href="/profile/settings"
@@ -665,7 +693,7 @@ const Navbar = ({ className }: { className?: string }) => {
 												className="flex items-center gap-3 py-2.5 px-3 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-150 font-medium text-sm"
 											>
 												<Settings className="w-4 h-4" />
-												<span>Settings</span>
+												<span>{tUser("settings")}</span>
 											</Link>
 											<button
 												onClick={() => {
@@ -675,7 +703,7 @@ const Navbar = ({ className }: { className?: string }) => {
 												className="w-full flex items-center gap-3 py-2.5 px-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all duration-150 font-medium text-sm"
 											>
 												<LogOut className="w-4 h-4" />
-												<span>Sign out</span>
+												<span>{tUser("sign_out")}</span>
 											</button>
 										</div>
 									)}
@@ -688,20 +716,15 @@ const Navbar = ({ className }: { className?: string }) => {
 							<div className="flex items-center justify-between gap-4">
 								<div className="text-xs">
 									<p className="font-semibold text-gray-900 dark:text-white">
-										Hello, Ahmed
+										{tLogin("welcome_back")}
 									</p>
 									<p className="text-[10px] text-gray-500 dark:text-gray-400">
-										Welcome back
+										{tNav("language")}
 									</p>
 								</div>
 								<div className="flex items-center gap-2">
-									<span className="text-[10px] font-medium text-gray-600 dark:text-gray-400">
-										Language:
-									</span>
-									<LanguageDropdown
-										currentLanguage={currentLanguage}
-										onLanguageChange={setCurrentLanguage}
-									/>
+									<span className="text-[10px] font-medium text-gray-600 dark:text-gray-400" />
+									<LocaleSwitcherMobile />
 								</div>
 							</div>
 						</div>

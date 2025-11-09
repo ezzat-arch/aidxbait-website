@@ -1,44 +1,45 @@
 "use client";
 
 import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { useTranslations } from "next-intl";
 
-const whyItems = [
+const buildWhyItems = (tTitle: ReturnType<typeof useTranslations>, tDesc: ReturnType<typeof useTranslations>) => [
 	{
-		title: "Less than 24-Hour Response",
-		description:
-			"Get connected to healthcare professionals within hours, not days. Our rapid response system ensures you receive care when you need it most.",
+		title: tTitle("less_than_24_hour_response"),
+		description: tDesc("get_connected_to_healthcare_professionals"),
 		link: "#response",
 	},
 	{
-		title: "Licensed Professionals",
-		description:
-			"All our healthcare providers are fully licensed, experienced professionals committed to delivering the highest quality care in your home.",
+		title: tTitle("licensed_professionals"),
+		description: tDesc("all_our_healthcare_providers_are"),
 		link: "#licensed",
 	},
 	{
-		title: "Cairo, Giza & More",
-		description:
-			"Comprehensive coverage across Cairo, Giza, and expanding regions. Bringing professional healthcare directly to your doorstep.",
+		title: tTitle("cairo_giza_and_more"),
+		description: tDesc("comprehensive_coverage_across_cairo_giza"),
 		link: "#coverage",
 	},
 	{
-		title: "Everything in One App",
-		description:
-			"Book appointments, track health records, communicate with providers, and manage prescriptions all from one powerful, easy-to-use app.",
+		title: tTitle("everything_in_one_app"),
+		description: tDesc("book_appointments_track_health_records"),
 		link: "#app",
 	},
 ];
 
 export function WhyAidXBaitSection() {
+	const tText = useTranslations("sections.why.text");
+	const tTitle = useTranslations("sections.why.data.title");
+	const tDesc = useTranslations("sections.why.data.description");
+	const whyItems = buildWhyItems(tTitle, tDesc);
 	return (
 		<section className="py-20 bg-gray-50 dark:bg-gray-900">
 			<div className="container mx-auto px-4">
 				<div className="text-center mb-16">
 					<h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-						Why Choose AidXBait?
+						{tText("why_choose_aidxbait")}
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-						Bringing Hospital-Care quality to your home
+						{tText("bringing_hospital_care_quality_to")}
 					</p>
 				</div>
 				<div className="max-w-5xl mx-auto px-2">

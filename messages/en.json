@@ -1,0 +1,718 @@
+{
+	"auth": {
+		"auth": {
+			"text": {
+				"authentication_error": "Authentication Error",
+				"authentication_failed": "Authentication Failed",
+				"contact_support": "Contact Support",
+				"create_new_account": "Create New Account",
+				"possible_causes": "Possible causes:",
+				"still_having_trouble": "Still having trouble?",
+				"the_authentication_link_has_expired": "The authentication link has expired",
+				"the_authentication_link_was_already": "The authentication link was already used",
+				"there_was_a_network_error": "There was a network error during the process",
+				"there_was_an_issue_with": "There was an issue with your authentication",
+				"try_signing_in_again": "Try Signing In Again",
+				"we_encountered_an_error_while": "We encountered an error while trying to authenticate your account"
+			}
+		}
+	},
+	"contact": {
+		"providers": {
+			"text": {
+				"loading": "Loading...",
+				"providers": "Providers",
+				"search": "Search:"
+			}
+		}
+	},
+	"contexts": {
+		"cart": {
+			"toast": {
+				"description": {
+					"failed_to_sync_cart_your": "Failed to sync cart. Your cart is saved locally."
+				},
+				"title": {
+					"cart_sync_issue": "Cart sync issue"
+				}
+			}
+		}
+	},
+	"layout": {
+		"meta": {
+			"title": "AidXBait | Your Health Companion",
+			"description": "AidXBait is a platform that connects patients with healthcare providers. We offer a wide range of services including physical therapy, orthopedics, general medicine, home visits, and online consultations."
+		},
+		"footer": {
+			"attr": {
+				"alt": {
+					"aidxbait_logo": "AidXBait Logo"
+				}
+			},
+			"text": {
+				"2025_aidxbait_all_rights_reserved": "© 2025 AidXBait. All rights reserved.",
+				"app_store": "App Store",
+				"appointment_booking": "Appointment Booking",
+				"contact": "Contact Us",
+				"cookie_policy": "Cookie Policy",
+				"download_app": "Download App",
+				"download_on_the": "Download on the",
+				"exercise_protocols": "Exercise Protocols",
+				"get_it_on": "Get it on",
+				"get_the_aidxbait_app_for": "Get the AidXBait app for iOS and Android to access all features on the go.",
+				"google_play": "Google Play",
+				"home": "Home",
+				"how_it_works": "How It Works",
+				"our_app": "Our App",
+				"physical_therapy": "Physical Therapy",
+				"privacy_policy": "Privacy Policy",
+				"quick_links": "Quick Links",
+				"recovery_tracking": "Recovery Tracking",
+				"revolutionizing_orthopedic_care_through_technology": "Revolutionizing orthopedic care through technology, making recovery more accessible and effective.",
+				"services": "Services",
+				"specialist_network": "Specialist Network",
+				"terms_of_service": "Terms of Service",
+				"testimonials": "Testimonials",
+				"virtual_consultations": "Virtual Consultations"
+			}
+		},
+		"user": {
+			"text": {
+				"create_an_account": "Create an Account",
+				"loading": "Loading...",
+				"log_in": "Log In",
+				"my_addresses": "My Addresses",
+				"my_orders": "My Orders",
+				"settings": "Settings",
+				"sign_out": "Sign out",
+				"hello_name": "Hello, {name}"
+			}
+		}
+	},
+	"lib": {
+		"store": {
+			"data": {
+				"description": {
+					"advanced_knee_support_with_adjustable": "Advanced knee support with adjustable compression for optimal stability during recovery and daily activities.",
+					"comfortable_cervical_collar_for_neck": "Comfortable cervical collar for neck support and pain relief during recovery from neck injuries.",
+					"complete_set_of_resistance_bands": "Complete set of resistance bands for physical therapy, rehabilitation, and strength training.",
+					"ergonomic_shoulder_sling_designed_for": "Ergonomic shoulder sling designed for post-surgery recovery and injury support with premium padding.",
+					"ergonomic_wrist_brace_specifically_designed": "Ergonomic wrist brace specifically designed for carpal tunnel syndrome relief and prevention.",
+					"high_performance_ankle_stabilizer_for": "High-performance ankle stabilizer for athletes and active individuals with superior lateral support.",
+					"professional_grade_lumbar_support_belt": "Professional-grade lumbar support belt for lower back pain relief and posture improvement.",
+					"reusable_hot_cold_therapy_pack": "Reusable hot/cold therapy pack for pain relief and inflammation reduction. Flexible when frozen.",
+					"targeted_compression_sleeve_for_tennis": "Targeted compression sleeve for tennis elbow, golfer's elbow, and general elbow pain relief.",
+					"therapeutic_compression_sleeve_for_hip": "Therapeutic compression sleeve for hip support and pain relief during movement and exercise."
+				},
+				"label": {
+					"all_categories": "All Categories",
+					"all_joints": "All Joints",
+					"abdomen": "Abdomen",
+					"ankle": "Ankle",
+					"back": "Back",
+					"back_support": "Back Support",
+					"braces_supports": "Braces & Supports",
+					"calf": "Calf",
+					"chest": "Chest",
+					"compression_wear": "Compression Wear",
+					"elbow": "Elbow",
+					"exercise_equipment": "Exercise Equipment",
+					"hip": "Hip",
+					"knee": "Knee",
+					"neck": "Neck",
+					"neck_support": "Neck Support",
+					"shoulder": "Shoulder",
+					"slings_immobilizers": "Slings & Immobilizers",
+					"sports_medicine": "Sports Medicine",
+					"therapy_equipment": "Therapy Equipment",
+					"thigh": "Thigh",
+					"wrist": "Wrist",
+					"wrist_support": "Wrist Support"
+				},
+				"name": {
+					"carpal_tunnel_wrist_brace": "Carpal Tunnel Wrist Brace",
+					"comfort_plus_shoulder_sling": "Comfort Plus Shoulder Sling",
+					"hip_compression_sleeve": "Hip Compression Sleeve",
+					"lumbar_support_belt_pro": "Lumbar Support Belt Pro",
+					"professional_ice_therapy_pack": "Professional Ice Therapy Pack",
+					"professional_knee_support_brace": "Professional Knee Support Brace",
+					"professional_resistance_band_set": "Professional Resistance Band Set",
+					"soft_cervical_collar": "Soft Cervical Collar",
+					"sport_ankle_stabilizer": "Sport Ankle Stabilizer",
+					"tennis_elbow_compression_sleeve": "Tennis Elbow Compression Sleeve"
+				}
+			}
+		}
+	},
+	"login": {
+		"attr": {
+			"placeholder": {
+				"enter_your_email_address": "Enter your email address",
+				"enter_your_password": "Enter your password"
+			}
+		},
+		"text": {
+			"and": "and",
+			"by_signing_in_you_agree": "By signing in, you agree to our",
+			"create_an_account_for_free": "Create an account for free",
+			"don_t_have_an_account": "Don't have an account?",
+			"email_address": "Email Address",
+			"enter_your_credentials_to_access": "Enter your credentials to access your account",
+			"forgot_your_password": "Forgot your password?",
+			"loading": "Loading...",
+			"log_in": "Log In",
+			"logging_in": "Logging In...",
+			"login": "Login",
+			"login_to_your_aidxbait_account": "Login to your AidXBait account",
+			"password": "Password",
+			"privacy_policy": "Privacy Policy",
+			"terms_of_service": "Terms of Service",
+			"welcome_back": "Welcome Back"
+		}
+	},
+	"profile": {
+		"addresses": {
+			"attr": {
+				"placeholder": {
+					"3": "3",
+					"12": "12",
+					"123_main_street": "123 Main Street",
+					"20_123_456_7890": "+20 123 456 7890",
+					"building_5": "Building 5",
+					"cairo": "Cairo",
+					"home": "Home",
+					"https_maps_google_com": "https://maps.google.com/...",
+					"maadi": "Maadi",
+					"next_to_the_pharmacy_green": "Next to the pharmacy, green gate"
+				}
+			},
+			"text": {
+				"add_a_shipping_or_billing": "Add a shipping or billing address to your account",
+				"add_address": "Add Address",
+				"add_new_address": "Add New Address",
+				"add_your_first_address_to": "Add your first address to get started",
+				"additional_directions": "Additional Directions",
+				"address": "Address",
+				"address_information": "Address Information",
+				"address_label": "Address Label *",
+				"address_type": "Address Type *",
+				"apartment": "Apartment",
+				"are_you_sure_you_want": "Are you sure you want to delete \"",
+				"back_to_addresses": "Back to Addresses",
+				"building_name": "Building Name",
+				"cancel": "Cancel",
+				"city": "City *",
+				"delete": "Delete",
+				"delete_address": "Delete Address",
+				"e_g_home_work": "(e.g., Home, Work)",
+				"edit": "Edit",
+				"edit_address": "Edit Address",
+				"floor": "Floor",
+				"google_maps_link_optional": "Google Maps Link (Optional)",
+				"governorate": "Governorate *",
+				"house": "House",
+				"loading_address": "Loading address...",
+				"loading_addresses": "Loading addresses...",
+				"manage_your_shipping_and_billing": "Manage your shipping and billing addresses",
+				"my_addresses": "My Addresses",
+				"no_addresses_yet": "No addresses yet",
+				"phone_number": "Phone Number",
+				"primary": "Primary",
+				"set_as_primary_address": "Set as primary address",
+				"set_primary": "Set Primary",
+				"street": "Street *",
+				"this_action_cannot_be_undone": "\"? This action cannot be undone.",
+				"update_your_address_information": "Update your address information",
+				"view_on_google_maps": "View on Google Maps"
+			},
+			"toast": {
+				"description": {
+					"address_added_successfully": "Address added successfully.",
+					"address_deleted_successfully": "Address deleted successfully.",
+					"address_not_found": "Address not found.",
+					"address_updated_successfully": "Address updated successfully.",
+					"failed_to_delete_address_please": "Failed to delete address. Please try again.",
+					"failed_to_load_address_please": "Failed to load address. Please try again.",
+					"failed_to_load_addresses_please": "Failed to load addresses. Please try again.",
+					"failed_to_set_primary_address": "Failed to set primary address. Please try again.",
+					"please_fill_in_all_required": "Please fill in all required fields.",
+					"primary_address_updated_successfully": "Primary address updated successfully.",
+					"user_information_not_available_please": "User information not available. Please log in again."
+				},
+				"title": {
+					"error": "Error",
+					"success": "Success",
+					"validation_error": "Validation Error"
+				}
+			}
+		},
+		"layout": {
+			"data": {
+				"name": {
+					"my_orders": "My Orders"
+				}
+			},
+			"text": {
+				"loading": "Loading...",
+				"manage_your_orders_and_addresses": "Manage your orders and addresses",
+				"my_account": "My Account"
+			}
+		},
+		"my": {
+			"attr": {
+				"placeholder": {
+					"filter_by_status": "Filter by status"
+				}
+			},
+			"text": "•",
+			"toast": {
+				"description": {
+					"failed_to_load_order_details": "Failed to load order details. Please try again.",
+					"failed_to_load_orders_please": "Failed to load orders. Please try again."
+				}
+			}
+		},
+		"orders": {
+			"data": {
+				"label": {
+					"order_placed": "Order Placed"
+				}
+			},
+			"text": {
+				"cancelled_on": "Cancelled on",
+				"in_progress": "In progress",
+				"order_cancelled": "Order Cancelled",
+				"reason": "Reason:",
+				"view_details": "View Details"
+			}
+		},
+		"page": {
+			"text": "!"
+		}
+	},
+	"register": {
+		"attr": {
+			"placeholder": {
+				"confirm_your_password": "Confirm your password",
+				"create_a_strong_password": "Create a strong password",
+				"enter_your_email_address": "Enter your email address",
+				"enter_your_first_name": "Enter your first name",
+				"enter_your_last_name": "Enter your last name",
+				"enter_your_phone_number": "Enter your phone number"
+			}
+		},
+		"text": {
+			"already_have_an_account": "Already have an account?",
+			"and": "and",
+			"by_creating_an_account_you": "By creating an account, you agree to receive communications from AidXBait",
+			"confirm_password": "Confirm Password",
+			"continue": "Continue",
+			"create_account": "Create Account",
+			"create_your_account_to_get": "Create your account to get started",
+			"creating_account": "Creating Account...",
+			"email_address": "Email Address",
+			"fill_in_your_information_to": "Fill in your information to create your account",
+			"first_name": "First Name",
+			"i_agree_to_the": "I agree to the",
+			"join_aidxbait": "Join AidXBait",
+			"last_name": "Last Name",
+			"loading": "Loading...",
+			"log_in_here": "Log in here",
+			"password": "Password",
+			"password_requirements": "Password Requirements:",
+			"passwords_do_not_match": "Passwords do not match",
+			"passwords_match": "Passwords match",
+			"phone_number": "Phone Number",
+			"privacy_policy": "Privacy Policy",
+			"terms_of_service": "Terms of Service",
+			"try_again": "Try Again"
+		}
+	},
+	"sections": {
+		"body_map": {
+			"text": {
+				"shop_by_body_part": "Shop by Body Part",
+				"click_on_any_area_to_discover_products_designed_specifically_for_your_needs": "Click on any area to discover products designed specifically for your needs",
+				"not_sure_what_you_need_explore_our_full_collection": "Not sure what you need? Explore our full collection",
+				"browse_all_products": "Browse All Products"
+			}
+		},
+		"aidxbait": {
+			"attr": {
+				"alt": {
+					"aidxbait": "AidXBait"
+				}
+			},
+			"data": {
+				"name": {
+					"consultations": "Consultations",
+					"imaging": "Imaging",
+					"lab_services": "Lab Services",
+					"nursing": "Nursing",
+					"physical_therapy": "Physical Therapy"
+				}
+			},
+			"text": "%"
+		},
+		"contact": {
+			"text": {
+				"aidxbait_revolutionizes_orthopedic_care_with": "AidXBait revolutionizes orthopedic care with cutting-edge technology, personalized treatment plans, and comprehensive support. Connect with our expert team to transform your recovery journey and achieve optimal health outcomes.",
+				"follow_us": "Follow us",
+				"get_in_touch": "Get in Touch",
+				"ultimate_healthcare_solution": "Ultimate Healthcare Solution"
+			}
+		},
+		"hero": {
+			"attr": {
+				"alt": {
+					"home_medical_care_doctor_visiting": "Home medical care - Doctor visiting patient at home",
+					"medical_technology_and_healthcare_services": "Medical Technology and Healthcare Services",
+					"patient_connecting_with_healthcare_professional_at_home": "Patient connecting with healthcare professional at home"
+				}
+			},
+			"text": {
+				"24_7_support": "24/7 Support",
+				"already_have_an_account": "Already have an account?",
+				"at_home": "at Home",
+				"book_healthcare_services_from_the": "Book healthcare services from the comfort of home. Get lab tests, consultations, and personalized plans—all without stepping outside.",
+				"create_an_account": "Create an Account",
+				"get_medical_care": "Get Medical Care",
+				"get_started": "Get Started",
+				"home_care": "Home Care",
+				"log_in": "Log In",
+				"on_your_schedule": ", On Your Schedule",
+				"secure_private": "Secure & Private",
+				"stay_at_home_and_order": "Stay at Home and order all medical services with a finger click",
+				"unlock_the_potentials_of": "Unlock The Potentials of"
+			}
+		},
+		"services": {
+			"attr": {
+				"alt": {
+					"service_background": "Service background"
+				}
+			},
+			"data": {
+				"description": {
+					"licensed_doctors_provide_one": "Licensed doctors provide one-on-one consultation at your home, including post-operative care and chronic condition management.",
+					"browse_and_order_mobility_aids": "Browse and order mobility aids, braces, and more — all delivered to your doorstep.",
+					"licensed_physical_therapists_provide_one": "Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
+					"personalized_video_based_rehab_programs": "Personalized video-based rehab programs sent after your consultation for follow-up care.",
+					"portable_x_rays_and_ultrasounds": "Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+					"professional_nurses_available_for_home": "Professional nurses available for home visits to provide medication administration, wound care, post-operative support, IV therapy, and chronic condition management — all in the comfort of your home.",
+					"video_calls_with_physical_therapists": "Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+					"we_send_a_nurse_to": "We send a nurse to collect your blood or samples from home. Lab results are delivered digitally."
+				}
+			},
+			"text": {
+				"complete_healthcare_services_delivered_to": "Complete healthcare services delivered to your home for maximum convenience and comfort.",
+				"our_services": "Our Services"
+			}
+		},
+		"testimonials": {
+			"data": {
+				"name": {
+					"emily_rodriguez": "Emily Rodriguez",
+					"james_lee": "James Lee",
+					"michael_chen": "Michael Chen",
+					"priya_patel": "Priya Patel",
+					"sarah_johnson": "Sarah Johnson"
+				}
+			}
+		},
+		"why": {
+			"data": {
+				"title": {
+					"less_than_24_hour_response": "Less than 24-Hour Response",
+					"licensed_professionals": "Licensed Professionals",
+					"cairo_giza_and_more": "Cairo, Giza & More",
+					"everything_in_one_app": "Everything in One App"
+				},
+				"description": {
+					"all_our_healthcare_providers_are": "All our healthcare providers are fully licensed, experienced professionals committed to delivering the highest quality care in your home.",
+					"book_appointments_track_health_records": "Book appointments, track health records, communicate with providers, and manage prescriptions all from one powerful, easy-to-use app.",
+					"comprehensive_coverage_across_cairo_giza": "Comprehensive coverage across Cairo, Giza, and expanding regions. Bringing professional healthcare directly to your doorstep.",
+					"get_connected_to_healthcare_professionals": "Get connected to healthcare professionals within hours, not days. Our rapid response system ensures you receive care when you need it most."
+				}
+			},
+			"text": {
+				"bringing_hospital_care_quality_to": "Bringing Hospital-Care quality to your home",
+				"why_choose_aidxbait": "Why Choose AidXBait?"
+			}
+		}
+	},
+	"common": {
+		"text": {
+			"licensed_professionals": "Licensed Professionals",
+			"cart": "Cart"
+		}
+	},
+	"services": {
+		"store": {
+			"text": ")",
+			"toast": {
+				"description": {
+					"failed_to_load_addresses_please": "Failed to load addresses. Please try again.",
+					"please_select_a_shipping_address": "Please select a shipping address.",
+					"user_information_not_available_please": "User information not available. Please log in again.",
+					"your_cart_is_empty": "Your cart is empty.",
+					"your_order_has_been_placed": "Your order has been placed successfully."
+				},
+				"title": {
+					"address_required": "Address Required",
+					"empty_cart": "Empty Cart",
+					"error": "Error",
+					"order_placed": "Order Placed!",
+					"payment_error": "Payment Error"
+				}
+			}
+		}
+	},
+	"store": {
+		"CartItem": {
+			"text": "×"
+		},
+		"CartItemLabels": {
+			"all_purpose": "All Purpose",
+			"for_rent": "For Rent",
+			"rental_period": "Rental Period:",
+			"week": "week",
+			"weeks": "weeks"
+		},
+		"CartSidebar": {
+			"text": {
+				"shopping_cart": "Shopping Cart",
+				"clear_all": "Clear All",
+				"your_cart_is_empty": "Your cart is empty",
+				"add_some_products_to_get_started": "Add some products to get started",
+				"continue_shopping": "Continue Shopping",
+				"proceed_to_checkout": "Proceed to Checkout"
+			}
+		},
+		"CartSummary": {
+			"text": {
+				"add": "💡 Add",
+				"egp": "EGP",
+				"egp_more_for_free_shipping": "EGP more for free shipping",
+				"free": "Free",
+				"items": "items)",
+				"order_summary": "Order Summary",
+				"shipping": "Shipping",
+				"subtotal": "Subtotal (",
+				"tax": "Tax",
+				"tax_calculated_at_checkout_final": "Tax calculated at checkout. Final total may vary.",
+				"total": "Total"
+			}
+		},
+		"checkout": {
+			"data": {
+				"description": {
+					"pay_securely_with_your_card": "Pay securely with your card",
+					"pay_when_you_receive_your": "Pay when you receive your order"
+				},
+				"label": {
+					"cash_on_delivery": "Cash on Delivery",
+					"online_payment": "Online Payment"
+				}
+			},
+			"text": {
+				"add_new_address": "Add New Address",
+				"cancel": "Cancel",
+				"discount": "Discount",
+				"phone": "Phone:",
+				"primary": "Primary",
+				"subtotal": "Subtotal",
+				"tax_14": "Tax (14%)"
+			},
+			"toast": {
+				"description": {
+					"address_added_successfully": "Address added successfully.",
+					"please_fill_in_all_required": "Please fill in all required fields."
+				},
+				"title": {
+					"error": "Error",
+					"success": "Success",
+					"validation_error": "Validation Error"
+				}
+			}
+		},
+		"HorizontalFilters": {
+			"attr": {
+				"aria-label": {
+					"clear_search": "Clear search"
+				},
+				"placeholder": {
+					"search_products": "Search products..."
+				}
+			},
+			"text": {
+				"clear": "Clear",
+				"clear_all_filters": "Clear All Filters",
+				"found": "found",
+				"in_stock_only": "In Stock Only"
+			}
+		},
+		"JointCapsuleFilter": {
+			"text": {
+				"active_filters": "Active Filters:",
+				"apply_filters": "Apply Filters (",
+				"choose_the_joints_you_want": "Choose the joints you want to filter by",
+				"filter_by_body_part": "Filter by Body Part",
+				"of": "of",
+				"select_joint_types": "Select Joint Types",
+				"selected": "selected)",
+				"selected_joints": "Selected Joints:"
+			}
+		},
+		"PriceRangeFilter": {
+			"text": {
+				"price_range": "Price Range"
+			}
+		},
+		"ProductCard": {
+			"text": "%"
+		},
+		"ProductFilters": {
+			"attr": {
+				"placeholder": {
+					"select_category": "Select category",
+					"select_joint_type": "Select joint type"
+				}
+			},
+			"text": "\""
+		},
+		"ProductGrid": {
+			"text": {
+				"no_products_found": "No products found",
+				"we_couldn_t_find_any": "We couldn't find any products matching your criteria. Try adjusting your filters or search terms."
+			}
+		},
+		"StoreContent": {
+			"text": "✓",
+			"toast": {
+				"title": {
+					"payment_failed": "Payment Failed",
+					"payment_pending": "Payment Pending",
+					"payment_successful": "Payment Successful! 🎉"
+				}
+			}
+		}
+	},
+	"ui": {
+		"NotFound": {
+			"title": "Page Not Found",
+			"description": "The page you are looking for does not exist.",
+			"backHome": "Back to Home"
+		},
+		"apple": {
+			"attr": {
+				"aria-label": {
+					"next_slide": "Next slide",
+					"previous_slide": "Previous slide"
+				}
+			}
+		},
+		"breadcrumb": {
+			"attr": {
+				"aria-label": {
+					"breadcrumb": "breadcrumb"
+				}
+			},
+			"text": {
+				"more": "More"
+			}
+		},
+		"cards": {
+			"text": {
+				"a_card_that_showcases_a": "A card that showcases a set of tools that you use to create your product.",
+				"damn_good_card": "Damn good card"
+			}
+		},
+		"carousel": {
+			"attr": {
+				"aria-roledescription": {
+					"carousel": "carousel",
+					"slide": "slide"
+				}
+			}
+		},
+		"dialog": {
+			"text": {
+				"close": "Close"
+			}
+		},
+		"language": {
+			"data": {
+				"label": "العربية"
+			}
+		},
+		"navbar": {
+			"attr": {
+				"alt": {
+					"about_aidxbait": "About AidXBait",
+					"aidxbait_logo": "AidXBait Logo"
+				}
+			},
+			"text": {
+				"about": "About Us",
+				"access_your_reports_track_recovery": "Access your reports, track recovery, and continue your care through the AidXBait app. We're with you every step of the way.",
+				"at_home_radiology": "At-home radiology",
+				"coming_soon": "coming soon",
+				"call_me_request": "Call-me Request",
+				"contact": "Contact",
+				"equipment_rental": "Equipment Rental",
+				"home_visits": "Home Visits",
+				"home_exercise_programs": "Home-Exercise Programs",
+				"home_imaging": "Home Imaging",
+				"home_lab_tests": "Home Lab Tests",
+				"home_nursing": "Home Nursing",
+				"home_physical_therapy": "Home physical therapy",
+				"home_doctor_visits": "Home Doctor Visits",
+				"lab_tests": "Lab tests",
+				"language": "Language:",
+				"learn_more": "Learn More",
+				"licensed_professionals_come_to_you": "Licensed professionals come to you with the tools they need — or meet you virtually for your consultation. No travel needed.",
+				"medical_devices": "Medical Devices",
+				"medical_store": "Medical Store",
+				"online_store": "Online Store",
+				"online_video_consultations": "Online Video Consultations",
+				"shop_now": "Shop Now",
+				"shop_supplies": "Shop supplies",
+				"our_mission": "Our Mission",
+				"our_vision": "Our Vision",
+				"our_vision_mission": "Our Vision & Mission",
+				"pick_a_convenient_time_and": "Pick a convenient time and location. Our team confirms your request and prepares everything for your visit or call.",
+				"products": "Products",
+				"select_the_healthcare_service_you": "Select the healthcare service you need:",
+				"send_a_message": "Send a Message",
+				"services": "Services",
+				"store": "Store",
+				"to_order_braces_mobility_aids": "to order braces, mobility aids, rehab equipment, and more — all delivered to your home, no appointment required.",
+				"to_revolutionize_healthcare_delivery_by": "To revolutionize healthcare delivery by making quality medical services accessible at home, empowering patients to receive professional care in the comfort of their own environment.",
+				"virtual_consultations_with_specialists": "Virtual consultations with specialists",
+				"visit_our": "Visit our",
+				"we_are_committed_to_providing": "We are committed to providing comprehensive, technology-driven healthcare solutions that bridge the gap between patients and medical professionals, ensuring convenient, efficient, and personalized care for everyone.",
+				"whatsapp_chatbot": "WhatsApp Chatbot"
+			}
+		},
+		"pagination": {
+			"attr": {
+				"aria-label": {
+					"go_to_next_page": "Go to next page",
+					"go_to_previous_page": "Go to previous page",
+					"pagination": "pagination"
+				}
+			},
+			"text": {
+				"more_pages": "More pages",
+				"next": "Next",
+				"previous": "Previous"
+			}
+		},
+		"sidebar": {
+			"text": {
+				"toggle_sidebar": "Toggle Sidebar"
+			}
+		}
+	}
+}

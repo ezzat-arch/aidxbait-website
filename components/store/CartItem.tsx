@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CartItem as CartItemType } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
+import { useTranslations } from "next-intl";
 
 interface CartItemProps {
 	item: CartItemType;
@@ -16,6 +17,7 @@ interface CartItemProps {
 export function CartItem({ item, className }: CartItemProps) {
 	const { updateQuantity, removeFromCart, updateRentalWeeks } = useCart();
 	const { product, quantity, rental_weeks } = item;
+	const t = useTranslations("store.CartItemLabels");
 
 	// Compute derived values
 	const effectivePrice = product.discounted_price || product.price;
@@ -74,13 +76,13 @@ export function CartItem({ item, className }: CartItemProps) {
 									className="text-xs capitalize"
 								>
 									{joint.joint_name === "general"
-										? "All Purpose"
+										? t("all_purpose")
 										: joint.joint_name}
 								</Badge>
 							))}
 							{product.is_for_rent && (
 								<Badge variant="outline" className="text-xs">
-									For Rent
+									{t("for_rent")}
 								</Badge>
 							)}
 						</div>
@@ -140,7 +142,7 @@ export function CartItem({ item, className }: CartItemProps) {
 				{product.is_for_rent && rental_weeks !== undefined && (
 					<div className="flex items-center gap-2 mt-2">
 						<span className="text-xs text-muted-foreground">
-							Rental Period:
+							{t("rental_period")}
 						</span>
 						<div className="flex items-center gap-1">
 							<Button
@@ -177,7 +179,7 @@ export function CartItem({ item, className }: CartItemProps) {
 							</Button>
 
 							<span className="text-xs text-muted-foreground ml-1">
-								{rental_weeks === 1 ? "week" : "weeks"}
+								{rental_weeks === 1 ? t("week") : t("weeks")}
 							</span>
 						</div>
 					</div>
@@ -189,7 +191,9 @@ export function CartItem({ item, className }: CartItemProps) {
 						{quantity} × {effectivePrice.toFixed(2)} {product.currency}
 						{product.is_for_rent &&
 							rental_weeks &&
-							` × ${rental_weeks} ${rental_weeks === 1 ? "week" : "weeks"}`}
+							` × ${rental_weeks} ${
+								rental_weeks === 1 ? t("week") : t("weeks")
+							}`}
 					</div>
 					<div className="font-semibold">
 						{total.toFixed(2)} {product.currency}
