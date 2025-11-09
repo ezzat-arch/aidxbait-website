@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { HorizontalFilters } from "@/components/store/HorizontalFilters";
 import { StoreCategoryTabs } from "@/components/store/StoreCategoryTabs";
@@ -368,12 +369,14 @@ export function StoreContent() {
 			{/* Hero Section */}
 			<div className="relative min-h-[400px] sm:h-[45vh] md:h-[50vh] lg:h-[40vh] max-h-[600px] overflow-hidden">
 				{/* Background Image with Overlay */}
-				<div
-					className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-					style={{
-						backgroundImage: `url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop')`,
-					}}
-				>
+				<div className="absolute inset-0">
+					<Image
+						src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
+						alt="Store hero background"
+						fill
+						className="object-cover"
+						sizes="100vw"
+					/>
 					<div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-primary/70" />
 				</div>
 

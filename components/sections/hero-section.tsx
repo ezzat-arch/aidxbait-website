@@ -22,23 +22,28 @@ export const HeroSection = React.forwardRef<
 	const tAlt = useTranslations("sections.hero.attr.alt");
 	const tFooter = useTranslations("layout.footer.text");
 	const tCommon = useTranslations("common.text");
-	
-	// Note: Using English badges for now as Arabic versions may not be readily available
-	// This is a common practice as app store badges are often kept in English
-	const isRTL = locale === 'ar';
-	
+
+	const isRTL = locale === "ar";
+
 	return (
 		<div className="flex flex-col">
 			{/* First Hero Section */}
 			<section
 				ref={ref}
-				className="relative min-h-screen hero-height flex items-center bg-cover bg-center bg-no-repeat p-0 m-0"
-				style={{ backgroundImage: "url('/images/hero_image.jpg')" }}
+				className="relative min-h-screen hero-height flex items-center p-0 m-0"
 			>
+				<Image
+					src="/images/hero_image.jpg"
+					alt="Hero background"
+					fill
+					priority
+					className="object-cover opacity-80 z-0"
+					sizes="100vw"
+				/>
 				{navbar && (
 					<div className="fixed top-0 left-0 w-full z-50">{navbar}</div>
 				)}
-				<div className="absolute inset-0 bg-black/50 z-0" />
+				<div className="absolute inset-0 bg-black/70 z-10" />
 				<div className="container relative z-20 px-4 sm:px-6 lg:px-8">
 					<div className="grid gap-4 sm:gap-8 lg:grid-cols-2 lg:gap-12 items-center pt-16 sm:pt-20 md:pt-24 lg:pt-0 hero-content">
 						<motion.div
@@ -49,7 +54,9 @@ export const HeroSection = React.forwardRef<
 							className="flex flex-col gap-4 sm:gap-6 text-center ltr:lg:text-left rtl:lg:text-right items-center ltr:lg:items-start rtl:lg:items-end"
 						>
 							<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold tracking-tight leading-tight hero-heading">
-								{t("unlock_the_potentials_of")}
+								{t("unlock")}
+								<br />
+								{t("the_potentials_of")}
 								<br />
 								<span className="text-primary">{t("home_care")}</span>
 							</h1>
@@ -61,9 +68,13 @@ export const HeroSection = React.forwardRef<
 									href="/download/ios"
 									className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
 								>
-									<img
+									<Image
 										src="/images/app-store-badge-black.svg"
-										alt={`${tFooter("download_on_the")} ${tFooter("app_store")}`}
+										alt={`${tFooter("download_on_the")} ${tFooter(
+											"app_store"
+										)}`}
+										width={135}
+										height={40}
 										className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
 									/>
 								</Link>
@@ -71,9 +82,11 @@ export const HeroSection = React.forwardRef<
 									href="/download/android"
 									className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
 								>
-									<img
+									<Image
 										src="/images/google-play-badge.png"
 										alt={`${tFooter("get_it_on")} ${tFooter("google_play")}`}
+										width={135}
+										height={40}
 										className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
 									/>
 								</Link>
@@ -93,7 +106,9 @@ export const HeroSection = React.forwardRef<
 							>
 								<Image
 									src="/images/hero_image_in.png"
-									alt={tAlt("patient_connecting_with_healthcare_professional_at_home")}
+									alt={tAlt(
+										"patient_connecting_with_healthcare_professional_at_home"
+									)}
 									width={400}
 									height={400}
 									className="rounded-xl shadow-lg w-full h-full object-cover"

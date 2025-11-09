@@ -1,17 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 export function ContactSection() {
 	const t = useTranslations("sections.contact.text");
 	return (
-		<section
-			id="contact"
-			className="min-h-screen bg-cover bg-center bg-no-repeat"
-			style={{
-				backgroundImage: "url('/images/contact_bg.png')",
-			}}
-		>
-			<div className="flex flex-col min-h-screen bg-black/60">
+		<section id="contact" className="relative min-h-screen">
+			<Image
+				src="/images/contact_bg.png"
+				alt="Contact background"
+				fill
+				className="object-cover z-0"
+				sizes="100vw"
+			/>
+			<div className="relative flex flex-col min-h-screen bg-black/60 z-10">
 				<div className="container flex flex-col flex-1 px-6 py-12 mx-auto">
 					<div className="flex-1 lg:flex lg:items-center lg:-mx-6">
 						<div className="text-white lg:w-1/2 lg:mx-6">
