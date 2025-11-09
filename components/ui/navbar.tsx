@@ -132,7 +132,7 @@ const Navbar = ({ className }: { className?: string }) => {
 	const [isMounted, setIsMounted] = useState(false);
 	const [currentLanguage, setCurrentLanguage] = useState("En");
 	const [expandedSections, setExpandedSections] = useState<Set<string>>(
-		new Set(["home-visits"])
+		new Set()
 	);
 	const { cart, toggleCart } = useCart();
 
@@ -582,19 +582,19 @@ const Navbar = ({ className }: { className?: string }) => {
 									{expandedSections.has("home-visits") && (
 										<div className="px-2 pb-3 space-y-1">
 											{homeVisitsItems.map((item) => (
-												<div key={item.name} className="flex flex-col">
-													<HoveredLink
-														href={item.href}
-														onClick={() => setIsMobileMenuOpen(false)}
-													>
-														{item.name}
-													</HoveredLink>
+												<HoveredLink
+													key={item.name}
+													href={item.href}
+													onClick={() => setIsMobileMenuOpen(false)}
+													className="flex items-center"
+												>
+													<span>{item.name}</span>
 													{item.comingSoon && (
-														<span className="text-[10px] font-light text-blue-600 italic ml-3 mt-0.5">
+														<span className="text-[10px] font-light text-blue-600 italic ltr:ml-2 rtl:mr-2">
 															{tNav("coming_soon")}
 														</span>
 													)}
-												</div>
+												</HoveredLink>
 											))}
 										</div>
 									)}
@@ -607,11 +607,11 @@ const Navbar = ({ className }: { className?: string }) => {
 										onClick={() => setIsMobileMenuOpen(false)}
 										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
 									>
-										<div className="flex flex-col">
+										<div className="flex items-center gap-2">
 											<h3 className="font-bold text-sm text-gray-900 dark:text-white">
 												{tNav("online_video_consultations")}
 											</h3>
-											<span className="text-[10px] font-light text-blue-600 italic mt-0.5">
+											<span className="text-[10px] font-light text-blue-600 italic">
 												{tNav("coming_soon")}
 											</span>
 										</div>
