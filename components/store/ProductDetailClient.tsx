@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import {
 	ArrowLeft,
+	ArrowRight,
 	Heart,
 	Star,
 	ShoppingCart,
@@ -29,18 +31,29 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Product } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
 import { eventService } from "@/lib/tracking/event-service";
+import { getLocalizedCurrency } from "@/lib/i18n/utils";
+import { Locale } from "@/types/i18n";
 
 interface ProductDetailClientProps {
 	product: Product;
 	relatedProducts: Product[];
+	locale?: string;
 }
 
 export default function ProductDetailClient({
 	product,
 	relatedProducts,
+	locale: localeProp,
 }: ProductDetailClientProps) {
+	const currentLocale = useLocale();
+	const locale = localeProp || currentLocale;
 	const { addToCart } = useCart();
 	const router = useRouter();
+	const tCard = useTranslations("store.ProductCard.text");
+	const tDetail = useTranslations("store.ProductDetail.text");
+	const tDesc = useTranslations("store.ProductDescription.text");
+	const tActions = useTranslations("store.ProductActions.text");
+	const tCommon = useTranslations("common.text");
 
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const [quantity, setQuantity] = useState(1);
@@ -116,12 +129,12 @@ export default function ProductDetailClient({
 	};
 
 	return (
-		<div className="min-h-screen bg-background pt-20">
+		<div className="min-h-screen bg-background pt-28 sm:pt-32 md:pt-36">
 			<div className="container mx-auto px-4 py-8">
 				{/* Breadcrumb */}
 				<nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8" aria-label="Breadcrumb">
 					<Link href="/services/store" className="hover:text-primary">
-						Store
+						{tCommon("store")}
 					</Link>
 					<span>/</span>
 					{product.joints[0] && (
@@ -133,13 +146,17 @@ export default function ProductDetailClient({
 					<span className="text-foreground line-clamp-1">{product.name}</span>
 				</nav>
 
-				{/* Back Button */}
-				<Button variant="ghost" className="mb-6 -ml-4" asChild>
-					<Link href="/services/store">
+			{/* Back Button */}
+			<Button variant="ghost" className="mb-6 -ml-4" asChild>
+				<Link href="/services/store" className="flex items-center">
+					{locale === "ar" ? (
+						<ArrowRight className="h-4 w-4 ml-2" />
+					) : (
 						<ArrowLeft className="h-4 w-4 mr-2" />
-						Back to Store
-					</Link>
-				</Button>
+					)}
+					{tDetail("back_to_store")}
+				</Link>
+			</Button>
 
 				{/* Product Details */}
 				<article className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
@@ -163,12 +180,12 @@ export default function ProductDetailClient({
 								)}
 								{product.is_best_seller && (
 									<Badge className="bg-amber-500 hover:bg-amber-600 shadow-lg">
-										Best Seller
+										{tCard("best_seller")}
 									</Badge>
 								)}
 								{product.is_featured && (
 									<Badge className="bg-purple-500 hover:bg-purple-600 shadow-lg">
-										Featured
+										{tCard("featured")}
 									</Badge>
 								)}
 								{product.is_for_rent && (
@@ -176,7 +193,7 @@ export default function ProductDetailClient({
 										variant="outline"
 										className="bg-background/80 backdrop-blur-sm shadow-lg"
 									>
-										For Rent
+										{tCard("for_rent")}
 									</Badge>
 								)}
 							</div>
@@ -186,7 +203,7 @@ export default function ProductDetailClient({
 									variant="outline"
 									className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm shadow-lg"
 								>
-									Out of Stock
+									{tCard("out_of_stock")}
 								</Badge>
 							)}
 						</div>
@@ -229,7 +246,7 @@ export default function ProductDetailClient({
 										className="capitalize"
 									>
 										{joint.joint_name === "general"
-											? "All Purpose"
+											? tCard("all_purpose")
 											: joint.joint_name}
 									</Badge>
 								))}
@@ -272,49 +289,49 @@ export default function ProductDetailClient({
 									</div>
 									<span className="text-muted-foreground font-medium">
 										{product.rating.toFixed(1)} ({product.reviewCount}{" "}
-										{product.reviewCount === 1 ? "review" : "reviews"})
+										{product.reviewCount === 1 ? tCard("review") : tCard("reviews")})
 									</span>
 								</div>
 							)}
 
-							{/* Price */}
-							<div className="flex items-baseline gap-3 mb-4">
-								<span className="text-4xl font-bold text-primary">
-									{effectivePrice.toFixed(2)} {product.currency}
+						{/* Price */}
+						<div className="flex items-baseline gap-3 mb-4">
+							<span className="text-4xl font-bold text-primary">
+								{effectivePrice.toFixed(2)} {getLocalizedCurrency(product.currency, locale as Locale)}
+							</span>
+							{hasDiscount && (
+								<span className="text-2xl text-muted-foreground line-through">
+									{product.price.toFixed(2)} {getLocalizedCurrency(product.currency, locale as Locale)}
 								</span>
-								{hasDiscount && (
-									<span className="text-2xl text-muted-foreground line-through">
-										{product.price.toFixed(2)} {product.currency}
-									</span>
-								)}
-							</div>
-
-							{/* Rental Info */}
-							{product.is_for_rent && product.rent_term && (
-								<div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
-									<Calendar className="h-4 w-4" />
-									<span className="capitalize">
-										{product.rent_term.replace("per_", "Per ")}
-									</span>
-								</div>
 							)}
+						</div>
+
+						{/* Rental Info */}
+						{product.is_for_rent && product.rent_term && (
+							<div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
+								<Calendar className="h-4 w-4" />
+								<span className="capitalize">
+									{tDetail(product.rent_term)}
+								</span>
+							</div>
+						)}
 
 							{/* Stock Status */}
 							<div className="mb-6">
 								{isInStock ? (
 									<div className="flex items-center gap-2 text-green-600">
 										<Check className="h-5 w-5" />
-										<span className="font-medium">In Stock</span>
+										<span className="font-medium">{tDetail("in_stock")}</span>
 										{product.stock <= 10 && (
 											<span className="text-amber-600 ml-2">
-												(Only {product.stock} left!)
+												({tDetail("only_left", { count: product.stock })})
 											</span>
 										)}
 									</div>
 								) : (
 									<div className="flex items-center gap-2 text-destructive">
 										<Info className="h-5 w-5" />
-										<span className="font-medium">Currently Unavailable</span>
+										<span className="font-medium">{tDetail("currently_unavailable")}</span>
 									</div>
 								)}
 							</div>
@@ -362,12 +379,12 @@ export default function ProductDetailClient({
 									>
 										{isDescriptionExpanded ? (
 											<>
-												<span>See Less</span>
+												<span>{tDesc("see_less")}</span>
 												<ChevronUp className="h-4 w-4" />
 											</>
 										) : (
 											<>
-												<span>See More</span>
+												<span>{tDesc("see_more")}</span>
 												<ChevronDown className="h-4 w-4" />
 											</>
 										)}
@@ -377,7 +394,7 @@ export default function ProductDetailClient({
 								{/* Show message if no description */}
 								{!product.description && !product.description_ar && (
 									<p className="text-muted-foreground text-lg leading-relaxed">
-										No description available
+										{tDesc("no_description_available")}
 									</p>
 								)}
 							</div>
@@ -387,7 +404,7 @@ export default function ProductDetailClient({
 						<section className="space-y-4">
 							{isInStock && (
 								<div className="flex items-center gap-4">
-									<label htmlFor="quantity" className="text-sm font-medium">Quantity:</label>
+									<label htmlFor="quantity" className="text-sm font-medium">{tActions("quantity")}</label>
 									<div className="flex items-center border-2 rounded-lg overflow-hidden">
 										<Button
 											variant="ghost"
@@ -424,7 +441,7 @@ export default function ProductDetailClient({
 									size="lg"
 									className="flex-1 h-12 text-lg font-semibold"
 								>
-									{isAddingToCart ? "Processing..." : "Buy Now"}
+									{isAddingToCart ? tActions("processing") : tActions("buy_now")}
 								</Button>
 
 								<Button
@@ -435,7 +452,7 @@ export default function ProductDetailClient({
 									className="flex-1 h-12 text-lg font-semibold"
 								>
 									<ShoppingCart className="h-5 w-5 mr-2" />
-									Add to Cart
+									{tActions("add_to_cart")}
 								</Button>
 
 								<Button
@@ -461,16 +478,16 @@ export default function ProductDetailClient({
 									<div className="flex flex-col items-center text-center p-4">
 										<Shield className="h-7 w-7 text-primary mb-2" />
 										<span className="text-sm font-medium">
-											Quality Guaranteed
+											{tDetail("quality_guaranteed")}
 										</span>
 									</div>
 									<div className="flex flex-col items-center text-center p-4">
 										<Truck className="h-7 w-7 text-primary mb-2" />
-										<span className="text-sm font-medium">Fast Shipping</span>
+										<span className="text-sm font-medium">{tDetail("fast_shipping")}</span>
 									</div>
 									<div className="flex flex-col items-center text-center p-4">
 										<RotateCcw className="h-7 w-7 text-primary mb-2" />
-										<span className="text-sm font-medium">Easy Returns</span>
+										<span className="text-sm font-medium">{tDetail("easy_returns")}</span>
 									</div>
 								</div>
 							</CardContent>
@@ -482,7 +499,7 @@ export default function ProductDetailClient({
 								<div className="flex items-center gap-2">
 									<Package className="h-4 w-4 text-muted-foreground" />
 									<span className="text-muted-foreground">
-										SKU: <span className="font-medium">PRD-{product.id}</span>
+										{tDetail("sku")} <span className="font-medium">PRD-{product.id}</span>
 									</span>
 								</div>
 							</CardContent>
@@ -495,7 +512,7 @@ export default function ProductDetailClient({
 					<Card>
 						<CardHeader>
 							<CardTitle className="flex items-center justify-between">
-								<span>Reviews</span>
+								<span>{tDetail("reviews")}</span>
 								{product.reviewCount > 0 && (
 									<div className="flex items-center gap-2">
 										<Star className="h-5 w-5 text-yellow-400 fill-current" />
@@ -504,7 +521,7 @@ export default function ProductDetailClient({
 										</span>
 										<span className="text-sm text-muted-foreground">
 											({product.reviewCount}{" "}
-											{product.reviewCount === 1 ? "review" : "reviews"})
+											{product.reviewCount === 1 ? tDetail("review") : tCard("reviews")})
 										</span>
 									</div>
 								)}
@@ -529,11 +546,11 @@ export default function ProductDetailClient({
 												</Avatar>
 												<div className="flex-1 space-y-2">
 													<div className="flex items-center justify-between">
-														<div className="flex items-center gap-2">
-															<span className="font-medium">
-																{review.patient_name ||
-																	`Customer ${review.patient_id}`}
-															</span>
+													<div className="flex items-center gap-2">
+														<span className="font-medium">
+															{review.patient_name ||
+																`${tDetail("customer")} ${review.patient_id}`}
+														</span>
 															<div className="flex items-center">
 																{[...Array(5)].map((_, i) => (
 																	<Star
@@ -564,9 +581,9 @@ export default function ProductDetailClient({
 							) : (
 								<div className="text-center py-12 text-muted-foreground">
 									<Star className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
-									<p className="text-lg mb-2">No reviews yet</p>
+									<p className="text-lg mb-2">{tDetail("no_reviews_yet")}</p>
 									<p className="text-sm">
-										Be the first to review this product!
+										{tDetail("be_the_first_to_review")}
 									</p>
 								</div>
 							)}
@@ -578,10 +595,10 @@ export default function ProductDetailClient({
 				{relatedProducts.length > 0 && (
 					<section>
 						<div className="flex items-center justify-between mb-6">
-							<h2 className="text-3xl font-bold">You May Also Like</h2>
+							<h2 className="text-3xl font-bold">{tDetail("you_may_also_like")}</h2>
 							<Link href="/services/store">
 								<Button variant="ghost">
-									View All
+									{tDetail("view_all")}
 									<ArrowLeft className="h-4 w-4 ml-2 rotate-180" />
 								</Button>
 							</Link>
@@ -630,14 +647,14 @@ export default function ProductDetailClient({
 														%
 													</Badge>
 												)}
-												{!relatedIsInStock && (
-													<Badge
-														variant="outline"
-														className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm"
-													>
-														Out of Stock
-													</Badge>
-												)}
+											{!relatedIsInStock && (
+												<Badge
+													variant="outline"
+													className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm"
+												>
+													{tCard("out_of_stock")}
+												</Badge>
+											)}
 											</div>
 											<CardContent className="p-4">
 												<h3 className="font-semibold line-clamp-2 mb-2 group-hover:text-primary transition-colors">
@@ -652,18 +669,18 @@ export default function ProductDetailClient({
 														</span>
 													</div>
 												)}
-												<div className="flex items-center gap-2">
-													<span className="font-bold text-primary text-lg">
-														{relatedEffectivePrice.toFixed(2)}{" "}
-														{relatedProduct.currency}
+											<div className="flex items-center gap-2">
+												<span className="font-bold text-primary text-lg">
+													{relatedEffectivePrice.toFixed(2)}{" "}
+													{getLocalizedCurrency(relatedProduct.currency, locale as Locale)}
+												</span>
+												{relatedHasDiscount && (
+													<span className="text-sm text-muted-foreground line-through">
+														{relatedProduct.price.toFixed(2)}{" "}
+														{getLocalizedCurrency(relatedProduct.currency, locale as Locale)}
 													</span>
-													{relatedHasDiscount && (
-														<span className="text-sm text-muted-foreground line-through">
-															{relatedProduct.price.toFixed(2)}{" "}
-															{relatedProduct.currency}
-														</span>
-													)}
-												</div>
+												)}
+											</div>
 											</CardContent>
 										</Link>
 									</Card>

@@ -38,8 +38,10 @@ export const config = {
 		 * - icon.png (app icon)
 		 * - images/ (public images)
 		 * - placeholder.* (placeholder assets)
+		 * - sitemap.xml (sitemap)
+		 * - robots.txt (robots file)
 		 * - Files with extensions
 		 */
-		'/((?!api|_next/static|_next/image|favicon.ico|icon.png|images/|placeholder.*|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+		'/((?!api|_next/static|_next/image|favicon.ico|icon.png|images/|placeholder.*|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
 	],
 };

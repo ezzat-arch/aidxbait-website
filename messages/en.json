@@ -399,9 +399,9 @@
 					"browse_and_order_mobility_aids": "Browse and order mobility aids, braces, and more — all delivered to your doorstep.",
 					"licensed_physical_therapists_provide_one": "Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
 					"personalized_video_based_rehab_programs": "Personalized video-based rehab programs sent after your consultation for follow-up care.",
-					"portable_x_rays_and_ultrasounds": "Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+					"portable_x_rays_and_ultrasounds": "Portable X-rays performed by our mobile technicians in your home.",
 					"professional_nurses_available_for_home": "Professional nurses available for home visits to provide medication administration, wound care, post-operative support, IV therapy, and chronic condition management — all in the comfort of your home.",
-					"video_calls_with_physical_therapists": "Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+					"video_calls_with_physical_therapists": "Video calls with physical therapists, nutritionists, or psychiatrists without the need for travel.",
 					"we_send_a_nurse_to": "We send a nurse to collect your blood or samples from home. Lab results are delivered digitally."
 				}
 			},
@@ -445,7 +445,8 @@
 	"common": {
 		"text": {
 			"licensed_professionals": "Licensed Professionals",
-			"cart": "Cart"
+			"cart": "Cart",
+			"store": "Store"
 		}
 	},
 	"services": {
@@ -479,6 +480,61 @@
 			"rental_period": "Rental Period:",
 			"week": "week",
 			"weeks": "weeks"
+		},
+		"ProductCard": {
+			"text": {
+				"best_seller": "Best Seller",
+				"featured": "Featured",
+				"for_rent": "For Rent",
+				"out_of_stock": "Out of Stock",
+				"all_purpose": "All Purpose",
+				"no_description_available": "No description available",
+				"only_x_left": "Only {count} left",
+				"adding": "Adding...",
+				"add": "Add",
+				"rental_period": "Rental Period:",
+				"week": "week",
+				"weeks": "weeks",
+				"review": "review",
+				"reviews": "reviews"
+			}
+		},
+		"ProductDetail": {
+			"text": {
+				"back_to_store": "Back to Store",
+				"quality_guaranteed": "Quality Guaranteed",
+				"fast_shipping": "Fast Shipping",
+				"easy_returns": "Easy Returns",
+				"sku": "SKU:",
+				"reviews": "Customer Reviews",
+				"review": "review",
+				"you_may_also_like": "You May Also Like",
+				"view_all": "View All Products",
+				"no_reviews_yet": "No reviews yet",
+				"be_the_first_to_review": "Be the first to review this product!",
+				"in_stock": "In Stock",
+				"only_left": "Only {count} left!",
+				"currently_unavailable": "Currently Unavailable",
+				"customer": "Customer",
+				"per_day": "Per Day",
+				"per_week": "Per Week",
+				"per_month": "Per Month"
+			}
+		},
+		"ProductDescription": {
+			"text": {
+				"see_more": "See More",
+				"see_less": "See Less",
+				"no_description_available": "No description available"
+			}
+		},
+		"ProductActions": {
+			"text": {
+				"quantity": "Quantity:",
+				"processing": "Processing...",
+				"buy_now": "Buy Now",
+				"add_to_cart": "Add to Cart"
+			}
 		},
 		"CartSidebar": {
 			"text": {
@@ -547,10 +603,17 @@
 				}
 			},
 			"text": {
+				"body_part": "Body Part",
 				"clear": "Clear",
 				"clear_all_filters": "Clear All Filters",
 				"found": "found",
-				"in_stock_only": "In Stock Only"
+				"in_stock_only": "In Stock Only",
+				"no_body_parts": "No body parts found.",
+				"product": "product",
+				"products": "products",
+				"products_found_plural": "{count} products found",
+				"products_found_singular": "{count} product found",
+				"search_body_parts": "Search body parts..."
 			}
 		},
 		"JointCapsuleFilter": {
@@ -567,11 +630,9 @@
 		},
 		"PriceRangeFilter": {
 			"text": {
+				"currency": "EGP",
 				"price_range": "Price Range"
 			}
-		},
-		"ProductCard": {
-			"text": "%"
 		},
 		"ProductFilters": {
 			"attr": {
@@ -590,6 +651,22 @@
 		},
 		"StoreContent": {
 			"text": "✓",
+			"hero": {
+				"badge": "Premium Quality Products",
+				"title": "Shop Physical Therapy Products",
+				"medical_grade": "Medical Grade",
+				"fast_delivery": "Fast Delivery",
+				"expert_approved": "Expert Approved"
+			},
+			"loading": {
+				"store": "Loading store...",
+				"products": "Loading products..."
+			},
+			"error": {
+				"retry": "Retry",
+				"no_products": "No products found matching your criteria",
+				"clear_filters": "Clear Filters"
+			},
 			"toast": {
 				"title": {
 					"payment_failed": "Payment Failed",

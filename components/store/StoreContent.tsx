@@ -12,7 +12,7 @@ import { FilterOptions, Product, Joint } from "@/lib/store-types";
 import { shouldShowBodyMap } from "@/lib/store-categories";
 import { useCart } from "@/contexts/cart-context";
 import { toast } from "@/hooks/use-toast";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types/i18n";
 import { localizeProducts } from "@/lib/i18n/data-utils";
 
@@ -133,6 +133,7 @@ function buildURLFromFilters(
 
 export function StoreContent() {
 	const locale = useLocale() as Locale;
+	const t = useTranslations("store.StoreContent");
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filters, setFilters] = useState<FilterOptions>(initialFilters);
 	const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
@@ -399,18 +400,18 @@ export function StoreContent() {
 				{/* Content */}
 				<div className="relative h-full flex items-center justify-center">
 					<div className="text-center px-4 max-w-5xl mx-auto">
-						{/* Badge */}
-						<div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 mb-6">
-							<span className="text-white/90 text-sm font-medium">
-								Premium Quality Products
-							</span>
-							<span className="text-white">✓</span>
-						</div>
+					{/* Badge */}
+					<div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 mb-6">
+						<span className="text-white/90 text-sm font-medium">
+							{t("hero.badge")}
+						</span>
+						<span className="text-white">✓</span>
+					</div>
 
-						{/* Main Heading */}
-						<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white drop-shadow-2xl mb-4 sm:mb-6">
-							Shop Physical Therapy Products
-						</h1>
+					{/* Main Heading */}
+					<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white drop-shadow-2xl mb-4 sm:mb-6">
+						{t("hero.title")}
+					</h1>
 
 						{/* Subtle Divider */}
 						<div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
@@ -427,27 +428,27 @@ export function StoreContent() {
 							/>
 						</div>
 
-						{/* Mini Stats/Features */}
-						<div className="hidden sm:flex flex-wrap items-center justify-center gap-6 text-white/90 mt-6">
-							<div className="flex items-center gap-2">
-								<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
-									🏥
-								</div>
-								<span className="text-sm font-light">Medical Grade</span>
+					{/* Mini Stats/Features */}
+					<div className="hidden sm:flex flex-wrap items-center justify-center gap-6 text-white/90 mt-6">
+						<div className="flex items-center gap-2">
+							<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
+								🏥
 							</div>
-							<div className="flex items-center gap-2">
-								<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
-									⚡
-								</div>
-								<span className="text-sm font-light">Fast Delivery</span>
-							</div>
-							<div className="flex items-center gap-2">
-								<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
-									💯
-								</div>
-								<span className="text-sm font-light">Expert Approved</span>
-							</div>
+							<span className="text-sm font-light">{t("hero.medical_grade")}</span>
 						</div>
+						<div className="flex items-center gap-2">
+							<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
+								⚡
+							</div>
+							<span className="text-sm font-light">{t("hero.fast_delivery")}</span>
+						</div>
+						<div className="flex items-center gap-2">
+							<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
+								💯
+							</div>
+							<span className="text-sm font-light">{t("hero.expert_approved")}</span>
+						</div>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -471,50 +472,50 @@ export function StoreContent() {
 					/>
 				</div>
 
-				{/* Loading State */}
-				{loading && (
-					<div className="flex items-center justify-center py-20">
-						<div className="text-center">
-							<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-							<p className="text-muted-foreground">Loading products...</p>
-						</div>
+			{/* Loading State */}
+			{loading && (
+				<div className="flex items-center justify-center py-20">
+					<div className="text-center">
+						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+						<p className="text-muted-foreground">{t("loading.products")}</p>
 					</div>
-				)}
+				</div>
+			)}
 
-				{/* Error State */}
-				{error && !loading && (
-					<div className="flex items-center justify-center py-20">
-						<div className="text-center">
-							<p className="text-destructive mb-4">{error}</p>
-							<button
-								onClick={() => window.location.reload()}
-								className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-							>
-								Retry
-							</button>
-						</div>
+			{/* Error State */}
+			{error && !loading && (
+				<div className="flex items-center justify-center py-20">
+					<div className="text-center">
+						<p className="text-destructive mb-4">{error}</p>
+						<button
+							onClick={() => window.location.reload()}
+							className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+						>
+							{t("error.retry")}
+						</button>
 					</div>
-				)}
+				</div>
+			)}
 
 				{/* Product Grid */}
 				{!loading && !error && <ProductGrid products={filteredProducts} />}
 
-				{/* No Products State */}
-				{!loading && !error && filteredProducts.length === 0 && (
-					<div className="flex items-center justify-center py-20">
-						<div className="text-center">
-							<p className="text-muted-foreground text-lg mb-4">
-								No products found matching your criteria
-							</p>
-							<button
-								onClick={handleClearFilters}
-								className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-							>
-								Clear Filters
-							</button>
-						</div>
+			{/* No Products State */}
+			{!loading && !error && filteredProducts.length === 0 && (
+				<div className="flex items-center justify-center py-20">
+					<div className="text-center">
+						<p className="text-muted-foreground text-lg mb-4">
+							{t("error.no_products")}
+						</p>
+						<button
+							onClick={handleClearFilters}
+							className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+						>
+							{t("error.clear_filters")}
+						</button>
 					</div>
-				)}
+				</div>
+			)}
 			</div>
 		</div>
 	);

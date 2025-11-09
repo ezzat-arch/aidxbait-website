@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -14,6 +15,7 @@ export function ProductDescription({
 	descriptionAr,
 }: ProductDescriptionProps) {
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+	const t = useTranslations("store.ProductDescription.text");
 
 	const shouldShowToggle =
 		(descriptionAr && descriptionAr.length > 200) ||
@@ -57,12 +59,12 @@ export function ProductDescription({
 				>
 					{isDescriptionExpanded ? (
 						<>
-							<span>See Less</span>
+							<span>{t("see_less")}</span>
 							<ChevronUp className="h-4 w-4" />
 						</>
 					) : (
 						<>
-							<span>See More</span>
+							<span>{t("see_more")}</span>
 							<ChevronDown className="h-4 w-4" />
 						</>
 					)}
@@ -72,7 +74,7 @@ export function ProductDescription({
 			{/* Show message if no description */}
 			{!description && !descriptionAr && (
 				<p className="text-muted-foreground text-lg leading-relaxed">
-					No description available
+					{t("no_description_available")}
 				</p>
 			)}
 		</div>

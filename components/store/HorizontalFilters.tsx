@@ -9,6 +9,7 @@ import { FilterOptions, Joint } from "@/lib/store-types";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { PriceRangeFilter } from "./PriceRangeFilter";
 import { JOINT_CATEGORIES } from "@/lib/store-data";
+import { useTranslations } from "next-intl";
 
 interface HorizontalFiltersProps {
 	filters: FilterOptions;
@@ -27,6 +28,9 @@ export function HorizontalFilters({
 	onClearFilters,
 	productsCount,
 }: HorizontalFiltersProps) {
+	const t = useTranslations("store.HorizontalFilters");
+	const tLib = useTranslations("lib.store.data.label");
+	
 	const handleJointsChange = (joints: Joint[]) => {
 		onFiltersChange({
 			...filters,
@@ -69,7 +73,7 @@ export function HorizontalFilters({
 		(joint) => joint.value !== "all"
 	).map((joint) => ({
 		value: joint.value,
-		label: joint.label,
+		label: tLib(joint.value),
 	}));
 
 	return (
@@ -80,7 +84,7 @@ export function HorizontalFilters({
 				<div className="relative flex-1 min-w-0">
 					<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4 z-10" />
 					<Input
-						placeholder="Search products..."
+						placeholder={t("attr.placeholder.search_products")}
 						value={searchQuery}
 						onChange={(e) => onSearchChange(e.target.value)}
 						className="pl-10 pr-10 h-12 border-2 shadow-sm w-full"
@@ -88,7 +92,7 @@ export function HorizontalFilters({
 					{searchQuery && (
 						<button
 							type="button"
-							aria-label="Clear search"
+							aria-label={t("attr.aria-label.clear_search")}
 							onClick={() => onSearchChange("")}
 							className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
 						>
@@ -103,9 +107,9 @@ export function HorizontalFilters({
 						options={jointOptions}
 						selected={filters.joints}
 						onChange={handleJointsChange}
-						placeholder="Body Part"
-						searchPlaceholder="Search body parts..."
-						emptyText="No body parts found."
+						placeholder={t("text.body_part")}
+						searchPlaceholder={t("text.search_body_parts")}
+						emptyText={t("text.no_body_parts")}
 						maxDisplayed={2}
 					/>
 				</div>
@@ -119,7 +123,7 @@ export function HorizontalFilters({
 				</div>
 
 				{/* In Stock Toggle */}
-				<div className="flex items-center space-x-3 px-4 py-3 bg-gradient-to-br from-muted/40 to-background border-2 border-border/60 rounded-xl shadow-md hover:shadow-lg transition-shadow whitespace-nowrap">
+				<div className="flex items-center space-x-3 rtl:space-x-reverse px-4 py-3 bg-gradient-to-br from-muted/40 to-background border-2 border-border/60 rounded-xl shadow-md hover:shadow-lg transition-shadow whitespace-nowrap">
 					<Checkbox
 						id="inStock"
 						checked={filters.inStock}
@@ -130,7 +134,7 @@ export function HorizontalFilters({
 						htmlFor="inStock"
 						className="text-sm font-semibold leading-none cursor-pointer select-none"
 					>
-						In Stock Only
+						{t("text.in_stock_only")}
 					</label>
 				</div>
 			</div>
@@ -143,7 +147,7 @@ export function HorizontalFilters({
 					<div className="relative flex-1 min-w-0">
 						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4 z-10" />
 						<Input
-							placeholder="Search products..."
+							placeholder={t("attr.placeholder.search_products")}
 							value={searchQuery}
 							onChange={(e) => onSearchChange(e.target.value)}
 							className="pl-10 pr-10 h-12 border-2 shadow-sm w-full"
@@ -151,7 +155,7 @@ export function HorizontalFilters({
 						{searchQuery && (
 							<button
 								type="button"
-								aria-label="Clear search"
+								aria-label={t("attr.aria-label.clear_search")}
 								onClick={() => onSearchChange("")}
 								className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
 							>
@@ -166,9 +170,9 @@ export function HorizontalFilters({
 							options={jointOptions}
 							selected={filters.joints}
 							onChange={handleJointsChange}
-							placeholder="Body Part"
-							searchPlaceholder="Search..."
-							emptyText="No results."
+							placeholder={t("text.body_part")}
+							searchPlaceholder={t("text.search_body_parts")}
+							emptyText={t("text.no_body_parts")}
 							maxDisplayed={1}
 						/>
 					</div>
@@ -185,7 +189,7 @@ export function HorizontalFilters({
 					</div>
 
 					{/* In Stock Toggle */}
-					<div className="flex items-center space-x-2 px-3 py-3 bg-gradient-to-br from-muted/40 to-background border-2 border-border/60 rounded-xl shadow-md whitespace-nowrap">
+					<div className="flex items-center space-x-3 rtl:space-x-reverse px-3 py-3 bg-gradient-to-br from-muted/40 to-background border-2 border-border/60 rounded-xl shadow-md whitespace-nowrap">
 						<Checkbox
 							id="inStock-mobile"
 							checked={filters.inStock}
@@ -196,7 +200,7 @@ export function HorizontalFilters({
 							htmlFor="inStock-mobile"
 							className="text-xs font-semibold leading-none cursor-pointer select-none"
 						>
-							In Stock
+							{t("text.in_stock_only")}
 						</label>
 					</div>
 				</div>
@@ -208,7 +212,7 @@ export function HorizontalFilters({
 					variant="secondary"
 					className="text-sm font-bold px-4 py-2 shadow-sm"
 				>
-					{productsCount} {productsCount === 1 ? "product" : "products"} found
+					{t(productsCount === 1 ? "text.products_found_singular" : "text.products_found_plural", { count: productsCount })}
 				</Badge>
 
 				{hasActiveFilters && (
@@ -219,8 +223,8 @@ export function HorizontalFilters({
 						className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-9 px-4 font-medium"
 					>
 						<X className="h-4 w-4 mr-1.5" />
-						<span className="hidden sm:inline">Clear All Filters</span>
-						<span className="sm:hidden">Clear</span>
+						<span className="hidden sm:inline">{t("text.clear_all_filters")}</span>
+						<span className="sm:hidden">{t("text.clear")}</span>
 					</Button>
 				)}
 			</div>

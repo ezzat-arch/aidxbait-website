@@ -9,9 +9,10 @@ import { Badge } from "@/components/ui/badge";
 import { Product } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
 import { useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types/i18n";
 import { getLocalizedProductName, getLocalizedProductDescription, getLocalizedJointName } from "@/lib/i18n/data-utils";
+import { getLocalizedCurrency } from "@/lib/i18n/utils";
 
 interface ProductCardProps {
 	product: Product;
@@ -21,6 +22,7 @@ interface ProductCardProps {
 export function ProductCard({ product, className }: ProductCardProps) {
 	const { addToCart } = useCart();
 	const locale = useLocale() as Locale;
+	const t = useTranslations("store.ProductCard.text");
 	const [isLiked, setIsLiked] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [rentalWeeks, setRentalWeeks] = useState(1);
@@ -93,13 +95,13 @@ export function ProductCard({ product, className }: ProductCardProps) {
 					{/* Best Seller Badge */}
 					{product.is_best_seller && (
 						<Badge className="bg-amber-500 hover:bg-amber-600">
-							Best Seller
+							{t("best_seller")}
 						</Badge>
 					)}
 					{/* Featured Badge */}
 					{product.is_featured && (
 						<Badge className="bg-purple-500 hover:bg-purple-600">
-							Featured
+							{t("featured")}
 						</Badge>
 					)}
 					{/* For Rent Badge */}
@@ -108,7 +110,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 							variant="outline"
 							className="bg-background/80 backdrop-blur-sm"
 						>
-							For Rent
+							{t("for_rent")}
 						</Badge>
 					)}
 				</div>
@@ -119,7 +121,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 						variant="outline"
 						className="absolute top-2 right-2 z-10 bg-background/80 backdrop-blur-sm"
 					>
-						Out of Stock
+						{t("out_of_stock")}
 					</Badge>
 				)}
 
@@ -151,8 +153,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
 								className="capitalize"
 							>
 								{joint.joint_name === "general"
-									? "All Purpose"
-									: `${joint.joint_name}`}
+									? t("all_purpose")
+									: getLocalizedJointName(joint, locale)}
 							</Badge>
 						))}
 						{product.joints.length > 2 && (
@@ -190,7 +192,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
 					{/* Description */}
 					<p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-						{product.description || "No description available"}
+						{productDescription || t("no_description_available")}
 					</p>
 				</Link>
 			</CardContent>
@@ -200,22 +202,22 @@ export function ProductCard({ product, className }: ProductCardProps) {
 					<div className="flex flex-col">
 						<div className="flex items-center gap-2">
 							<span className="text-lg font-bold text-primary">
-								{effectivePrice.toFixed(2)} {product.currency}
+								{effectivePrice.toFixed(2)} {getLocalizedCurrency(product.currency, locale)}
 							</span>
 							{hasDiscount && (
 								<span className="text-sm text-muted-foreground line-through">
-									{product.price.toFixed(2)} {product.currency}
+									{product.price.toFixed(2)} {getLocalizedCurrency(product.currency, locale)}
 								</span>
 							)}
 						</div>
 						{isInStock && product.stock <= 5 && (
 							<span className="text-xs text-amber-600">
-								Only {product.stock} left
+								{t("only_x_left", { count: product.stock })}
 							</span>
 						)}
 						{product.is_for_rent && product.rent_term && (
 							<span className="text-xs text-muted-foreground capitalize">
-								{product.rent_term.replace("per_", "/ ")}
+								{product.rent_term.replace("per_", locale === "ar" ? " / " : " / ")}
 							</span>
 						)}
 					</div>
@@ -226,7 +228,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 						size="sm"
 					>
 						<ShoppingCart className="h-4 w-4 mr-2" />
-						{isLoading ? "Adding..." : "Add"}
+						{isLoading ? t("adding") : t("add")}
 					</Button>
 				</div>
 
@@ -237,7 +239,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 							htmlFor={`rental-weeks-${product.id}`}
 							className="text-sm font-medium text-muted-foreground whitespace-nowrap"
 						>
-							Rental Period:
+							{t("rental_period")}
 						</label>
 						<input
 							id={`rental-weeks-${product.id}`}
@@ -252,7 +254,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 							className="flex h-9 w-20 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
 						/>
 						<span className="text-sm text-muted-foreground">
-							{rentalWeeks === 1 ? "week" : "weeks"}
+							{rentalWeeks === 1 ? t("week") : t("weeks")}
 						</span>
 					</div>
 				)}

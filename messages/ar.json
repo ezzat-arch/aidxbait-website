@@ -50,7 +50,7 @@
 				}
 			},
 			"text": {
-				"2025_aidxbait_all_rights_reserved": "© 2025 AidXBait. جميع الحقوق محفوظة.",
+				"2025_aidxbait_all_rights_reserved": "© 2025 AidxBait. جميع الحقوق محفوظة.",
 				"app_store": "متجر التطبيقات",
 				"appointment_booking": "حجز موعد",
 				"contact": "تواصل معنا",
@@ -59,7 +59,7 @@
 				"download_on_the": "حمّل علي",
 				"exercise_protocols": "بروتوكولات التمارين",
 				"get_it_on": "احصل عليه على",
-				"get_the_aidxbait_app_for": "حمّل تطبيق AidXBait على نظاميّ iOS وAndroid لاستخدام جميع المزايا أي وقت",
+				"get_the_aidxbait_app_for": "حمّل تطبيق AidxBait على نظاميّ iOS وAndroid لاستخدام جميع المزايا أي وقت",
 				"google_play": "متجر Google Play",
 				"home": "الصفحة الرئيسية",
 				"how_it_works": "كيف يعمل",
@@ -346,7 +346,7 @@
 			"data": {
 				"name": {
 					"consultations": "الاستشارات",
-					"imaging": "التصوير الطبي",
+					"imaging": "الآشعة المنزلية",
 					"lab_services": "خدمات التحاليل",
 					"nursing": "التمريض",
 					"physical_therapy": "Physical Therapy"
@@ -374,7 +374,7 @@
 				"24_7_support": "دعم على مدار الساعة",
 				"already_have_an_account": "Already have an account?",
 				"at_home": "في المنزل",
-				"book_healthcare_services_from_the": "احجز خدمات الرعاية الصحية دون مغادرة راحة منزلك. أجرِ التحاليل، واحصل على الاستشارات والخطط العلاجية المخصصة — دون الحاجة إلى الخروج من المنزل.",
+				"book_healthcare_services_from_the": "احجز خدمات الرعاية الصحية دون مغادرة راحة منزلك. أجرِ التحاليل، واحصل على الاستشارات والخطط العلاجية المخصصة دون الحاجة إلى الخروج من المنزل.",
 				"create_an_account": "Create an Account",
 				"get_medical_care": "احصل على الرعاية الطبية",
 				"get_started": "ابدأ الآن",
@@ -396,12 +396,12 @@
 			"data": {
 				"description": {
 					"licensed_doctors_provide_one": "يقدّم الأطباء المرخّصون استشارات فردية في منزلك، بما في ذلك رعاية ما بعد الجراحة وإدارة الحالات المزمنة.",
-					"browse_and_order_mobility_aids": "تصفح واطلب وسائل المساعدة الحركية والدعامات و الجبائر وغيرها — لتُسَلّم جميعها إلى باب منزلك.",
+					"browse_and_order_mobility_aids": "تصفح واطلب وسائل المساعدة الحركية والدعامات و الجبائر وغيرها لتُسَلّم جميعها إلى باب منزلك.",
 					"licensed_physical_therapists_provide_one": "يقدم أخصائيو العلاج الطبيعي المعتمدون جلسات علاج فردية في منزلك، تشمل رعاية ما بعد العمليات ومتابعة الحالات المزمنة.",
 					"personalized_video_based_rehab_programs": "برامج إعادة تأهيل مخصصة مسجّلة فيديو تُرسل بعد استشارتك لمتابعة العلاج.",
-					"portable_x_rays_and_ultrasounds": "تصوير بالأشعة السينية يُجرى في منزلك بواسطة فنيينا المتنقلين. (احذف من الإنجليزي الموجات فوق الصوتية)",
-					"professional_nurses_available_for_home": "ممرضون محترفون متاحون للزيارات المنزلية لتقديم الأدوية، والعناية بالجروح، والدعم بعد العمليات، والعلاج الوريدي، ومتابعة الحالات المزمنة — كل ذلك في راحة منزلك.",
-					"video_calls_with_physical_therapists": "مكالمات فيديو مع أخصائيي العلاج الطبيعي و أطباء التغذية و الطب النفسي — دون الحاجة إلى السفر. (عدل الإنجليزي بتبديل كلمة psychologists  ب psychiatrists)",
+					"portable_x_rays_and_ultrasounds": "تصوير بالأشعة السينية يُجرى في منزلك بواسطة فنيينا المتنقلين.",
+					"professional_nurses_available_for_home": "ممرضون محترفون متاحون للزيارات المنزلية لتقديم الأدوية، والعناية بالجروح، والدعم بعد العمليات، والعلاج الوريدي، ومتابعة الحالات المزمنة  كل ذلك في راحة منزلك.",
+					"video_calls_with_physical_therapists": "مكالمات فيديو مع أخصائيي العلاج الطبيعي و أطباء التغذية و أطباء النفسية دون الحاجة إلى السفر",
 					"we_send_a_nurse_to": "نرسل ممرضًا لجمع عينات الدم أو التحاليل من منزلك، وتُرسل النتائج إليك إلكترونيًا."
 				}
 			},
@@ -431,21 +431,22 @@
 				},
 				"description": {
 					"all_our_healthcare_providers_are": "جميع مقدمي الرعاية الصحية لدينا مرخصون بالكامل ويتمتعون بخبرة واسعة، وملتزمون بتقديم أعلى مستويات الرعاية في منزلك.",
-					"book_appointments_track_health_records": "احجز المواعيد، وتتبع السجلات الصحية، وتواصل مع مقدمي الرعاية، وأدر الوصفات الطبية — كل ذلك من خلال تطبيق قوي وسهل الاستخدام.",
+					"book_appointments_track_health_records": "احجز المواعيد، وتتبع السجلات الصحية، وتواصل مع مقدمي الرعاية، وأدر الوصفات الطبية  كل ذلك من خلال تطبيق قوي وسهل الاستخدام.",
 					"comprehensive_coverage_across_cairo_giza": "تغطية شاملة في القاهرة والجيزة ومناطق أخرى آخذة في التوسع. نوصل الرعاية الصحية المهنية مباشرة إلى باب منزلك.",
 					"get_connected_to_healthcare_professionals": "تواصل مع المتخصصين في الرعاية الصحية خلال ساعات وليس أيامًا. يضمن نظام الاستجابة السريعة لدينا حصولك على الرعاية في الوقت الذي تحتاجه بالضبط."
 				}
 			},
 			"text": {
-				"bringing_hospital_care_quality_to": "نجلب جودة رعاية المستشفيات إلى منزلك",
-				"why_choose_aidxbait": "لماذا تختار AidXBait؟"
+				"bringing_hospital_care_quality_to": "نقدّم جودة الرعاية الطبية في المستشفى إلى منزلك.",
+				"why_choose_aidxbait": "لماذا تختار AidxBait؟"
 			}
 		}
 	},
 	"common": {
 		"text": {
 			"licensed_professionals": "مهنيون مرخّصون",
-			"cart": "السلة"
+			"cart": "السلة",
+			"store": "المتجر"
 		}
 	},
 	"services": {
@@ -479,6 +480,61 @@
 			"rental_period": "مدة الإيجار:",
 			"week": "أسبوع",
 			"weeks": "أسابيع"
+		},
+		"ProductCard": {
+			"text": {
+				"best_seller": "الأكثر مبيعًا",
+				"featured": "مميز",
+				"for_rent": "للإيجار",
+				"out_of_stock": "غير متوفر",
+				"all_purpose": "متعدد الاستخدامات",
+				"no_description_available": "لا يوجد وصف متاح",
+				"only_x_left": "باقي {count} فقط",
+				"adding": "جارٍ الإضافة...",
+				"add": "أضف",
+				"rental_period": "مدة الإيجار:",
+				"week": "أسبوع",
+				"weeks": "أسابيع",
+				"review": "مراجعة",
+				"reviews": "مراجعات"
+			}
+		},
+		"ProductDetail": {
+			"text": {
+				"back_to_store": "العودة إلى المتجر",
+				"quality_guaranteed": "جودة مضمونة",
+				"fast_shipping": "شحن سريع",
+				"easy_returns": "استرجاع سهل",
+				"sku": "رمز المنتج:",
+				"reviews": "تقييمات العملاء",
+				"review": "تقييم",
+				"you_may_also_like": "قد يعجبك أيضًا",
+				"view_all": "عرض جميع المنتجات",
+				"no_reviews_yet": "لا توجد تقييمات بعد",
+				"be_the_first_to_review": "كن أول من يُقيّم هذا المنتج!",
+				"in_stock": "متوفر",
+				"only_left": "بقي {count} فقط!",
+				"currently_unavailable": "غير متوفر حاليًا",
+				"customer": "عميل",
+				"per_day": "باليوم",
+				"per_week": "بالأسبوع",
+				"per_month": "بالشهر"
+			}
+		},
+		"ProductDescription": {
+			"text": {
+				"see_more": "عرض المزيد",
+				"see_less": "عرض أقل",
+				"no_description_available": "لا يوجد وصف متاح"
+			}
+		},
+		"ProductActions": {
+			"text": {
+				"quantity": "الكمية:",
+				"processing": "جارٍ المعالجة...",
+				"buy_now": "اشترِ الآن",
+				"add_to_cart": "أضف إلى السلة"
+			}
 		},
 		"CartSidebar": {
 			"text": {
@@ -547,10 +603,17 @@
 				}
 			},
 			"text": {
+				"body_part": "مكان الجسم",
 				"clear": "مسح",
 				"clear_all_filters": "مسح جميع الفلاتر",
 				"found": "تم العثور",
-				"in_stock_only": "المتوفر فقط"
+				"in_stock_only": "المتوفر فقط",
+				"no_body_parts": "لم يتم العثور على أماكن.",
+				"product": "منتج",
+				"products": "منتجات",
+				"products_found_plural": "تم العثور علي {count} منتجات",
+				"products_found_singular": "تم العثور علي {count} منتج",
+				"search_body_parts": "ابحث عن أماكن الجسم..."
 			}
 		},
 		"JointCapsuleFilter": {
@@ -567,11 +630,9 @@
 		},
 		"PriceRangeFilter": {
 			"text": {
+				"currency": "جنيه مصري",
 				"price_range": "نطاق السعر"
 			}
-		},
-		"ProductCard": {
-			"text": "%"
 		},
 		"ProductFilters": {
 			"attr": {
@@ -590,6 +651,22 @@
 		},
 		"StoreContent": {
 			"text": "✓",
+			"hero": {
+				"badge": "منتجات عالية الجودة",
+				"title": "تسوق منتجات العلاج الطبيعي",
+				"medical_grade": "طبي معتمد",
+				"fast_delivery": "توصيل سريع",
+				"expert_approved": "معتمد من الخبراء"
+			},
+			"loading": {
+				"store": "جارٍ تحميل المتجر...",
+				"products": "جارٍ تحميل المنتجات..."
+			},
+			"error": {
+				"retry": "إعادة المحاولة",
+				"no_products": "لم يتم العثور على منتجات مطابقة لمعاييرك",
+				"clear_filters": "مسح الفلاتر"
+			},
 			"toast": {
 				"title": {
 					"payment_failed": "فشل الدفع",
@@ -655,7 +732,7 @@
 				}
 			},
 			"text": {
-				"about": "حولنا",
+				"about": "نبذة عنا",
 				"access_your_reports_track_recovery": "احصل على تقاريرك، وتتبع تقدم تعافيك، وواصل رعايتك عبر تطبيق AidXBait. نحن معك في كل خطوة.",
 				"at_home_radiology": "الأشعة المنزلية",
 				"coming_soon": "قريبًا",
@@ -664,7 +741,7 @@
 				"equipment_rental": "تأجير المعدات",
 				"home_visits": "زيارات منزلية",
 				"home_exercise_programs": "برامج التمارين المنزلية",
-				"home_imaging": "التصوير المنزلي",
+				"home_imaging": "الآشعة المنزلية",
 				"home_lab_tests": "تحاليل معملية منزلية",
 				"home_nursing": "التمريض المنزلي",
 				"home_physical_therapy": "العلاج الطبيعي المنزلي",
@@ -672,7 +749,7 @@
 				"lab_tests": "التحاليل المعملية",
 				"language": "اللغة:",
 				"learn_more": "تعرّف على المزيد",
-				"licensed_professionals_come_to_you": "يأتيك المتخصّصون المرخّصون بالأدوات اللازمة — أو يلتقون بك افتراضيًا لإجراء الاستشارة. لا حاجة للسفر.",
+				"licensed_professionals_come_to_you": "يأتيك المتخصّصون المرخّصون بالأدوات اللازمة  أو يلتقون بك افتراضيًا لإجراء الاستشارة. لا حاجة للسفر.",
 				"medical_devices": "أجهزة طبية",
 				"medical_store": "المتجر الطبي",
 				"online_store": "المتجر الإلكتروني",
@@ -688,7 +765,7 @@
 				"send_a_message": "أرسل رسالة",
 				"services": "Services",
 				"store": "المتجر",
-				"to_order_braces_mobility_aids": "لطلب الدعامات، وأجهزة الحركة، ومعدات التأهيل، وغيرها — لتُسلَّم إلى منزلك دون الحاجة إلى موعد.",
+				"to_order_braces_mobility_aids": "لطلب الدعامات، وأجهزة الحركة، ومعدات التأهيل، وغيرها  لتُسلَّم إلى منزلك دون الحاجة إلى موعد.",
 				"to_revolutionize_healthcare_delivery_by": "نسعى لإحداث ثورة في تقديم الرعاية الصحية من خلال جعل الخدمات الطبية عالية الجودة متاحة في المنزل، لتمكين المرضى من الحصول على رعاية احترافية في بيئتهم الخاصة.",
 				"virtual_consultations_with_specialists": "استشارات افتراضية مع المتخصصين",
 				"visit_our": "زر موقعنا",
@@ -709,12 +786,12 @@
 				"home_visits_physical_therapy": "العلاج الطبيعي",
 				"home_visits_specialist_doctors": "الأطباء المتخصصون",
 				"home_visits_nursing": "التمريض",
-				"home_visits_imaging": "التصوير الطبي",
+				"home_visits_imaging": "الآشعة المنزلية",
 				"home_visits_lab_services": "خدمات المختبر",
 				"home_visits_physical_therapy_desc": "جلسات علاج طبيعي محترفة في منزلك.",
 				"home_visits_specialist_doctors_desc": "استشر مع الأطباء المتخصصين في راحة منزلك.",
 				"home_visits_nursing_desc": "رعاية تمريضية محترفة على عتبة بابك.",
-				"home_visits_imaging_desc": "خدمات التصوير الطبي في المنزل.",
+				"home_visits_imaging_desc": "خدمات الآشعة المنزلية",
 				"home_visits_lab_services_desc": "تحاليل مختبرية تُجرى من المنزل."
 			}
 		},

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { STORE_CATEGORY_CONFIGS } from "@/lib/store-categories";
+import { useLocale } from "next-intl";
 
 interface StoreCategoryTabsProps {
 	selectedCategoryId: number | null;
@@ -14,12 +15,14 @@ export function StoreCategoryTabs({
 	onCategoryChange,
 	className = "",
 }: StoreCategoryTabsProps) {
+	const locale = useLocale();
 	return (
 		<div className={`w-full ${className}`}>
 			{/* Desktop/Tablet Tabs */}
 			<div className="hidden sm:flex items-center justify-center gap-3 flex-wrap">
 				{STORE_CATEGORY_CONFIGS.map((category) => {
 					const isActive = selectedCategoryId === category.id;
+					const categoryName = locale === "ar" ? category.name_ar : category.name;
 					
 					return (
 						<button
@@ -48,7 +51,7 @@ export function StoreCategoryTabs({
 									}}
 								/>
 							)}
-							<span className="relative z-10">{category.name}</span>
+							<span className="relative z-10">{categoryName}</span>
 						</button>
 					);
 				})}
@@ -60,6 +63,7 @@ export function StoreCategoryTabs({
 					<div className="flex items-center gap-2 min-w-max px-4">
 						{STORE_CATEGORY_CONFIGS.map((category) => {
 							const isActive = selectedCategoryId === category.id;
+							const categoryName = locale === "ar" ? category.name_ar : category.name;
 							
 							return (
 								<button
@@ -88,7 +92,7 @@ export function StoreCategoryTabs({
 											}}
 										/>
 									)}
-									<span className="relative z-10">{category.name}</span>
+									<span className="relative z-10">{categoryName}</span>
 								</button>
 							);
 						})}

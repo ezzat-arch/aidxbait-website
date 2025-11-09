@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Plus, Minus, Heart } from "lucide-react";
 import { Product } from "@/lib/store-types";
@@ -18,6 +19,7 @@ export function ProductActions({ product, isInStock }: ProductActionsProps) {
 	const [isAddingToCart, setIsAddingToCart] = useState(false);
 	const { addToCart } = useCart();
 	const router = useRouter();
+	const t = useTranslations("store.ProductActions.text");
 
 	const handleAddToCart = async () => {
 		if (!isInStock) return;
@@ -53,7 +55,7 @@ export function ProductActions({ product, isInStock }: ProductActionsProps) {
 		<div className="space-y-4">
 			{isInStock && (
 				<div className="flex items-center gap-4">
-					<label className="text-sm font-medium">Quantity:</label>
+					<label className="text-sm font-medium">{t("quantity")}</label>
 					<div className="flex items-center border-2 rounded-lg overflow-hidden">
 						<Button
 							variant="ghost"
@@ -87,7 +89,7 @@ export function ProductActions({ product, isInStock }: ProductActionsProps) {
 					size="lg"
 					className="flex-1 h-12 text-lg font-semibold"
 				>
-					{isAddingToCart ? "Processing..." : "Buy Now"}
+					{isAddingToCart ? t("processing") : t("buy_now")}
 				</Button>
 
 				<Button
@@ -98,7 +100,7 @@ export function ProductActions({ product, isInStock }: ProductActionsProps) {
 					className="flex-1 h-12 text-lg font-semibold"
 				>
 					<ShoppingCart className="h-5 w-5 mr-2" />
-					Add to Cart
+					{t("add_to_cart")}
 				</Button>
 
 				<Button

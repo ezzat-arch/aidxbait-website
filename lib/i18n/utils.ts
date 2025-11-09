@@ -83,3 +83,41 @@ export function getLocaleFlag(locale: Locale): string {
 	return flags[locale];
 }
 
+/**
+ * Get localized currency name
+ */
+export function getLocalizedCurrency(currencyCode: string, locale: Locale): string {
+	const currencyMap: Record<string, Record<Locale, string>> = {
+		EGP: {
+			en: 'EGP',
+			ar: 'جنيه مصري',
+		},
+		USD: {
+			en: 'USD',
+			ar: 'دولار',
+		},
+		EUR: {
+			en: 'EUR',
+			ar: 'يورو',
+		},
+		GBP: {
+			en: 'GBP',
+			ar: 'جنيه إسترليني',
+		},
+		SAR: {
+			en: 'SAR',
+			ar: 'ريال سعودي',
+		},
+		AED: {
+			en: 'AED',
+			ar: 'درهم إماراتي',
+		},
+		QAR: {
+			en: 'QAR',
+			ar: 'ريال قطري',
+		},
+	};
+
+	return currencyMap[currencyCode]?.[locale] || currencyCode;
+}
+

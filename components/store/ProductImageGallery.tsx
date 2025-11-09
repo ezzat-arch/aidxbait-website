@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { ProductImage } from "@/lib/store-types";
@@ -29,6 +30,7 @@ export function ProductImageGallery({
 	isInStock,
 }: ProductImageGalleryProps) {
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+	const t = useTranslations("store.ProductCard.text");
 
 	return (
 		<div className="space-y-4">
@@ -50,12 +52,12 @@ export function ProductImageGallery({
 					)}
 					{isBestSeller && (
 						<Badge className="bg-amber-500 hover:bg-amber-600 shadow-lg">
-							Best Seller
+							{t("best_seller")}
 						</Badge>
 					)}
 					{isFeatured && (
 						<Badge className="bg-purple-500 hover:bg-purple-600 shadow-lg">
-							Featured
+							{t("featured")}
 						</Badge>
 					)}
 					{isForRent && (
@@ -63,7 +65,7 @@ export function ProductImageGallery({
 							variant="outline"
 							className="bg-background/80 backdrop-blur-sm shadow-lg"
 						>
-							For Rent
+							{t("for_rent")}
 						</Badge>
 					)}
 				</div>
@@ -73,7 +75,7 @@ export function ProductImageGallery({
 						variant="outline"
 						className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm shadow-lg"
 					>
-						Out of Stock
+						{t("out_of_stock")}
 					</Badge>
 				)}
 			</div>
