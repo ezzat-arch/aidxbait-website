@@ -1,23 +1,36 @@
 import { MetadataRoute } from "next";
+import { createClient } from "@supabase/supabase-js";
 
-// Fetch all available products for sitemap
+// Revalidate sitemap every hour
+export const revalidate = 3600;
+
+// Fetch all available products for sitemap directly from Supabase
 async function getAllProducts() {
 	try {
-		const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-		const response = await fetch(`${baseUrl}/api/products`, {
-			cache: "no-store",
-		});
+		// Create Supabase client for server-side use
+		const supabase = createClient(
+			process.env.NEXT_PUBLIC_SUPABASE_URL!,
+			process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+			{
+				auth: {
+					persistSession: false,
+					autoRefreshToken: false,
+				},
+			}
+		);
 
-		if (!response.ok) {
-			console.error("Failed to fetch products for sitemap");
+		const { data: products, error } = await supabase
+			.from("products")
+			.select("id, created_at, updated_at")
+			.eq("soft_deleted", false)
+			.eq("is_available", true);
+
+		if (error) {
+			console.error("Failed to fetch products for sitemap:", error);
 			return [];
 		}
 
-		const result = await response.json();
-		if (result.success && result.data) {
-			return result.data;
-		}
-		return [];
+		return products || [];
 	} catch (error) {
 		console.error("Error fetching products for sitemap:", error);
 		return [];
