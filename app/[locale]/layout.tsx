@@ -22,10 +22,19 @@ export async function generateMetadata({
 }) {
 	const { locale } = await params;
 	const t = await getTranslations({ locale, namespace: 'layout.meta' });
+	
 	return {
+		metadataBase: new URL('https://www.aidxbait.com'),
 		title: t('title'),
 		description: t('description'),
 		generator: 'aidxbait',
+		alternates: {
+			canonical: `/${locale}`,
+			languages: {
+				'en': '/en',
+				'ar': '/ar',
+			},
+		},
 	};
 }
 
