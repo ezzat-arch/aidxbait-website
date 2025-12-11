@@ -62,11 +62,11 @@ export function PaymentMethodSelector({
 							/>
 							<Label
 								htmlFor={`payment-${method.value}`}
-								className={`flex-1 ${
+								className={`flex-1 rtl:text-right ${
 									method.disabled ? "cursor-not-allowed" : "cursor-pointer"
 								}`}
 							>
-								<div className="flex items-center gap-2 mb-1">
+								<div className="flex items-center gap-2 mb-1 rtl:flex-row-reverse rtl:justify-end">
 									<method.icon className="h-5 w-5 text-muted-foreground" />
 									<span className="font-medium">{method.label}</span>
 								</div>

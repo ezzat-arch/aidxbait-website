@@ -67,9 +67,9 @@ export function AddressSelector({
 								/>
 								<Label
 									htmlFor={`address-${address.id}`}
-									className="flex-1 cursor-pointer"
+									className="flex-1 cursor-pointer rtl:text-right"
 								>
-									<div className="flex items-center gap-2 mb-2 flex-wrap">
+									<div className="flex items-center gap-2 mb-2 flex-wrap rtl:flex-row-reverse rtl:justify-end">
 										<MapPin className="h-4 w-4 text-muted-foreground" />
 										<span className="font-medium">{address.address_label}</span>
 										{address.is_primary && (
