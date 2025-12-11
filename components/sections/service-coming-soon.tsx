@@ -2,17 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { Sparkles, Clock, Rocket, Heart } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface ServiceComingSoonProps {
 	serviceName: string;
 	description?: string;
 }
 
+const BRAND_NAME = "AidxBait";
+
 export function ServiceComingSoon({
 	serviceName,
 	description,
 }: ServiceComingSoonProps) {
 	const [mounted, setMounted] = useState(false);
+	const t = useTranslations("sections.coming_soon.text");
 
 	useEffect(() => {
 		setMounted(true);
@@ -22,19 +26,23 @@ export function ServiceComingSoon({
 		<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50/30 pt-40 pb-12 px-4 flex items-center">
 			<div
 				className={`max-w-4xl mx-auto w-full transition-all duration-1000 ${
-					mounted
-						? "opacity-100 translate-y-0"
-						: "opacity-0 translate-y-8"
+					mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
 				}`}
 			>
 				{/* Animated Badge */}
 				<div className="flex justify-center mb-6">
 					<div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 text-white rounded-full shadow-xl border-2 border-white animate-pulse">
-						<Sparkles className="h-5 w-5 animate-spin" style={{ animationDuration: '3s' }} />
+						<Sparkles
+							className="h-5 w-5 animate-spin"
+							style={{ animationDuration: "3s" }}
+						/>
 						<span className="font-bold text-base uppercase tracking-wider">
-							Coming Soon
+							{t("badge")}
 						</span>
-						<Sparkles className="h-5 w-5 animate-spin" style={{ animationDuration: '3s' }} />
+						<Sparkles
+							className="h-5 w-5 animate-spin"
+							style={{ animationDuration: "3s" }}
+						/>
 					</div>
 				</div>
 
@@ -65,19 +73,19 @@ export function ServiceComingSoon({
 									</div>
 									<div className="space-y-3">
 										<p className="text-base md:text-lg text-gray-700 leading-relaxed">
-											We're working hard to bring you this amazing service!
+											{t("working_hard")}
 										</p>
 										<p className="text-sm md:text-base text-gray-600">
-											Our dedicated team at{" "}
-											<span className="font-bold text-blue-600">
-												AidXBait
-											</span>{" "}
-											is carefully designing and implementing this feature to
-											ensure it meets the highest standards of quality and care.
+											{t.rich("team_designing", {
+												brand: () => (
+													<span className="font-bold text-blue-600">
+														{BRAND_NAME}
+													</span>
+												),
+											})}
 										</p>
 										<p className="text-sm md:text-base text-gray-600">
-											This service will be available very soon, and we can't
-											wait to share it with you!
+											{t("available_soon")}
 										</p>
 									</div>
 								</div>
@@ -88,12 +96,11 @@ export function ServiceComingSoon({
 					{/* Encouragement Section */}
 					<div className="pt-4">
 						<div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg p-4 md:p-5 shadow-xl max-w-xl mx-auto">
-							<div className="flex items-center justify-center gap-3">
-								<Sparkles className="h-6 w-6 flex-shrink-0 animate-pulse" />
-								<p className="text-sm md:text-base text-white font-medium text-center">
-									Follow <span className="font-bold">AidXBait</span> to be the first to know when this service launches!
-								</p>
-							</div>
+							<p className="text-sm md:text-base text-white font-medium text-center">
+								{t.rich("follow_us", {
+									brand: () => <span className="font-bold">{BRAND_NAME}</span>,
+								})}
+							</p>
 						</div>
 					</div>
 				</div>
@@ -146,4 +153,3 @@ export function ServiceComingSoon({
 		</div>
 	);
 }
-

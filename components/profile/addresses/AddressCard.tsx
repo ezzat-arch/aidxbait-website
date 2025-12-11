@@ -5,12 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Edit, Trash2, Star, ExternalLink } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface AddressCardProps {
 	address: PatientAddress;
 	onSetPrimary?: (id: number) => void;
-	onDelete?: (id: number) => void;
+	onDelete?: () => void;
 }
 
 export function AddressCard({
@@ -18,11 +19,19 @@ export function AddressCard({
 	onSetPrimary,
 	onDelete,
 }: AddressCardProps) {
+	const t = useTranslations("profile.addresses.text");
+
+	// Get address type translation
+	const getAddressTypeLabel = (type: string) => {
+		const typeKey = type.toLowerCase() as "house" | "apartment";
+		return t(typeKey) || type;
+	};
+
 	const fullAddress = [
 		address.street,
 		address.building_name,
-		address.floor && `Floor ${address.floor}`,
-		address.apartment && `Apt ${address.apartment}`,
+		address.floor && `${t("floor")} ${address.floor}`,
+		address.apartment && `${t("apartment")} ${address.apartment}`,
 		address.city,
 		address.governorate,
 	]
@@ -39,23 +48,25 @@ export function AddressCard({
 					</div>
 					<div className="flex items-center gap-2">
 						{address.is_primary && (
-							<Badge className="bg-primary">Primary</Badge>
+							<Badge className="bg-primary">{t("primary")}</Badge>
 						)}
-						<Badge variant="outline" className="capitalize">
-							{address.address_type}
+						<Badge variant="outline">
+							{getAddressTypeLabel(address.address_type)}
 						</Badge>
 					</div>
 				</div>
 			</CardHeader>
 			<CardContent className="space-y-4">
 				<div>
-					<p className="text-sm text-muted-foreground mb-1">Address</p>
+					<p className="text-sm text-muted-foreground mb-1">{t("address")}</p>
 					<p className="text-base">{fullAddress}</p>
 				</div>
 
 				{address.phone && (
 					<div>
-						<p className="text-sm text-muted-foreground mb-1">Phone</p>
+						<p className="text-sm text-muted-foreground mb-1">
+							{t("phone_number")}
+						</p>
 						<p className="text-base">{address.phone}</p>
 					</div>
 				)}
@@ -63,9 +74,9 @@ export function AddressCard({
 				{address.additional_directions && (
 					<div>
 						<p className="text-sm text-muted-foreground mb-1">
-							Additional Directions
+							{t("additional_directions")}
 						</p>
-						<p className="text-base text-sm">{address.additional_directions}</p>
+						<p className="text-sm">{address.additional_directions}</p>
 					</div>
 				)}
 
@@ -79,7 +90,7 @@ export function AddressCard({
 								className="flex items-center gap-1"
 							>
 								<ExternalLink className="h-3 w-3" />
-								View on Google Maps
+								{t("view_on_google_maps")}
 							</a>
 						</Button>
 					</div>
@@ -88,8 +99,8 @@ export function AddressCard({
 				<div className="flex gap-2 pt-2">
 					<Button variant="outline" size="sm" asChild className="flex-1">
 						<Link href={`/profile/addresses/${address.id}/edit`}>
-							<Edit className="h-4 w-4 mr-2" />
-							Edit
+							<Edit className="h-4 w-4 ltr:mr-2 rtl:ml-2" />
+							{t("edit")}
 						</Link>
 					</Button>
 
@@ -100,17 +111,13 @@ export function AddressCard({
 							onClick={() => onSetPrimary(address.id)}
 							className="flex-1"
 						>
-							<Star className="h-4 w-4 mr-2" />
-							Set Primary
+							<Star className="h-4 w-4 ltr:mr-2 rtl:ml-2" />
+							{t("set_primary")}
 						</Button>
 					)}
 
 					{onDelete && (
-						<Button
-							variant="destructive"
-							size="sm"
-							onClick={() => onDelete(address.id)}
-						>
+						<Button variant="destructive" size="sm" onClick={onDelete}>
 							<Trash2 className="h-4 w-4" />
 						</Button>
 					)}

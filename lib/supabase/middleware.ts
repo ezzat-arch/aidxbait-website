@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { routing } from "@/i18n/routing";
 
 export const updateSession = async (request: NextRequest) => {
 	let supabaseResponse = NextResponse.next({
@@ -15,7 +16,7 @@ export const updateSession = async (request: NextRequest) => {
 					return request.cookies.getAll();
 				},
 				setAll(cookiesToSet) {
-					cookiesToSet.forEach(({ name, value, options }) =>
+					cookiesToSet.forEach(({ name, value }) =>
 						request.cookies.set(name, value)
 					);
 					supabaseResponse = NextResponse.next({
@@ -37,32 +38,60 @@ export const updateSession = async (request: NextRequest) => {
 		data: { user },
 	} = await supabase.auth.getUser();
 
+	// Detect locale from pathname (e.g., /ar/login -> ar)
+	const pathname = request.nextUrl.pathname;
+	const localeMatch = routing.locales.find(
+		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+	);
+
+	// Strip locale from pathname for route checking (e.g., /ar/login -> /login)
+	let cleanPathname = pathname;
+	if (localeMatch) {
+		cleanPathname = pathname.replace(new RegExp(`^/${localeMatch}`), "") || "/";
+	}
+
+	// Helper to build locale-aware paths
+	const localePath = (path: string) => {
+		if (localeMatch && localeMatch !== routing.defaultLocale) {
+			return `/${localeMatch}${path}`;
+		}
+		return path;
+	};
+
 	// If user is authenticated and trying to access auth pages, redirect to home
 	if (
 		user &&
-		(request.nextUrl.pathname === "/login" ||
-			request.nextUrl.pathname === "/register")
+		(cleanPathname === "/login" ||
+			cleanPathname === "/login/" ||
+			cleanPathname === "/register" ||
+			cleanPathname === "/register/")
 	) {
 		const url = request.nextUrl.clone();
-		url.pathname = "/";
+		url.pathname = localePath("/");
 		return NextResponse.redirect(url);
 	}
 
 	// Protected routes - redirect to login if not authenticated
 	// Allow public routes: login, register, auth callback, API routes, and static assets
 	const isPublicRoute =
-		request.nextUrl.pathname === "/" ||
-		request.nextUrl.pathname.startsWith("/login") ||
-		request.nextUrl.pathname.startsWith("/register") ||
-		request.nextUrl.pathname.startsWith("/auth") ||
-		request.nextUrl.pathname.startsWith("/api") ||
-		request.nextUrl.pathname.startsWith("/_next") ||
-		request.nextUrl.pathname.includes(".");
+		cleanPathname === "/" ||
+		cleanPathname.startsWith("/login") ||
+		cleanPathname.startsWith("/register") ||
+		cleanPathname.startsWith("/auth") ||
+		cleanPathname.startsWith("/api") ||
+		cleanPathname.startsWith("/_next") ||
+		cleanPathname.startsWith("/services") ||
+		cleanPathname.startsWith("/contact") ||
+		cleanPathname.startsWith("/about") ||
+		cleanPathname.startsWith("/forgot-password") ||
+		cleanPathname.startsWith("/terms") ||
+		cleanPathname.startsWith("/privacy") ||
+		cleanPathname.includes(".");
 
 	if (!user && !isPublicRoute) {
 		// no user, potentially respond by redirecting the user to the login page
 		const url = request.nextUrl.clone();
-		url.pathname = "/login";
+		url.pathname = localePath("/login");
 		return NextResponse.redirect(url);
 	}
 

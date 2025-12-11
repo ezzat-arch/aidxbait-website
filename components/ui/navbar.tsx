@@ -42,31 +42,31 @@ const ComingSoonText = () => {
 const getHomeVisitsItems = (t: any) => [
 	{
 		name: t("home_visits_physical_therapy"),
-		href: "/home-visits/physical-therapy",
+		href: "/services/home-visits",
 		description: t("home_visits_physical_therapy_desc"),
 		comingSoon: true,
 	},
 	{
 		name: t("home_visits_specialist_doctors"),
-		href: "/home-visits/specialist-doctors",
+		href: "/services/home-visits",
 		description: t("home_visits_specialist_doctors_desc"),
 		comingSoon: true,
 	},
 	{
 		name: t("home_visits_nursing"),
-		href: "/home-visits/nursing",
+		href: "/services/home-visits",
 		description: t("home_visits_nursing_desc"),
 		comingSoon: true,
 	},
 	{
 		name: t("home_visits_imaging"),
-		href: "/home-visits/imaging",
+		href: "/services/home-visits",
 		description: t("home_visits_imaging_desc"),
 		comingSoon: true,
 	},
 	{
 		name: t("home_visits_lab_services"),
-		href: "/home-visits/lab-services",
+		href: "/services/home-visits",
 		description: t("home_visits_lab_services_desc"),
 		comingSoon: true,
 	},
@@ -215,14 +215,17 @@ const Navbar = ({ className }: { className?: string }) => {
 							onMouseLeave={() => setActive(null)}
 							className="relative"
 						>
-							<span className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center">
+							<Link
+								href="/services/home-visits"
+								className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center"
+							>
 								<span className="relative inline-block">
 									<span>{tNav("home_visits")}</span>
 									<span className="absolute -bottom-3.5 ltr:right-0 rtl:left-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
 										{tNav("coming_soon")}
 									</span>
 								</span>
-							</span>
+							</Link>
 							{active === "HomeVisits" && (
 								<div className="absolute top-full ltr:left-0 rtl:right-0 pt-2 z-50">
 									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-6 w-[680px] animate-in fade-in slide-in-from-top-2 duration-200">

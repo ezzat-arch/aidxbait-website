@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Banknote, CreditCard } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface PaymentMethodSelectorProps {
 	selectedMethod: PaymentMethod;
@@ -15,17 +16,20 @@ export function PaymentMethodSelector({
 	selectedMethod,
 	onSelectMethod,
 }: PaymentMethodSelectorProps) {
+	const tLabel = useTranslations("store.checkout.data.label");
+	const tDesc = useTranslations("store.checkout.data.description");
+
 	const paymentMethods = [
 		{
 			value: "cash_on_delivery" as PaymentMethod,
-			label: "Cash on Delivery",
-			description: "Pay when you receive your order",
+			label: tLabel("cash_on_delivery"),
+			description: tDesc("pay_when_you_receive_your"),
 			icon: Banknote,
 		},
 		{
 			value: "online" as PaymentMethod,
-			label: "Online Payment",
-			description: "Pay securely with your card",
+			label: tLabel("online_payment"),
+			description: tDesc("pay_securely_with_your_card"),
 			icon: CreditCard,
 			disabled: false,
 		},
@@ -53,7 +57,7 @@ export function PaymentMethodSelector({
 							<RadioGroupItem
 								value={method.value}
 								id={`payment-${method.value}`}
-								className="mt-1"
+								className="mt-1 ltr:order-first rtl:order-last"
 								disabled={method.disabled}
 							/>
 							<Label

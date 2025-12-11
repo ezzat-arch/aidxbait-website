@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import NextLink from "next/link";
+import { useRouter } from "@/i18n/navigation";
 import { Heart, Star, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -11,7 +12,11 @@ import { useCart } from "@/contexts/cart-context";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types/i18n";
-import { getLocalizedProductName, getLocalizedProductDescription, getLocalizedJointName } from "@/lib/i18n/data-utils";
+import {
+	getLocalizedProductName,
+	getLocalizedProductDescription,
+	getLocalizedJointName,
+} from "@/lib/i18n/data-utils";
 import { getLocalizedCurrency } from "@/lib/i18n/utils";
 
 interface ProductCardProps {
@@ -23,9 +28,16 @@ export function ProductCard({ product, className }: ProductCardProps) {
 	const { addToCart } = useCart();
 	const locale = useLocale() as Locale;
 	const t = useTranslations("store.ProductCard.text");
+	const router = useRouter();
 	const [isLiked, setIsLiked] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [rentalWeeks, setRentalWeeks] = useState(1);
+
+	const productUrl = `/services/store/products/${product.id}`;
+
+	const handleCardClick = () => {
+		router.push(productUrl);
+	};
 
 	// Get localized product fields
 	const productName = getLocalizedProductName(product, locale);
@@ -45,7 +57,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 		product.images.find((img) => img.is_main)?.image_url ||
 		product.images[0]?.image_url ||
 		"/placeholder.jpg";
-	const primaryJoint = product.joints[0] 
+	const primaryJoint = product.joints[0]
 		? getLocalizedJointName(product.joints[0], locale)
 		: "general";
 
@@ -75,16 +87,20 @@ export function ProductCard({ product, className }: ProductCardProps) {
 		<Card
 			className={`group relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${className}`}
 		>
+			{/* Full card clickable overlay */}
+			<NextLink
+				href={productUrl}
+				className="absolute inset-0 z-[1]"
+				aria-label={productName}
+			/>
 			<div className="relative aspect-square overflow-hidden">
-				<Link href={`/services/store/products/${product.id}`}>
-					<Image
-						src={mainImage}
-						alt={productName}
-						fill
-						className="object-cover transition-transform duration-300 group-hover:scale-105"
-						sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-					/>
-				</Link>
+				<Image
+					src={mainImage}
+					alt={productName}
+					fill
+					className="object-cover transition-transform duration-300 group-hover:scale-105"
+					sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+				/>
 
 				{/* Badges */}
 				<div className="absolute top-2 left-2 z-10 flex flex-col gap-2">
@@ -142,71 +158,71 @@ export function ProductCard({ product, className }: ProductCardProps) {
 				</Button>
 			</div>
 
-			<CardContent className="p-4">
-				<Link href={`/services/store/products/${product.id}`}>
-					{/* Joint Badges */}
-					<div className="mb-2 flex flex-wrap gap-1">
-						{product.joints.slice(0, 2).map((joint) => (
-							<Badge
-								key={joint.joint_id}
-								variant="secondary"
-								className="capitalize"
-							>
-								{joint.joint_name === "general"
-									? t("all_purpose")
-									: getLocalizedJointName(joint, locale)}
-							</Badge>
-						))}
-						{product.joints.length > 2 && (
-							<Badge variant="outline" className="text-xs">
-								+{product.joints.length - 2}
-							</Badge>
-						)}
-					</div>
-
-					{/* Product Name */}
-					<h3 className="font-semibold text-lg line-clamp-2 mb-2 group-hover:text-primary transition-colors">
-						{productName}
-					</h3>
-
-					{/* Rating */}
-					{product.reviewCount > 0 && (
-						<div className="flex items-center gap-1 mb-2">
-							<div className="flex items-center">
-								{[...Array(5)].map((_, i) => (
-									<Star
-										key={i}
-										className={`h-4 w-4 ${
-											i < Math.floor(product.rating)
-												? "text-yellow-400 fill-current"
-												: "text-gray-300"
-										}`}
-									/>
-								))}
-							</div>
-							<span className="text-sm text-muted-foreground">
-								{product.rating.toFixed(1)} ({product.reviewCount})
-							</span>
-						</div>
+			<CardContent className="p-4 relative">
+				{/* Joint Badges */}
+				<div className="mb-2 flex flex-wrap gap-1">
+					{product.joints.slice(0, 2).map((joint) => (
+						<Badge
+							key={joint.joint_id}
+							variant="secondary"
+							className="capitalize"
+						>
+							{joint.joint_name === "general"
+								? t("all_purpose")
+								: getLocalizedJointName(joint, locale)}
+						</Badge>
+					))}
+					{product.joints.length > 2 && (
+						<Badge variant="outline" className="text-xs">
+							+{product.joints.length - 2}
+						</Badge>
 					)}
+				</div>
 
-					{/* Description */}
-					<p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-						{productDescription || t("no_description_available")}
-					</p>
-				</Link>
+				{/* Product Name */}
+				<h3 className="font-semibold text-lg line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+					{productName}
+				</h3>
+
+				{/* Rating */}
+				{product.reviewCount > 0 && (
+					<div className="flex items-center gap-1 mb-2">
+						<div className="flex items-center">
+							{[...Array(5)].map((_, i) => (
+								<Star
+									key={i}
+									className={`h-4 w-4 ${
+										i < Math.floor(product.rating)
+											? "text-yellow-400 fill-current"
+											: "text-gray-300"
+									}`}
+								/>
+							))}
+						</div>
+						<span className="text-sm text-muted-foreground">
+							{product.rating.toFixed(1)} ({product.reviewCount})
+						</span>
+					</div>
+				)}
+
+				{/* Description */}
+				<p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+					{productDescription || t("no_description_available")}
+				</p>
 			</CardContent>
 
-			<CardFooter className="p-4 pt-0 flex flex-col gap-3">
+			<CardFooter className="p-4 pt-0 flex flex-col gap-3 relative z-10">
 				<div className="flex justify-between items-center w-full">
 					<div className="flex flex-col">
 						<div className="flex items-center gap-2">
 							<span className="text-lg font-bold text-primary">
-								{effectivePrice.toFixed(2)} {getLocalizedCurrency(product.currency, locale)}
+								{effectivePrice.toFixed(2)}{" "}
+								{getLocalizedCurrency(product.currency, locale)}
 							</span>
 							{hasDiscount && (
 								<span className="text-sm text-muted-foreground line-through">
-									{product.price.toFixed(2)} {getLocalizedCurrency(product.currency, locale)}
+									{product.price.toFixed(2)}{" "}
+									{getLocalizedCurrency(product.currency, locale)}
 								</span>
 							)}
 						</div>
@@ -217,7 +233,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
 						)}
 						{product.is_for_rent && product.rent_term && (
 							<span className="text-xs text-muted-foreground capitalize">
-								{product.rent_term.replace("per_", locale === "ar" ? " / " : " / ")}
+								{product.rent_term.replace(
+									"per_",
+									locale === "ar" ? " / " : " / "
+								)}
 							</span>
 						)}
 					</div>

@@ -95,6 +95,15 @@ export interface UnifiedIntentionBillingData {
 	postal_code?: string;
 }
 
+export interface UnifiedIntentionPaymentMethod {
+	integration_id: number;
+	alias: string | null;
+	name: string;
+	method_type: string;
+	currency: string;
+	live: boolean;
+}
+
 export interface UnifiedIntentionResponse {
 	id: string;
 	client_secret: string;
@@ -102,7 +111,7 @@ export interface UnifiedIntentionResponse {
 		amount: number;
 		currency: string;
 	};
-	payment_methods: number[];
+	payment_methods: UnifiedIntentionPaymentMethod[];
 }
 
 /**
@@ -432,19 +441,101 @@ export async function getTransactionStatus(
 }
 
 /**
+ * Options for creating a unified intention
+ */
+export interface UnifiedIntentionOptions {
+	/** Override the default integration ID (useful for mobile-specific integrations) */
+	integrationId?: string;
+	/** URL to redirect the user after payment (for mobile deep linking) */
+	redirectionUrl?: string;
+}
+
+/**
  * Create a payment intention using Unified Intention API (for Mobile SDK)
  * This returns a client_secret that can be used with the Paymob React Native SDK
+ *
+ * @param amountCents - Amount in piasters (cents)
+ * @param items - Array of items for the order
+ * @param billingData - Customer billing information
+ * @param specialReference - Unique reference for this payment
+ * @param options - Optional configuration (integrationId, redirectionUrl)
  */
 export async function createUnifiedIntention(
 	amountCents: number,
 	items: UnifiedIntentionItem[],
 	billingData: UnifiedIntentionBillingData,
-	specialReference: string
+	specialReference: string,
+	options?: UnifiedIntentionOptions
 ): Promise<{ client_secret: string; intention_id: string }> {
 	try {
+		// Determine which payment method(s) to use
+		// Can be integration ID (number) or payment method name (string like "card")
+		const integrationId = options?.integrationId || PAYMOB_INTEGRATION_ID;
+
+		// Build payment_methods array
+		// If we have a numeric integration ID, use it; otherwise use "card" as the method name
+		let paymentMethods: (number | string)[];
+		if (integrationId) {
+			const parsedId = parseInt(integrationId, 10);
+			if (!isNaN(parsedId)) {
+				paymentMethods = [parsedId];
+				console.log("[Paymob Mobile] Using integration ID:", parsedId);
+			} else {
+				// If it's not a number, treat it as a method name
+				paymentMethods = [integrationId];
+				console.log(
+					"[Paymob Mobile] Using payment method name:",
+					integrationId
+				);
+			}
+		} else {
+			// Default to "card" if no integration ID is configured
+			paymentMethods = ["card"];
+			console.log(
+				"[Paymob Mobile] No integration ID configured, using 'card' as default"
+			);
+		}
+
 		console.log("[Paymob Mobile] Creating unified intention...");
 		console.log("[Paymob Mobile] Amount:", amountCents, "piasters");
 		console.log("[Paymob Mobile] Reference:", specialReference);
+		console.log("[Paymob Mobile] Payment methods:", paymentMethods);
+		if (options?.redirectionUrl) {
+			console.log("[Paymob Mobile] Redirection URL:", options.redirectionUrl);
+		}
+
+		// Build the request body
+		const requestBody: Record<string, unknown> = {
+			amount: amountCents,
+			currency: "EGP",
+			payment_methods: paymentMethods,
+			items: items.map((item) => ({
+				name: item.name,
+				amount: item.amount,
+				quantity: item.quantity,
+				description: item.description || item.name,
+			})),
+			billing_data: {
+				first_name: billingData.first_name,
+				last_name: billingData.last_name,
+				email: billingData.email,
+				phone_number: billingData.phone_number,
+				apartment: billingData.apartment || "N/A",
+				floor: billingData.floor || "N/A",
+				street: billingData.street || "N/A",
+				building: billingData.building || "N/A",
+				city: billingData.city || "Cairo",
+				state: billingData.state || "Cairo",
+				country: billingData.country || "EG",
+				postal_code: billingData.postal_code || "00000",
+			},
+			special_reference: specialReference,
+		};
+
+		// Add redirection URL if provided (for mobile deep linking)
+		if (options?.redirectionUrl) {
+			requestBody.redirection_url = options.redirectionUrl;
+		}
 
 		const response = await fetch("https://accept.paymob.com/v1/intention/", {
 			method: "POST",
@@ -452,32 +543,7 @@ export async function createUnifiedIntention(
 				Authorization: `Token ${PAYMOB_SECRET_KEY}`,
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({
-				amount: amountCents,
-				currency: "EGP",
-				payment_methods: [parseInt(PAYMOB_INTEGRATION_ID)],
-				items: items.map((item) => ({
-					name: item.name,
-					amount: item.amount,
-					quantity: item.quantity,
-					description: item.description || item.name,
-				})),
-				billing_data: {
-					first_name: billingData.first_name,
-					last_name: billingData.last_name,
-					email: billingData.email,
-					phone_number: billingData.phone_number,
-					apartment: billingData.apartment || "N/A",
-					floor: billingData.floor || "N/A",
-					street: billingData.street || "N/A",
-					building: billingData.building || "N/A",
-					city: billingData.city || "Cairo",
-					state: billingData.state || "Cairo",
-					country: billingData.country || "EG",
-					postal_code: billingData.postal_code || "00000",
-				},
-				special_reference: specialReference,
-			}),
+			body: JSON.stringify(requestBody),
 		});
 
 		if (!response.ok) {
@@ -490,6 +556,11 @@ export async function createUnifiedIntention(
 
 		const data: UnifiedIntentionResponse = await response.json();
 		console.log("[Paymob Mobile] Intention created successfully:", data.id);
+		console.log("[Paymob Mobile] Client secret:", data.client_secret);
+		console.log(
+			"[Paymob Mobile] Payment methods in response:",
+			JSON.stringify(data.payment_methods, null, 2)
+		);
 
 		return {
 			client_secret: data.client_secret,

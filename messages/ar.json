@@ -159,14 +159,14 @@
 			"email_address": "عنوان البريد الإلكتروني",
 			"enter_your_credentials_to_access": "أدخل بيانات اعتمادك للدخول إلى حسابك",
 			"forgot_your_password": "هل نسيت كلمة المرور؟",
-			"loading": "Loading...",
-			"log_in": "Log In",
+			"loading": "جارٍ التحميل...",
+			"log_in": "تسجيل الدخول",
 			"logging_in": "جارٍ تسجيل الدخول...",
 			"login": "دخول",
 			"login_to_your_aidxbait_account": "سجّل الدخول إلى حسابك في AidXBait",
 			"password": "كلمة المرور",
-			"privacy_policy": "Privacy Policy",
-			"terms_of_service": "Terms of Service",
+			"privacy_policy": "سياسة الخصوصية",
+			"terms_of_service": "شروط الخدمة",
 			"welcome_back": "مرحبًا بعودتك"
 		}
 	},
@@ -180,7 +180,7 @@
 					"20_123_456_7890": "01234567890",
 					"building_5": "المبنى ٥",
 					"cairo": "القاهرة",
-					"home": "Home",
+					"home": "المنزل",
 					"https_maps_google_com": "https://maps.google.com/...",
 					"maadi": "المعادي",
 					"next_to_the_pharmacy_green": "بجانب الصيدلية، البوابة الخضراء"
@@ -214,12 +214,14 @@
 				"loading_address": "جارٍ تحميل العنوان...",
 				"loading_addresses": "جارٍ تحميل العناوين...",
 				"manage_your_shipping_and_billing": "إدارة عناوين الشحن والفواتير",
-				"my_addresses": "My Addresses",
+				"my_addresses": "عناويني",
 				"no_addresses_yet": "لا توجد عناوين بعد",
 				"phone_number": "رقم الهاتف",
-				"primary": "رئيسي",
-				"set_as_primary_address": "تعيين كعنوان رئيسي",
-				"set_primary": "تعيين رئيسي",
+				"primary": "أساسي",
+				"save_changes": "حفظ التغييرات",
+				"saving": "جارٍ الحفظ...",
+				"set_as_primary_address": "تعيين كعنوان أساسي",
+				"set_primary": "تعيين كأساسي",
 				"street": "الشارع *",
 				"this_action_cannot_be_undone": "\"؟ لا يمكن التراجع عن هذا الإجراء.",
 				"update_your_address_information": "حدّث معلومات عنوانك",
@@ -249,38 +251,122 @@
 		"layout": {
 			"data": {
 				"name": {
-					"my_orders": "My Orders"
+					"my_addresses": "عناويني",
+					"my_orders": "طلباتي"
 				}
 			},
 			"text": {
-				"loading": "Loading...",
+				"loading": "جارٍ التحميل...",
 				"manage_your_orders_and_addresses": "إدارة الطلبات والعناوين",
 				"my_account": "حسابي"
 			}
 		},
-		"my": {
+		"page": {
+			"text": {
+				"account_information": "معلومات الحساب",
+				"account_type": "نوع الحساب",
+				"email": "البريد الإلكتروني",
+				"full_name": "الاسم الكامل",
+				"manage_addresses": "إدارة العناوين",
+				"manage_orders_and_settings": "إدارة الطلبات وإعدادات الحساب",
+				"my_addresses": "عناويني",
+				"my_addresses_description": "إدارة عناوين الشحن والفواتير",
+				"my_orders": "طلباتي",
+				"my_orders_description": "عرض سجل الطلبات وتتبع الشحنات",
+				"not_set": "غير محدد",
+				"phone": "الهاتف",
+				"view_orders": "عرض الطلبات",
+				"welcome_back": "مرحباً بعودتك، {name}!"
+			}
+		},
+		"my_orders": {
 			"attr": {
 				"placeholder": {
-					"filter_by_status": "التصفية حسب الحالة"
+					"filter_by_status": "تصفية حسب الحالة"
 				}
 			},
-			"text": "•",
+			"data": {
+				"status": {
+					"all": "جميع الطلبات",
+					"cancelled": "ملغي",
+					"confirmed": "مؤكد",
+					"delivered": "تم التوصيل",
+					"pending": "قيد الانتظار",
+					"shipped": "تم الشحن"
+				}
+			},
+			"text": {
+				"back_to_orders": "العودة إلى الطلبات",
+				"discount": "خصم",
+				"loading_order_details": "جارٍ تحميل تفاصيل الطلب...",
+				"loading_orders": "جارٍ تحميل الطلبات...",
+				"method": "طريقة الدفع",
+				"my_orders": "طلباتي",
+				"no_orders_yet": "لا توجد طلبات بعد",
+				"no_status_orders": "لا توجد طلبات {status}",
+				"order": "طلب",
+				"order_items": "عناصر الطلب",
+				"order_summary": "ملخص الطلب",
+				"order_timeline": "مراحل الطلب",
+				"payment": "الدفع",
+				"phone": "الهاتف:",
+				"quantity": "الكمية:",
+				"rental": "إيجار",
+				"rental_period": "فترة الإيجار:",
+				"shipping": "الشحن",
+				"shipping_address": "عنوان الشحن",
+				"status": "الحالة",
+				"subtotal": "المجموع الفرعي",
+				"tax_14": "الضريبة (١٤٪)",
+				"total": "الإجمالي",
+				"try_changing_filter": "جرّب تغيير الفلتر لعرض طلبات أخرى",
+				"view_all_orders": "عرض جميع الطلبات",
+				"view_and_track": "عرض وتتبع سجل طلباتك",
+				"your_order_history": "سيظهر سجل طلباتك هنا"
+			},
 			"toast": {
 				"description": {
 					"failed_to_load_order_details": "فشل تحميل تفاصيل الطلب. يرجى المحاولة مرة أخرى.",
-					"failed_to_load_orders_please": "فشل تحميل الطلبات. يرجى المحاولة مرة أخرى."
+					"failed_to_load_orders": "فشل تحميل الطلبات. يرجى المحاولة مرة أخرى."
+				},
+				"title": {
+					"error": "خطأ"
 				}
 			}
 		},
 		"orders": {
 			"data": {
 				"label": {
-					"order_placed": "تم إنشاء الطلب"
+					"order_placed": "تم تقديم الطلب"
+				},
+				"order_status": {
+					"cancelled": "الطلب: ملغي",
+					"confirmed": "الطلب: مؤكد",
+					"delivered": "الطلب: تم التوصيل",
+					"pending": "الطلب: بانتظار التأكيد",
+					"shipped": "الطلب: تم الشحن"
+				},
+				"order_type": {
+					"purchase": "شراء",
+					"rental": "إيجار"
+				},
+				"payment_method": {
+					"cash_on_delivery": "الدفع عند الاستلام",
+					"online": "الدفع الإلكتروني"
+				},
+				"payment_status": {
+					"failed": "الدفع: فشل",
+					"on_delivery": "الدفع: عند الاستلام",
+					"paid": "الدفع: مكتمل",
+					"pending": "الدفع: قيد الانتظار"
 				}
 			},
 			"text": {
 				"cancelled_on": "تم الإلغاء في",
 				"in_progress": "قيد التنفيذ",
+				"item": "منتج",
+				"items": "منتجات",
+				"order": "طلب",
 				"order_cancelled": "تم إلغاء الطلب",
 				"reason": "السبب:",
 				"view_details": "عرض التفاصيل"
@@ -295,7 +381,7 @@
 			"placeholder": {
 				"confirm_your_password": "أكّد كلمة المرور",
 				"create_a_strong_password": "أنشئ كلمة مرور قوية",
-				"enter_your_email_address": "Enter your email address",
+				"enter_your_email_address": "أدخل عنوان بريدك الإلكتروني",
 				"enter_your_first_name": "أدخل اسمك الأول",
 				"enter_your_last_name": "أدخل اسم العائلة",
 				"enter_your_phone_number": "أدخل رقم هاتفك"
@@ -303,29 +389,54 @@
 		},
 		"text": {
 			"already_have_an_account": "هل لديك حساب بالفعل؟",
-			"and": "and",
+			"and": "و",
 			"by_creating_an_account_you": "بإنشاءك الحساب، فإنك توافق على استلام الإشعارات والتواصل من AidXBait",
 			"confirm_password": "تأكيد كلمة المرور",
 			"continue": "متابعة",
 			"create_account": "إنشاء حساب",
 			"create_your_account_to_get": "أنشئ حسابك للبدء",
 			"creating_account": "جارٍ إنشاء الحساب...",
-			"email_address": "Email Address",
+			"email_address": "عنوان البريد الإلكتروني",
 			"fill_in_your_information_to": "أدخل معلوماتك لإنشاء حسابك",
 			"first_name": "الاسم الأول",
 			"i_agree_to_the": "أوافق على",
 			"join_aidxbait": "انضم إلى AidXBait",
 			"last_name": "اسم العائلة",
-			"loading": "Loading...",
+			"loading": "جارٍ التحميل...",
 			"log_in_here": "سجّل الدخول هنا",
-			"password": "Password",
+			"password": "كلمة المرور",
 			"password_requirements": "متطلبات كلمة المرور:",
 			"passwords_do_not_match": "كلمتا المرور غير متطابقتين",
 			"passwords_match": "كلمتا المرور متطابقتان",
-			"phone_number": "Phone Number",
-			"privacy_policy": "Privacy Policy",
-			"terms_of_service": "Terms of Service",
+			"phone_number": "رقم الهاتف",
+			"privacy_policy": "سياسة الخصوصية",
+			"terms_of_service": "شروط الخدمة",
 			"try_again": "حاول مرة أخرى"
+		},
+		"validation": {
+			"first_name_required": "الاسم الأول مطلوب",
+			"last_name_required": "اسم العائلة مطلوب",
+			"email_required": "البريد الإلكتروني مطلوب",
+			"email_invalid": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+			"phone_required": "رقم الهاتف مطلوب",
+			"phone_invalid": "يرجى إدخال رقم هاتف صحيح",
+			"password_required": "كلمة المرور مطلوبة",
+			"password_weak": "كلمة المرور لا تستوفي المتطلبات",
+			"terms_required": "يجب الموافقة على الشروط والأحكام",
+			"all_fields_required": "جميع الحقول مطلوبة"
+		},
+		"dialog": {
+			"success_title": "تم إنشاء الحساب بنجاح!",
+			"success_message": "يرجى التحقق من بريدك الإلكتروني لتأكيد حسابك قبل تسجيل الدخول.",
+			"error_title": "فشل التسجيل",
+			"error_message": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+		},
+		"requirements": {
+			"min_length": "٨ أحرف على الأقل",
+			"uppercase": "حرف كبير واحد",
+			"lowercase": "حرف صغير واحد",
+			"number": "رقم واحد",
+			"special": "رمز خاص واحد"
 		}
 	},
 	"sections": {
@@ -335,6 +446,15 @@
 				"click_on_any_area_to_discover_products_designed_specifically_for_your_needs": "اضغط على أي منطقة لاكتشاف منتجات مصمّمة خصيصًا لاحتياجاتك",
 				"not_sure_what_you_need_explore_our_full_collection": "مش متأكد من احتياجك؟ تصفّح كل مجموعتنا",
 				"browse_all_products": "تصفّح كل المنتجات"
+			}
+		},
+		"coming_soon": {
+			"text": {
+				"badge": "قريبًا",
+				"working_hard": "نعمل بجدٍّ لنقدم لك هذه الخدمة المميزة!",
+				"team_designing": "يعمل فريقنا في <brand></brand> على تصميم وتطوير هذه الخدمة بعناية لضمان تقديم أعلى معايير الجودة والرعاية.",
+				"available_soon": "ستكون هذه الخدمة متاحة قريبًا جدًا، ونتطلع بشوق لمشاركتها معك!",
+				"follow_us": "تابع <brand></brand> لتكون أول من يعلم بإطلاق هذه الخدمة!"
 			}
 		},
 		"aidxbait": {
@@ -372,14 +492,14 @@
 			},
 			"text": {
 				"24_7_support": "دعم على مدار الساعة",
-				"already_have_an_account": "Already have an account?",
+				"already_have_an_account": "هل لديك حساب بالفعل؟",
 				"at_home": "في المنزل",
 				"book_healthcare_services_from_the": "احجز خدمات الرعاية الصحية دون مغادرة راحة منزلك. أجرِ التحاليل، واحصل على الاستشارات والخطط العلاجية المخصصة دون الحاجة إلى الخروج من المنزل.",
-				"create_an_account": "Create an Account",
+				"create_an_account": "أنشئ حسابًا",
 				"get_medical_care": "احصل على الرعاية الطبية",
 				"get_started": "ابدأ الآن",
 				"home_care": "الرعاية المنزلية",
-				"log_in": "Log In",
+				"log_in": "تسجيل الدخول",
 				"on_your_schedule": "، في الوقت الذي يناسبك",
 				"secure_private": "آمن وسرّي",
 				"stay_at_home_and_order": "ابقَ في المنزل واطلب جميع الخدمات الطبية بضغطة زر",
@@ -450,6 +570,18 @@
 		}
 	},
 	"services": {
+		"home_visits": {
+			"name": "الزيارات المنزلية",
+			"description": "خدمات رعاية صحية احترافية تصل إلى باب منزلك، تشمل العلاج الطبيعي، والأطباء المتخصصين، والتمريض، والأشعة، وخدمات المختبر."
+		},
+		"exercise_programs": {
+			"name": "برامج التمارين المنزلية",
+			"description": "برامج تمارين مخصصة يصممها أخصائيو علاج طبيعي محترفون، تُقدَّم في منزلك لإعادة التأهيل واللياقة البدنية بكل راحة."
+		},
+		"online_consultations": {
+			"name": "استشارات الفيديو عبر الإنترنت",
+			"description": "تواصل مع متخصصين مؤهلين في الرعاية الصحية من راحة منزلك عبر استشارات فيديو آمنة."
+		},
 		"store": {
 			"text": ")",
 			"toast": {
@@ -569,27 +701,58 @@
 				},
 				"label": {
 					"cash_on_delivery": "الدفع عند الاستلام",
-					"online_payment": "الدفع عبر الإنترنت"
+					"online_payment": "الدفع الإلكتروني"
 				}
 			},
 			"text": {
-				"add_new_address": "Add New Address",
-				"cancel": "Cancel",
+				"add_new_address": "إضافة عنوان جديد",
+				"apartment": "شقة",
+				"back_to_store": "العودة إلى المتجر",
+				"cancel": "إلغاء",
+				"checkout": "إتمام الشراء",
+				"complete_your_order": "أكمل طلبك",
 				"discount": "خصم",
+				"floor": "الطابق",
+				"house": "منزل",
+				"loading": "جارٍ التحميل...",
+				"no_saved_addresses": "ليس لديك أي عناوين محفوظة بعد.",
+				"order_items": "عناصر الطلب",
+				"order_summary": "ملخص الطلب",
+				"payment_method": "طريقة الدفع",
 				"phone": "الهاتف:",
-				"primary": "Primary",
+				"place_order": "تأكيد الطلب",
+				"placing_order": "جارٍ تأكيد الطلب...",
+				"primary": "أساسي",
+				"save_address": "حفظ العنوان",
+				"saving": "جارٍ الحفظ...",
+				"shipping": "الشحن",
+				"shipping_address": "عنوان الشحن",
 				"subtotal": "المجموع الفرعي",
-				"tax_14": "الضريبة (١٤٪)"
+				"tax_14": "الضريبة (١٤٪)",
+				"terms_agreement": "بتأكيد طلبك، فإنك توافق على شروط الخدمة وسياسة الخصوصية",
+				"total": "الإجمالي"
 			},
 			"toast": {
 				"description": {
-					"address_added_successfully": "Address added successfully.",
-					"please_fill_in_all_required": "Please fill in all required fields."
+					"address_added_successfully": "تم إضافة العنوان بنجاح.",
+					"failed_to_create_address": "فشل في إنشاء العنوان. يرجى المحاولة مرة أخرى.",
+					"failed_to_initialize_payment": "فشل في تهيئة الدفع. يرجى المحاولة مرة أخرى.",
+					"failed_to_load_addresses": "فشل في تحميل العناوين. يرجى المحاولة مرة أخرى.",
+					"failed_to_place_order": "فشل في تأكيد الطلب. يرجى المحاولة مرة أخرى.",
+					"order_placed_successfully": "تم تأكيد طلبك بنجاح.",
+					"please_fill_in_all_required": "يرجى ملء جميع الحقول المطلوبة.",
+					"please_select_shipping_address": "يرجى اختيار عنوان الشحن.",
+					"user_not_available": "معلومات المستخدم غير متاحة. يرجى تسجيل الدخول مرة أخرى.",
+					"your_cart_is_empty": "سلة المشتريات فارغة."
 				},
 				"title": {
-					"error": "Error",
-					"success": "Success",
-					"validation_error": "Validation Error"
+					"address_required": "العنوان مطلوب",
+					"empty_cart": "السلة فارغة",
+					"error": "خطأ",
+					"order_placed": "تم تأكيد الطلب!",
+					"payment_error": "خطأ في الدفع",
+					"success": "تم بنجاح",
+					"validation_error": "خطأ في البيانات"
 				}
 			}
 		},

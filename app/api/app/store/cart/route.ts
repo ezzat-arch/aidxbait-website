@@ -1,27 +1,68 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin, supabaseAuth } from "@/lib/supabase/admin";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 /**
  * Helper to get authenticated user ID from Bearer token
  */
 async function getUserId(request: NextRequest): Promise<number | null> {
 	const authHeader = request.headers.get("Authorization");
-	if (!authHeader) return null;
+	console.log("[Cart API] Auth header present:", !!authHeader);
+
+	if (!authHeader) {
+		console.log("[Cart API] No Authorization header found");
+		return null;
+	}
 
 	const token = authHeader.replace("Bearer ", "");
+	console.log("[Cart API] Token length:", token.length);
+	console.log("[Cart API] Token preview:", token.substring(0, 50) + "...");
+
+	// Use admin client to validate the token
 	const {
 		data: { user },
 		error,
-	} = await supabaseAuth.auth.getUser(token);
+	} = await supabaseAdmin.auth.getUser(token);
 
-	if (error || !user) return null;
+	console.log(
+		"[Cart API] Supabase getUser result - user:",
+		!!user,
+		"error:",
+		error?.message
+	);
+
+	if (error) {
+		console.error("[Cart API] Auth error details:", {
+			message: error.message,
+			status: error.status,
+			name: error.name,
+		});
+		return null;
+	}
+
+	if (!user) {
+		console.log("[Cart API] No user returned from getUser");
+		return null;
+	}
+
+	console.log("[Cart API] Supabase user id:", user.id);
 
 	// Get internal user id
-	const { data: dbUser } = await supabaseAdmin
+	const { data: dbUser, error: dbError } = await supabaseAdmin
 		.from("users")
 		.select("id")
 		.eq("supabase_id", user.id)
 		.single();
+
+	console.log(
+		"[Cart API] DB user lookup - found:",
+		!!dbUser,
+		"error:",
+		dbError?.message
+	);
+
+	if (dbError) {
+		console.error("[Cart API] DB error:", dbError);
+	}
 
 	return dbUser?.id || null;
 }
@@ -113,45 +154,25 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		// Upsert: Check if item exists in cart
-		const { data: existingItem } = await supabaseAdmin
+		// Use upsert with onConflict to handle both insert and update
+		const { data: result, error } = await supabaseAdmin
 			.from("user_cart")
-			.select("id, quantity")
-			.eq("user_id", userId)
-			.eq("product_id", product_id)
-			.single();
-
-		let result;
-		if (existingItem) {
-			// Update quantity using upsert
-			const { data, error } = await supabaseAdmin
-				.from("user_cart")
-				.upsert({
-					user_id: userId,
-					product_id,
-					quantity, // Use provided quantity (overwrite)
-					rental_weeks: rental_weeks || 0,
-					updated_at: new Date().toISOString(),
-				})
-				.select()
-				.single();
-
-			if (error) throw error;
-			result = data;
-		} else {
-			const { data, error } = await supabaseAdmin
-				.from("user_cart")
-				.insert({
+			.upsert(
+				{
 					user_id: userId,
 					product_id,
 					quantity,
 					rental_weeks: rental_weeks || 0,
-				})
-				.select()
-				.single();
-			if (error) throw error;
-			result = data;
-		}
+					updated_at: new Date().toISOString(),
+				},
+				{
+					onConflict: "user_id,product_id",
+				}
+			)
+			.select()
+			.single();
+
+		if (error) throw error;
 
 		return NextResponse.json({ success: true, data: result });
 	} catch (err: unknown) {

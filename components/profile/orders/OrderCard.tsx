@@ -6,22 +6,42 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { OrderStatusBadge, PaymentStatusBadge } from "./OrderStatusBadge";
 import { Package, Calendar, CreditCard, ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { formatCurrency } from "@/lib/orders/order-service";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 interface OrderCardProps {
 	order: Order;
 }
 
 export function OrderCard({ order }: OrderCardProps) {
-	const orderDate = new Date(order.order_date).toLocaleDateString("en-US", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	});
+	const t = useTranslations("profile.orders.text");
+	const tOrderType = useTranslations("profile.orders.data.order_type");
+	const tPaymentMethod = useTranslations("profile.orders.data.payment_method");
+	const locale = useLocale();
+
+	const orderDate = new Date(order.order_date).toLocaleDateString(
+		locale === "ar" ? "ar-EG" : "en-US",
+		{
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+		}
+	);
 
 	const itemCount =
 		order.order_items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+
+	// Get order type translation key
+	const getOrderTypeKey = (type: string) => {
+		return type === "rental" ? "rental" : "purchase";
+	};
+
+	// Get payment method translation key
+	const getPaymentMethodKey = (method: string) => {
+		return method === "cash_on_delivery" ? "cash_on_delivery" : "online";
+	};
 
 	return (
 		<Card className="hover:shadow-lg transition-shadow">
@@ -30,10 +50,10 @@ export function OrderCard({ order }: OrderCardProps) {
 					<div>
 						<div className="flex items-center gap-2 mb-1">
 							<span className="font-semibold text-sm text-muted-foreground">
-								Order #{order.id}
+								{t("order")} #{order.id}
 							</span>
-							<Badge variant="outline" className="capitalize">
-								{order.order_type}
+							<Badge variant="outline">
+								{tOrderType(getOrderTypeKey(order.order_type))}
 							</Badge>
 						</div>
 						<div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -55,12 +75,14 @@ export function OrderCard({ order }: OrderCardProps) {
 					<div className="flex items-center gap-2 text-muted-foreground">
 						<Package className="h-4 w-4" />
 						<span>
-							{itemCount} {itemCount === 1 ? "item" : "items"}
+							{itemCount} {itemCount === 1 ? t("item") : t("items")}
 						</span>
 					</div>
-					<div className="flex items-center gap-2 text-muted-foreground capitalize">
+					<div className="flex items-center gap-2 text-muted-foreground">
 						<CreditCard className="h-4 w-4" />
-						<span>{order.payment_method.replace(/_/g, " ")}</span>
+						<span>
+							{tPaymentMethod(getPaymentMethodKey(order.payment_method))}
+						</span>
 					</div>
 				</div>
 
@@ -71,8 +93,8 @@ export function OrderCard({ order }: OrderCardProps) {
 						</span>
 						<Button asChild variant="outline" size="sm">
 							<Link href={`/profile/my-orders/${order.id}`}>
-								View Details
-								<ChevronRight className="h-4 w-4 ml-1" />
+								{t("view_details")}
+								<ChevronRight className="h-4 w-4 ltr:ml-1 rtl:mr-1 rtl:rotate-180" />
 							</Link>
 						</Button>
 					</div>

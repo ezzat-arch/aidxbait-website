@@ -1,5 +1,8 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { OrderStatus, PaymentStatus, PaymentMethod } from "@/lib/order-types";
+import { useTranslations } from "next-intl";
 
 interface OrderStatusBadgeProps {
 	status: OrderStatus;
@@ -13,6 +16,8 @@ interface PaymentStatusBadgeProps {
 }
 
 export function OrderStatusBadge({ status, className }: OrderStatusBadgeProps) {
+	const t = useTranslations("profile.orders.data.order_status");
+
 	const getStatusColor = (status: OrderStatus) => {
 		switch (status) {
 			case "pending":
@@ -33,15 +38,15 @@ export function OrderStatusBadge({ status, className }: OrderStatusBadgeProps) {
 	const getStatusText = (status: OrderStatus) => {
 		switch (status) {
 			case "pending":
-				return "Order: Awaiting Confirmation";
+				return t("pending");
 			case "confirmed":
-				return "Order: Confirmed";
+				return t("confirmed");
 			case "shipped":
-				return "Order: Shipped";
+				return t("shipped");
 			case "delivered":
-				return "Order: Delivered";
+				return t("delivered");
 			case "cancelled":
-				return "Order: Cancelled";
+				return t("cancelled");
 			default:
 				return status;
 		}
@@ -62,6 +67,8 @@ export function PaymentStatusBadge({
 	paymentMethod,
 	className,
 }: PaymentStatusBadgeProps) {
+	const t = useTranslations("profile.orders.data.payment_status");
+
 	const getStatusColor = (status: PaymentStatus) => {
 		switch (status) {
 			case "pending":
@@ -82,12 +89,12 @@ export function PaymentStatusBadge({
 		switch (status) {
 			case "pending":
 				return paymentMethod === "cash_on_delivery"
-					? "Payment: On delivery"
-					: "Payment: Pending";
+					? t("on_delivery")
+					: t("pending");
 			case "paid":
-				return "Payment: Completed";
+				return t("paid");
 			case "failed":
-				return "Payment: Failed";
+				return t("failed");
 			default:
 				return status;
 		}

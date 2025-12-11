@@ -2,17 +2,23 @@
 
 import { Order, OrderStatus } from "@/lib/order-types";
 import { CheckCircle2, Circle, XCircle } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 
 interface OrderTimelineProps {
 	order: Order;
 }
 
 export function OrderTimeline({ order }: OrderTimelineProps) {
-	const steps: { status: OrderStatus; label: string }[] = [
-		{ status: "pending", label: "Order Placed" },
-		{ status: "confirmed", label: "Confirmed" },
-		{ status: "shipped", label: "Shipped" },
-		{ status: "delivered", label: "Delivered" },
+	const t = useTranslations("profile.orders.text");
+	const tLabel = useTranslations("profile.orders.data.label");
+	const tStatus = useTranslations("profile.my_orders.data.status");
+	const locale = useLocale();
+
+	const steps: { status: OrderStatus; labelKey: string }[] = [
+		{ status: "pending", labelKey: "order_placed" },
+		{ status: "confirmed", labelKey: "confirmed" },
+		{ status: "shipped", labelKey: "shipped" },
+		{ status: "delivered", labelKey: "delivered" },
 	];
 
 	const currentStatusIndex = steps.findIndex(
@@ -64,21 +70,31 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
 		}
 	};
 
+	// Get step label - first step uses "Order Placed", others use status name
+	const getStepLabel = (step: { status: OrderStatus; labelKey: string }) => {
+		if (step.labelKey === "order_placed") {
+			return tLabel("order_placed");
+		}
+		return tStatus(step.status);
+	};
+
 	if (isCancelled) {
 		return (
 			<div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
 				<XCircle className="h-6 w-6 text-red-600 flex-shrink-0" />
 				<div>
-					<p className="font-semibold text-red-900">Order Cancelled</p>
+					<p className="font-semibold text-red-900">{t("order_cancelled")}</p>
 					{order.cancellation_reason && (
 						<p className="text-sm text-red-700 mt-1">
-							Reason: {order.cancellation_reason}
+							{t("reason")} {order.cancellation_reason}
 						</p>
 					)}
 					{order.cancellation_date && (
 						<p className="text-xs text-red-600 mt-1">
-							Cancelled on{" "}
-							{new Date(order.cancellation_date).toLocaleDateString()}
+							{t("cancelled_on")}{" "}
+							{new Date(order.cancellation_date).toLocaleDateString(
+								locale === "ar" ? "ar-EG" : "en-US"
+							)}
 						</p>
 					)}
 				</div>
@@ -106,11 +122,11 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
 						</div>
 						<div className="pb-8">
 							<p className={`font-medium ${getStepColor(state)}`}>
-								{step.label}
+								{getStepLabel(step)}
 							</p>
 							{state === "current" && (
 								<p className="text-sm text-muted-foreground mt-1">
-									In progress
+									{t("in_progress")}
 								</p>
 							)}
 						</div>

@@ -17,6 +17,12 @@ const supabaseAdmin = createClient(
 	}
 );
 
+// Mobile-specific Paymob configuration
+const PAYMOB_INTEGRATION_ID = process.env.PAYMOB_INTEGRATION_ID;
+
+// Paymob's post_pay URL - required for the SDK to intercept redirects and trigger callbacks
+const PAYMOB_POST_PAY_URL = "https://accept.paymob.com/api/acceptance/post_pay";
+
 // Request body type for mobile payment intention
 interface MobileIntentionRequest {
 	amount: number; // Amount in piasters (cents)
@@ -134,6 +140,19 @@ export async function POST(request: NextRequest) {
 		);
 		console.log("[Paymob Mobile Intention] Amount:", body.amount, "piasters");
 
+		// Log payment method configuration
+		if (!PAYMOB_INTEGRATION_ID) {
+			console.warn(
+				"[Paymob Mobile Intention] PAYMOB_INTEGRATION_ID not set, using default integration"
+			);
+		} else {
+			console.log(
+				"[Paymob Mobile Intention] Using mobile integration ID:",
+				PAYMOB_INTEGRATION_ID
+			);
+		}
+		console.log("[Paymob Mobile Intention] Redirect URL:", PAYMOB_POST_PAY_URL);
+
 		// Prepare items for Paymob
 		const paymobItems: UnifiedIntentionItem[] = body.items.map((item) => ({
 			name: item.name,
@@ -154,12 +173,19 @@ export async function POST(request: NextRequest) {
 			body.metadata.order_id
 		}_${Date.now()}`;
 
-		// Create the unified intention
+		// Create the unified intention with mobile-specific configuration
 		const { client_secret, intention_id } = await createUnifiedIntention(
 			body.amount,
 			paymobItems,
 			billingData,
-			specialReference
+			specialReference,
+			{
+				// Use mobile-specific integration ID if configured
+				integrationId: PAYMOB_INTEGRATION_ID || undefined,
+				// Use Paymob's post_pay URL so the SDK can intercept the redirect
+				// and trigger the payment listener callback
+				redirectionUrl: PAYMOB_POST_PAY_URL,
+			}
 		);
 
 		// For store orders, update the order with the intention details

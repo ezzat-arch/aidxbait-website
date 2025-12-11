@@ -1,37 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { useRouter } from "@/i18n/navigation";
+import { useAuth } from "@/contexts/auth-context";
 import { AddressFormFields } from "@/components/profile/addresses/AddressFormFields";
 import { createAddress } from "@/lib/addresses/address-service";
 import { AddressType } from "@/lib/order-types";
-import { Plus } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { toast } from "@/hooks/use-toast";
 import { useTranslations } from "next-intl";
 
-interface QuickAddressAddProps {
-	patientId: number;
-	onAddressAdded: () => void;
-}
-
-export function QuickAddressAdd({
-	patientId,
-	onAddressAdded,
-}: QuickAddressAddProps) {
-	const t = useTranslations("store.checkout.text");
-	const tToastTitle = useTranslations("store.checkout.toast.title");
-	const tToastDesc = useTranslations("store.checkout.toast.description");
-
-	const [open, setOpen] = useState(false);
+export default function NewAddressPage() {
+	const { userProfile } = useAuth();
+	const router = useRouter();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [errors, setErrors] = useState<Record<string, string>>({});
+
+	const t = useTranslations("profile.addresses.text");
+	const tToastTitle = useTranslations("profile.addresses.toast.title");
+	const tToastDesc = useTranslations("profile.addresses.toast.description");
 
 	// Form state
 	const [addressType, setAddressType] = useState<AddressType>("House");
@@ -46,22 +36,6 @@ export function QuickAddressAdd({
 	const [additionalDirections, setAdditionalDirections] = useState("");
 	const [isPrimary, setIsPrimary] = useState(false);
 	const [googleMapUrl, setGoogleMapUrl] = useState("");
-
-	const resetForm = () => {
-		setAddressType("House");
-		setAddressLabel("");
-		setGovernorate("");
-		setCity("");
-		setStreet("");
-		setBuildingName("");
-		setFloor("");
-		setApartment("");
-		setPhone("");
-		setAdditionalDirections("");
-		setIsPrimary(false);
-		setGoogleMapUrl("");
-		setErrors({});
-	};
 
 	const validateForm = (): boolean => {
 		const newErrors: Record<string, string> = {};
@@ -89,6 +63,15 @@ export function QuickAddressAdd({
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
+		if (!userProfile?.patient_id) {
+			toast({
+				title: tToastTitle("error"),
+				description: tToastDesc("user_information_not_available_please"),
+				variant: "destructive",
+			});
+			return;
+		}
+
 		if (!validateForm()) {
 			toast({
 				title: tToastTitle("validation_error"),
@@ -101,7 +84,7 @@ export function QuickAddressAdd({
 		try {
 			setIsSubmitting(true);
 			await createAddress({
-				patient_id: patientId,
+				patient_id: userProfile.patient_id,
 				address_type: addressType,
 				address_label: addressLabel.trim(),
 				governorate: governorate.trim(),
@@ -121,9 +104,7 @@ export function QuickAddressAdd({
 				description: tToastDesc("address_added_successfully"),
 			});
 
-			resetForm();
-			setOpen(false);
-			onAddressAdded();
+			router.push("/profile/addresses");
 		} catch (error) {
 			console.error("Error creating address:", error);
 			toast({
@@ -131,7 +112,7 @@ export function QuickAddressAdd({
 				description:
 					error instanceof Error
 						? error.message
-						: tToastDesc("failed_to_create_address"),
+						: tToastDesc("failed_to_load_address_please"),
 				variant: "destructive",
 			});
 		} finally {
@@ -140,64 +121,70 @@ export function QuickAddressAdd({
 	};
 
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger asChild>
-				<Button variant="outline" size="sm">
-					<Plus className="h-4 w-4 ltr:mr-2 rtl:ml-2" />
-					{t("add_new_address")}
+		<div className="space-y-6">
+			<div>
+				<Button variant="ghost" asChild className="ltr:-ml-4 rtl:-mr-4 mb-4">
+					<Link href="/profile/addresses">
+						<ArrowLeft className="h-4 w-4 ltr:mr-2 rtl:ml-2 rtl:rotate-180" />
+						{t("back_to_addresses")}
+					</Link>
 				</Button>
-			</DialogTrigger>
-			<DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-				<DialogHeader>
-					<DialogTitle>{t("add_new_address")}</DialogTitle>
-				</DialogHeader>
-				<form onSubmit={handleSubmit} className="space-y-6 mt-4">
-					<AddressFormFields
-						addressType={addressType}
-						addressLabel={addressLabel}
-						governorate={governorate}
-						city={city}
-						street={street}
-						buildingName={buildingName}
-						floor={floor}
-						apartment={apartment}
-						phone={phone}
-						additionalDirections={additionalDirections}
-						isPrimary={isPrimary}
-						googleMapUrl={googleMapUrl}
-						onAddressTypeChange={setAddressType}
-						onAddressLabelChange={setAddressLabel}
-						onGovernorateChange={setGovernorate}
-						onCityChange={setCity}
-						onStreetChange={setStreet}
-						onBuildingNameChange={setBuildingName}
-						onFloorChange={setFloor}
-						onApartmentChange={setApartment}
-						onPhoneChange={setPhone}
-						onAdditionalDirectionsChange={setAdditionalDirections}
-						onIsPrimaryChange={setIsPrimary}
-						onGoogleMapUrlChange={setGoogleMapUrl}
-						errors={errors}
-					/>
+				<h1 className="text-3xl font-bold mb-2">{t("add_new_address")}</h1>
+				<p className="text-muted-foreground">
+					{t("add_a_shipping_or_billing")}
+				</p>
+			</div>
 
-					<div className="flex gap-4">
-						<Button type="submit" disabled={isSubmitting} className="flex-1">
-							{isSubmitting ? t("saving") : t("save_address")}
-						</Button>
-						<Button
-							type="button"
-							variant="outline"
-							onClick={() => {
-								resetForm();
-								setOpen(false);
-							}}
-							disabled={isSubmitting}
-						>
-							{t("cancel")}
-						</Button>
-					</div>
-				</form>
-			</DialogContent>
-		</Dialog>
+			<Card>
+				<CardHeader>
+					<CardTitle>{t("address_information")}</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<form onSubmit={handleSubmit} className="space-y-6">
+						<AddressFormFields
+							addressType={addressType}
+							addressLabel={addressLabel}
+							governorate={governorate}
+							city={city}
+							street={street}
+							buildingName={buildingName}
+							floor={floor}
+							apartment={apartment}
+							phone={phone}
+							additionalDirections={additionalDirections}
+							isPrimary={isPrimary}
+							googleMapUrl={googleMapUrl}
+							onAddressTypeChange={setAddressType}
+							onAddressLabelChange={setAddressLabel}
+							onGovernorateChange={setGovernorate}
+							onCityChange={setCity}
+							onStreetChange={setStreet}
+							onBuildingNameChange={setBuildingName}
+							onFloorChange={setFloor}
+							onApartmentChange={setApartment}
+							onPhoneChange={setPhone}
+							onAdditionalDirectionsChange={setAdditionalDirections}
+							onIsPrimaryChange={setIsPrimary}
+							onGoogleMapUrlChange={setGoogleMapUrl}
+							errors={errors}
+						/>
+
+						<div className="flex gap-4">
+							<Button type="submit" disabled={isSubmitting} className="flex-1">
+								{isSubmitting ? t("saving") : t("add_address")}
+							</Button>
+							<Button
+								type="button"
+								variant="outline"
+								onClick={() => router.back()}
+								disabled={isSubmitting}
+							>
+								{t("cancel")}
+							</Button>
+						</div>
+					</form>
+				</CardContent>
+			</Card>
+		</div>
 	);
 }

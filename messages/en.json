@@ -218,6 +218,8 @@
 				"no_addresses_yet": "No addresses yet",
 				"phone_number": "Phone Number",
 				"primary": "Primary",
+				"save_changes": "Save Changes",
+				"saving": "Saving...",
 				"set_as_primary_address": "Set as primary address",
 				"set_primary": "Set Primary",
 				"street": "Street *",
@@ -249,6 +251,7 @@
 		"layout": {
 			"data": {
 				"name": {
+					"my_addresses": "My Addresses",
 					"my_orders": "My Orders"
 				}
 			},
@@ -258,17 +261,76 @@
 				"my_account": "My Account"
 			}
 		},
-		"my": {
+		"page": {
+			"text": {
+				"account_information": "Account Information",
+				"account_type": "Account Type",
+				"email": "Email",
+				"full_name": "Full Name",
+				"manage_addresses": "Manage Addresses",
+				"manage_orders_and_settings": "Manage your orders and account settings",
+				"my_addresses": "My Addresses",
+				"my_addresses_description": "Manage your shipping and billing addresses",
+				"my_orders": "My Orders",
+				"my_orders_description": "View your order history and track your shipments",
+				"not_set": "Not set",
+				"phone": "Phone",
+				"view_orders": "View Orders",
+				"welcome_back": "Welcome back, {name}!"
+			}
+		},
+		"my_orders": {
 			"attr": {
 				"placeholder": {
 					"filter_by_status": "Filter by status"
 				}
 			},
-			"text": "•",
+			"data": {
+				"status": {
+					"all": "All Orders",
+					"cancelled": "Cancelled",
+					"confirmed": "Confirmed",
+					"delivered": "Delivered",
+					"pending": "Pending",
+					"shipped": "Shipped"
+				}
+			},
+			"text": {
+				"back_to_orders": "Back to Orders",
+				"discount": "Discount",
+				"loading_order_details": "Loading order details...",
+				"loading_orders": "Loading orders...",
+				"method": "Method",
+				"my_orders": "My Orders",
+				"no_orders_yet": "No orders yet",
+				"no_status_orders": "No {status} orders",
+				"order": "Order",
+				"order_items": "Order Items",
+				"order_summary": "Order Summary",
+				"order_timeline": "Order Timeline",
+				"payment": "Payment",
+				"phone": "Phone:",
+				"quantity": "Quantity:",
+				"rental": "Rental",
+				"rental_period": "Rental:",
+				"shipping": "Shipping",
+				"shipping_address": "Shipping Address",
+				"status": "Status",
+				"subtotal": "Subtotal",
+				"tax_14": "Tax (14%)",
+				"total": "Total",
+				"try_changing_filter": "Try changing the filter to view other orders",
+				"view_all_orders": "View All Orders",
+				"view_and_track": "View and track your order history",
+				"your_order_history": "Your order history will appear here"
+			},
 			"toast": {
 				"description": {
 					"failed_to_load_order_details": "Failed to load order details. Please try again.",
-					"failed_to_load_orders_please": "Failed to load orders. Please try again."
+					"failed_to_load_orders": "Failed to load orders. Please try again."
+				},
+				"title": {
+					"error": "Error"
 				}
 			}
 		},
@@ -276,11 +338,35 @@
 			"data": {
 				"label": {
 					"order_placed": "Order Placed"
+				},
+				"order_status": {
+					"cancelled": "Order: Cancelled",
+					"confirmed": "Order: Confirmed",
+					"delivered": "Order: Delivered",
+					"pending": "Order: Awaiting Confirmation",
+					"shipped": "Order: Shipped"
+				},
+				"order_type": {
+					"purchase": "Purchase",
+					"rental": "Rental"
+				},
+				"payment_method": {
+					"cash_on_delivery": "Cash on Delivery",
+					"online": "Online Payment"
+				},
+				"payment_status": {
+					"failed": "Payment: Failed",
+					"on_delivery": "Payment: On delivery",
+					"paid": "Payment: Completed",
+					"pending": "Payment: Pending"
 				}
 			},
 			"text": {
 				"cancelled_on": "Cancelled on",
 				"in_progress": "In progress",
+				"item": "item",
+				"items": "items",
+				"order": "Order",
 				"order_cancelled": "Order Cancelled",
 				"reason": "Reason:",
 				"view_details": "View Details"
@@ -326,6 +412,31 @@
 			"privacy_policy": "Privacy Policy",
 			"terms_of_service": "Terms of Service",
 			"try_again": "Try Again"
+		},
+		"validation": {
+			"first_name_required": "First name is required",
+			"last_name_required": "Last name is required",
+			"email_required": "Email is required",
+			"email_invalid": "Please enter a valid email address",
+			"phone_required": "Phone number is required",
+			"phone_invalid": "Please enter a valid phone number",
+			"password_required": "Password is required",
+			"password_weak": "Password does not meet requirements",
+			"terms_required": "You must accept the terms and conditions",
+			"all_fields_required": "All fields are required"
+		},
+		"dialog": {
+			"success_title": "Account Created Successfully!",
+			"success_message": "Please check your email to confirm your account before signing in.",
+			"error_title": "Registration Failed",
+			"error_message": "An unexpected error occurred. Please try again."
+		},
+		"requirements": {
+			"min_length": "At least 8 characters",
+			"uppercase": "One uppercase letter",
+			"lowercase": "One lowercase letter",
+			"number": "One number",
+			"special": "One special character"
 		}
 	},
 	"sections": {
@@ -335,6 +446,15 @@
 				"click_on_any_area_to_discover_products_designed_specifically_for_your_needs": "Click on any area to discover products designed specifically for your needs",
 				"not_sure_what_you_need_explore_our_full_collection": "Not sure what you need? Explore our full collection",
 				"browse_all_products": "Browse All Products"
+			}
+		},
+		"coming_soon": {
+			"text": {
+				"badge": "Coming Soon",
+				"working_hard": "We're working hard to bring you this amazing service!",
+				"team_designing": "Our dedicated team at <brand></brand> is carefully designing and implementing this feature to ensure it meets the highest standards of quality and care.",
+				"available_soon": "This service will be available very soon, and we can't wait to share it with you!",
+				"follow_us": "Follow <brand></brand> to be the first to know when this service launches!"
 			}
 		},
 		"aidxbait": {
@@ -450,6 +570,18 @@
 		}
 	},
 	"services": {
+		"home_visits": {
+			"name": "Home Visits",
+			"description": "Professional healthcare services delivered to your doorstep, including physical therapy, specialist doctors, nursing care, imaging, and lab services."
+		},
+		"exercise_programs": {
+			"name": "Home Exercise Programs",
+			"description": "Personalized exercise programs designed by professional physical therapists, delivered to your home for convenient rehabilitation and fitness."
+		},
+		"online_consultations": {
+			"name": "Online Video Consultations",
+			"description": "Connect with qualified healthcare professionals from the comfort of your home through secure video consultations."
+		},
 		"store": {
 			"text": ")",
 			"toast": {
@@ -574,20 +706,51 @@
 			},
 			"text": {
 				"add_new_address": "Add New Address",
+				"apartment": "Apartment",
+				"back_to_store": "Back to Store",
 				"cancel": "Cancel",
+				"checkout": "Checkout",
+				"complete_your_order": "Complete your order",
 				"discount": "Discount",
+				"floor": "Floor",
+				"house": "House",
+				"loading": "Loading...",
+				"no_saved_addresses": "You don't have any saved addresses yet.",
+				"order_items": "Order Items",
+				"order_summary": "Order Summary",
+				"payment_method": "Payment Method",
 				"phone": "Phone:",
+				"place_order": "Place Order",
+				"placing_order": "Placing Order...",
 				"primary": "Primary",
+				"save_address": "Save Address",
+				"saving": "Saving...",
+				"shipping": "Shipping",
+				"shipping_address": "Shipping Address",
 				"subtotal": "Subtotal",
-				"tax_14": "Tax (14%)"
+				"tax_14": "Tax (14%)",
+				"terms_agreement": "By placing your order, you agree to our Terms of Service and Privacy Policy",
+				"total": "Total"
 			},
 			"toast": {
 				"description": {
 					"address_added_successfully": "Address added successfully.",
-					"please_fill_in_all_required": "Please fill in all required fields."
+					"failed_to_create_address": "Failed to create address. Please try again.",
+					"failed_to_initialize_payment": "Failed to initialize payment. Please try again.",
+					"failed_to_load_addresses": "Failed to load addresses. Please try again.",
+					"failed_to_place_order": "Failed to place order. Please try again.",
+					"order_placed_successfully": "Your order has been placed successfully.",
+					"please_fill_in_all_required": "Please fill in all required fields.",
+					"please_select_shipping_address": "Please select a shipping address.",
+					"user_not_available": "User information not available. Please log in again.",
+					"your_cart_is_empty": "Your cart is empty."
 				},
 				"title": {
+					"address_required": "Address Required",
+					"empty_cart": "Empty Cart",
 					"error": "Error",
+					"order_placed": "Order Placed!",
+					"payment_error": "Payment Error",
 					"success": "Success",
 					"validation_error": "Validation Error"
 				}

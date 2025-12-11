@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AddressType } from "@/lib/order-types";
+import { useTranslations } from "next-intl";
 
 interface AddressFormFieldsProps {
 	addressType: AddressType;
@@ -62,26 +63,29 @@ export function AddressFormFields({
 	onGoogleMapUrlChange,
 	errors = {},
 }: AddressFormFieldsProps) {
+	const t = useTranslations("profile.addresses.text");
+	const tPlaceholder = useTranslations("profile.addresses.attr.placeholder");
+
 	return (
 		<div className="space-y-6">
 			{/* Address Type */}
 			<div className="space-y-3">
-				<Label>Address Type *</Label>
+				<Label>{t("address_type")}</Label>
 				<RadioGroup
 					value={addressType}
 					onValueChange={(value) => onAddressTypeChange(value as AddressType)}
 					className="flex gap-4"
 				>
-					<div className="flex items-center space-x-2">
+					<div className="flex items-center gap-2">
 						<RadioGroupItem value="House" id="house" />
 						<Label htmlFor="house" className="font-normal cursor-pointer">
-							House
+							{t("house")}
 						</Label>
 					</div>
-					<div className="flex items-center space-x-2">
+					<div className="flex items-center gap-2">
 						<RadioGroupItem value="Apartment" id="apartment" />
 						<Label htmlFor="apartment" className="font-normal cursor-pointer">
-							Apartment
+							{t("apartment")}
 						</Label>
 					</div>
 				</RadioGroup>
@@ -93,16 +97,16 @@ export function AddressFormFields({
 			{/* Address Label */}
 			<div className="space-y-2">
 				<Label htmlFor="addressLabel">
-					Address Label *{" "}
+					{t("address_label")}{" "}
 					<span className="text-xs text-muted-foreground">
-						(e.g., Home, Work)
+						{t("e_g_home_work")}
 					</span>
 				</Label>
 				<Input
 					id="addressLabel"
 					value={addressLabel}
 					onChange={(e) => onAddressLabelChange(e.target.value)}
-					placeholder="Home"
+					placeholder={tPlaceholder("home")}
 					className={errors.address_label ? "border-destructive" : ""}
 				/>
 				{errors.address_label && (
@@ -113,12 +117,12 @@ export function AddressFormFields({
 			{/* Governorate and City */}
 			<div className="grid gap-4 sm:grid-cols-2">
 				<div className="space-y-2">
-					<Label htmlFor="governorate">Governorate *</Label>
+					<Label htmlFor="governorate">{t("governorate")}</Label>
 					<Input
 						id="governorate"
 						value={governorate}
 						onChange={(e) => onGovernorateChange(e.target.value)}
-						placeholder="Cairo"
+						placeholder={tPlaceholder("cairo")}
 						className={errors.governorate ? "border-destructive" : ""}
 					/>
 					{errors.governorate && (
@@ -127,12 +131,12 @@ export function AddressFormFields({
 				</div>
 
 				<div className="space-y-2">
-					<Label htmlFor="city">City *</Label>
+					<Label htmlFor="city">{t("city")}</Label>
 					<Input
 						id="city"
 						value={city}
 						onChange={(e) => onCityChange(e.target.value)}
-						placeholder="Maadi"
+						placeholder={tPlaceholder("maadi")}
 						className={errors.city ? "border-destructive" : ""}
 					/>
 					{errors.city && (
@@ -143,12 +147,12 @@ export function AddressFormFields({
 
 			{/* Street */}
 			<div className="space-y-2">
-				<Label htmlFor="street">Street *</Label>
+				<Label htmlFor="street">{t("street")}</Label>
 				<Input
 					id="street"
 					value={street}
 					onChange={(e) => onStreetChange(e.target.value)}
-					placeholder="123 Main Street"
+					placeholder={tPlaceholder("123_main_street")}
 					className={errors.street ? "border-destructive" : ""}
 				/>
 				{errors.street && (
@@ -160,13 +164,13 @@ export function AddressFormFields({
 			<div className="grid gap-4 sm:grid-cols-3">
 				<div className="space-y-2">
 					<Label htmlFor="buildingName">
-						Building Name {addressType === "Apartment" && "*"}
+						{t("building_name")} {addressType === "Apartment" && "*"}
 					</Label>
 					<Input
 						id="buildingName"
 						value={buildingName}
 						onChange={(e) => onBuildingNameChange(e.target.value)}
-						placeholder="Building 5"
+						placeholder={tPlaceholder("building_5")}
 						className={errors.building_name ? "border-destructive" : ""}
 					/>
 					{errors.building_name && (
@@ -177,12 +181,12 @@ export function AddressFormFields({
 				{addressType === "Apartment" && (
 					<>
 						<div className="space-y-2">
-							<Label htmlFor="floor">Floor</Label>
+							<Label htmlFor="floor">{t("floor")}</Label>
 							<Input
 								id="floor"
 								value={floor}
 								onChange={(e) => onFloorChange(e.target.value)}
-								placeholder="3"
+								placeholder={tPlaceholder("3")}
 								className={errors.floor ? "border-destructive" : ""}
 							/>
 							{errors.floor && (
@@ -191,12 +195,12 @@ export function AddressFormFields({
 						</div>
 
 						<div className="space-y-2">
-							<Label htmlFor="apartment">Apartment</Label>
+							<Label htmlFor="apartment">{t("apartment")}</Label>
 							<Input
 								id="apartment"
 								value={apartment}
 								onChange={(e) => onApartmentChange(e.target.value)}
-								placeholder="12"
+								placeholder={tPlaceholder("12")}
 								className={errors.apartment ? "border-destructive" : ""}
 							/>
 							{errors.apartment && (
@@ -209,13 +213,13 @@ export function AddressFormFields({
 
 			{/* Phone */}
 			<div className="space-y-2">
-				<Label htmlFor="phone">Phone Number</Label>
+				<Label htmlFor="phone">{t("phone_number")}</Label>
 				<Input
 					id="phone"
 					type="tel"
 					value={phone}
 					onChange={(e) => onPhoneChange(e.target.value)}
-					placeholder="+20 123 456 7890"
+					placeholder={tPlaceholder("20_123_456_7890")}
 					className={errors.phone ? "border-destructive" : ""}
 				/>
 				{errors.phone && (
@@ -225,13 +229,13 @@ export function AddressFormFields({
 
 			{/* Google Map URL */}
 			<div className="space-y-2">
-				<Label htmlFor="googleMapUrl">Google Maps Link (Optional)</Label>
+				<Label htmlFor="googleMapUrl">{t("google_maps_link_optional")}</Label>
 				<Input
 					id="googleMapUrl"
 					type="url"
 					value={googleMapUrl}
 					onChange={(e) => onGoogleMapUrlChange(e.target.value)}
-					placeholder="https://maps.google.com/..."
+					placeholder={tPlaceholder("https_maps_google_com")}
 					className={errors.google_map_url ? "border-destructive" : ""}
 				/>
 				{errors.google_map_url && (
@@ -241,12 +245,14 @@ export function AddressFormFields({
 
 			{/* Additional Directions */}
 			<div className="space-y-2">
-				<Label htmlFor="additionalDirections">Additional Directions</Label>
+				<Label htmlFor="additionalDirections">
+					{t("additional_directions")}
+				</Label>
 				<Textarea
 					id="additionalDirections"
 					value={additionalDirections}
 					onChange={(e) => onAdditionalDirectionsChange(e.target.value)}
-					placeholder="Next to the pharmacy, green gate"
+					placeholder={tPlaceholder("next_to_the_pharmacy_green")}
 					rows={3}
 					className={errors.additional_directions ? "border-destructive" : ""}
 				/>
@@ -258,7 +264,7 @@ export function AddressFormFields({
 			</div>
 
 			{/* Set as Primary */}
-			<div className="flex items-center space-x-2">
+			<div className="flex items-center gap-2">
 				<Checkbox
 					id="isPrimary"
 					checked={isPrimary}
@@ -268,7 +274,7 @@ export function AddressFormFields({
 					htmlFor="isPrimary"
 					className="text-sm font-normal cursor-pointer"
 				>
-					Set as primary address
+					{t("set_as_primary_address")}
 				</Label>
 			</div>
 		</div>

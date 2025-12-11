@@ -10,6 +10,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useTranslations } from "next-intl";
 
 interface DeleteAddressDialogProps {
 	open: boolean;
@@ -24,23 +25,26 @@ export function DeleteAddressDialog({
 	onConfirm,
 	addressLabel,
 }: DeleteAddressDialogProps) {
+	const t = useTranslations("profile.addresses.text");
+
 	return (
 		<AlertDialog open={open} onOpenChange={onOpenChange}>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>Delete Address</AlertDialogTitle>
+					<AlertDialogTitle>{t("delete_address")}</AlertDialogTitle>
 					<AlertDialogDescription>
-						Are you sure you want to delete "{addressLabel}"? This action cannot
-						be undone.
+						{t("are_you_sure_you_want")}
+						{addressLabel}
+						{t("this_action_cannot_be_undone")}
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
+					<AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
 					<AlertDialogAction
 						onClick={onConfirm}
 						className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 					>
-						Delete
+						{t("delete")}
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
