@@ -3,6 +3,7 @@ import {
 	getUserBySupabaseId,
 	createAppUser,
 	updateUser,
+	softDeleteUser,
 	UserNotFoundError,
 	NonPatientUserError,
 	MissingPatientRecordError,
@@ -303,6 +304,101 @@ export async function PATCH(request: NextRequest) {
 				error: {
 					type: "DatabaseError",
 					message,
+				},
+			},
+			{ status: 500 }
+		);
+	}
+}
+
+/**
+ * DELETE /api/app/user
+ *
+ * Soft delete a user account. This:
+ * 1. Soft deletes the user record (is_soft_deleted = true, deleted_at = NOW())
+ * 2. Clears the supabase_id reference
+ * 3. Hard deletes the auth.users record (removes login ability)
+ *
+ * Query param: supabaseId
+ *
+ * Success: { success: true, message: string }
+ * Error: { success: false, error: { type: string, message: string } }
+ */
+export async function DELETE(request: NextRequest) {
+	try {
+		const { searchParams } = new URL(request.url);
+		const supabaseId = searchParams.get("supabaseId");
+
+		if (!supabaseId) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: {
+						type: "ValidationError",
+						message: "Missing supabaseId query parameter",
+					},
+				},
+				{ status: 400 }
+			);
+		}
+
+		await softDeleteUser(supabaseId);
+
+		return NextResponse.json({
+			success: true,
+			message: "Account deleted successfully",
+		});
+	} catch (err: unknown) {
+		// Handle custom errors with specific status codes
+		if (err instanceof UserNotFoundError) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: {
+						type: "UserNotFoundError",
+						message: err.message,
+					},
+				},
+				{ status: 404 }
+			);
+		}
+
+		if (err instanceof NonPatientUserError) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: {
+						type: "NonPatientUserError",
+						message: err.message,
+					},
+				},
+				{ status: 403 }
+			);
+		}
+
+		const error = err as Error;
+
+		// Handle already deleted error
+		if (error.message?.includes("already been deleted")) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: {
+						type: "AlreadyDeletedError",
+						message: error.message,
+					},
+				},
+				{ status: 400 }
+			);
+		}
+
+		// Handle other errors
+		return NextResponse.json(
+			{
+				success: false,
+				error: {
+					type: "ServerError",
+					message: error?.message || "An unexpected error occurred",
 				},
 			},
 			{ status: 500 }

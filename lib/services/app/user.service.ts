@@ -188,6 +188,7 @@ export interface UpdateUserData {
 	last_name?: string;
 	email?: string;
 	phone_number?: string;
+	image_url?: string;
 }
 
 /**
@@ -283,6 +284,7 @@ export async function updateUser(
 		last_name: string;
 		email: string;
 		phone_number: string;
+		image_url: string;
 	}> = {};
 
 	if (data.first_name !== undefined) dbUpdates.first_name = data.first_name;
@@ -293,6 +295,7 @@ export async function updateUser(
 	}
 	if (data.phone_number !== undefined)
 		dbUpdates.phone_number = data.phone_number;
+	if (data.image_url !== undefined) dbUpdates.image_url = data.image_url;
 
 	if (Object.keys(dbUpdates).length > 0) {
 		const { error: dbError } = await supabaseAdmin
@@ -324,6 +327,88 @@ export async function updateUser(
 		user: updatedUser,
 		emailVerificationPending,
 	};
+}
+
+/**
+ * Soft delete a user account.
+ *
+ * This function performs a soft delete which:
+ * 1. Sets is_soft_deleted = true and deleted_at = NOW() in public.users
+ * 2. Clears supabase_id to NULL (since auth record will be deleted)
+ * 3. Deletes the user from Supabase Auth (hard delete)
+ *
+ * The soft delete preserves all historical data (orders, payments, etc.)
+ * while preventing the user from logging in. The email/phone can be
+ * reused for new registrations after deletion.
+ *
+ * @param supabaseId - The Supabase Auth UUID of the user to delete
+ * @throws UserNotFoundError if user doesn't exist
+ * @throws NonPatientUserError if user is not a patient
+ * @throws Error if deletion fails
+ */
+export async function softDeleteUser(supabaseId: string): Promise<void> {
+	// Step 1: Verify user exists and is a patient
+	const { data: user, error: fetchError } = await supabaseAdmin
+		.from("users")
+		.select("id, user_type, is_soft_deleted")
+		.eq("supabase_id", supabaseId)
+		.single();
+
+	if (fetchError) {
+		if (fetchError.code === "PGRST116") {
+			throw new UserNotFoundError();
+		}
+		throw fetchError;
+	}
+
+	// Only allow patients to delete their accounts via this endpoint
+	if (user.user_type !== "patient") {
+		throw new NonPatientUserError();
+	}
+
+	// Check if already soft deleted
+	if (user.is_soft_deleted) {
+		throw new Error("This account has already been deleted.");
+	}
+
+	// Step 2: Soft delete the user record in public.users
+	// Set is_soft_deleted = true, deleted_at = now(), and clear supabase_id
+	const { error: updateError } = await supabaseAdmin
+		.from("users")
+		.update({
+			is_soft_deleted: true,
+			deleted_at: new Date().toISOString(),
+			supabase_id: null,
+		})
+		.eq("id", user.id);
+
+	if (updateError) {
+		throw new Error(
+			`Failed to soft delete user record: ${updateError.message}`
+		);
+	}
+
+	// Step 3: Delete the user from Supabase Auth (hard delete)
+	// This removes their ability to log in
+	const { error: authDeleteError } =
+		await supabaseAdmin.auth.admin.deleteUser(supabaseId);
+
+	if (authDeleteError) {
+		// If auth deletion fails, we should rollback the soft delete
+		// to maintain consistency
+		await supabaseAdmin
+			.from("users")
+			.update({
+				is_soft_deleted: false,
+				deleted_at: null,
+				supabase_id: supabaseId,
+			})
+			.eq("id", user.id);
+
+		throw new Error(
+			`Failed to delete authentication account: ${authDeleteError.message}`
+		);
+	}
 }
 
 /**
