@@ -177,9 +177,9 @@ const Navbar = ({ className }: { className?: string }) => {
 			<Image
 				src="/images/logo.png"
 				alt={tNavAlt("aidxbait_logo")}
-				width={180}
-				height={90}
-				className="object-contain w-[130px] h-[65px] sm:w-[140px] sm:h-[70px] md:w-[160px] md:h-[80px] lg:w-[180px] lg:h-[90px] logo-responsive"
+				width={259}
+				height={130}
+				className="object-contain w-[187px] h-[94px] sm:w-[202px] sm:h-[101px] md:w-[230px] md:h-[115px] lg:w-[259px] lg:h-[130px] logo-responsive"
 				priority
 			/>
 		</Link>
@@ -198,8 +198,8 @@ const Navbar = ({ className }: { className?: string }) => {
 					className={cn(
 						"border border-transparent shadow-input flex items-center transition-all duration-200 z-50 navbar-height",
 						isScrolled
-							? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-1.5 sm:py-2 justify-between shadow-2xl drop-shadow-lg"
-							: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-4 sm:px-6 md:px-8 lg:px-10 py-1.5 sm:py-1 md:py-1 mx-auto mt-4 max-w-8xl justify-between shadow-2xl drop-shadow-lg"
+							? "fixed top-0 left-0 w-full rounded-none backdrop-blur-md bg-white/90 dark:bg-slate-900/90 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-0.5 sm:py-2 justify-between shadow-2xl drop-shadow-lg"
+							: "relative rounded-full bg-white/95 dark:bg-black/95 dark:border-white/[0.2] backdrop-blur-sm px-4 sm:px-6 md:px-8 lg:px-10 py-0.5 sm:py-1 md:py-1 mx-auto mt-4 max-w-8xl justify-between shadow-2xl drop-shadow-lg"
 					)}
 				>
 					{/* Logo */}
@@ -215,17 +215,14 @@ const Navbar = ({ className }: { className?: string }) => {
 							onMouseLeave={() => setActive(null)}
 							className="relative"
 						>
-							<Link
-								href="/services/home-visits"
-								className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center"
-							>
+							<span className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center">
 								<span className="relative inline-block">
 									<span>{tNav("home_visits")}</span>
 									<span className="absolute -bottom-3.5 ltr:right-0 rtl:left-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
 										{tNav("coming_soon")}
 									</span>
 								</span>
-							</Link>
+							</span>
 							{active === "HomeVisits" && (
 								<div className="absolute top-full ltr:left-0 rtl:right-0 pt-2 z-50">
 									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-6 w-[680px] animate-in fade-in slide-in-from-top-2 duration-200">

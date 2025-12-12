@@ -172,7 +172,7 @@ body {
 
 @media (max-width: 640px) {
 	:root {
-		--navbar-height: 75px;
+		--navbar-height: auto;
 	}
 }
 
@@ -202,36 +202,36 @@ body {
 		max-width: 120px !important;
 		max-height: 60px !important;
 	}
-	
+
 	/* Reduce hero content spacing */
 	.hero-content {
 		padding-top: 10rem !important;
 		gap: 0.75rem !important;
 	}
-	
+
 	/* Scale down heading */
 	.hero-heading {
 		font-size: 1.5rem !important;
 		line-height: 2rem !important;
 	}
-	
+
 	/* Scale down description */
 	.hero-description {
 		font-size: 0.875rem !important;
 		line-height: 1.25rem !important;
 	}
-	
+
 	/* Reduce badge container spacing */
 	.hero-badges {
 		margin-top: 0.75rem !important;
 		gap: 0.5rem !important;
 	}
-	
+
 	/* Reduce badge sizes */
 	.hero-badges img {
 		height: 35px !important;
 	}
-	
+
 	/* Reduce image container height */
 	.hero-image-container {
 		height: 200px !important;
@@ -248,30 +248,30 @@ body {
 		max-width: 110px !important;
 		max-height: 55px !important;
 	}
-	
+
 	.hero-content {
 		padding-top: 9rem !important;
 		gap: 0.5rem !important;
 	}
-	
+
 	.hero-heading {
 		font-size: 1.25rem !important;
 		line-height: 1.75rem !important;
 	}
-	
+
 	.hero-description {
 		font-size: 0.75rem !important;
 		line-height: 1rem !important;
 	}
-	
+
 	.hero-badges {
 		margin-top: 0.5rem !important;
 	}
-	
+
 	.hero-badges img {
 		height: 30px !important;
 	}
-	
+
 	.hero-image-container {
 		height: 160px !important;
 	}
