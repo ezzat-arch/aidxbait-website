@@ -955,7 +955,8 @@
 				"home_visits_specialist_doctors_desc": "Consult with specialist doctors in the comfort of your home.",
 				"home_visits_nursing_desc": "Professional nursing care at your doorstep.",
 				"home_visits_imaging_desc": "Medical imaging services at home.",
-				"home_visits_lab_services_desc": "Laboratory tests done from home."
+				"home_visits_lab_services_desc": "Laboratory tests done from home.",
+				"about_description": "We make healthcare easier to access, safer to navigate, and simpler to trust—through one mobile app. From verified medical devices and equipment delivered to your door, to secure online consultations and professional home visits, we connect you with the products and care you need, when and where you need them. Guided by clinical standards, privacy-first technology, and a commitment to patient safety, we focus on clear guidance, reliable service, and a seamless experience that helps you take confident steps toward better health."
 			}
 		},
 		"pagination": {

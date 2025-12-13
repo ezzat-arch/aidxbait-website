@@ -468,24 +468,9 @@ const Navbar = ({ className }: { className?: string }) => {
 								{active === "About" && (
 									<div className="absolute top-full ltr:right-0 rtl:left-0 pt-2 z-50">
 										<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-6 w-[480px] animate-in fade-in slide-in-from-top-2 duration-200">
-											<div className="flex flex-col gap-4">
-												<div>
-													<h4 className="font-semibold text-base mb-2 text-gray-900">
-														{tNav("our_vision")}
-													</h4>
-													<p className="text-sm text-gray-600 leading-relaxed">
-														{tNav("to_revolutionize_healthcare_delivery_by")}
-													</p>
-												</div>
-												<div>
-													<h4 className="font-semibold text-base mb-2 text-gray-900">
-														{tNav("our_mission")}
-													</h4>
-													<p className="text-sm text-gray-600 leading-relaxed">
-														{tNav("we_are_committed_to_providing")}
-													</p>
-												</div>
-											</div>
+											<p className="text-sm text-gray-600 leading-relaxed">
+												{tNav("about_description")}
+											</p>
 										</div>
 									</div>
 								)}
