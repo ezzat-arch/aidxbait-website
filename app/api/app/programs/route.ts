@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
 				*,
 				joint:program_joint_names!inner(id, name, name_ar),
 				program_reviews(rating),
-				program_videos(id)
+				program_exercises(id)
 			`
 			)
 			.eq("soft_deleted", false);
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
 		// Transform the data to include aggregated review statistics
 		const programsWithStats = data?.map((program: any) => {
 			const reviews = program.program_reviews || [];
-			const videos = program.program_videos || [];
+			const exercises = program.program_exercises || [];
 
 			const totalRating = reviews.reduce(
 				(sum: number, review: any) => sum + review.rating,
@@ -69,10 +69,10 @@ export async function GET(request: NextRequest) {
 				...program,
 				average_rating: Number(averageRating.toFixed(1)),
 				review_count: reviews.length,
-				video_count: videos.length,
+				video_count: exercises.length,
 				// Remove the raw arrays to clean up the response
 				program_reviews: undefined,
-				program_videos: undefined,
+				program_exercises: undefined,
 			};
 		});
 

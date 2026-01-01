@@ -5,6 +5,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
  * GET /api/app/programs/[programId]/videos
  *
  * Fetches exercises (videos) for a specific program with their details.
+ * Requires an active subscription to the program.
  * Queries the program_exercises table and joins with videos.
  * Orders by display_order to maintain the intended sequence.
  */
@@ -13,6 +14,33 @@ export async function GET(
 	{ params }: { params: Promise<{ programId: string }> }
 ) {
 	try {
+		// Verify authorization header
+		const authHeader = request.headers.get("Authorization");
+		if (!authHeader || !authHeader.startsWith("Bearer ")) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: { type: "AuthError", message: "Missing authorization token" },
+				},
+				{ status: 401 }
+			);
+		}
+
+		const token = authHeader.replace("Bearer ", "");
+
+		// Verify the user token with Supabase
+		const { data: userData, error: authError } =
+			await supabaseAdmin.auth.getUser(token);
+		if (authError || !userData.user) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: { type: "AuthError", message: "Invalid authorization token" },
+				},
+				{ status: 401 }
+			);
+		}
+
 		const { programId: programIdParam } = await params;
 		const programId = parseInt(programIdParam, 10);
 
@@ -21,6 +49,75 @@ export async function GET(
 			return NextResponse.json(
 				{ success: false, error: "Invalid programId parameter" },
 				{ status: 400 }
+			);
+		}
+
+		// Get the patient ID for this user
+		const { data: user, error: userError } = await supabaseAdmin
+			.from("users")
+			.select("id")
+			.eq("supabase_id", userData.user.id)
+			.single();
+
+		if (userError || !user) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: { type: "ValidationError", message: "User not found" },
+				},
+				{ status: 404 }
+			);
+		}
+
+		const { data: patient, error: patientError } = await supabaseAdmin
+			.from("patients")
+			.select("id")
+			.eq("user_id", user.id)
+			.single();
+
+		if (patientError || !patient) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: { type: "ValidationError", message: "Patient not found" },
+				},
+				{ status: 404 }
+			);
+		}
+
+		// Check for active subscription
+		const { data: subscription, error: subscriptionError } = await supabaseAdmin
+			.from("exercise_program_subscriptions")
+			.select("id")
+			.eq("patient_id", patient.id)
+			.eq("program_id", programId)
+			.eq("is_active", true)
+			.eq("is_cancelled", false)
+			.gte("end_date", new Date().toISOString())
+			.limit(1)
+			.maybeSingle();
+
+		if (subscriptionError) {
+			console.error(
+				"[Program Videos] Error checking subscription:",
+				subscriptionError
+			);
+			return NextResponse.json(
+				{ success: false, error: "Failed to verify subscription" },
+				{ status: 500 }
+			);
+		}
+
+		if (!subscription) {
+			return NextResponse.json(
+				{
+					success: false,
+					error: {
+						type: "SubscriptionRequired",
+						message: "Active subscription required to access program videos",
+					},
+				},
+				{ status: 403 }
 			);
 		}
 
