@@ -1,2622 +1,2622 @@
 [
-  {
-    "key": "auth.auth.text.authentication_error",
-    "en": "Authentication Error",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.authentication_failed",
-    "en": "Authentication Failed",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.contact_support",
-    "en": "Contact Support",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.create_new_account",
-    "en": "Create New Account",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.possible_causes",
-    "en": "Possible causes:",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.still_having_trouble",
-    "en": "Still having trouble?",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.the_authentication_link_has_expired",
-    "en": "The authentication link has expired",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.the_authentication_link_was_already",
-    "en": "The authentication link was already used",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.there_was_a_network_error",
-    "en": "There was a network error during the process",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.there_was_an_issue_with",
-    "en": "There was an issue with your authentication",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.try_signing_in_again",
-    "en": "Try Signing In Again",
-    "ar": ""
-  },
-  {
-    "key": "auth.auth.text.we_encountered_an_error_while",
-    "en": "We encountered an error while trying to authenticate your account",
-    "ar": ""
-  },
-  {
-    "key": "contact.providers.text.loading",
-    "en": "Loading...",
-    "ar": ""
-  },
-  {
-    "key": "contact.providers.text.providers",
-    "en": "Providers",
-    "ar": ""
-  },
-  {
-    "key": "contact.providers.text.search",
-    "en": "Search:",
-    "ar": ""
-  },
-  {
-    "key": "contexts.cart.toast.description.failed_to_sync_cart_your",
-    "en": "Failed to sync cart. Your cart is saved locally.",
-    "ar": ""
-  },
-  {
-    "key": "contexts.cart.toast.title.cart_sync_issue",
-    "en": "Cart sync issue",
-    "ar": ""
-  },
-  {
-    "key": "Home | Banner Title",
-    "en": "Ophthalmology & General Healthcare Center",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.attr.alt.aidxbait_logo",
-    "en": "AidXBait Logo",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.2025_aidxbait_all_rights_reserved",
-    "en": "© 2025 AidXBait. All rights reserved.",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.app_store",
-    "en": "App Store",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.appointment_booking",
-    "en": "Appointment Booking",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.contact",
-    "en": "Contact",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.cookie_policy",
-    "en": "Cookie Policy",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.download_app",
-    "en": "Download App",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.download_on_the",
-    "en": "Download on the",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.exercise_protocols",
-    "en": "Exercise Protocols",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.get_it_on",
-    "en": "Get it on",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.get_the_aidxbait_app_for",
-    "en": "Get the AidXBait app for iOS and Android to access all features on the go.",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.google_play",
-    "en": "Google Play",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.home",
-    "en": "Home",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.how_it_works",
-    "en": "How It Works",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.our_app",
-    "en": "Our App",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.physical_therapy",
-    "en": "Physical Therapy",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.privacy_policy",
-    "en": "Privacy Policy",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.quick_links",
-    "en": "Quick Links",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.recovery_tracking",
-    "en": "Recovery Tracking",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.revolutionizing_orthopedic_care_through_technology",
-    "en": "Revolutionizing orthopedic care through technology, making recovery more accessible and effective.",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.services",
-    "en": "Services",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.specialist_network",
-    "en": "Specialist Network",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.terms_of_service",
-    "en": "Terms of Service",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.testimonials",
-    "en": "Testimonials",
-    "ar": ""
-  },
-  {
-    "key": "layout.footer.text.virtual_consultations",
-    "en": "Virtual Consultations",
-    "ar": ""
-  },
-  {
-    "key": "layout.user.text.create_an_account",
-    "en": "Create an Account",
-    "ar": ""
-  },
-  {
-    "key": "layout.user.text.loading",
-    "en": "Loading...",
-    "ar": ""
-  },
-  {
-    "key": "layout.user.text.log_in",
-    "en": "Log In",
-    "ar": ""
-  },
-  {
-    "key": "layout.user.text.my_addresses",
-    "en": "My Addresses",
-    "ar": ""
-  },
-  {
-    "key": "layout.user.text.my_orders",
-    "en": "My Orders",
-    "ar": ""
-  },
-  {
-    "key": "layout.user.text.settings",
-    "en": "Settings",
-    "ar": ""
-  },
-  {
-    "key": "layout.user.text.sign_out",
-    "en": "Sign out",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.advanced_knee_support_with_adjustable",
-    "en": "Advanced knee support with adjustable compression for optimal stability during recovery and daily activities.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.comfortable_cervical_collar_for_neck",
-    "en": "Comfortable cervical collar for neck support and pain relief during recovery from neck injuries.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.complete_set_of_resistance_bands",
-    "en": "Complete set of resistance bands for physical therapy, rehabilitation, and strength training.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.ergonomic_shoulder_sling_designed_for",
-    "en": "Ergonomic shoulder sling designed for post-surgery recovery and injury support with premium padding.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.ergonomic_wrist_brace_specifically_designed",
-    "en": "Ergonomic wrist brace specifically designed for carpal tunnel syndrome relief and prevention.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.high_performance_ankle_stabilizer_for",
-    "en": "High-performance ankle stabilizer for athletes and active individuals with superior lateral support.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.professional_grade_lumbar_support_belt",
-    "en": "Professional-grade lumbar support belt for lower back pain relief and posture improvement.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.reusable_hot_cold_therapy_pack",
-    "en": "Reusable hot/cold therapy pack for pain relief and inflammation reduction. Flexible when frozen.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.targeted_compression_sleeve_for_tennis",
-    "en": "Targeted compression sleeve for tennis elbow, golfer's elbow, and general elbow pain relief.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.description.therapeutic_compression_sleeve_for_hip",
-    "en": "Therapeutic compression sleeve for hip support and pain relief during movement and exercise.",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.all_categories",
-    "en": "All Categories",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.all_joints",
-    "en": "All Joints",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.ankle",
-    "en": "Ankle",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.back",
-    "en": "Back",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.back_support",
-    "en": "Back Support",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.braces_supports",
-    "en": "Braces & Supports",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.compression_wear",
-    "en": "Compression Wear",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.elbow",
-    "en": "Elbow",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.exercise_equipment",
-    "en": "Exercise Equipment",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.hip",
-    "en": "Hip",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.knee",
-    "en": "Knee",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.neck",
-    "en": "Neck",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.neck_support",
-    "en": "Neck Support",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.shoulder",
-    "en": "Shoulder",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.slings_immobilizers",
-    "en": "Slings & Immobilizers",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.sports_medicine",
-    "en": "Sports Medicine",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.therapy_equipment",
-    "en": "Therapy Equipment",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.wrist",
-    "en": "Wrist",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.label.wrist_support",
-    "en": "Wrist Support",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.carpal_tunnel_wrist_brace",
-    "en": "Carpal Tunnel Wrist Brace",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.comfort_plus_shoulder_sling",
-    "en": "Comfort Plus Shoulder Sling",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.hip_compression_sleeve",
-    "en": "Hip Compression Sleeve",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.lumbar_support_belt_pro",
-    "en": "Lumbar Support Belt Pro",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.professional_ice_therapy_pack",
-    "en": "Professional Ice Therapy Pack",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.professional_knee_support_brace",
-    "en": "Professional Knee Support Brace",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.professional_resistance_band_set",
-    "en": "Professional Resistance Band Set",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.soft_cervical_collar",
-    "en": "Soft Cervical Collar",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.sport_ankle_stabilizer",
-    "en": "Sport Ankle Stabilizer",
-    "ar": ""
-  },
-  {
-    "key": "lib.store.data.name.tennis_elbow_compression_sleeve",
-    "en": "Tennis Elbow Compression Sleeve",
-    "ar": ""
-  },
-  {
-    "key": "login.attr.placeholder.enter_your_email_address",
-    "en": "Enter your email address",
-    "ar": ""
-  },
-  {
-    "key": "login.attr.placeholder.enter_your_password",
-    "en": "Enter your password",
-    "ar": ""
-  },
-  {
-    "key": "login.text.and",
-    "en": "and",
-    "ar": ""
-  },
-  {
-    "key": "login.text.by_signing_in_you_agree",
-    "en": "By signing in, you agree to our",
-    "ar": ""
-  },
-  {
-    "key": "login.text.create_an_account_for_free",
-    "en": "Create an account for free",
-    "ar": ""
-  },
-  {
-    "key": "login.text.don_t_have_an_account",
-    "en": "Don't have an account?",
-    "ar": ""
-  },
-  {
-    "key": "login.text.email_address",
-    "en": "Email Address",
-    "ar": ""
-  },
-  {
-    "key": "login.text.enter_your_credentials_to_access",
-    "en": "Enter your credentials to access your account",
-    "ar": ""
-  },
-  {
-    "key": "login.text.forgot_your_password",
-    "en": "Forgot your password?",
-    "ar": ""
-  },
-  {
-    "key": "login.text.loading",
-    "en": "Loading...",
-    "ar": ""
-  },
-  {
-    "key": "login.text.log_in",
-    "en": "Log In",
-    "ar": ""
-  },
-  {
-    "key": "login.text.logging_in",
-    "en": "Logging In...",
-    "ar": ""
-  },
-  {
-    "key": "login.text.login",
-    "en": "Login",
-    "ar": ""
-  },
-  {
-    "key": "login.text.login_to_your_aidxbait_account",
-    "en": "Login to your AidXBait account",
-    "ar": ""
-  },
-  {
-    "key": "login.text.password",
-    "en": "Password",
-    "ar": ""
-  },
-  {
-    "key": "login.text.privacy_policy",
-    "en": "Privacy Policy",
-    "ar": ""
-  },
-  {
-    "key": "login.text.terms_of_service",
-    "en": "Terms of Service",
-    "ar": ""
-  },
-  {
-    "key": "login.text.welcome_back",
-    "en": "Welcome Back",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.12",
-    "en": "12",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.123_main_street",
-    "en": "123 Main Street",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.20_123_456_7890",
-    "en": "+20 123 456 7890",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.3",
-    "en": "3",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.building_5",
-    "en": "Building 5",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.cairo",
-    "en": "Cairo",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.home",
-    "en": "Home",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.https_maps_google_com",
-    "en": "https://maps.google.com/...",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.maadi",
-    "en": "Maadi",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.attr.placeholder.next_to_the_pharmacy_green",
-    "en": "Next to the pharmacy, green gate",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.add_a_shipping_or_billing",
-    "en": "Add a shipping or billing address to your account",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.add_address",
-    "en": "Add Address",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.add_new_address",
-    "en": "Add New Address",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.add_your_first_address_to",
-    "en": "Add your first address to get started",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.additional_directions",
-    "en": "Additional Directions",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.address",
-    "en": "Address",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.address_information",
-    "en": "Address Information",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.address_label",
-    "en": "Address Label *",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.address_type",
-    "en": "Address Type *",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.apartment",
-    "en": "Apartment",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.are_you_sure_you_want",
-    "en": "Are you sure you want to delete \"",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.back_to_addresses",
-    "en": "Back to Addresses",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.building_name",
-    "en": "Building Name",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.cancel",
-    "en": "Cancel",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.city",
-    "en": "City *",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.delete",
-    "en": "Delete",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.delete_address",
-    "en": "Delete Address",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.e_g_home_work",
-    "en": "(e.g., Home, Work)",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.edit",
-    "en": "Edit",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.edit_address",
-    "en": "Edit Address",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.floor",
-    "en": "Floor",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.google_maps_link_optional",
-    "en": "Google Maps Link (Optional)",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.governorate",
-    "en": "Governorate *",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.house",
-    "en": "House",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.loading_address",
-    "en": "Loading address...",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.loading_addresses",
-    "en": "Loading addresses...",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.manage_your_shipping_and_billing",
-    "en": "Manage your shipping and billing addresses",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.my_addresses",
-    "en": "My Addresses",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.no_addresses_yet",
-    "en": "No addresses yet",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.phone_number",
-    "en": "Phone Number",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.primary",
-    "en": "Primary",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.set_as_primary_address",
-    "en": "Set as primary address",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.set_primary",
-    "en": "Set Primary",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.street",
-    "en": "Street *",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.this_action_cannot_be_undone",
-    "en": "\"? This action cannot be undone.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.update_your_address_information",
-    "en": "Update your address information",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.text.view_on_google_maps",
-    "en": "View on Google Maps",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.address_added_successfully",
-    "en": "Address added successfully.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.address_deleted_successfully",
-    "en": "Address deleted successfully.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.address_not_found",
-    "en": "Address not found.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.address_updated_successfully",
-    "en": "Address updated successfully.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.failed_to_delete_address_please",
-    "en": "Failed to delete address. Please try again.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.failed_to_load_address_please",
-    "en": "Failed to load address. Please try again.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.failed_to_load_addresses_please",
-    "en": "Failed to load addresses. Please try again.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.failed_to_set_primary_address",
-    "en": "Failed to set primary address. Please try again.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.please_fill_in_all_required",
-    "en": "Please fill in all required fields.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.primary_address_updated_successfully",
-    "en": "Primary address updated successfully.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.description.user_information_not_available_please",
-    "en": "User information not available. Please log in again.",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.title.error",
-    "en": "Error",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.title.success",
-    "en": "Success",
-    "ar": ""
-  },
-  {
-    "key": "profile.addresses.toast.title.validation_error",
-    "en": "Validation Error",
-    "ar": ""
-  },
-  {
-    "key": "profile.layout.data.name.my_orders",
-    "en": "My Orders",
-    "ar": ""
-  },
-  {
-    "key": "profile.layout.text.loading",
-    "en": "Loading...",
-    "ar": ""
-  },
-  {
-    "key": "profile.layout.text.manage_your_orders_and_addresses",
-    "en": "Manage your orders and addresses",
-    "ar": ""
-  },
-  {
-    "key": "profile.layout.text.my_account",
-    "en": "My Account",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.attr.placeholder.filter_by_status",
-    "en": "Filter by status",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text",
-    "en": "•",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.all_orders",
-    "en": "All Orders",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.back_to_orders",
-    "en": "Back to Orders",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.cancelled",
-    "en": "Cancelled",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.confirmed",
-    "en": "Confirmed",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.delivered",
-    "en": "Delivered",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.discount",
-    "en": "Discount",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.loading_order_details",
-    "en": "Loading order details...",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.loading_orders",
-    "en": "Loading orders...",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.method",
-    "en": "Method",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.order",
-    "en": "Order #",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.order_items",
-    "en": "Order Items",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.order_summary",
-    "en": "Order Summary",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.order_timeline",
-    "en": "Order Timeline",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.payment",
-    "en": "Payment",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.pending",
-    "en": "Pending",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.phone",
-    "en": "Phone:",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.quantity",
-    "en": "Quantity:",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.rental",
-    "en": "Rental",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.shipped",
-    "en": "Shipped",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.shipping",
-    "en": "Shipping",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.shipping_address",
-    "en": "Shipping Address",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.status",
-    "en": "Status",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.subtotal",
-    "en": "Subtotal",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.tax_14",
-    "en": "Tax (14%)",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.total",
-    "en": "Total",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.view_all_orders",
-    "en": "View All Orders",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.text.view_and_track_your_order",
-    "en": "View and track your order history",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.toast.description.failed_to_load_order_details",
-    "en": "Failed to load order details. Please try again.",
-    "ar": ""
-  },
-  {
-    "key": "profile.my.toast.description.failed_to_load_orders_please",
-    "en": "Failed to load orders. Please try again.",
-    "ar": ""
-  },
-  {
-    "key": "profile.orders.data.label.order_placed",
-    "en": "Order Placed",
-    "ar": ""
-  },
-  {
-    "key": "profile.orders.text.cancelled_on",
-    "en": "Cancelled on",
-    "ar": ""
-  },
-  {
-    "key": "profile.orders.text.in_progress",
-    "en": "In progress",
-    "ar": ""
-  },
-  {
-    "key": "profile.orders.text.order_cancelled",
-    "en": "Order Cancelled",
-    "ar": ""
-  },
-  {
-    "key": "profile.orders.text.reason",
-    "en": "Reason:",
-    "ar": ""
-  },
-  {
-    "key": "profile.orders.text.view_details",
-    "en": "View Details",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text",
-    "en": "!",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.account_information",
-    "en": "Account Information",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.account_type",
-    "en": "Account Type",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.email",
-    "en": "Email",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.full_name",
-    "en": "Full Name",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.manage_addresses",
-    "en": "Manage Addresses",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.manage_your_orders_and_account",
-    "en": "Manage your orders and account settings",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.phone",
-    "en": "Phone",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.view_orders",
-    "en": "View Orders",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.view_your_order_history_and",
-    "en": "View your order history and track your shipments",
-    "ar": ""
-  },
-  {
-    "key": "profile.page.text.welcome_back",
-    "en": "Welcome back,",
-    "ar": ""
-  },
-  {
-    "key": "register.attr.placeholder.confirm_your_password",
-    "en": "Confirm your password",
-    "ar": ""
-  },
-  {
-    "key": "register.attr.placeholder.create_a_strong_password",
-    "en": "Create a strong password",
-    "ar": ""
-  },
-  {
-    "key": "register.attr.placeholder.enter_your_email_address",
-    "en": "Enter your email address",
-    "ar": ""
-  },
-  {
-    "key": "register.attr.placeholder.enter_your_first_name",
-    "en": "Enter your first name",
-    "ar": ""
-  },
-  {
-    "key": "register.attr.placeholder.enter_your_last_name",
-    "en": "Enter your last name",
-    "ar": ""
-  },
-  {
-    "key": "register.attr.placeholder.enter_your_phone_number",
-    "en": "Enter your phone number",
-    "ar": ""
-  },
-  {
-    "key": "register.text.already_have_an_account",
-    "en": "Already have an account?",
-    "ar": ""
-  },
-  {
-    "key": "register.text.and",
-    "en": "and",
-    "ar": ""
-  },
-  {
-    "key": "register.text.by_creating_an_account_you",
-    "en": "By creating an account, you agree to receive communications from AidXBait",
-    "ar": ""
-  },
-  {
-    "key": "register.text.confirm_password",
-    "en": "Confirm Password",
-    "ar": ""
-  },
-  {
-    "key": "register.text.continue",
-    "en": "Continue",
-    "ar": ""
-  },
-  {
-    "key": "register.text.create_account",
-    "en": "Create Account",
-    "ar": ""
-  },
-  {
-    "key": "register.text.create_your_account_to_get",
-    "en": "Create your account to get started",
-    "ar": ""
-  },
-  {
-    "key": "register.text.creating_account",
-    "en": "Creating Account...",
-    "ar": ""
-  },
-  {
-    "key": "register.text.email_address",
-    "en": "Email Address",
-    "ar": ""
-  },
-  {
-    "key": "register.text.fill_in_your_information_to",
-    "en": "Fill in your information to create your account",
-    "ar": ""
-  },
-  {
-    "key": "register.text.first_name",
-    "en": "First Name",
-    "ar": ""
-  },
-  {
-    "key": "register.text.i_agree_to_the",
-    "en": "I agree to the",
-    "ar": ""
-  },
-  {
-    "key": "register.text.join_aidxbait",
-    "en": "Join AidXBait",
-    "ar": ""
-  },
-  {
-    "key": "register.text.last_name",
-    "en": "Last Name",
-    "ar": ""
-  },
-  {
-    "key": "register.text.loading",
-    "en": "Loading...",
-    "ar": ""
-  },
-  {
-    "key": "register.text.log_in_here",
-    "en": "Log in here",
-    "ar": ""
-  },
-  {
-    "key": "register.text.password",
-    "en": "Password",
-    "ar": ""
-  },
-  {
-    "key": "register.text.password_requirements",
-    "en": "Password Requirements:",
-    "ar": ""
-  },
-  {
-    "key": "register.text.passwords_do_not_match",
-    "en": "Passwords do not match",
-    "ar": ""
-  },
-  {
-    "key": "register.text.passwords_match",
-    "en": "Passwords match",
-    "ar": ""
-  },
-  {
-    "key": "register.text.phone_number",
-    "en": "Phone Number",
-    "ar": ""
-  },
-  {
-    "key": "register.text.privacy_policy",
-    "en": "Privacy Policy",
-    "ar": ""
-  },
-  {
-    "key": "register.text.terms_of_service",
-    "en": "Terms of Service",
-    "ar": ""
-  },
-  {
-    "key": "register.text.try_again",
-    "en": "Try Again",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.attr.alt.aidxbait",
-    "en": "AidXBait",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.data.name.consultations",
-    "en": "Consultations",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.data.name.imaging",
-    "en": "Imaging",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.data.name.lab_services",
-    "en": "Lab Services",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.data.name.nursing",
-    "en": "Nursing",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.data.name.physical_therapy",
-    "en": "Physical Therapy",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text",
-    "en": "%",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.10_000",
-    "en": "10,000+",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.3_200",
-    "en": "3,200+",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.30_faster_recovery",
-    "en": "30% Faster Recovery",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.4_8_5_rating",
-    "en": "⭐ 4.8/5 Rating",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.4_8_5_stars",
-    "en": "4.8/5 stars",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.4_800",
-    "en": "4,800+",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.42_years",
-    "en": "42 years",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.45_min",
-    "en": "45 min",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.5_000_app_downloads",
-    "en": "5,000+ App Downloads",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.5_000_downloads_of_our",
-    "en": "5,000+ downloads of our mobile app across iOS and Android.",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.500",
-    "en": "500+",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.500_certified_therapists_available_for",
-    "en": "500+ certified therapists available for home visits and consultations.",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.6_weeks",
-    "en": "6 weeks",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.8_000_online_and_in",
-    "en": "8,000+ online and in-person consultations booked.",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.85_daily_active_users",
-    "en": "85% daily active users",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.98",
-    "en": "98%",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.aidxbait_in_numbers",
-    "en": "AidXBait in Numbers",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.aidxbait_offers_comprehensive_physiotherapy_services",
-    "en": "AidXBait offers comprehensive physiotherapy services including home visits, exercise programs, and online consultations to help you recover faster...",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.available_24_7_for_emergency",
-    "en": "Available 24/7 for emergency consultations",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.available_on_ios_and_android",
-    "en": "Available on iOS and Android stores.",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.average_rating",
-    "en": "Average Rating:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.avg_age",
-    "en": "Avg. Age:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.avg_age_42_years",
-    "en": "Avg. Age: 42 years",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.avg_program_length",
-    "en": "Avg. Program Length:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.avg_program_length_6_weeks",
-    "en": "Avg. Program Length: 6 weeks",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.avg_session_time",
-    "en": "Avg. Session Time:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.before",
-    "en": "Before",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.consultation_stats",
-    "en": "📊 Consultation Stats:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.faster_recovery",
-    "en": "📈 Faster Recovery",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.fun_fact_60_of_our",
-    "en": "Fun fact: 60% of our therapists speak two or more languages!",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.fun_fact_85_of_users",
-    "en": "Fun fact: 85% of users open the app daily!",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.fun_fact_our_fastest_recovery",
-    "en": "Fun fact: Our fastest recovery was just 2 weeks!",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.fun_fact_our_youngest_patient",
-    "en": "Fun fact: Our youngest patient was just 3 years old!",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.home_visits",
-    "en": "Home Visits:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.licensed_professionals",
-    "en": "Licensed Professionals",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.most_users_check_progress_daily",
-    "en": "Most users check progress daily!",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.online_sessions",
-    "en": "Online Sessions:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.orthopedic_rehab",
-    "en": "Orthopedic Rehab",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.over_10_000_patients_have",
-    "en": "Over 10,000 patients have used AidXBait for their recovery.",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.patient_satisfaction",
-    "en": "Patient Satisfaction:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.patients_helped",
-    "en": "Patients Helped",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.patients_report_30_faster_recovery",
-    "en": "Patients report 30% faster recovery with our programs.",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.start_your_recovery_today",
-    "en": "Start your recovery today!",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.top_specialty",
-    "en": "Top Specialty:",
-    "ar": ""
-  },
-  {
-    "key": "sections.aidxbait.text.with_aidxbait",
-    "en": "With AidXBait",
-    "ar": ""
-  },
-  {
-    "key": "sections.contact.text.aidxbait_revolutionizes_orthopedic_care_with",
-    "en": "AidXBait revolutionizes orthopedic care with cutting-edge technology, personalized treatment plans, and comprehensive support. Connect with our expert team to transform your recovery journey and achieve optimal health outcomes.",
-    "ar": ""
-  },
-  {
-    "key": "sections.contact.text.follow_us",
-    "en": "Follow us",
-    "ar": ""
-  },
-  {
-    "key": "sections.contact.text.get_in_touch",
-    "en": "Get in Touch",
-    "ar": ""
-  },
-  {
-    "key": "sections.contact.text.ultimate_healthcare_solution",
-    "en": "Ultimate Healthcare Solution",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.attr.alt.home_medical_care_doctor_visiting",
-    "en": "Home medical care - Doctor visiting patient at home",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.attr.alt.medical_technology_and_healthcare_services",
-    "en": "Medical Technology and Healthcare Services",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.24_7_support",
-    "en": "24/7 Support",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.already_have_an_account",
-    "en": "Already have an account?",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.at_home",
-    "en": "at Home",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.book_healthcare_services_from_the",
-    "en": "Book healthcare services from the comfort of home. Get lab tests, consultations, and personalized plans—all without stepping outside.",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.create_an_account",
-    "en": "Create an Account",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.get_medical_care",
-    "en": "Get Medical Care",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.get_started",
-    "en": "Get Started",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.home_care",
-    "en": "Home Care",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.log_in",
-    "en": "Log In",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.on_your_schedule",
-    "en": ", On Your Schedule",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.secure_private",
-    "en": "Secure & Private",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.stay_at_home_and_order",
-    "en": "Stay at Home and order all medical services with a finger click",
-    "ar": ""
-  },
-  {
-    "key": "sections.hero.text.unlock_the_potentials_of",
-    "en": "Unlock The Potentials of",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.attr.alt.service_background",
-    "en": "Service background",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.data.description.browse_and_order_mobility_aids",
-    "en": "Browse and order mobility aids, braces, and more — all delivered to your doorstep.",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.data.description.licensed_physical_therapists_provide_one",
-    "en": "Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.data.description.personalized_video_based_rehab_programs",
-    "en": "Personalized video-based rehab programs sent after your consultation for follow-up care.",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.data.description.portable_x_rays_and_ultrasounds",
-    "en": "Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.data.description.professional_nurses_available_for_home",
-    "en": "Professional nurses available for home visits to provide medication administration, wound care, post-operative support, IV therapy, and chronic condition management — all in the comfort of your home.",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.data.description.video_calls_with_physical_therapists",
-    "en": "Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.data.description.we_send_a_nurse_to",
-    "en": "We send a nurse to collect your blood or samples from home. Lab results are delivered digitally.",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.text.complete_healthcare_services_delivered_to",
-    "en": "Complete healthcare services delivered to your home for maximum convenience and comfort.",
-    "ar": ""
-  },
-  {
-    "key": "sections.services.text.our_services",
-    "en": "Our Services",
-    "ar": ""
-  },
-  {
-    "key": "sections.testimonials.data.name.emily_rodriguez",
-    "en": "Emily Rodriguez",
-    "ar": ""
-  },
-  {
-    "key": "sections.testimonials.data.name.james_lee",
-    "en": "James Lee",
-    "ar": ""
-  },
-  {
-    "key": "sections.testimonials.data.name.michael_chen",
-    "en": "Michael Chen",
-    "ar": ""
-  },
-  {
-    "key": "sections.testimonials.data.name.priya_patel",
-    "en": "Priya Patel",
-    "ar": ""
-  },
-  {
-    "key": "sections.testimonials.data.name.sarah_johnson",
-    "en": "Sarah Johnson",
-    "ar": ""
-  },
-  {
-    "key": "sections.why.data.description.all_our_healthcare_providers_are",
-    "en": "All our healthcare providers are fully licensed, experienced professionals committed to delivering the highest quality care in your home.",
-    "ar": ""
-  },
-  {
-    "key": "sections.why.data.description.book_appointments_track_health_records",
-    "en": "Book appointments, track health records, communicate with providers, and manage prescriptions all from one powerful, easy-to-use app.",
-    "ar": ""
-  },
-  {
-    "key": "sections.why.data.description.comprehensive_coverage_across_cairo_giza",
-    "en": "Comprehensive coverage across Cairo, Giza, and expanding regions. Bringing professional healthcare directly to your doorstep.",
-    "ar": ""
-  },
-  {
-    "key": "sections.why.data.description.get_connected_to_healthcare_professionals",
-    "en": "Get connected to healthcare professionals within hours, not days. Our rapid response system ensures you receive care when you need it most.",
-    "ar": ""
-  },
-  {
-    "key": "sections.why.text.bringing_hospital_care_quality_to",
-    "en": "Bringing Hospital-Care quality to your home",
-    "ar": ""
-  },
-  {
-    "key": "sections.why.text.why_choose_aidxbait",
-    "en": "Why Choose AidXBait?",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text",
-    "en": ")",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.add_to_cart",
-    "en": "Add to Cart",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.back_to_store",
-    "en": "Back to Store",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.be_the_first_to_review",
-    "en": "Be the first to review this product!",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.best_seller",
-    "en": "Best Seller",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.by_placing_your_order_you",
-    "en": "By placing your order, you agree to our Terms of Service and Privacy Policy",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.checkout",
-    "en": "Checkout",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.complete_your_order",
-    "en": "Complete your order",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.currently_unavailable",
-    "en": "Currently Unavailable",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.easy_returns",
-    "en": "Easy Returns",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.fast_shipping",
-    "en": "Fast Shipping",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.featured",
-    "en": "Featured",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.for_rent",
-    "en": "For Rent",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.in_stock",
-    "en": "In Stock",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.left",
-    "en": "left!)",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.loading",
-    "en": "Loading...",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.loading_product",
-    "en": "Loading product...",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.no_description_available",
-    "en": "No description available",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.no_reviews_yet",
-    "en": "No reviews yet",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.only",
-    "en": "(Only",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.order_items",
-    "en": "Order Items (",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.out_of_stock",
-    "en": "Out of Stock",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.payment_method",
-    "en": "Payment Method",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.prd",
-    "en": "PRD-",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.quality_guaranteed",
-    "en": "Quality Guaranteed",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.quantity",
-    "en": "Quantity:",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.reviews",
-    "en": "Reviews",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.see_less",
-    "en": "See Less",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.see_more",
-    "en": "See More",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.shipping_address",
-    "en": "Shipping Address",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.sku",
-    "en": "SKU:",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.store",
-    "en": "Store",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.view_all",
-    "en": "View All",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.you_don_t_have_any",
-    "en": "You don't have any saved addresses yet.",
-    "ar": ""
-  },
-  {
-    "key": "services.store.text.you_may_also_like",
-    "en": "You May Also Like",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.description.failed_to_load_addresses_please",
-    "en": "Failed to load addresses. Please try again.",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.description.please_select_a_shipping_address",
-    "en": "Please select a shipping address.",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.description.user_information_not_available_please",
-    "en": "User information not available. Please log in again.",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.description.your_cart_is_empty",
-    "en": "Your cart is empty.",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.description.your_order_has_been_placed",
-    "en": "Your order has been placed successfully.",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.title.address_required",
-    "en": "Address Required",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.title.empty_cart",
-    "en": "Empty Cart",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.title.error",
-    "en": "Error",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.title.order_placed",
-    "en": "Order Placed!",
-    "ar": ""
-  },
-  {
-    "key": "services.store.toast.title.payment_error",
-    "en": "Payment Error",
-    "ar": ""
-  },
-  {
-    "key": "store.CartItem.text",
-    "en": "×",
-    "ar": ""
-  },
-  {
-    "key": "store.CartItem.text.for_rent",
-    "en": "For Rent",
-    "ar": ""
-  },
-  {
-    "key": "store.CartItem.text.rental_period",
-    "en": "Rental Period:",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSidebar.text",
-    "en": ")",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSidebar.text.add_some_products_to_get",
-    "en": "Add some products to get started",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSidebar.text.clear_all",
-    "en": "Clear All",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSidebar.text.continue_shopping",
-    "en": "Continue Shopping",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSidebar.text.proceed_to_checkout",
-    "en": "Proceed to Checkout",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSidebar.text.shopping_cart",
-    "en": "Shopping Cart (",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSidebar.text.your_cart_is_empty",
-    "en": "Your cart is empty",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.add",
-    "en": "💡 Add",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.egp",
-    "en": "EGP",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.egp_more_for_free_shipping",
-    "en": "EGP more for free shipping",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.free",
-    "en": "Free",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.items",
-    "en": "items)",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.order_summary",
-    "en": "Order Summary",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.shipping",
-    "en": "Shipping",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.subtotal",
-    "en": "Subtotal (",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.tax",
-    "en": "Tax",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.tax_calculated_at_checkout_final",
-    "en": "Tax calculated at checkout. Final total may vary.",
-    "ar": ""
-  },
-  {
-    "key": "store.CartSummary.text.total",
-    "en": "Total",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.data.description.pay_securely_with_your_card",
-    "en": "Pay securely with your card",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.data.description.pay_when_you_receive_your",
-    "en": "Pay when you receive your order",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.data.label.cash_on_delivery",
-    "en": "Cash on Delivery",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.data.label.online_payment",
-    "en": "Online Payment",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.text.add_new_address",
-    "en": "Add New Address",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.text.cancel",
-    "en": "Cancel",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.text.discount",
-    "en": "Discount",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.text.phone",
-    "en": "Phone:",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.text.primary",
-    "en": "Primary",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.text.subtotal",
-    "en": "Subtotal",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.text.tax_14",
-    "en": "Tax (14%)",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.toast.description.address_added_successfully",
-    "en": "Address added successfully.",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.toast.description.please_fill_in_all_required",
-    "en": "Please fill in all required fields.",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.toast.title.error",
-    "en": "Error",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.toast.title.success",
-    "en": "Success",
-    "ar": ""
-  },
-  {
-    "key": "store.checkout.toast.title.validation_error",
-    "en": "Validation Error",
-    "ar": ""
-  },
-  {
-    "key": "store.HorizontalFilters.attr.aria-label.clear_search",
-    "en": "Clear search",
-    "ar": ""
-  },
-  {
-    "key": "store.HorizontalFilters.attr.placeholder.search_products",
-    "en": "Search products...",
-    "ar": ""
-  },
-  {
-    "key": "store.HorizontalFilters.text.clear",
-    "en": "Clear",
-    "ar": ""
-  },
-  {
-    "key": "store.HorizontalFilters.text.clear_all_filters",
-    "en": "Clear All Filters",
-    "ar": ""
-  },
-  {
-    "key": "store.HorizontalFilters.text.found",
-    "en": "found",
-    "ar": ""
-  },
-  {
-    "key": "store.HorizontalFilters.text.in_stock_only",
-    "en": "In Stock Only",
-    "ar": ""
-  },
-  {
-    "key": "store.JointCapsuleFilter.text.active_filters",
-    "en": "Active Filters:",
-    "ar": ""
-  },
-  {
-    "key": "store.JointCapsuleFilter.text.apply_filters",
-    "en": "Apply Filters (",
-    "ar": ""
-  },
-  {
-    "key": "store.JointCapsuleFilter.text.choose_the_joints_you_want",
-    "en": "Choose the joints you want to filter by",
-    "ar": ""
-  },
-  {
-    "key": "store.JointCapsuleFilter.text.filter_by_body_part",
-    "en": "Filter by Body Part",
-    "ar": ""
-  },
-  {
-    "key": "store.JointCapsuleFilter.text.of",
-    "en": "of",
-    "ar": ""
-  },
-  {
-    "key": "store.JointCapsuleFilter.text.select_joint_types",
-    "en": "Select Joint Types",
-    "ar": ""
-  },
-  {
-    "key": "store.JointCapsuleFilter.text.selected",
-    "en": "selected)",
-    "ar": ""
-  },
-  {
-    "key": "store.JointCapsuleFilter.text.selected_joints",
-    "en": "Selected Joints:",
-    "ar": ""
-  },
-  {
-    "key": "store.PriceRangeFilter.text.price_range",
-    "en": "Price Range",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductCard.text",
-    "en": "%",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductCard.text.best_seller",
-    "en": "Best Seller",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductCard.text.featured",
-    "en": "Featured",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductCard.text.left",
-    "en": "left",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductCard.text.only",
-    "en": "Only",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductCard.text.out_of_stock",
-    "en": "Out of Stock",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.attr.placeholder.select_category",
-    "en": "Select category",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.attr.placeholder.select_joint_type",
-    "en": "Select joint type",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text",
-    "en": "\"",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text.category",
-    "en": "Category",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text.filters",
-    "en": "filters",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text.in_stock",
-    "en": "In Stock",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text.in_stock_only",
-    "en": "In stock only",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text.joint_type",
-    "en": "Joint Type",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text.products",
-    "en": "products",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text.refine_your_product_search",
-    "en": "Refine your product search",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductFilters.text.search",
-    "en": "Search: \"",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductGrid.text.no_products_found",
-    "en": "No products found",
-    "ar": ""
-  },
-  {
-    "key": "store.ProductGrid.text.we_couldn_t_find_any",
-    "en": "We couldn't find any products matching your criteria. Try adjusting your filters or search terms.",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text",
-    "en": "✓",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.clear_filters",
-    "en": "Clear Filters",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.expert_approved",
-    "en": "Expert Approved",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.fast_delivery",
-    "en": "Fast Delivery",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.loading_products",
-    "en": "Loading products...",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.medical_grade",
-    "en": "Medical Grade",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.no_products_found_matching_your",
-    "en": "No products found matching your criteria",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.premium_quality_products",
-    "en": "Premium Quality Products",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.retry",
-    "en": "Retry",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.text.shop_physical_therapy_products",
-    "en": "Shop Physical Therapy Products",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.toast.title.payment_failed",
-    "en": "Payment Failed",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.toast.title.payment_pending",
-    "en": "Payment Pending",
-    "ar": ""
-  },
-  {
-    "key": "store.StoreContent.toast.title.payment_successful",
-    "en": "Payment Successful! 🎉",
-    "ar": ""
-  },
-  {
-    "key": "ui.apple.attr.aria-label.next_slide",
-    "en": "Next slide",
-    "ar": ""
-  },
-  {
-    "key": "ui.apple.attr.aria-label.previous_slide",
-    "en": "Previous slide",
-    "ar": ""
-  },
-  {
-    "key": "ui.breadcrumb.attr.aria-label.breadcrumb",
-    "en": "breadcrumb",
-    "ar": ""
-  },
-  {
-    "key": "ui.breadcrumb.text.more",
-    "en": "More",
-    "ar": ""
-  },
-  {
-    "key": "ui.cards.text.a_card_that_showcases_a",
-    "en": "A card that showcases a set of tools that you use to create your product.",
-    "ar": ""
-  },
-  {
-    "key": "ui.cards.text.damn_good_card",
-    "en": "Damn good card",
-    "ar": ""
-  },
-  {
-    "key": "ui.carousel.attr.aria-roledescription.carousel",
-    "en": "carousel",
-    "ar": ""
-  },
-  {
-    "key": "ui.carousel.attr.aria-roledescription.slide",
-    "en": "slide",
-    "ar": ""
-  },
-  {
-    "key": "ui.dialog.text.close",
-    "en": "Close",
-    "ar": ""
-  },
-  {
-    "key": "ui.language.data.label",
-    "en": "العربية",
-    "ar": ""
-  },
-  {
-    "key": "ui.language.data.label.english",
-    "en": "English",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.attr.alt.about_aidxbait",
-    "en": "About AidXBait",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.attr.alt.aidxbait_logo",
-    "en": "AidXBait Logo",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.about",
-    "en": "About",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.access_your_reports_track_recovery",
-    "en": "Access your reports, track recovery, and continue your care through the Aid x Bait app. We're with you every step of the way.",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.at_home_radiology",
-    "en": "At-home radiology",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.call_me_request",
-    "en": "Call-me Request",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.contact",
-    "en": "Contact",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.equipment_rental",
-    "en": "Equipment Rental",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.home_exercise_programs",
-    "en": "Home-Exercise Programs",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.home_imaging",
-    "en": "Home Imaging",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.home_lab_tests",
-    "en": "Home Lab Tests",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.home_nursing",
-    "en": "Home Nursing",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.home_physical_therapy",
-    "en": "Home physical therapy",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.lab_tests",
-    "en": "Lab tests",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.language",
-    "en": "Language:",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.learn_more",
-    "en": "Learn More",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.licensed_professionals_come_to_you",
-    "en": "Licensed professionals come to you with the tools they need — or meet you virtually for your consultation. No travel needed.",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.medical_store",
-    "en": "Medical Store",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.online_store",
-    "en": "Online Store",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.online_video_consultations",
-    "en": "Online Video Consultations",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.our_mission",
-    "en": "Our Mission",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.our_vision",
-    "en": "Our Vision",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.our_vision_mission",
-    "en": "Our Vision & Mission",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.pick_a_convenient_time_and",
-    "en": "Pick a convenient time and location. Our team confirms your request and prepares everything for your visit or call.",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.products",
-    "en": "Products",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.select_the_healthcare_service_you",
-    "en": "Select the healthcare service you need:",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.send_a_message",
-    "en": "Send a Message",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.services",
-    "en": "Services",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.store",
-    "en": "Store",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.to_order_braces_mobility_aids",
-    "en": "to order braces, mobility aids, rehab equipment, and more — all delivered to your home, no appointment required.",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.to_revolutionize_healthcare_delivery_by",
-    "en": "To revolutionize healthcare delivery by making quality medical services accessible at home, empowering patients to receive professional care in the comfort of their own environment.",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.virtual_consultations_with_specialists",
-    "en": "Virtual consultations with specialists",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.visit_our",
-    "en": "Visit our",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.we_are_committed_to_providing",
-    "en": "We are committed to providing comprehensive, technology-driven healthcare solutions that bridge the gap between patients and medical professionals, ensuring convenient, efficient, and personalized care for everyone.",
-    "ar": ""
-  },
-  {
-    "key": "ui.navbar.text.whatsapp_chatbot",
-    "en": "WhatsApp Chatbot",
-    "ar": ""
-  },
-  {
-    "key": "ui.pagination.attr.aria-label.go_to_next_page",
-    "en": "Go to next page",
-    "ar": ""
-  },
-  {
-    "key": "ui.pagination.attr.aria-label.go_to_previous_page",
-    "en": "Go to previous page",
-    "ar": ""
-  },
-  {
-    "key": "ui.pagination.attr.aria-label.pagination",
-    "en": "pagination",
-    "ar": ""
-  },
-  {
-    "key": "ui.pagination.text.more_pages",
-    "en": "More pages",
-    "ar": ""
-  },
-  {
-    "key": "ui.pagination.text.next",
-    "en": "Next",
-    "ar": ""
-  },
-  {
-    "key": "ui.pagination.text.previous",
-    "en": "Previous",
-    "ar": ""
-  },
-  {
-    "key": "ui.sidebar.text.toggle_sidebar",
-    "en": "Toggle Sidebar",
-    "ar": ""
-  }
+	{
+		"key": "auth.auth.text.authentication_error",
+		"en": "Authentication Error",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.authentication_failed",
+		"en": "Authentication Failed",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.contact_support",
+		"en": "Contact Support",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.create_new_account",
+		"en": "Create New Account",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.possible_causes",
+		"en": "Possible causes:",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.still_having_trouble",
+		"en": "Still having trouble?",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.the_authentication_link_has_expired",
+		"en": "The authentication link has expired",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.the_authentication_link_was_already",
+		"en": "The authentication link was already used",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.there_was_a_network_error",
+		"en": "There was a network error during the process",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.there_was_an_issue_with",
+		"en": "There was an issue with your authentication",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.try_signing_in_again",
+		"en": "Try Signing In Again",
+		"ar": ""
+	},
+	{
+		"key": "auth.auth.text.we_encountered_an_error_while",
+		"en": "We encountered an error while trying to authenticate your account",
+		"ar": ""
+	},
+	{
+		"key": "contact.providers.text.loading",
+		"en": "Loading...",
+		"ar": ""
+	},
+	{
+		"key": "contact.providers.text.providers",
+		"en": "Providers",
+		"ar": ""
+	},
+	{
+		"key": "contact.providers.text.search",
+		"en": "Search:",
+		"ar": ""
+	},
+	{
+		"key": "contexts.cart.toast.description.failed_to_sync_cart_your",
+		"en": "Failed to sync cart. Your cart is saved locally.",
+		"ar": ""
+	},
+	{
+		"key": "contexts.cart.toast.title.cart_sync_issue",
+		"en": "Cart sync issue",
+		"ar": ""
+	},
+	{
+		"key": "Home | Banner Title",
+		"en": "Ophthalmology & General Healthcare Center",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.attr.alt.aidxbait_logo",
+		"en": "AidxBait Logo",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.2025_aidxbait_all_rights_reserved",
+		"en": "© 2025 AidxBait. All rights reserved.",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.app_store",
+		"en": "App Store",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.appointment_booking",
+		"en": "Appointment Booking",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.contact",
+		"en": "Contact",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.cookie_policy",
+		"en": "Cookie Policy",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.download_app",
+		"en": "Download App",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.download_on_the",
+		"en": "Download on the",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.exercise_protocols",
+		"en": "Exercise Protocols",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.get_it_on",
+		"en": "Get it on",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.get_the_aidxbait_app_for",
+		"en": "Get the AidxBait app for iOS and Android to access all features on the go.",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.google_play",
+		"en": "Google Play",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.home",
+		"en": "Home",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.how_it_works",
+		"en": "How It Works",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.our_app",
+		"en": "Our App",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.physical_therapy",
+		"en": "Physical Therapy",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.privacy_policy",
+		"en": "Privacy Policy",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.quick_links",
+		"en": "Quick Links",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.recovery_tracking",
+		"en": "Recovery Tracking",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.revolutionizing_orthopedic_care_through_technology",
+		"en": "Revolutionizing orthopedic care through technology, making recovery more accessible and effective.",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.services",
+		"en": "Services",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.specialist_network",
+		"en": "Specialist Network",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.terms_of_service",
+		"en": "Terms of Service",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.testimonials",
+		"en": "Testimonials",
+		"ar": ""
+	},
+	{
+		"key": "layout.footer.text.virtual_consultations",
+		"en": "Virtual Consultations",
+		"ar": ""
+	},
+	{
+		"key": "layout.user.text.create_an_account",
+		"en": "Create an Account",
+		"ar": ""
+	},
+	{
+		"key": "layout.user.text.loading",
+		"en": "Loading...",
+		"ar": ""
+	},
+	{
+		"key": "layout.user.text.log_in",
+		"en": "Log In",
+		"ar": ""
+	},
+	{
+		"key": "layout.user.text.my_addresses",
+		"en": "My Addresses",
+		"ar": ""
+	},
+	{
+		"key": "layout.user.text.my_orders",
+		"en": "My Orders",
+		"ar": ""
+	},
+	{
+		"key": "layout.user.text.settings",
+		"en": "Settings",
+		"ar": ""
+	},
+	{
+		"key": "layout.user.text.sign_out",
+		"en": "Sign out",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.advanced_knee_support_with_adjustable",
+		"en": "Advanced knee support with adjustable compression for optimal stability during recovery and daily activities.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.comfortable_cervical_collar_for_neck",
+		"en": "Comfortable cervical collar for neck support and pain relief during recovery from neck injuries.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.complete_set_of_resistance_bands",
+		"en": "Complete set of resistance bands for physical therapy, rehabilitation, and strength training.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.ergonomic_shoulder_sling_designed_for",
+		"en": "Ergonomic shoulder sling designed for post-surgery recovery and injury support with premium padding.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.ergonomic_wrist_brace_specifically_designed",
+		"en": "Ergonomic wrist brace specifically designed for carpal tunnel syndrome relief and prevention.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.high_performance_ankle_stabilizer_for",
+		"en": "High-performance ankle stabilizer for athletes and active individuals with superior lateral support.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.professional_grade_lumbar_support_belt",
+		"en": "Professional-grade lumbar support belt for lower back pain relief and posture improvement.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.reusable_hot_cold_therapy_pack",
+		"en": "Reusable hot/cold therapy pack for pain relief and inflammation reduction. Flexible when frozen.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.targeted_compression_sleeve_for_tennis",
+		"en": "Targeted compression sleeve for tennis elbow, golfer's elbow, and general elbow pain relief.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.description.therapeutic_compression_sleeve_for_hip",
+		"en": "Therapeutic compression sleeve for hip support and pain relief during movement and exercise.",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.all_categories",
+		"en": "All Categories",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.all_joints",
+		"en": "All Joints",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.ankle",
+		"en": "Ankle",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.back",
+		"en": "Back",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.back_support",
+		"en": "Back Support",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.braces_supports",
+		"en": "Braces & Supports",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.compression_wear",
+		"en": "Compression Wear",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.elbow",
+		"en": "Elbow",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.exercise_equipment",
+		"en": "Exercise Equipment",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.hip",
+		"en": "Hip",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.knee",
+		"en": "Knee",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.neck",
+		"en": "Neck",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.neck_support",
+		"en": "Neck Support",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.shoulder",
+		"en": "Shoulder",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.slings_immobilizers",
+		"en": "Slings & Immobilizers",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.sports_medicine",
+		"en": "Sports Medicine",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.therapy_equipment",
+		"en": "Therapy Equipment",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.wrist",
+		"en": "Wrist",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.label.wrist_support",
+		"en": "Wrist Support",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.carpal_tunnel_wrist_brace",
+		"en": "Carpal Tunnel Wrist Brace",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.comfort_plus_shoulder_sling",
+		"en": "Comfort Plus Shoulder Sling",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.hip_compression_sleeve",
+		"en": "Hip Compression Sleeve",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.lumbar_support_belt_pro",
+		"en": "Lumbar Support Belt Pro",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.professional_ice_therapy_pack",
+		"en": "Professional Ice Therapy Pack",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.professional_knee_support_brace",
+		"en": "Professional Knee Support Brace",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.professional_resistance_band_set",
+		"en": "Professional Resistance Band Set",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.soft_cervical_collar",
+		"en": "Soft Cervical Collar",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.sport_ankle_stabilizer",
+		"en": "Sport Ankle Stabilizer",
+		"ar": ""
+	},
+	{
+		"key": "lib.store.data.name.tennis_elbow_compression_sleeve",
+		"en": "Tennis Elbow Compression Sleeve",
+		"ar": ""
+	},
+	{
+		"key": "login.attr.placeholder.enter_your_email_address",
+		"en": "Enter your email address",
+		"ar": ""
+	},
+	{
+		"key": "login.attr.placeholder.enter_your_password",
+		"en": "Enter your password",
+		"ar": ""
+	},
+	{
+		"key": "login.text.and",
+		"en": "and",
+		"ar": ""
+	},
+	{
+		"key": "login.text.by_signing_in_you_agree",
+		"en": "By signing in, you agree to our",
+		"ar": ""
+	},
+	{
+		"key": "login.text.create_an_account_for_free",
+		"en": "Create an account for free",
+		"ar": ""
+	},
+	{
+		"key": "login.text.don_t_have_an_account",
+		"en": "Don't have an account?",
+		"ar": ""
+	},
+	{
+		"key": "login.text.email_address",
+		"en": "Email Address",
+		"ar": ""
+	},
+	{
+		"key": "login.text.enter_your_credentials_to_access",
+		"en": "Enter your credentials to access your account",
+		"ar": ""
+	},
+	{
+		"key": "login.text.forgot_your_password",
+		"en": "Forgot your password?",
+		"ar": ""
+	},
+	{
+		"key": "login.text.loading",
+		"en": "Loading...",
+		"ar": ""
+	},
+	{
+		"key": "login.text.log_in",
+		"en": "Log In",
+		"ar": ""
+	},
+	{
+		"key": "login.text.logging_in",
+		"en": "Logging In...",
+		"ar": ""
+	},
+	{
+		"key": "login.text.login",
+		"en": "Login",
+		"ar": ""
+	},
+	{
+		"key": "login.text.login_to_your_aidxbait_account",
+		"en": "Login to your AidxBait account",
+		"ar": ""
+	},
+	{
+		"key": "login.text.password",
+		"en": "Password",
+		"ar": ""
+	},
+	{
+		"key": "login.text.privacy_policy",
+		"en": "Privacy Policy",
+		"ar": ""
+	},
+	{
+		"key": "login.text.terms_of_service",
+		"en": "Terms of Service",
+		"ar": ""
+	},
+	{
+		"key": "login.text.welcome_back",
+		"en": "Welcome Back",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.12",
+		"en": "12",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.123_main_street",
+		"en": "123 Main Street",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.20_123_456_7890",
+		"en": "+20 123 456 7890",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.3",
+		"en": "3",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.building_5",
+		"en": "Building 5",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.cairo",
+		"en": "Cairo",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.home",
+		"en": "Home",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.https_maps_google_com",
+		"en": "https://maps.google.com/...",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.maadi",
+		"en": "Maadi",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.attr.placeholder.next_to_the_pharmacy_green",
+		"en": "Next to the pharmacy, green gate",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.add_a_shipping_or_billing",
+		"en": "Add a shipping or billing address to your account",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.add_address",
+		"en": "Add Address",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.add_new_address",
+		"en": "Add New Address",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.add_your_first_address_to",
+		"en": "Add your first address to get started",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.additional_directions",
+		"en": "Additional Directions",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.address",
+		"en": "Address",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.address_information",
+		"en": "Address Information",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.address_label",
+		"en": "Address Label *",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.address_type",
+		"en": "Address Type *",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.apartment",
+		"en": "Apartment",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.are_you_sure_you_want",
+		"en": "Are you sure you want to delete \"",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.back_to_addresses",
+		"en": "Back to Addresses",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.building_name",
+		"en": "Building Name",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.cancel",
+		"en": "Cancel",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.city",
+		"en": "City *",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.delete",
+		"en": "Delete",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.delete_address",
+		"en": "Delete Address",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.e_g_home_work",
+		"en": "(e.g., Home, Work)",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.edit",
+		"en": "Edit",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.edit_address",
+		"en": "Edit Address",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.floor",
+		"en": "Floor",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.google_maps_link_optional",
+		"en": "Google Maps Link (Optional)",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.governorate",
+		"en": "Governorate *",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.house",
+		"en": "House",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.loading_address",
+		"en": "Loading address...",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.loading_addresses",
+		"en": "Loading addresses...",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.manage_your_shipping_and_billing",
+		"en": "Manage your shipping and billing addresses",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.my_addresses",
+		"en": "My Addresses",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.no_addresses_yet",
+		"en": "No addresses yet",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.phone_number",
+		"en": "Phone Number",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.primary",
+		"en": "Primary",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.set_as_primary_address",
+		"en": "Set as primary address",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.set_primary",
+		"en": "Set Primary",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.street",
+		"en": "Street *",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.this_action_cannot_be_undone",
+		"en": "\"? This action cannot be undone.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.update_your_address_information",
+		"en": "Update your address information",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.text.view_on_google_maps",
+		"en": "View on Google Maps",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.address_added_successfully",
+		"en": "Address added successfully.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.address_deleted_successfully",
+		"en": "Address deleted successfully.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.address_not_found",
+		"en": "Address not found.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.address_updated_successfully",
+		"en": "Address updated successfully.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.failed_to_delete_address_please",
+		"en": "Failed to delete address. Please try again.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.failed_to_load_address_please",
+		"en": "Failed to load address. Please try again.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.failed_to_load_addresses_please",
+		"en": "Failed to load addresses. Please try again.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.failed_to_set_primary_address",
+		"en": "Failed to set primary address. Please try again.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.please_fill_in_all_required",
+		"en": "Please fill in all required fields.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.primary_address_updated_successfully",
+		"en": "Primary address updated successfully.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.description.user_information_not_available_please",
+		"en": "User information not available. Please log in again.",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.title.error",
+		"en": "Error",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.title.success",
+		"en": "Success",
+		"ar": ""
+	},
+	{
+		"key": "profile.addresses.toast.title.validation_error",
+		"en": "Validation Error",
+		"ar": ""
+	},
+	{
+		"key": "profile.layout.data.name.my_orders",
+		"en": "My Orders",
+		"ar": ""
+	},
+	{
+		"key": "profile.layout.text.loading",
+		"en": "Loading...",
+		"ar": ""
+	},
+	{
+		"key": "profile.layout.text.manage_your_orders_and_addresses",
+		"en": "Manage your orders and addresses",
+		"ar": ""
+	},
+	{
+		"key": "profile.layout.text.my_account",
+		"en": "My Account",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.attr.placeholder.filter_by_status",
+		"en": "Filter by status",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text",
+		"en": "•",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.all_orders",
+		"en": "All Orders",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.back_to_orders",
+		"en": "Back to Orders",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.cancelled",
+		"en": "Cancelled",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.confirmed",
+		"en": "Confirmed",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.delivered",
+		"en": "Delivered",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.discount",
+		"en": "Discount",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.loading_order_details",
+		"en": "Loading order details...",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.loading_orders",
+		"en": "Loading orders...",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.method",
+		"en": "Method",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.order",
+		"en": "Order #",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.order_items",
+		"en": "Order Items",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.order_summary",
+		"en": "Order Summary",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.order_timeline",
+		"en": "Order Timeline",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.payment",
+		"en": "Payment",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.pending",
+		"en": "Pending",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.phone",
+		"en": "Phone:",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.quantity",
+		"en": "Quantity:",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.rental",
+		"en": "Rental",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.shipped",
+		"en": "Shipped",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.shipping",
+		"en": "Shipping",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.shipping_address",
+		"en": "Shipping Address",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.status",
+		"en": "Status",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.subtotal",
+		"en": "Subtotal",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.tax_14",
+		"en": "Tax (14%)",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.total",
+		"en": "Total",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.view_all_orders",
+		"en": "View All Orders",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.text.view_and_track_your_order",
+		"en": "View and track your order history",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.toast.description.failed_to_load_order_details",
+		"en": "Failed to load order details. Please try again.",
+		"ar": ""
+	},
+	{
+		"key": "profile.my.toast.description.failed_to_load_orders_please",
+		"en": "Failed to load orders. Please try again.",
+		"ar": ""
+	},
+	{
+		"key": "profile.orders.data.label.order_placed",
+		"en": "Order Placed",
+		"ar": ""
+	},
+	{
+		"key": "profile.orders.text.cancelled_on",
+		"en": "Cancelled on",
+		"ar": ""
+	},
+	{
+		"key": "profile.orders.text.in_progress",
+		"en": "In progress",
+		"ar": ""
+	},
+	{
+		"key": "profile.orders.text.order_cancelled",
+		"en": "Order Cancelled",
+		"ar": ""
+	},
+	{
+		"key": "profile.orders.text.reason",
+		"en": "Reason:",
+		"ar": ""
+	},
+	{
+		"key": "profile.orders.text.view_details",
+		"en": "View Details",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text",
+		"en": "!",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.account_information",
+		"en": "Account Information",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.account_type",
+		"en": "Account Type",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.email",
+		"en": "Email",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.full_name",
+		"en": "Full Name",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.manage_addresses",
+		"en": "Manage Addresses",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.manage_your_orders_and_account",
+		"en": "Manage your orders and account settings",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.phone",
+		"en": "Phone",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.view_orders",
+		"en": "View Orders",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.view_your_order_history_and",
+		"en": "View your order history and track your shipments",
+		"ar": ""
+	},
+	{
+		"key": "profile.page.text.welcome_back",
+		"en": "Welcome back,",
+		"ar": ""
+	},
+	{
+		"key": "register.attr.placeholder.confirm_your_password",
+		"en": "Confirm your password",
+		"ar": ""
+	},
+	{
+		"key": "register.attr.placeholder.create_a_strong_password",
+		"en": "Create a strong password",
+		"ar": ""
+	},
+	{
+		"key": "register.attr.placeholder.enter_your_email_address",
+		"en": "Enter your email address",
+		"ar": ""
+	},
+	{
+		"key": "register.attr.placeholder.enter_your_first_name",
+		"en": "Enter your first name",
+		"ar": ""
+	},
+	{
+		"key": "register.attr.placeholder.enter_your_last_name",
+		"en": "Enter your last name",
+		"ar": ""
+	},
+	{
+		"key": "register.attr.placeholder.enter_your_phone_number",
+		"en": "Enter your phone number",
+		"ar": ""
+	},
+	{
+		"key": "register.text.already_have_an_account",
+		"en": "Already have an account?",
+		"ar": ""
+	},
+	{
+		"key": "register.text.and",
+		"en": "and",
+		"ar": ""
+	},
+	{
+		"key": "register.text.by_creating_an_account_you",
+		"en": "By creating an account, you agree to receive communications from AidxBait",
+		"ar": ""
+	},
+	{
+		"key": "register.text.confirm_password",
+		"en": "Confirm Password",
+		"ar": ""
+	},
+	{
+		"key": "register.text.continue",
+		"en": "Continue",
+		"ar": ""
+	},
+	{
+		"key": "register.text.create_account",
+		"en": "Create Account",
+		"ar": ""
+	},
+	{
+		"key": "register.text.create_your_account_to_get",
+		"en": "Create your account to get started",
+		"ar": ""
+	},
+	{
+		"key": "register.text.creating_account",
+		"en": "Creating Account...",
+		"ar": ""
+	},
+	{
+		"key": "register.text.email_address",
+		"en": "Email Address",
+		"ar": ""
+	},
+	{
+		"key": "register.text.fill_in_your_information_to",
+		"en": "Fill in your information to create your account",
+		"ar": ""
+	},
+	{
+		"key": "register.text.first_name",
+		"en": "First Name",
+		"ar": ""
+	},
+	{
+		"key": "register.text.i_agree_to_the",
+		"en": "I agree to the",
+		"ar": ""
+	},
+	{
+		"key": "register.text.join_aidxbait",
+		"en": "Join AidxBait",
+		"ar": ""
+	},
+	{
+		"key": "register.text.last_name",
+		"en": "Last Name",
+		"ar": ""
+	},
+	{
+		"key": "register.text.loading",
+		"en": "Loading...",
+		"ar": ""
+	},
+	{
+		"key": "register.text.log_in_here",
+		"en": "Log in here",
+		"ar": ""
+	},
+	{
+		"key": "register.text.password",
+		"en": "Password",
+		"ar": ""
+	},
+	{
+		"key": "register.text.password_requirements",
+		"en": "Password Requirements:",
+		"ar": ""
+	},
+	{
+		"key": "register.text.passwords_do_not_match",
+		"en": "Passwords do not match",
+		"ar": ""
+	},
+	{
+		"key": "register.text.passwords_match",
+		"en": "Passwords match",
+		"ar": ""
+	},
+	{
+		"key": "register.text.phone_number",
+		"en": "Phone Number",
+		"ar": ""
+	},
+	{
+		"key": "register.text.privacy_policy",
+		"en": "Privacy Policy",
+		"ar": ""
+	},
+	{
+		"key": "register.text.terms_of_service",
+		"en": "Terms of Service",
+		"ar": ""
+	},
+	{
+		"key": "register.text.try_again",
+		"en": "Try Again",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.attr.alt.aidxbait",
+		"en": "AidxBait",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.data.name.consultations",
+		"en": "Consultations",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.data.name.imaging",
+		"en": "Imaging",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.data.name.lab_services",
+		"en": "Lab Services",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.data.name.nursing",
+		"en": "Nursing",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.data.name.physical_therapy",
+		"en": "Physical Therapy",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text",
+		"en": "%",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.10_000",
+		"en": "10,000+",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.3_200",
+		"en": "3,200+",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.30_faster_recovery",
+		"en": "30% Faster Recovery",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.4_8_5_rating",
+		"en": "⭐ 4.8/5 Rating",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.4_8_5_stars",
+		"en": "4.8/5 stars",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.4_800",
+		"en": "4,800+",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.42_years",
+		"en": "42 years",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.45_min",
+		"en": "45 min",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.5_000_app_downloads",
+		"en": "5,000+ App Downloads",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.5_000_downloads_of_our",
+		"en": "5,000+ downloads of our mobile app across iOS and Android.",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.500",
+		"en": "500+",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.500_certified_therapists_available_for",
+		"en": "500+ certified therapists available for home visits and consultations.",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.6_weeks",
+		"en": "6 weeks",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.8_000_online_and_in",
+		"en": "8,000+ online and in-person consultations booked.",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.85_daily_active_users",
+		"en": "85% daily active users",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.98",
+		"en": "98%",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.aidxbait_in_numbers",
+		"en": "AidxBait in Numbers",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.aidxbait_offers_comprehensive_physiotherapy_services",
+		"en": "AidxBait offers comprehensive physiotherapy services including home visits, exercise programs, and online consultations to help you recover faster...",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.available_24_7_for_emergency",
+		"en": "Available 24/7 for emergency consultations",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.available_on_ios_and_android",
+		"en": "Available on iOS and Android stores.",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.average_rating",
+		"en": "Average Rating:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.avg_age",
+		"en": "Avg. Age:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.avg_age_42_years",
+		"en": "Avg. Age: 42 years",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.avg_program_length",
+		"en": "Avg. Program Length:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.avg_program_length_6_weeks",
+		"en": "Avg. Program Length: 6 weeks",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.avg_session_time",
+		"en": "Avg. Session Time:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.before",
+		"en": "Before",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.consultation_stats",
+		"en": "📊 Consultation Stats:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.faster_recovery",
+		"en": "📈 Faster Recovery",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.fun_fact_60_of_our",
+		"en": "Fun fact: 60% of our therapists speak two or more languages!",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.fun_fact_85_of_users",
+		"en": "Fun fact: 85% of users open the app daily!",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.fun_fact_our_fastest_recovery",
+		"en": "Fun fact: Our fastest recovery was just 2 weeks!",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.fun_fact_our_youngest_patient",
+		"en": "Fun fact: Our youngest patient was just 3 years old!",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.home_visits",
+		"en": "Home Visits:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.licensed_professionals",
+		"en": "Licensed Professionals",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.most_users_check_progress_daily",
+		"en": "Most users check progress daily!",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.online_sessions",
+		"en": "Online Sessions:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.orthopedic_rehab",
+		"en": "Orthopedic Rehab",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.over_10_000_patients_have",
+		"en": "Over 10,000 patients have used AidxBait for their recovery.",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.patient_satisfaction",
+		"en": "Patient Satisfaction:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.patients_helped",
+		"en": "Patients Helped",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.patients_report_30_faster_recovery",
+		"en": "Patients report 30% faster recovery with our programs.",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.start_your_recovery_today",
+		"en": "Start your recovery today!",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.top_specialty",
+		"en": "Top Specialty:",
+		"ar": ""
+	},
+	{
+		"key": "sections.aidxbait.text.with_aidxbait",
+		"en": "With AidxBait",
+		"ar": ""
+	},
+	{
+		"key": "sections.contact.text.aidxbait_revolutionizes_orthopedic_care_with",
+		"en": "AidxBait revolutionizes orthopedic care with cutting-edge technology, personalized treatment plans, and comprehensive support. Connect with our expert team to transform your recovery journey and achieve optimal health outcomes.",
+		"ar": ""
+	},
+	{
+		"key": "sections.contact.text.follow_us",
+		"en": "Follow us",
+		"ar": ""
+	},
+	{
+		"key": "sections.contact.text.get_in_touch",
+		"en": "Get in Touch",
+		"ar": ""
+	},
+	{
+		"key": "sections.contact.text.ultimate_healthcare_solution",
+		"en": "Ultimate Healthcare Solution",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.attr.alt.home_medical_care_doctor_visiting",
+		"en": "Home medical care - Doctor visiting patient at home",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.attr.alt.medical_technology_and_healthcare_services",
+		"en": "Medical Technology and Healthcare Services",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.24_7_support",
+		"en": "24/7 Support",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.already_have_an_account",
+		"en": "Already have an account?",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.at_home",
+		"en": "at Home",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.book_healthcare_services_from_the",
+		"en": "Book healthcare services from the comfort of home. Get lab tests, consultations, and personalized plans—all without stepping outside.",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.create_an_account",
+		"en": "Create an Account",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.get_medical_care",
+		"en": "Get Medical Care",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.get_started",
+		"en": "Get Started",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.home_care",
+		"en": "Home Care",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.log_in",
+		"en": "Log In",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.on_your_schedule",
+		"en": ", On Your Schedule",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.secure_private",
+		"en": "Secure & Private",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.stay_at_home_and_order",
+		"en": "Stay at Home and order all medical services with a finger click",
+		"ar": ""
+	},
+	{
+		"key": "sections.hero.text.unlock_the_potentials_of",
+		"en": "Unlock The Potentials of",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.attr.alt.service_background",
+		"en": "Service background",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.data.description.browse_and_order_mobility_aids",
+		"en": "Browse and order mobility aids, braces, and more — all delivered to your doorstep.",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.data.description.licensed_physical_therapists_provide_one",
+		"en": "Licensed physical therapists provide one-on-one treatment sessions at your home, including post-operative care and chronic condition management.",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.data.description.personalized_video_based_rehab_programs",
+		"en": "Personalized video-based rehab programs sent after your consultation for follow-up care.",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.data.description.portable_x_rays_and_ultrasounds",
+		"en": "Portable X-rays and ultrasounds performed by our mobile technicians in your home.",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.data.description.professional_nurses_available_for_home",
+		"en": "Professional nurses available for home visits to provide medication administration, wound care, post-operative support, IV therapy, and chronic condition management — all in the comfort of your home.",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.data.description.video_calls_with_physical_therapists",
+		"en": "Video calls with physical therapists, nutritionists, or psychologists — no travel needed.",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.data.description.we_send_a_nurse_to",
+		"en": "We send a nurse to collect your blood or samples from home. Lab results are delivered digitally.",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.text.complete_healthcare_services_delivered_to",
+		"en": "Complete healthcare services delivered to your home for maximum convenience and comfort.",
+		"ar": ""
+	},
+	{
+		"key": "sections.services.text.our_services",
+		"en": "Our Services",
+		"ar": ""
+	},
+	{
+		"key": "sections.testimonials.data.name.emily_rodriguez",
+		"en": "Emily Rodriguez",
+		"ar": ""
+	},
+	{
+		"key": "sections.testimonials.data.name.james_lee",
+		"en": "James Lee",
+		"ar": ""
+	},
+	{
+		"key": "sections.testimonials.data.name.michael_chen",
+		"en": "Michael Chen",
+		"ar": ""
+	},
+	{
+		"key": "sections.testimonials.data.name.priya_patel",
+		"en": "Priya Patel",
+		"ar": ""
+	},
+	{
+		"key": "sections.testimonials.data.name.sarah_johnson",
+		"en": "Sarah Johnson",
+		"ar": ""
+	},
+	{
+		"key": "sections.why.data.description.all_our_healthcare_providers_are",
+		"en": "All our healthcare providers are fully licensed, experienced professionals committed to delivering the highest quality care in your home.",
+		"ar": ""
+	},
+	{
+		"key": "sections.why.data.description.book_appointments_track_health_records",
+		"en": "Book appointments, track health records, communicate with providers, and manage prescriptions all from one powerful, easy-to-use app.",
+		"ar": ""
+	},
+	{
+		"key": "sections.why.data.description.comprehensive_coverage_across_cairo_giza",
+		"en": "Comprehensive coverage across Cairo, Giza, and expanding regions. Bringing professional healthcare directly to your doorstep.",
+		"ar": ""
+	},
+	{
+		"key": "sections.why.data.description.get_connected_to_healthcare_professionals",
+		"en": "Get connected to healthcare professionals within hours, not days. Our rapid response system ensures you receive care when you need it most.",
+		"ar": ""
+	},
+	{
+		"key": "sections.why.text.bringing_hospital_care_quality_to",
+		"en": "Bringing Hospital-Care quality to your home",
+		"ar": ""
+	},
+	{
+		"key": "sections.why.text.why_choose_aidxbait",
+		"en": "Why Choose AidxBait?",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text",
+		"en": ")",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.add_to_cart",
+		"en": "Add to Cart",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.back_to_store",
+		"en": "Back to Store",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.be_the_first_to_review",
+		"en": "Be the first to review this product!",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.best_seller",
+		"en": "Best Seller",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.by_placing_your_order_you",
+		"en": "By placing your order, you agree to our Terms of Service and Privacy Policy",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.checkout",
+		"en": "Checkout",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.complete_your_order",
+		"en": "Complete your order",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.currently_unavailable",
+		"en": "Currently Unavailable",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.easy_returns",
+		"en": "Easy Returns",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.fast_shipping",
+		"en": "Fast Shipping",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.featured",
+		"en": "Featured",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.for_rent",
+		"en": "For Rent",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.in_stock",
+		"en": "In Stock",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.left",
+		"en": "left!)",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.loading",
+		"en": "Loading...",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.loading_product",
+		"en": "Loading product...",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.no_description_available",
+		"en": "No description available",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.no_reviews_yet",
+		"en": "No reviews yet",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.only",
+		"en": "(Only",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.order_items",
+		"en": "Order Items (",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.out_of_stock",
+		"en": "Out of Stock",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.payment_method",
+		"en": "Payment Method",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.prd",
+		"en": "PRD-",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.quality_guaranteed",
+		"en": "Quality Guaranteed",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.quantity",
+		"en": "Quantity:",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.reviews",
+		"en": "Reviews",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.see_less",
+		"en": "See Less",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.see_more",
+		"en": "See More",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.shipping_address",
+		"en": "Shipping Address",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.sku",
+		"en": "SKU:",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.store",
+		"en": "Store",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.view_all",
+		"en": "View All",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.you_don_t_have_any",
+		"en": "You don't have any saved addresses yet.",
+		"ar": ""
+	},
+	{
+		"key": "services.store.text.you_may_also_like",
+		"en": "You May Also Like",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.description.failed_to_load_addresses_please",
+		"en": "Failed to load addresses. Please try again.",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.description.please_select_a_shipping_address",
+		"en": "Please select a shipping address.",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.description.user_information_not_available_please",
+		"en": "User information not available. Please log in again.",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.description.your_cart_is_empty",
+		"en": "Your cart is empty.",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.description.your_order_has_been_placed",
+		"en": "Your order has been placed successfully.",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.title.address_required",
+		"en": "Address Required",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.title.empty_cart",
+		"en": "Empty Cart",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.title.error",
+		"en": "Error",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.title.order_placed",
+		"en": "Order Placed!",
+		"ar": ""
+	},
+	{
+		"key": "services.store.toast.title.payment_error",
+		"en": "Payment Error",
+		"ar": ""
+	},
+	{
+		"key": "store.CartItem.text",
+		"en": "×",
+		"ar": ""
+	},
+	{
+		"key": "store.CartItem.text.for_rent",
+		"en": "For Rent",
+		"ar": ""
+	},
+	{
+		"key": "store.CartItem.text.rental_period",
+		"en": "Rental Period:",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSidebar.text",
+		"en": ")",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSidebar.text.add_some_products_to_get",
+		"en": "Add some products to get started",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSidebar.text.clear_all",
+		"en": "Clear All",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSidebar.text.continue_shopping",
+		"en": "Continue Shopping",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSidebar.text.proceed_to_checkout",
+		"en": "Proceed to Checkout",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSidebar.text.shopping_cart",
+		"en": "Shopping Cart (",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSidebar.text.your_cart_is_empty",
+		"en": "Your cart is empty",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.add",
+		"en": "💡 Add",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.egp",
+		"en": "EGP",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.egp_more_for_free_shipping",
+		"en": "EGP more for free shipping",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.free",
+		"en": "Free",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.items",
+		"en": "items)",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.order_summary",
+		"en": "Order Summary",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.shipping",
+		"en": "Shipping",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.subtotal",
+		"en": "Subtotal (",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.tax",
+		"en": "Tax",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.tax_calculated_at_checkout_final",
+		"en": "Tax calculated at checkout. Final total may vary.",
+		"ar": ""
+	},
+	{
+		"key": "store.CartSummary.text.total",
+		"en": "Total",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.data.description.pay_securely_with_your_card",
+		"en": "Pay securely with your card",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.data.description.pay_when_you_receive_your",
+		"en": "Pay when you receive your order",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.data.label.cash_on_delivery",
+		"en": "Cash on Delivery",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.data.label.online_payment",
+		"en": "Online Payment",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.text.add_new_address",
+		"en": "Add New Address",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.text.cancel",
+		"en": "Cancel",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.text.discount",
+		"en": "Discount",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.text.phone",
+		"en": "Phone:",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.text.primary",
+		"en": "Primary",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.text.subtotal",
+		"en": "Subtotal",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.text.tax_14",
+		"en": "Tax (14%)",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.toast.description.address_added_successfully",
+		"en": "Address added successfully.",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.toast.description.please_fill_in_all_required",
+		"en": "Please fill in all required fields.",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.toast.title.error",
+		"en": "Error",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.toast.title.success",
+		"en": "Success",
+		"ar": ""
+	},
+	{
+		"key": "store.checkout.toast.title.validation_error",
+		"en": "Validation Error",
+		"ar": ""
+	},
+	{
+		"key": "store.HorizontalFilters.attr.aria-label.clear_search",
+		"en": "Clear search",
+		"ar": ""
+	},
+	{
+		"key": "store.HorizontalFilters.attr.placeholder.search_products",
+		"en": "Search products...",
+		"ar": ""
+	},
+	{
+		"key": "store.HorizontalFilters.text.clear",
+		"en": "Clear",
+		"ar": ""
+	},
+	{
+		"key": "store.HorizontalFilters.text.clear_all_filters",
+		"en": "Clear All Filters",
+		"ar": ""
+	},
+	{
+		"key": "store.HorizontalFilters.text.found",
+		"en": "found",
+		"ar": ""
+	},
+	{
+		"key": "store.HorizontalFilters.text.in_stock_only",
+		"en": "In Stock Only",
+		"ar": ""
+	},
+	{
+		"key": "store.JointCapsuleFilter.text.active_filters",
+		"en": "Active Filters:",
+		"ar": ""
+	},
+	{
+		"key": "store.JointCapsuleFilter.text.apply_filters",
+		"en": "Apply Filters (",
+		"ar": ""
+	},
+	{
+		"key": "store.JointCapsuleFilter.text.choose_the_joints_you_want",
+		"en": "Choose the joints you want to filter by",
+		"ar": ""
+	},
+	{
+		"key": "store.JointCapsuleFilter.text.filter_by_body_part",
+		"en": "Filter by Body Part",
+		"ar": ""
+	},
+	{
+		"key": "store.JointCapsuleFilter.text.of",
+		"en": "of",
+		"ar": ""
+	},
+	{
+		"key": "store.JointCapsuleFilter.text.select_joint_types",
+		"en": "Select Joint Types",
+		"ar": ""
+	},
+	{
+		"key": "store.JointCapsuleFilter.text.selected",
+		"en": "selected)",
+		"ar": ""
+	},
+	{
+		"key": "store.JointCapsuleFilter.text.selected_joints",
+		"en": "Selected Joints:",
+		"ar": ""
+	},
+	{
+		"key": "store.PriceRangeFilter.text.price_range",
+		"en": "Price Range",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductCard.text",
+		"en": "%",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductCard.text.best_seller",
+		"en": "Best Seller",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductCard.text.featured",
+		"en": "Featured",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductCard.text.left",
+		"en": "left",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductCard.text.only",
+		"en": "Only",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductCard.text.out_of_stock",
+		"en": "Out of Stock",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.attr.placeholder.select_category",
+		"en": "Select category",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.attr.placeholder.select_joint_type",
+		"en": "Select joint type",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text",
+		"en": "\"",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text.category",
+		"en": "Category",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text.filters",
+		"en": "filters",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text.in_stock",
+		"en": "In Stock",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text.in_stock_only",
+		"en": "In stock only",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text.joint_type",
+		"en": "Joint Type",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text.products",
+		"en": "products",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text.refine_your_product_search",
+		"en": "Refine your product search",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductFilters.text.search",
+		"en": "Search: \"",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductGrid.text.no_products_found",
+		"en": "No products found",
+		"ar": ""
+	},
+	{
+		"key": "store.ProductGrid.text.we_couldn_t_find_any",
+		"en": "We couldn't find any products matching your criteria. Try adjusting your filters or search terms.",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text",
+		"en": "✓",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.clear_filters",
+		"en": "Clear Filters",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.expert_approved",
+		"en": "Expert Approved",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.fast_delivery",
+		"en": "Fast Delivery",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.loading_products",
+		"en": "Loading products...",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.medical_grade",
+		"en": "Medical Grade",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.no_products_found_matching_your",
+		"en": "No products found matching your criteria",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.premium_quality_products",
+		"en": "Premium Quality Products",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.retry",
+		"en": "Retry",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.text.shop_physical_therapy_products",
+		"en": "Shop Physical Therapy Products",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.toast.title.payment_failed",
+		"en": "Payment Failed",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.toast.title.payment_pending",
+		"en": "Payment Pending",
+		"ar": ""
+	},
+	{
+		"key": "store.StoreContent.toast.title.payment_successful",
+		"en": "Payment Successful! 🎉",
+		"ar": ""
+	},
+	{
+		"key": "ui.apple.attr.aria-label.next_slide",
+		"en": "Next slide",
+		"ar": ""
+	},
+	{
+		"key": "ui.apple.attr.aria-label.previous_slide",
+		"en": "Previous slide",
+		"ar": ""
+	},
+	{
+		"key": "ui.breadcrumb.attr.aria-label.breadcrumb",
+		"en": "breadcrumb",
+		"ar": ""
+	},
+	{
+		"key": "ui.breadcrumb.text.more",
+		"en": "More",
+		"ar": ""
+	},
+	{
+		"key": "ui.cards.text.a_card_that_showcases_a",
+		"en": "A card that showcases a set of tools that you use to create your product.",
+		"ar": ""
+	},
+	{
+		"key": "ui.cards.text.damn_good_card",
+		"en": "Damn good card",
+		"ar": ""
+	},
+	{
+		"key": "ui.carousel.attr.aria-roledescription.carousel",
+		"en": "carousel",
+		"ar": ""
+	},
+	{
+		"key": "ui.carousel.attr.aria-roledescription.slide",
+		"en": "slide",
+		"ar": ""
+	},
+	{
+		"key": "ui.dialog.text.close",
+		"en": "Close",
+		"ar": ""
+	},
+	{
+		"key": "ui.language.data.label",
+		"en": "العربية",
+		"ar": ""
+	},
+	{
+		"key": "ui.language.data.label.english",
+		"en": "English",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.attr.alt.about_aidxbait",
+		"en": "About AidxBait",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.attr.alt.aidxbait_logo",
+		"en": "AidxBait Logo",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.about",
+		"en": "About",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.access_your_reports_track_recovery",
+		"en": "Access your reports, track recovery, and continue your care through the Aid x Bait app. We're with you every step of the way.",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.at_home_radiology",
+		"en": "At-home radiology",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.call_me_request",
+		"en": "Call-me Request",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.contact",
+		"en": "Contact",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.equipment_rental",
+		"en": "Equipment Rental",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.home_exercise_programs",
+		"en": "Home-Exercise Programs",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.home_imaging",
+		"en": "Home Imaging",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.home_lab_tests",
+		"en": "Home Lab Tests",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.home_nursing",
+		"en": "Home Nursing",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.home_physical_therapy",
+		"en": "Home physical therapy",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.lab_tests",
+		"en": "Lab tests",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.language",
+		"en": "Language:",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.learn_more",
+		"en": "Learn More",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.licensed_professionals_come_to_you",
+		"en": "Licensed professionals come to you with the tools they need — or meet you virtually for your consultation. No travel needed.",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.medical_store",
+		"en": "Medical Store",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.online_store",
+		"en": "Online Store",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.online_video_consultations",
+		"en": "Online Video Consultations",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.our_mission",
+		"en": "Our Mission",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.our_vision",
+		"en": "Our Vision",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.our_vision_mission",
+		"en": "Our Vision & Mission",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.pick_a_convenient_time_and",
+		"en": "Pick a convenient time and location. Our team confirms your request and prepares everything for your visit or call.",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.products",
+		"en": "Products",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.select_the_healthcare_service_you",
+		"en": "Select the healthcare service you need:",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.send_a_message",
+		"en": "Send a Message",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.services",
+		"en": "Services",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.store",
+		"en": "Store",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.to_order_braces_mobility_aids",
+		"en": "to order braces, mobility aids, rehab equipment, and more — all delivered to your home, no appointment required.",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.to_revolutionize_healthcare_delivery_by",
+		"en": "To revolutionize healthcare delivery by making quality medical services accessible at home, empowering patients to receive professional care in the comfort of their own environment.",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.virtual_consultations_with_specialists",
+		"en": "Virtual consultations with specialists",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.visit_our",
+		"en": "Visit our",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.we_are_committed_to_providing",
+		"en": "We are committed to providing comprehensive, technology-driven healthcare solutions that bridge the gap between patients and medical professionals, ensuring convenient, efficient, and personalized care for everyone.",
+		"ar": ""
+	},
+	{
+		"key": "ui.navbar.text.whatsapp_chatbot",
+		"en": "WhatsApp Chatbot",
+		"ar": ""
+	},
+	{
+		"key": "ui.pagination.attr.aria-label.go_to_next_page",
+		"en": "Go to next page",
+		"ar": ""
+	},
+	{
+		"key": "ui.pagination.attr.aria-label.go_to_previous_page",
+		"en": "Go to previous page",
+		"ar": ""
+	},
+	{
+		"key": "ui.pagination.attr.aria-label.pagination",
+		"en": "pagination",
+		"ar": ""
+	},
+	{
+		"key": "ui.pagination.text.more_pages",
+		"en": "More pages",
+		"ar": ""
+	},
+	{
+		"key": "ui.pagination.text.next",
+		"en": "Next",
+		"ar": ""
+	},
+	{
+		"key": "ui.pagination.text.previous",
+		"en": "Previous",
+		"ar": ""
+	},
+	{
+		"key": "ui.sidebar.text.toggle_sidebar",
+		"en": "Toggle Sidebar",
+		"ar": ""
+	}
 ]

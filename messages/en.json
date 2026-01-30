@@ -40,17 +40,17 @@
 	},
 	"layout": {
 		"meta": {
-			"title": "AidXBait | Your Health Companion",
-			"description": "AidXBait is a platform that connects patients with healthcare providers. We offer a wide range of services including physical therapy, orthopedics, general medicine, home visits, and online consultations."
+			"title": "AidxBait | Your Health Companion",
+			"description": "AidxBait is a platform that connects patients with healthcare providers. We offer a wide range of services including physical therapy, orthopedics, general medicine, home visits, and online consultations."
 		},
 		"footer": {
 			"attr": {
 				"alt": {
-					"aidxbait_logo": "AidXBait Logo"
+					"aidxbait_logo": "AidxBait Logo"
 				}
 			},
 			"text": {
-				"2025_aidxbait_all_rights_reserved": "© 2025 AidXBait. All rights reserved.",
+				"2025_aidxbait_all_rights_reserved": "© 2025 AidxBait. All rights reserved.",
 				"app_store": "App Store",
 				"appointment_booking": "Appointment Booking",
 				"contact": "Contact Us",
@@ -59,7 +59,7 @@
 				"download_on_the": "Download on the",
 				"exercise_protocols": "Exercise Protocols",
 				"get_it_on": "Get it on",
-				"get_the_aidxbait_app_for": "Get the AidXBait app for iOS and Android to access all features on the go.",
+				"get_the_aidxbait_app_for": "Get the AidxBait app for iOS and Android to access all features on the go.",
 				"google_play": "Google Play",
 				"home": "Home",
 				"how_it_works": "How It Works",
@@ -163,7 +163,7 @@
 			"log_in": "Log In",
 			"logging_in": "Logging In...",
 			"login": "Login",
-			"login_to_your_aidxbait_account": "Login to your AidXBait account",
+			"login_to_your_aidxbait_account": "Login to your AidxBait account",
 			"password": "Password",
 			"privacy_policy": "Privacy Policy",
 			"terms_of_service": "Terms of Service",
@@ -390,7 +390,7 @@
 		"text": {
 			"already_have_an_account": "Already have an account?",
 			"and": "and",
-			"by_creating_an_account_you": "By creating an account, you agree to receive communications from AidXBait",
+			"by_creating_an_account_you": "By creating an account, you agree to receive communications from AidxBait",
 			"confirm_password": "Confirm Password",
 			"continue": "Continue",
 			"create_account": "Create Account",
@@ -400,7 +400,7 @@
 			"fill_in_your_information_to": "Fill in your information to create your account",
 			"first_name": "First Name",
 			"i_agree_to_the": "I agree to the",
-			"join_aidxbait": "Join AidXBait",
+			"join_aidxbait": "Join AidxBait",
 			"last_name": "Last Name",
 			"loading": "Loading...",
 			"log_in_here": "Log in here",
@@ -460,7 +460,7 @@
 		"aidxbait": {
 			"attr": {
 				"alt": {
-					"aidxbait": "AidXBait"
+					"aidxbait": "AidxBait"
 				}
 			},
 			"data": {
@@ -476,7 +476,7 @@
 		},
 		"contact": {
 			"text": {
-				"aidxbait_revolutionizes_orthopedic_care_with": "AidXBait revolutionizes orthopedic care with cutting-edge technology, personalized treatment plans, and comprehensive support. Connect with our expert team to transform your recovery journey and achieve optimal health outcomes.",
+				"aidxbait_revolutionizes_orthopedic_care_with": "AidxBait revolutionizes orthopedic care with cutting-edge technology, personalized treatment plans, and comprehensive support. Connect with our expert team to transform your recovery journey and achieve optimal health outcomes.",
 				"follow_us": "Follow us",
 				"get_in_touch": "Get in Touch",
 				"ultimate_healthcare_solution": "Ultimate Healthcare Solution"
@@ -558,7 +558,7 @@
 			},
 			"text": {
 				"bringing_hospital_care_quality_to": "Bringing Hospital-Care quality to your home",
-				"why_choose_aidxbait": "Why Choose AidXBait?"
+				"why_choose_aidxbait": "Why Choose AidxBait?"
 			}
 		}
 	},
@@ -890,13 +890,13 @@
 		"navbar": {
 			"attr": {
 				"alt": {
-					"about_aidxbait": "About AidXBait",
-					"aidxbait_logo": "AidXBait Logo"
+					"about_aidxbait": "About AidxBait",
+					"aidxbait_logo": "AidxBait Logo"
 				}
 			},
 			"text": {
 				"about": "About Us",
-				"access_your_reports_track_recovery": "Access your reports, track recovery, and continue your care through the AidXBait app. We're with you every step of the way.",
+				"access_your_reports_track_recovery": "Access your reports, track recovery, and continue your care through the AidxBait app. We're with you every step of the way.",
 				"at_home_radiology": "At-home radiology",
 				"coming_soon": "coming soon",
 				"call_me_request": "Call-me Request",

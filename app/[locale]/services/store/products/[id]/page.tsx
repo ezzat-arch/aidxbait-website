@@ -105,7 +105,7 @@ export async function generateMetadata({
 
 	if (!product) {
 		return {
-			title: "Product Not Found | AidXBait Store",
+			title: "Product Not Found | AidxBait Store",
 		};
 	}
 
@@ -113,7 +113,7 @@ export async function generateMetadata({
 	const description =
 		product.description?.substring(0, 155) ||
 		product.description_ar?.substring(0, 155) ||
-		`${product.name} - Available at AidXBait Store`;
+		`${product.name} - Available at AidxBait Store`;
 
 	// Get main image
 	const mainImage =
@@ -128,7 +128,7 @@ export async function generateMetadata({
 		...product.joints.map((j) => j.joint_name_ar),
 		"physical therapy",
 		"medical equipment",
-		"AidXBait",
+		"AidxBait",
 	].join(", ");
 
 	const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -138,15 +138,15 @@ export async function generateMetadata({
 	const effectivePrice = product.discounted_price || product.price;
 
 	return {
-		title: `${product.name} | AidXBait Store`,
+		title: `${product.name} | AidxBait Store`,
 		description,
 		keywords,
-		authors: [{ name: "AidXBait" }],
+		authors: [{ name: "AidxBait" }],
 		openGraph: {
 			title: product.name,
 			description,
 			url: productUrl,
-			siteName: "AidXBait",
+			siteName: "AidxBait",
 			images: [
 				{
 					url: mainImage,
@@ -217,7 +217,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 		sku: `PRD-${product.id}`,
 		brand: {
 			"@type": "Brand",
-			name: "AidXBait",
+			name: "AidxBait",
 		},
 		offers: {
 			"@type": "Offer",

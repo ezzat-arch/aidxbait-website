@@ -40,13 +40,13 @@
 	},
 	"layout": {
 		"meta": {
-			"title": "AidXBait | رفيقك الصحي",
-			"description": "AidXBait هي منصة تربط المرضى بمقدمي الرعاية الصحية. نقدم مجموعة واسعة من الخدمات تشمل العلاج الطبيعي، وجراحة العظام، والطب العام، والزيارات المنزلية، والاستشارات عبر الإنترنت."
+			"title": "AidxBait | رفيقك الصحي",
+			"description": "AidxBait هي منصة تربط المرضى بمقدمي الرعاية الصحية. نقدم مجموعة واسعة من الخدمات تشمل العلاج الطبيعي، وجراحة العظام، والطب العام، والزيارات المنزلية، والاستشارات عبر الإنترنت."
 		},
 		"footer": {
 			"attr": {
 				"alt": {
-					"aidxbait_logo": "شعار AidXBait"
+					"aidxbait_logo": "شعار AidxBait"
 				}
 			},
 			"text": {
@@ -163,7 +163,7 @@
 			"log_in": "تسجيل الدخول",
 			"logging_in": "جارٍ تسجيل الدخول...",
 			"login": "دخول",
-			"login_to_your_aidxbait_account": "سجّل الدخول إلى حسابك في AidXBait",
+			"login_to_your_aidxbait_account": "سجّل الدخول إلى حسابك في AidxBait",
 			"password": "كلمة المرور",
 			"privacy_policy": "سياسة الخصوصية",
 			"terms_of_service": "شروط الخدمة",
@@ -390,7 +390,7 @@
 		"text": {
 			"already_have_an_account": "هل لديك حساب بالفعل؟",
 			"and": "و",
-			"by_creating_an_account_you": "بإنشاءك الحساب، فإنك توافق على استلام الإشعارات والتواصل من AidXBait",
+			"by_creating_an_account_you": "بإنشاءك الحساب، فإنك توافق على استلام الإشعارات والتواصل من AidxBait",
 			"confirm_password": "تأكيد كلمة المرور",
 			"continue": "متابعة",
 			"create_account": "إنشاء حساب",
@@ -400,7 +400,7 @@
 			"fill_in_your_information_to": "أدخل معلوماتك لإنشاء حسابك",
 			"first_name": "الاسم الأول",
 			"i_agree_to_the": "أوافق على",
-			"join_aidxbait": "انضم إلى AidXBait",
+			"join_aidxbait": "انضم إلى AidxBait",
 			"last_name": "اسم العائلة",
 			"loading": "جارٍ التحميل...",
 			"log_in_here": "سجّل الدخول هنا",
@@ -460,7 +460,7 @@
 		"aidxbait": {
 			"attr": {
 				"alt": {
-					"aidxbait": "AidXBait"
+					"aidxbait": "AidxBait"
 				}
 			},
 			"data": {
@@ -476,7 +476,7 @@
 		},
 		"contact": {
 			"text": {
-				"aidxbait_revolutionizes_orthopedic_care_with": "تُحدث AidXBait ثورة في رعاية العظام بفضل التكنولوجيا الحديثة وخطط العلاج المخصصة والدعم الشامل. تواصل مع فريق خبرائنا لتحويل رحلة تعافيك وتحقيق أفضل النتائج الصحية.",
+				"aidxbait_revolutionizes_orthopedic_care_with": "تُحدث AidxBait ثورة في رعاية العظام بفضل التكنولوجيا الحديثة وخطط العلاج المخصصة والدعم الشامل. تواصل مع فريق خبرائنا لتحويل رحلة تعافيك وتحقيق أفضل النتائج الصحية.",
 				"follow_us": "تابعنا",
 				"get_in_touch": "تواصل معنا",
 				"ultimate_healthcare_solution": "الحل الصحي التام"
@@ -890,13 +890,13 @@
 		"navbar": {
 			"attr": {
 				"alt": {
-					"about_aidxbait": "حول AidXBait",
-					"aidxbait_logo": "AidXBait Logo"
+					"about_aidxbait": "حول AidxBait",
+					"aidxbait_logo": "AidxBait Logo"
 				}
 			},
 			"text": {
 				"about": "نبذة عنا",
-				"access_your_reports_track_recovery": "احصل على تقاريرك، وتتبع تقدم تعافيك، وواصل رعايتك عبر تطبيق AidXBait. نحن معك في كل خطوة.",
+				"access_your_reports_track_recovery": "احصل على تقاريرك، وتتبع تقدم تعافيك، وواصل رعايتك عبر تطبيق AidxBait. نحن معك في كل خطوة.",
 				"at_home_radiology": "الأشعة المنزلية",
 				"coming_soon": "قريبًا",
 				"call_me_request": "اطلب اتصال",
