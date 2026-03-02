@@ -5,7 +5,7 @@ import { Product, ProductsResponse } from "@/lib/store-types";
 export async function GET(request: NextRequest) {
 	try {
 		const supabase = await createClient();
-
+		console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
 		// Get query parameters for filtering
 		const searchParams = request.nextUrl.searchParams;
 		const jointFilter = searchParams.get("joint");

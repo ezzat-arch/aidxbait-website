@@ -175,7 +175,7 @@ const Navbar = ({ className }: { className?: string }) => {
 	const logo = (
 		<Link href="/" className="flex items-center gap-2">
 			<Image
-				src="/images/logo.png"
+				src="/images/aidLogo.svg"
 				alt={tNavAlt("aidxbait_logo")}
 				width={259}
 				height={130}
@@ -232,11 +232,10 @@ const Navbar = ({ className }: { className?: string }) => {
 													<li key={item.name}>
 														<Link href={item.href}>
 															<button
-																className={`w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium ${
-																	idx === activeHomeVisitsIdx
-																		? "bg-blue-50 text-blue-700 border border-blue-200 shadow-sm"
-																		: "hover:bg-gray-50 text-gray-700 hover:shadow-sm"
-																}`}
+																className={`w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium ${idx === activeHomeVisitsIdx
+																	? "bg-blue-50 text-blue-700 border border-blue-200 shadow-sm"
+																	: "hover:bg-gray-50 text-gray-700 hover:shadow-sm"
+																	}`}
 																onMouseEnter={() => setActiveHomeVisitsIdx(idx)}
 																onFocus={() => setActiveHomeVisitsIdx(idx)}
 																tabIndex={0}
@@ -349,11 +348,10 @@ const Navbar = ({ className }: { className?: string }) => {
 														<li key={item.name}>
 															<Link href={item.href}>
 																<button
-																	className={`w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium whitespace-pre-line ${
-																		idx === activeStoreIdx
-																			? "bg-blue-50 text-blue-700 border border-blue-200 shadow-sm"
-																			: "hover:bg-gray-50 text-gray-700 hover:shadow-sm"
-																	}`}
+																	className={`w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium whitespace-pre-line ${idx === activeStoreIdx
+																		? "bg-blue-50 text-blue-700 border border-blue-200 shadow-sm"
+																		: "hover:bg-gray-50 text-gray-700 hover:shadow-sm"
+																		}`}
 																	onMouseEnter={() => setActiveStoreIdx(idx)}
 																	onFocus={() => setActiveStoreIdx(idx)}
 																	tabIndex={0}
@@ -558,10 +556,12 @@ const Navbar = ({ className }: { className?: string }) => {
 										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
 											{tNav("home_visits")}
 										</h3>
+										<span className="text-[10px] font-light text-blue-600 italic">
+											{tNav("coming_soon")}
+										</span>
 										<ChevronDown
-											className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
-												expandedSections.has("home-visits") ? "rotate-180" : ""
-											}`}
+											className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${expandedSections.has("home-visits") ? "rotate-180" : ""
+												}`}
 										/>
 									</button>
 									{expandedSections.has("home-visits") && (
@@ -656,9 +656,8 @@ const Navbar = ({ className }: { className?: string }) => {
 											{tProfileLayout("my_account")}
 										</h3>
 										<ChevronDown
-											className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
-												expandedSections.has("account") ? "rotate-180" : ""
-											}`}
+											className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${expandedSections.has("account") ? "rotate-180" : ""
+												}`}
 										/>
 									</button>
 									{expandedSections.has("account") && (
