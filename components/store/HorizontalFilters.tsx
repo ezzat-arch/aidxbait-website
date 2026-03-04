@@ -10,6 +10,7 @@ import { MultiSelect } from "@/components/ui/multi-select";
 import { PriceRangeFilter } from "./PriceRangeFilter";
 import { JOINT_CATEGORIES } from "@/lib/store-data";
 import { useTranslations } from "next-intl";
+import { CategoryFilter } from "./CategoryFilter";
 
 interface HorizontalFiltersProps {
 	filters: FilterOptions;
@@ -30,7 +31,7 @@ export function HorizontalFilters({
 }: HorizontalFiltersProps) {
 	const t = useTranslations("store.HorizontalFilters");
 	const tLib = useTranslations("lib.store.data.label");
-	
+
 	const handleJointsChange = (joints: Joint[]) => {
 		onFiltersChange({
 			...filters,
@@ -137,8 +138,13 @@ export function HorizontalFilters({
 						{t("text.in_stock_only")}
 					</label>
 				</div>
-			</div>
 
+			</div>
+			<CategoryFilter
+				selectedCategoryId={null}
+				onCategoryChange={() => { }}
+				className={""}
+			/>
 			{/* Mobile: Two rows */}
 			<div className="lg:hidden space-y-3">
 				{/* Row 1: Search + Body Part */}

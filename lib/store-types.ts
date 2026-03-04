@@ -124,6 +124,7 @@ export interface FilterOptions {
 	};
 	inStock: boolean;
 	categoryId?: number | null;
+	subcategoryId?: number | null;
 	currency?: Currency;
 	isBestSeller?: boolean;
 	isFeatured?: boolean;
