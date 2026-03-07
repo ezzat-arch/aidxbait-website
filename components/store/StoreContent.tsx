@@ -8,7 +8,7 @@ import { ProductGrid } from "@/components/store/ProductGrid";
 import { HorizontalFilters } from "@/components/store/HorizontalFilters";
 import { StoreCategoryTabs } from "@/components/store/StoreCategoryTabs";
 import { StoreBodyMapSection } from "@/components/store/StoreBodyMapSection";
-import { FilterOptions, Product, Joint } from "@/lib/store-types";
+import { FilterOptions, Product, Joint, StoreCategory } from "@/lib/store-types";
 import { shouldShowBodyMap } from "@/lib/store-categories";
 import { useCart } from "@/contexts/cart-context";
 import { toast } from "@/hooks/use-toast";
@@ -20,6 +20,8 @@ const initialFilters: FilterOptions = {
 	joints: [],
 	priceRange: { min: 0, max: 10000 },
 	inStock: false,
+	categoryId: null,
+	subcategoryId: null,
 };
 
 /**
@@ -30,10 +32,12 @@ function parseFiltersFromURL(searchParams: URLSearchParams): {
 	filters: FilterOptions;
 	search: string;
 	categoryId: number | null;
+	subcategoryId: number | null;
 } {
 	const filters: FilterOptions = { ...initialFilters };
 	let search = "";
 	let categoryId: number | null = null;
+	let subcategoryId: number | null = null;
 
 	// Parse category
 	const categoryParam = searchParams.get("category");
@@ -45,6 +49,15 @@ function parseFiltersFromURL(searchParams: URLSearchParams): {
 		}
 	}
 
+	// Parse subcategory
+	const subcategoryParam = searchParams.get("subcategory");
+	if (subcategoryParam) {
+		const parsed = parseInt(subcategoryParam, 10);
+		if (!isNaN(parsed)) {
+			subcategoryId = parsed;
+			filters.subcategoryId = parsed;
+		}
+	}
 	// Parse joints - support both singular 'joint' and plural 'joints'
 	const jointParam = searchParams.get("joint");
 	const jointsParam = searchParams.get("joints");
@@ -86,7 +99,7 @@ function parseFiltersFromURL(searchParams: URLSearchParams): {
 		search = searchParam;
 	}
 
-	return { filters, search, categoryId };
+	return { filters, search, categoryId, subcategoryId };
 }
 
 /**
@@ -96,13 +109,19 @@ function parseFiltersFromURL(searchParams: URLSearchParams): {
 function buildURLFromFilters(
 	filters: FilterOptions,
 	searchQuery: string,
-	categoryId: number | null
+	categoryId: number | null,
+	subcategoryId: number | null
 ): URLSearchParams {
 	const params = new URLSearchParams();
 
 	// Add category if selected
 	if (categoryId !== null) {
 		params.set("category", categoryId.toString());
+	}
+
+	// Add subcategory if selected
+	if (subcategoryId !== null) {
+		params.set("subcategory", subcategoryId.toString());
 	}
 
 	// Add joints if any selected
@@ -137,6 +156,7 @@ export function StoreContent() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filters, setFilters] = useState<FilterOptions>(initialFilters);
 	const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+	const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<number | null>(null);
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -147,16 +167,17 @@ export function StoreContent() {
 	const hasHandledCartOpen = useRef(false);
 	const hasHandledPayment = useRef(false);
 	const isInitialized = useRef(false);
-
+	const [categories, setCategories] = useState<StoreCategory[]>([]);
 	// Initialize filters, search, and category from URL params on mount
 	useEffect(() => {
 		if (!isInitialized.current) {
 			isInitialized.current = true;
-			const { filters: urlFilters, search: urlSearch, categoryId } =
+			const { filters: urlFilters, search: urlSearch, categoryId, subcategoryId } =
 				parseFiltersFromURL(searchParams);
 			setFilters(urlFilters);
 			setSearchQuery(urlSearch);
 			setSelectedCategoryId(categoryId);
+			setSelectedSubcategoryId(subcategoryId);
 		}
 	}, [searchParams]);
 
@@ -166,7 +187,7 @@ export function StoreContent() {
 		if (!isInitialized.current) return;
 
 		const timer = setTimeout(() => {
-			const params = buildURLFromFilters(filters, searchQuery, selectedCategoryId);
+			const params = buildURLFromFilters(filters, searchQuery, selectedCategoryId, selectedSubcategoryId);
 			const newUrl = params.toString()
 				? `${pathname}?${params.toString()}`
 				: pathname;
@@ -174,7 +195,7 @@ export function StoreContent() {
 		}, 300); // 300ms debounce
 
 		return () => clearTimeout(timer);
-	}, [filters, searchQuery, selectedCategoryId, pathname, router]);
+	}, [filters, searchQuery, selectedCategoryId, selectedSubcategoryId, pathname, router]);
 
 	// Handle payment callback (success/failure)
 	useEffect(() => {
@@ -199,8 +220,8 @@ export function StoreContent() {
 				const errorMessage = paymentError
 					? `Error: ${paymentError}`
 					: reason
-					? `Reason: ${reason}`
-					: "Please try again or contact support.";
+						? `Reason: ${reason}`
+						: "Please try again or contact support.";
 				toast({
 					title: "Payment Failed",
 					description: errorMessage,
@@ -244,6 +265,27 @@ export function StoreContent() {
 		}
 	}, [searchParams, openCart, router, pathname]);
 
+	// Fetch categories from API
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const response = await fetch("/api/categories");
+				const result = await response.json();
+
+				if (result.success) {
+					const categories: StoreCategory[] = result.data || [];
+					setCategories(categories);
+				} else {
+					console.error("Error fetching categories:", result.error);
+				}
+			} catch (err) {
+				console.error("Error fetching categories:", err);
+			}
+		};
+
+		fetchCategories();
+	}, []);
+
 	// Fetch products from API
 	useEffect(() => {
 		const fetchProducts = async () => {
@@ -255,6 +297,9 @@ export function StoreContent() {
 				const params = new URLSearchParams();
 				if (selectedCategoryId !== null) {
 					params.append("category_id", selectedCategoryId.toString());
+				}
+				if (selectedSubcategoryId !== null) {
+					params.append("subcategory_id", selectedSubcategoryId.toString());
 				}
 				if (filters.inStock) {
 					params.append("in_stock", "true");
@@ -293,6 +338,7 @@ export function StoreContent() {
 		fetchProducts();
 	}, [
 		selectedCategoryId,
+		selectedSubcategoryId,
 		filters.inStock,
 		filters.currency,
 		filters.isBestSeller,
@@ -332,6 +378,13 @@ export function StoreContent() {
 			);
 		}
 
+		// Subcategory filter
+		if (filters.subcategoryId !== null && filters.subcategoryId !== undefined) {
+			results = results.filter(
+				(product) => product.subcategory_id === filters.subcategoryId
+			);
+		}
+
 		// Price range filter
 		results = results.filter((product) => {
 			const effectivePrice = product.discounted_price || product.price;
@@ -347,14 +400,23 @@ export function StoreContent() {
 	const handleClearFilters = () => {
 		setSearchQuery("");
 		setFilters(initialFilters);
+		setSelectedCategoryId(null);
+		setSelectedSubcategoryId(null);
 	};
 
 	const handleCategoryChange = (categoryId: number | null) => {
 		setSelectedCategoryId(categoryId);
 		// Update filters to include the new category
 		setFilters((prev) => ({ ...prev, categoryId }));
-		// Clear joint filters when changing category
-		setFilters((prev) => ({ ...prev, joints: [] }));
+		// Clear subcategory and joint filters when changing category
+		setSelectedSubcategoryId(null);
+		setFilters((prev) => ({ ...prev, subcategoryId: null, joints: [] }));
+	};
+
+	const handleSubcategoryChange = (subcategoryId: number | null) => {
+		setSelectedSubcategoryId(subcategoryId);
+		// Update filters to include the new subcategory
+		setFilters((prev) => ({ ...prev, subcategoryId }));
 	};
 
 	const handleJointSelect = (joint: Joint) => {
@@ -400,18 +462,18 @@ export function StoreContent() {
 				{/* Content */}
 				<div className="relative h-full flex items-center justify-center">
 					<div className="text-center px-4 max-w-5xl mx-auto">
-					{/* Badge */}
-					<div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 mb-6">
-						<span className="text-white/90 text-sm font-medium">
-							{t("hero.badge")}
-						</span>
-						<span className="text-white">✓</span>
-					</div>
+						{/* Badge */}
+						<div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 mb-6">
+							<span className="text-white/90 text-sm font-medium">
+								{t("hero.badge")}
+							</span>
+							<span className="text-white">✓</span>
+						</div>
 
-					{/* Main Heading */}
-					<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white drop-shadow-2xl mb-4 sm:mb-6">
-						{t("hero.title")}
-					</h1>
+						{/* Main Heading */}
+						<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white drop-shadow-2xl mb-4 sm:mb-6">
+							{t("hero.title")}
+						</h1>
 
 						{/* Subtle Divider */}
 						<div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
@@ -428,27 +490,27 @@ export function StoreContent() {
 							/>
 						</div>
 
-					{/* Mini Stats/Features */}
-					<div className="hidden sm:flex flex-wrap items-center justify-center gap-6 text-white/90 mt-6">
-						<div className="flex items-center gap-2">
-							<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
-								🏥
+						{/* Mini Stats/Features */}
+						<div className="hidden sm:flex flex-wrap items-center justify-center gap-6 text-white/90 mt-6">
+							<div className="flex items-center gap-2">
+								<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
+									🏥
+								</div>
+								<span className="text-sm font-light">{t("hero.medical_grade")}</span>
 							</div>
-							<span className="text-sm font-light">{t("hero.medical_grade")}</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
-								⚡
+							<div className="flex items-center gap-2">
+								<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
+									⚡
+								</div>
+								<span className="text-sm font-light">{t("hero.fast_delivery")}</span>
 							</div>
-							<span className="text-sm font-light">{t("hero.fast_delivery")}</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
-								💯
+							<div className="flex items-center gap-2">
+								<div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-sm">
+									💯
+								</div>
+								<span className="text-sm font-light">{t("hero.expert_approved")}</span>
 							</div>
-							<span className="text-sm font-light">{t("hero.expert_approved")}</span>
 						</div>
-					</div>
 					</div>
 				</div>
 			</div>
@@ -463,59 +525,64 @@ export function StoreContent() {
 				{/* Horizontal Filters */}
 				<div className="mb-8">
 					<HorizontalFilters
+						categories={categories}
 						filters={filters}
 						searchQuery={searchQuery}
+						selectedCategoryId={selectedCategoryId}
+						selectedSubcategoryId={selectedSubcategoryId}
 						onFiltersChange={setFilters}
 						onSearchChange={setSearchQuery}
+						onCategoryChange={handleCategoryChange}
+						onSubcategoryChange={handleSubcategoryChange}
 						onClearFilters={handleClearFilters}
 						productsCount={filteredProducts.length}
 					/>
 				</div>
 
-			{/* Loading State */}
-			{loading && (
-				<div className="flex items-center justify-center py-20">
-					<div className="text-center">
-						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-						<p className="text-muted-foreground">{t("loading.products")}</p>
+				{/* Loading State */}
+				{loading && (
+					<div className="flex items-center justify-center py-20">
+						<div className="text-center">
+							<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+							<p className="text-muted-foreground">{t("loading.products")}</p>
+						</div>
 					</div>
-				</div>
-			)}
+				)}
 
-			{/* Error State */}
-			{error && !loading && (
-				<div className="flex items-center justify-center py-20">
-					<div className="text-center">
-						<p className="text-destructive mb-4">{error}</p>
-						<button
-							onClick={() => window.location.reload()}
-							className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-						>
-							{t("error.retry")}
-						</button>
+				{/* Error State */}
+				{error && !loading && (
+					<div className="flex items-center justify-center py-20">
+						<div className="text-center">
+							<p className="text-destructive mb-4">{error}</p>
+							<button
+								onClick={() => window.location.reload()}
+								className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+							>
+								{t("error.retry")}
+							</button>
+						</div>
 					</div>
-				</div>
-			)}
+				)}
 
 				{/* Product Grid */}
 				{!loading && !error && <ProductGrid products={filteredProducts} />}
 
-			{/* No Products State */}
-			{!loading && !error && filteredProducts.length === 0 && (
-				<div className="flex items-center justify-center py-20">
-					<div className="text-center">
-						<p className="text-muted-foreground text-lg mb-4">
-							{t("error.no_products")}
-						</p>
-						<button
-							onClick={handleClearFilters}
-							className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-						>
-							{t("error.clear_filters")}
-						</button>
+				{/* No Products State */}
+				{!loading && !error && filteredProducts.length === 0 && (
+					<div className="flex items-center justify-center py-20">
+						<div className="text-center">
+							<p className="text-muted-foreground text-lg mb-4">
+								{t("error.no_products")}
+							</p>
+							<button
+								onClick={handleClearFilters}
+								className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+							>
+								{t("error.clear_filters")}
+							</button>
+						</div>
 					</div>
-				</div>
-			)}
+				)}
 			</div>
 		</div>
 	);

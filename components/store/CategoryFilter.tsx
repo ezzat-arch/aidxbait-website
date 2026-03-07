@@ -4,10 +4,10 @@ import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { STORE_CATEGORY_CONFIGS, StoreSubcategoryConfig } from "@/lib/store-categories";
 import { useLocale } from "next-intl";
 import { Locale } from "@/types/i18n";
 import { cn } from "@/lib/utils";
+import { StoreCategory, StoreSubcategory } from "@/lib/store-types";
 
 interface CategoryFilterProps {
     selectedCategoryId: number | null;
@@ -16,9 +16,11 @@ interface CategoryFilterProps {
     onSubcategoryChange?: (subcategoryId: number | null) => void;
     placeholder?: string;
     className?: string;
+    categories: StoreCategory[];
 }
 
 export function CategoryFilter({
+    categories,
     selectedCategoryId,
     selectedSubcategoryId = null,
     onCategoryChange,
@@ -32,12 +34,12 @@ export function CategoryFilter({
     );
 
     // Get localized category name
-    const getCategoryName = (category: typeof STORE_CATEGORY_CONFIGS[0]) => {
+    const getCategoryName = (category: StoreCategory) => {
         return locale === "ar" ? category.name_ar : category.name;
     };
 
     // Get localized subcategory name
-    const getSubcategoryName = (subcategory: StoreSubcategoryConfig) => {
+    const getSubcategoryName = (subcategory: StoreSubcategory) => {
         return locale === "ar" ? subcategory.name_ar : subcategory.name;
     };
 
@@ -74,12 +76,12 @@ export function CategoryFilter({
     };
 
     // Check if a category has subcategories
-    const hasSubcategories = (category: typeof STORE_CATEGORY_CONFIGS[0]) => {
+    const hasSubcategories = (category: StoreCategory) => {
         return category.subcategories && category.subcategories.length > 0;
     };
 
     // Get selected category
-    const selectedCategory = STORE_CATEGORY_CONFIGS.find(
+    const selectedCategory = categories.find(
         (cat) => cat.id === selectedCategoryId
     );
 
@@ -87,13 +89,27 @@ export function CategoryFilter({
         <div className={cn("space-y-2 w-full", className)}>
             {/* Main Categories */}
             <div className="flex flex-wrap gap-2">
-                {STORE_CATEGORY_CONFIGS.map((category) => {
+                {/* "All Products" option */}
+                <Button
+                    variant={selectedCategoryId === null ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => handleCategoryClick(null)}
+                    className={cn(
+                        "h-10 px-4 text-sm font-medium transition-all",
+                        selectedCategoryId === null && "bg-primary text-primary-foreground"
+                    )}
+                >
+                    {locale === "ar" ? "جميع المنتجات" : "All Products"}
+                </Button>
+
+                {/* Categories from API */}
+                {categories.map((category) => {
                     const isSelected = selectedCategoryId === category.id;
                     const isExpanded = expandedCategoryId === category.id;
                     const hasSubcats = hasSubcategories(category);
 
                     return (
-                        <div key={category.id === null ? "all" : category.id} className="flex flex-col gap-2">
+                        <div key={category.id} className="flex flex-col gap-2">
                             <Button
                                 variant={isSelected ? "default" : "outline"}
                                 size="sm"

@@ -145,6 +145,8 @@ export async function GET(request: NextRequest, context: RouteContext) {
 			is_for_rent: rawProduct.is_for_rent,
 			rent_term: rawProduct.rent_term,
 			tags: rawProduct.tags,
+			category_id: rawProduct.category_id,
+			subcategory_id: rawProduct.subcategory_id,
 			soft_deleted: rawProduct.soft_deleted,
 			created_at: rawProduct.created_at,
 			updated_at: rawProduct.updated_at,

@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
 		const searchParams = request.nextUrl.searchParams;
 		const jointFilter = searchParams.get("joint");
 		const categoryId = searchParams.get("category_id");
+		const subcategoryId = searchParams.get("subcategory_id");
 		const currency = searchParams.get("currency");
 		const isBestSeller = searchParams.get("is_best_seller");
 		const isFeatured = searchParams.get("is_featured");
@@ -69,6 +70,13 @@ export async function GET(request: NextRequest) {
 			const categoryIdNum = parseInt(categoryId, 10);
 			if (!isNaN(categoryIdNum)) {
 				query = query.eq("category_id", categoryIdNum);
+			}
+		}
+
+		if (subcategoryId) {
+			const subcategoryIdNum = parseInt(subcategoryId, 10);
+			if (!isNaN(subcategoryIdNum)) {
+				query = query.eq("subcategory_id", subcategoryIdNum);
 			}
 		}
 
@@ -191,6 +199,7 @@ export async function GET(request: NextRequest) {
 				rent_term: product.rent_term,
 				tags: product.tags,
 				category_id: product.category_id,
+				subcategory_id: product.subcategory_id,
 				soft_deleted: product.soft_deleted,
 				created_at: product.created_at,
 				updated_at: product.updated_at,

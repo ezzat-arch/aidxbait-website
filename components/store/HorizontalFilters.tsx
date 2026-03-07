@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { FilterOptions, Joint } from "@/lib/store-types";
+import { FilterOptions, Joint, StoreCategory } from "@/lib/store-types";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { PriceRangeFilter } from "./PriceRangeFilter";
 import { JOINT_CATEGORIES } from "@/lib/store-data";
@@ -13,29 +13,39 @@ import { useTranslations } from "next-intl";
 import { CategoryFilter } from "./CategoryFilter";
 
 interface HorizontalFiltersProps {
+	categories: StoreCategory[];
 	filters: FilterOptions;
 	searchQuery: string;
+	selectedCategoryId: number | null;
+	selectedSubcategoryId?: number | null;
 	onFiltersChange: (filters: FilterOptions) => void;
 	onSearchChange: (query: string) => void;
+	onCategoryChange: (categoryId: number | null) => void;
+	onSubcategoryChange?: (subcategoryId: number | null) => void;
 	onClearFilters: () => void;
 	productsCount: number;
 }
 
 export function HorizontalFilters({
+	categories,
 	filters,
 	searchQuery,
+	selectedCategoryId,
+	selectedSubcategoryId = null,
 	onFiltersChange,
 	onSearchChange,
+	onCategoryChange,
+	onSubcategoryChange,
 	onClearFilters,
 	productsCount,
 }: HorizontalFiltersProps) {
 	const t = useTranslations("store.HorizontalFilters");
 	const tLib = useTranslations("lib.store.data.label");
 
-	const handleJointsChange = (joints: Joint[]) => {
+	const handleJointsChange = (selected: string[]) => {
 		onFiltersChange({
 			...filters,
-			joints,
+			joints: selected as Joint[],
 		});
 	};
 
@@ -141,9 +151,12 @@ export function HorizontalFilters({
 
 			</div>
 			<CategoryFilter
-				selectedCategoryId={null}
-				onCategoryChange={() => { }}
-				className={""}
+				categories={categories}
+				selectedCategoryId={selectedCategoryId}
+				selectedSubcategoryId={selectedSubcategoryId}
+				onCategoryChange={onCategoryChange}
+				onSubcategoryChange={onSubcategoryChange}
+				className="mt-4"
 			/>
 			{/* Mobile: Two rows */}
 			<div className="lg:hidden space-y-3">

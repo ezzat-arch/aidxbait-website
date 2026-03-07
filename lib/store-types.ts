@@ -35,6 +35,26 @@ export interface ProductCategory {
 	updated_at: string;
 }
 
+// Store subcategory from store_subcategories table
+export interface StoreSubcategory {
+	id: number;
+	category_id: number;
+	name: string;
+	name_ar: string;
+	created_at: string;
+	updated_at: string;
+}
+
+// Store category with subcategories from store_categories table
+export interface StoreCategory {
+	id: number;
+	name: string;
+	name_ar: string;
+	created_at: string;
+	updated_at: string;
+	subcategories: StoreSubcategory[];
+}
+
 // Core product data from products table
 export interface Product {
 	id: number;
@@ -54,6 +74,7 @@ export interface Product {
 	rent_term: RentTerm | null;
 	tags: string[] | null;
 	category_id: number;
+	subcategory_id: number;
 	soft_deleted: boolean;
 	created_at: string;
 	updated_at: string;
@@ -147,6 +168,13 @@ export interface CheckoutFormData {
 export interface ProductsResponse {
 	success: boolean;
 	data?: Product[];
+	error?: string;
+	count?: number;
+}
+
+export interface CategoriesResponse {
+	success: boolean;
+	data?: StoreCategory[];
 	error?: string;
 	count?: number;
 }
