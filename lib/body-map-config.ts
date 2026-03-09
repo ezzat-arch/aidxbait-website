@@ -1,12 +1,6 @@
 import { BodyMapConfig, BodyPart } from "@/types/body-map-types";
 
-/**
- * Body map configuration for the runner image
- * Coordinates are percentage-based (0-100) for responsive design
- * The runner image shows a side view facing right
- */
-
-const bodyParts: BodyPart[] = [
+export const bodyPartsForFilter: BodyPart[] = [
 	{
 		id: "neck",
 		translationKey: "lib.store.data.label.neck",
@@ -86,33 +80,20 @@ const bodyParts: BodyPart[] = [
 	},
 ];
 
-/**
- * Complete body map configuration
- * Image aspect ratio based on the runner image dimensions
- */
 export const bodyMapConfig: BodyMapConfig = {
-	bodyParts,
-	imageAspectRatio: 3 / 4, // Width:Height ratio for the runner image
+	bodyParts: bodyPartsForFilter,
+	imageAspectRatio: 3 / 4,
 };
 
-/**
- * Helper function to get body parts by joint type
- */
 export function getBodyPartsByJoint(jointType: string): BodyPart[] {
-	return bodyParts.filter((part) => part.joint === jointType);
+	return bodyPartsForFilter.filter((part) => part.joint === jointType);
 }
 
-/**
- * Helper function to get a body part by ID
- */
 export function getBodyPartById(id: string): BodyPart | undefined {
-	return bodyParts.find((part) => part.id === id);
+	return bodyPartsForFilter.find((part) => part.id === id);
 }
 
-/**
- * Helper function to get all unique joint types
- */
 export function getAllJointTypes(): string[] {
-	const uniqueJoints = new Set(bodyParts.map((part) => part.joint));
+	const uniqueJoints = new Set(bodyPartsForFilter.map((part) => part.joint));
 	return Array.from(uniqueJoints);
 }

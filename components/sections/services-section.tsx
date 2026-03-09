@@ -123,11 +123,10 @@ export function ServicesSection() {
 						{services.map((service, idx) => (
 							<li
 								key={service.title}
-								className={`cursor-pointer px-4 py-3 rounded-lg font-medium text-lg transition-colors duration-300 ${
-									activeIndex === idx
+								className={`cursor-pointer px-4 py-3 rounded-lg font-medium text-lg transition-colors duration-300 ${activeIndex === idx
 										? "bg-primary/10 text-primary"
 										: "text-black dark:text-white hover:bg-gray-100"
-								}`}
+									}`}
 								onClick={() => setActiveIndex(idx)}
 								style={{
 									opacity: activeIndex === idx ? 1 : 0.7,

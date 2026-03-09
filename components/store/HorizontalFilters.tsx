@@ -6,11 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FilterOptions, Joint, StoreCategory } from "@/lib/store-types";
-import { MultiSelect } from "@/components/ui/multi-select";
 import { PriceRangeFilter } from "./PriceRangeFilter";
-import { JOINT_CATEGORIES } from "@/lib/store-data";
 import { useTranslations } from "next-intl";
 import { CategoryFilter } from "./CategoryFilter";
+import { JointsFilterDialog } from "./JointsFilterDialog";
 
 interface HorizontalFiltersProps {
 	categories: StoreCategory[];
@@ -40,12 +39,11 @@ export function HorizontalFilters({
 	productsCount,
 }: HorizontalFiltersProps) {
 	const t = useTranslations("store.HorizontalFilters");
-	const tLib = useTranslations("lib.store.data.label");
 
-	const handleJointsChange = (selected: string[]) => {
+	const handleJointsChange = (selected: Joint[]) => {
 		onFiltersChange({
 			...filters,
-			joints: selected as Joint[],
+			joints: selected,
 		});
 	};
 
@@ -79,14 +77,6 @@ export function HorizontalFilters({
 		return count;
 	};
 
-	// Prepare joint options for MultiSelect (exclude "all")
-	const jointOptions = JOINT_CATEGORIES.filter(
-		(joint) => joint.value !== "all"
-	).map((joint) => ({
-		value: joint.value,
-		label: tLib(joint.value),
-	}));
-
 	return (
 		<div className="space-y-4 bg-background border-b pb-6">
 			{/* Desktop: Single row with all filters */}
@@ -112,18 +102,12 @@ export function HorizontalFilters({
 					)}
 				</div>
 
-				{/* Body Part MultiSelect */}
-				<div className="w-[200px]">
-					<MultiSelect
-						options={jointOptions}
-						selected={filters.joints}
-						onChange={handleJointsChange}
-						placeholder={t("text.body_part")}
-						searchPlaceholder={t("text.search_body_parts")}
-						emptyText={t("text.no_body_parts")}
-						maxDisplayed={2}
-					/>
-				</div>
+				{/* Body Part Filter Button */}
+				<JointsFilterDialog
+					selected={filters.joints}
+					onChange={handleJointsChange}
+					buttonClassName="w-[200px] h-12 justify-start text-left font-normal"
+				/>
 
 				{/* Price Range Filter */}
 				<div className="flex-1 max-w-sm">
@@ -183,18 +167,12 @@ export function HorizontalFilters({
 						)}
 					</div>
 
-					{/* Body Part MultiSelect */}
-					<div className="w-[140px]">
-						<MultiSelect
-							options={jointOptions}
-							selected={filters.joints}
-							onChange={handleJointsChange}
-							placeholder={t("text.body_part")}
-							searchPlaceholder={t("text.search_body_parts")}
-							emptyText={t("text.no_body_parts")}
-							maxDisplayed={1}
-						/>
-					</div>
+					{/* Body Part Filter Button */}
+					<JointsFilterDialog
+						selected={filters.joints}
+						onChange={handleJointsChange}
+						buttonClassName="w-[140px] h-12 justify-start text-left font-normal text-sm"
+					/>
 				</div>
 
 				{/* Row 2: Price Range + In Stock */}
