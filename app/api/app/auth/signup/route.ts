@@ -84,7 +84,6 @@ export async function POST(request: NextRequest) {
 		console.error("Sign up error:", err);
 
 		const error = err as Error & { code?: string };
-
 		// Handle duplicate user errors (email already exists)
 		if (
 			error?.message?.includes("already registered") ||
@@ -94,8 +93,8 @@ export async function POST(request: NextRequest) {
 			let duplicateMessage = "A user with this email already exists";
 			
 			if (
-				error.message?.includes("phone_number") ||
-				error.message?.includes("users_phone_number_key") // your unique constraint name
+				error.message?.includes("phone") ||
+				error.message?.includes("users_phone_unique_active")
 			) {
 				duplicateMessage = "A user with this phone number already exists";
 			} else if (
