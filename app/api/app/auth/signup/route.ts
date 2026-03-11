@@ -90,12 +90,27 @@ export async function POST(request: NextRequest) {
 			error?.message?.includes("already registered") ||
 			error?.message?.includes("duplicate")
 		) {
+			// Determine which field caused the conflict
+			let duplicateMessage = "A user with this email already exists";
+			
+			if (
+				error.message?.includes("phone_number") ||
+				error.message?.includes("users_phone_number_key") // your unique constraint name
+			) {
+				duplicateMessage = "A user with this phone number already exists";
+			} else if (
+				error.message?.includes("email") ||
+				error.message?.includes("already registered")
+			) {
+				duplicateMessage = "A user with this email already exists";
+			}
+		
 			return NextResponse.json(
 				{
 					success: false,
 					error: {
 						type: "DuplicateUserError",
-						message: "A user with this email already exists",
+						message: duplicateMessage,
 					},
 				},
 				{ status: 409 }
