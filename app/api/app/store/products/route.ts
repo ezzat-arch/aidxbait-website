@@ -9,7 +9,8 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
  * Query params:
  * - page: Page number (default: 1)
  * - limit: Items per page (default: 10)
- * - category_id: Filter by category
+ * - category_id: Filter by category (same as web)
+ * - subcategory_id: Filter by subcategory (same as web)
  * - joint_id: Filter by joint
  * - search: Search by name
  * - is_featured: Filter featured products
@@ -24,6 +25,7 @@ export async function GET(request: NextRequest) {
 		const offset = (page - 1) * limit;
 
 		const categoryId = searchParams.get("category_id");
+		const subcategoryId = searchParams.get("subcategory_id");
 		const jointId = searchParams.get("joint_id");
 		const search = searchParams.get("search");
 		const isFeatured = searchParams.get("is_featured");
@@ -40,7 +42,18 @@ export async function GET(request: NextRequest) {
 			.eq("soft_deleted", false)
 			.eq("is_available", true);
 
-		if (categoryId) query = query.eq("category_id", categoryId);
+		if (categoryId) {
+			const categoryIdNum = parseInt(categoryId, 10);
+			if (!isNaN(categoryIdNum)) {
+				query = query.eq("category_id", categoryIdNum);
+			}
+		}
+		if (subcategoryId) {
+			const subcategoryIdNum = parseInt(subcategoryId, 10);
+			if (!isNaN(subcategoryIdNum)) {
+				query = query.eq("subcategory_id", subcategoryIdNum);
+			}
+		}
 		if (search) query = query.ilike("name", `%${search}%`);
 		if (isFeatured === "true") query = query.eq("is_featured", true);
 		if (isBestSeller === "true") query = query.eq("is_best_seller", true);
