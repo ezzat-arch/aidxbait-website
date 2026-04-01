@@ -7,6 +7,10 @@ import { routing } from './i18n/routing';
 const intlMiddleware = createIntlMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
+	if (request.nextUrl.pathname.startsWith('/api/')) {
+		return NextResponse.next();
+	}
+
 	// Handle internationalization first
 	const intlResponse = intlMiddleware(request);
 	
