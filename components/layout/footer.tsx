@@ -220,22 +220,22 @@ export function Footer() {
 					<p className="text-sm">{tFooter("2025_aidxbait_all_rights_reserved")}</p>
 					<div className="flex gap-6 mt-4 sm:mt-0">
 						<Link
-							href="#"
+							href="/privacy-policy"
 							className="text-sm hover:text-primary transition-colors"
 						>
 							{tFooter("privacy_policy")}
 						</Link>
 						<Link
-							href="#"
+							href="/terms-and-conditions"
 							className="text-sm hover:text-primary transition-colors"
 						>
 							{tFooter("terms_of_service")}
 						</Link>
 						<Link
-							href="#"
+							href="/shipping-policy"
 							className="text-sm hover:text-primary transition-colors"
 						>
-							{tFooter("cookie_policy")}
+							Shipping Policy
 						</Link>
 					</div>
 				</div>

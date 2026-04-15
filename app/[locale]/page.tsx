@@ -32,7 +32,6 @@ export default function Home() {
 				{/* <TestimonialsSection /> */}
 				<ContactSection />
 			</main>
-			<Footer />
 		</div>
 	);
 }

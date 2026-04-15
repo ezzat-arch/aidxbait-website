@@ -14,6 +14,7 @@ import {
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { hasLocale } from "next-intl";
+import { Footer } from "@/components/layout/footer";
 
 export function generateStaticParams() {
 	return routing.locales.map((locale) => ({ locale }));
@@ -95,6 +96,8 @@ export default async function LocaleLayout({
 							<CartProvider>
 								<NavbarDiv />
 								{children}
+								<Footer />
+
 								<CartSidebar />
 								<Toaster />
 							</CartProvider>

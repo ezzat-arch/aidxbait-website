@@ -24,63 +24,63 @@ A comprehensive guide for building projects with the same high coding standards 
 
 ### Core Framework
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| Next.js | 15.x | App Router, SSR, API Routes |
-| React | 19 | UI Library |
-| TypeScript | 5.x | Type Safety (strict mode) |
-| TailwindCSS | 3.4.x | Utility-first CSS |
+| Package     | Version | Purpose                     |
+| ----------- | ------- | --------------------------- |
+| Next.js     | 15.x    | App Router, SSR, API Routes |
+| React       | 19      | UI Library                  |
+| TypeScript  | 5.x     | Type Safety (strict mode)   |
+| TailwindCSS | 3.4.x   | Utility-first CSS           |
 
 ### Backend & Database
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| @supabase/supabase-js | ^2.58.0 | Supabase client |
-| @supabase/ssr | ^0.7.0 | Server-side Supabase integration |
+| Package               | Version | Purpose                          |
+| --------------------- | ------- | -------------------------------- |
+| @supabase/supabase-js | ^2.58.0 | Supabase client                  |
+| @supabase/ssr         | ^0.7.0  | Server-side Supabase integration |
 
 ### Internationalization
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| next-intl | ^4.1.0 | i18n with App Router support |
-| rtl-detect | ^1.1.2 | RTL language detection |
+| Package    | Version | Purpose                      |
+| ---------- | ------- | ---------------------------- |
+| next-intl  | ^4.1.0  | i18n with App Router support |
+| rtl-detect | ^1.1.2  | RTL language detection       |
 
 ### UI Components
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| @radix-ui/* | Various | Accessible UI primitives |
-| shadcn/ui | ^2.6.3 | Component library |
-| class-variance-authority | ^0.7.1 | Component variants |
-| clsx + tailwind-merge | Latest | Class name utilities |
-| lucide-react | ^0.454.0 | Icon library |
-| @tabler/icons-react | ^3.34.0 | Additional icons |
+| Package                  | Version  | Purpose                  |
+| ------------------------ | -------- | ------------------------ |
+| @radix-ui/\*             | Various  | Accessible UI primitives |
+| shadcn/ui                | ^2.6.3   | Component library        |
+| class-variance-authority | ^0.7.1   | Component variants       |
+| clsx + tailwind-merge    | Latest   | Class name utilities     |
+| lucide-react             | ^0.454.0 | Icon library             |
+| @tabler/icons-react      | ^3.34.0  | Additional icons         |
 
 ### Animation & Interactions
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| framer-motion | ^12.18.1 | Declarative animations |
-| embla-carousel-react | ^8.6.0 | Carousel component |
-| tailwindcss-animate | ^1.0.7 | CSS animations |
+| Package              | Version  | Purpose                |
+| -------------------- | -------- | ---------------------- |
+| framer-motion        | ^12.18.1 | Declarative animations |
+| embla-carousel-react | ^8.6.0   | Carousel component     |
+| tailwindcss-animate  | ^1.0.7   | CSS animations         |
 
 ### Forms & Validation
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| react-hook-form | ^7.54.1 | Form state management |
-| @hookform/resolvers | ^3.9.1 | Validation resolvers |
-| zod | ^3.24.1 | Schema validation |
+| Package             | Version | Purpose               |
+| ------------------- | ------- | --------------------- |
+| react-hook-form     | ^7.54.1 | Form state management |
+| @hookform/resolvers | ^3.9.1  | Validation resolvers  |
+| zod                 | ^3.24.1 | Schema validation     |
 
 ### Additional Libraries
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| date-fns | 4.1.0 | Date manipulation |
-| recharts | 2.15.0 | Charts and graphs |
-| sonner | ^1.7.1 | Toast notifications |
-| next-themes | ^0.4.4 | Theme management |
-| @vercel/analytics | ^1.5.0 | Analytics |
+| Package           | Version | Purpose             |
+| ----------------- | ------- | ------------------- |
+| date-fns          | 4.1.0   | Date manipulation   |
+| recharts          | 2.15.0  | Charts and graphs   |
+| sonner            | ^1.7.1  | Toast notifications |
+| next-themes       | ^0.4.4  | Theme management    |
+| @vercel/analytics | ^1.5.0  | Analytics           |
 
 ---
 
@@ -117,10 +117,10 @@ For client-side components:
 import { createBrowserClient } from "@supabase/ssr";
 
 export const createClient = () =>
-  createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
-  );
+	createBrowserClient(
+		process.env.NEXT_PUBLIC_SUPABASE_URL!,
+		process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
+	);
 ```
 
 #### 2. Server Client (`lib/supabase/server.ts`)
@@ -132,28 +132,28 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 export const createClient = async () => {
-  const cookieStore = await cookies();
+	const cookieStore = await cookies();
 
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // Called from Server Component - handled by middleware
-          }
-        },
-      },
-    }
-  );
+	return createServerClient(
+		process.env.NEXT_PUBLIC_SUPABASE_URL!,
+		process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+		{
+			cookies: {
+				getAll() {
+					return cookieStore.getAll();
+				},
+				setAll(cookiesToSet) {
+					try {
+						cookiesToSet.forEach(({ name, value, options }) =>
+							cookieStore.set(name, value, options)
+						);
+					} catch {
+						// Called from Server Component - handled by middleware
+					}
+				},
+			},
+		}
+	);
 };
 ```
 
@@ -169,14 +169,14 @@ import { createClient } from "@supabase/supabase-js";
  * Only use in API routes and server-side functions.
  */
 export const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-  }
+	process.env.NEXT_PUBLIC_SUPABASE_URL!,
+	process.env.SUPABASE_SERVICE_ROLE_KEY!,
+	{
+		auth: {
+			autoRefreshToken: false,
+			persistSession: false,
+		},
+	}
 );
 ```
 
@@ -189,47 +189,51 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const updateSession = async (request: NextRequest) => {
-  let supabaseResponse = NextResponse.next({ request });
+	let supabaseResponse = NextResponse.next({ request });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          supabaseResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
+	const supabase = createServerClient(
+		process.env.NEXT_PUBLIC_SUPABASE_URL!,
+		process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+		{
+			cookies: {
+				getAll() {
+					return request.cookies.getAll();
+				},
+				setAll(cookiesToSet) {
+					cookiesToSet.forEach(({ name, value }) =>
+						request.cookies.set(name, value)
+					);
+					supabaseResponse = NextResponse.next({ request });
+					cookiesToSet.forEach(({ name, value, options }) =>
+						supabaseResponse.cookies.set(name, value, options)
+					);
+				},
+			},
+		}
+	);
 
-  // IMPORTANT: Call getUser() immediately after createServerClient
-  const { data: { user } } = await supabase.auth.getUser();
+	// IMPORTANT: Call getUser() immediately after createServerClient
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
 
-  // Handle protected routes and redirects...
-  
-  return supabaseResponse;
+	// Handle protected routes and redirects...
+
+	return supabaseResponse;
 };
 ```
 
 ### Service Role Key Usage Rules
 
 **When to Use:**
+
 - Bypassing Row Level Security (RLS)
 - Admin operations (creating users, managing data)
 - System operations (migrations, cleanup tasks)
 - API routes requiring full database access
 
 **Security Best Practices:**
+
 - NEVER expose service role key to client-side code
 - ONLY use in API routes or server-side functions
 - Always validate and sanitize inputs
@@ -242,7 +246,7 @@ export const updateSession = async (request: NextRequest) => {
 ```typescript
 try {
   // Step 1: Create auth user
-  const { data: authData, error: authError } = 
+  const { data: authData, error: authError } =
     await supabaseAdmin.auth.admin.createUser({...});
 
   if (authError) {
@@ -329,12 +333,15 @@ project-root/
 ### Component Organization
 
 **ui/** - Reusable UI primitives from shadcn/ui:
+
 - button.tsx, input.tsx, card.tsx, dialog.tsx, etc.
 
 **sections/** - Page-level content sections:
+
 - hero-section.tsx, services-section.tsx, testimonials-section.tsx
 
 **layout/** - Layout components:
+
 - navbar.tsx, footer.tsx, user-nav.tsx
 
 ### Service Layer Architecture
@@ -362,35 +369,35 @@ lib/
 **Routing Configuration (`i18n/routing.ts`):**
 
 ```typescript
-import { defineRouting } from 'next-intl/routing';
+import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
-  locales: ['en', 'ar'],
-  defaultLocale: 'en',
-  localePrefix: 'as-needed',  // Default locale has no prefix
-  localeDetection: true
+	locales: ["en", "ar"],
+	defaultLocale: "en",
+	localePrefix: "as-needed", // Default locale has no prefix
+	localeDetection: true,
 });
 ```
 
 **Request Configuration (`i18n/request.ts`):**
 
 ```typescript
-import { getRequestConfig } from 'next-intl/server';
-import { routing } from './routing';
-import { hasLocale } from 'next-intl';
+import { getRequestConfig } from "next-intl/server";
+import { routing } from "./routing";
+import { hasLocale } from "next-intl";
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  const requested = await requestLocale;
-  const locale = hasLocale(routing.locales, requested)
-    ? requested
-    : routing.defaultLocale;
+	const requested = await requestLocale;
+	const locale = hasLocale(routing.locales, requested)
+		? requested
+		: routing.defaultLocale;
 
-  return {
-    locale,
-    messages: (await import(`../messages/${locale}.json`)).default,
-    timeZone: 'Africa/Cairo',
-    now: new Date()
-  };
+	return {
+		locale,
+		messages: (await import(`../messages/${locale}.json`)).default,
+		timeZone: "Africa/Cairo",
+		now: new Date(),
+	};
 });
 ```
 
@@ -400,29 +407,29 @@ Use nested JSON with namespaced keys:
 
 ```json
 {
-  "layout": {
-    "meta": {
-      "title": "App Title",
-      "description": "App description"
-    },
-    "footer": {
-      "text": {
-        "copyright": "© 2025 Company. All rights reserved.",
-        "privacy_policy": "Privacy Policy"
-      }
-    }
-  },
-  "login": {
-    "text": {
-      "welcome_back": "Welcome Back",
-      "email_address": "Email Address"
-    },
-    "attr": {
-      "placeholder": {
-        "enter_your_email": "Enter your email address"
-      }
-    }
-  }
+	"layout": {
+		"meta": {
+			"title": "App Title",
+			"description": "App description"
+		},
+		"footer": {
+			"text": {
+				"copyright": "© 2026 Company. All rights reserved.",
+				"privacy_policy": "Privacy Policy"
+			}
+		}
+	},
+	"login": {
+		"text": {
+			"welcome_back": "Welcome Back",
+			"email_address": "Email Address"
+		},
+		"attr": {
+			"placeholder": {
+				"enter_your_email": "Enter your email address"
+			}
+		}
+	}
 }
 ```
 
@@ -471,41 +478,41 @@ export default async function LocaleLayout({
 
 ```css
 @layer utilities {
-  /* RTL-specific utilities */
-  .rtl\:rotate-y-180 {
-    transform: scaleX(-1);
-  }
+	/* RTL-specific utilities */
+	.rtl\:rotate-y-180 {
+		transform: scaleX(-1);
+	}
 
-  /* Direction-aware text alignment */
-  [dir="rtl"] {
-    text-align: right;
-  }
+	/* Direction-aware text alignment */
+	[dir="rtl"] {
+		text-align: right;
+	}
 
-  [dir="ltr"] {
-    text-align: left;
-  }
+	[dir="ltr"] {
+		text-align: left;
+	}
 
-  /* RTL-aware transforms */
-  [dir="rtl"] .rtl-mirror {
-    transform: scaleX(-1);
-  }
+	/* RTL-aware transforms */
+	[dir="rtl"] .rtl-mirror {
+		transform: scaleX(-1);
+	}
 
-  /* Logical properties */
-  .ms-auto {
-    margin-inline-start: auto;
-  }
+	/* Logical properties */
+	.ms-auto {
+		margin-inline-start: auto;
+	}
 
-  .me-auto {
-    margin-inline-end: auto;
-  }
+	.me-auto {
+		margin-inline-end: auto;
+	}
 
-  .ps-4 {
-    padding-inline-start: 1rem;
-  }
+	.ps-4 {
+		padding-inline-start: 1rem;
+	}
 
-  .pe-4 {
-    padding-inline-end: 1rem;
-  }
+	.pe-4 {
+		padding-inline-end: 1rem;
+	}
 }
 ```
 
@@ -632,33 +639,35 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export const login = async (formData: FormData) => {
-  const supabase = await createClient();
+	const supabase = await createClient();
 
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+	const email = formData.get("email") as string;
+	const password = formData.get("password") as string;
 
-  if (!email?.trim() || !password?.trim()) {
-    redirect(`/login?error=${encodeURIComponent("Email and password are required")}`);
-  }
+	if (!email?.trim() || !password?.trim()) {
+		redirect(
+			`/login?error=${encodeURIComponent("Email and password are required")}`
+		);
+	}
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email: email.trim(),
-    password,
-  });
+	const { error } = await supabase.auth.signInWithPassword({
+		email: email.trim(),
+		password,
+	});
 
-  if (error) {
-    redirect(`/login?error=${encodeURIComponent(error.message)}`);
-  }
+	if (error) {
+		redirect(`/login?error=${encodeURIComponent(error.message)}`);
+	}
 
-  revalidatePath("/", "layout");
-  redirect("/");
+	revalidatePath("/", "layout");
+	redirect("/");
 };
 
 export const signOut = async () => {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
-  revalidatePath("/", "layout");
-  redirect("/login");
+	const supabase = await createClient();
+	await supabase.auth.signOut();
+	revalidatePath("/", "layout");
+	redirect("/login");
 };
 ```
 
@@ -669,26 +678,26 @@ export const signOut = async () => {
 
 // Define public routes
 const isPublicRoute =
-  pathname === "/" ||
-  pathname.startsWith("/login") ||
-  pathname.startsWith("/register") ||
-  pathname.startsWith("/auth") ||
-  pathname.startsWith("/api") ||
-  pathname.startsWith("/services") ||
-  pathname.startsWith("/about");
+	pathname === "/" ||
+	pathname.startsWith("/login") ||
+	pathname.startsWith("/register") ||
+	pathname.startsWith("/auth") ||
+	pathname.startsWith("/api") ||
+	pathname.startsWith("/services") ||
+	pathname.startsWith("/about");
 
 // Redirect unauthenticated users
 if (!user && !isPublicRoute) {
-  const url = request.nextUrl.clone();
-  url.pathname = "/login";
-  return NextResponse.redirect(url);
+	const url = request.nextUrl.clone();
+	url.pathname = "/login";
+	return NextResponse.redirect(url);
 }
 
 // Redirect authenticated users away from auth pages
 if (user && (pathname === "/login" || pathname === "/register")) {
-  const url = request.nextUrl.clone();
-  url.pathname = "/";
-  return NextResponse.redirect(url);
+	const url = request.nextUrl.clone();
+	url.pathname = "/";
+	return NextResponse.redirect(url);
 }
 ```
 
@@ -702,25 +711,25 @@ if (user && (pathname === "/login" || pathname === "/register")) {
 
 ```json
 {
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "default",
-  "rsc": true,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.ts",
-    "css": "app/globals.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  },
-  "iconLibrary": "lucide"
+	"$schema": "https://ui.shadcn.com/schema.json",
+	"style": "default",
+	"rsc": true,
+	"tsx": true,
+	"tailwind": {
+		"config": "tailwind.config.ts",
+		"css": "app/globals.css",
+		"baseColor": "neutral",
+		"cssVariables": true,
+		"prefix": ""
+	},
+	"aliases": {
+		"components": "@/components",
+		"utils": "@/lib/utils",
+		"ui": "@/components/ui",
+		"lib": "@/lib",
+		"hooks": "@/hooks"
+	},
+	"iconLibrary": "lucide"
 }
 ```
 
@@ -731,35 +740,38 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
+	"inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50",
+	{
+		variants: {
+			variant: {
+				default: "bg-primary text-primary-foreground hover:bg-primary/90",
+				destructive:
+					"bg-destructive text-destructive-foreground hover:bg-destructive/90",
+				outline: "border border-input bg-background hover:bg-accent",
+				secondary:
+					"bg-secondary text-secondary-foreground hover:bg-secondary/80",
+				ghost: "hover:bg-accent hover:text-accent-foreground",
+				link: "text-primary underline-offset-4 hover:underline",
+			},
+			size: {
+				default: "h-10 px-4 py-2",
+				sm: "h-9 rounded-md px-3",
+				lg: "h-11 rounded-md px-8",
+				icon: "h-10 w-10",
+			},
+		},
+		defaultVariants: {
+			variant: "default",
+			size: "default",
+		},
+	}
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
+	extends
+		React.ButtonHTMLAttributes<HTMLButtonElement>,
+		VariantProps<typeof buttonVariants> {
+	asChild?: boolean;
 }
 ```
 
@@ -767,34 +779,34 @@ export interface ButtonProps
 
 ```css
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 210 100% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 199 100% 74%;
-    --secondary-foreground: 210 100% 20%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 210 100% 35%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 210 100% 50%;
-    --radius: 0.5rem;
-  }
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 0 0% 3.9%;
+		--card: 0 0% 100%;
+		--card-foreground: 0 0% 3.9%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 0 0% 3.9%;
+		--primary: 210 100% 50%;
+		--primary-foreground: 0 0% 100%;
+		--secondary: 199 100% 74%;
+		--secondary-foreground: 210 100% 20%;
+		--muted: 0 0% 96.1%;
+		--muted-foreground: 0 0% 45.1%;
+		--accent: 210 100% 35%;
+		--accent-foreground: 0 0% 100%;
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 0 0% 98%;
+		--border: 0 0% 89.8%;
+		--input: 0 0% 89.8%;
+		--ring: 210 100% 50%;
+		--radius: 0.5rem;
+	}
 
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    /* ... dark mode values */
-  }
+	.dark {
+		--background: 0 0% 3.9%;
+		--foreground: 0 0% 98%;
+		/* ... dark mode values */
+	}
 }
 ```
 
@@ -822,15 +834,15 @@ const { toast } = useToast();
 
 // Success
 toast({
-  title: "Success",
-  description: "Operation completed successfully.",
+	title: "Success",
+	description: "Operation completed successfully.",
 });
 
 // Error
 toast({
-  title: "Error",
-  description: "Something went wrong.",
-  variant: "destructive",
+	title: "Error",
+	description: "Something went wrong.",
+	variant: "destructive",
 });
 ```
 
@@ -859,15 +871,15 @@ toast({
 ```typescript
 // Success response
 return NextResponse.json({
-  success: true,
-  data: result,
-  count: total  // For paginated results
+	success: true,
+	data: result,
+	count: total, // For paginated results
 });
 
 // Error response
 return NextResponse.json(
-  { success: false, error: "Error message" },
-  { status: 400 }
+	{ success: false, error: "Error message" },
+	{ status: 400 }
 );
 ```
 
@@ -878,87 +890,84 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+	try {
+		const { searchParams } = new URL(request.url);
+		const id = searchParams.get("id");
 
-    // Validate required params
-    if (!id) {
-      return NextResponse.json(
-        { success: false, error: "ID is required" },
-        { status: 400 }
-      );
-    }
+		// Validate required params
+		if (!id) {
+			return NextResponse.json(
+				{ success: false, error: "ID is required" },
+				{ status: 400 }
+			);
+		}
 
-    // Fetch data
-    const { data, error } = await supabaseAdmin
-      .from("table")
-      .select("*")
-      .eq("id", id);
+		// Fetch data
+		const { data, error } = await supabaseAdmin
+			.from("table")
+			.select("*")
+			.eq("id", id);
 
-    if (error) {
-      console.error("[API] Error:", error);
-      return NextResponse.json(
-        { success: false, error: "Failed to fetch data" },
-        { status: 500 }
-      );
-    }
+		if (error) {
+			console.error("[API] Error:", error);
+			return NextResponse.json(
+				{ success: false, error: "Failed to fetch data" },
+				{ status: 500 }
+			);
+		}
 
-    return NextResponse.json({ success: true, data });
-  } catch (error) {
-    console.error("[API] Unexpected error:", error);
-    return NextResponse.json(
-      { success: false, error: "Internal server error" },
-      { status: 500 }
-    );
-  }
+		return NextResponse.json({ success: true, data });
+	} catch (error) {
+		console.error("[API] Unexpected error:", error);
+		return NextResponse.json(
+			{ success: false, error: "Internal server error" },
+			{ status: 500 }
+		);
+	}
 }
 
 export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
+	try {
+		const body = await request.json();
 
-    // Validate required fields
-    if (!body.name || !body.email) {
-      return NextResponse.json(
-        { success: false, error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+		// Validate required fields
+		if (!body.name || !body.email) {
+			return NextResponse.json(
+				{ success: false, error: "Missing required fields" },
+				{ status: 400 }
+			);
+		}
 
-    // Create record
-    const { data, error } = await supabaseAdmin
-      .from("table")
-      .insert({
-        name: body.name.trim(),
-        email: body.email.trim(),
-      })
-      .select()
-      .single();
+		// Create record
+		const { data, error } = await supabaseAdmin
+			.from("table")
+			.insert({
+				name: body.name.trim(),
+				email: body.email.trim(),
+			})
+			.select()
+			.single();
 
-    if (error) {
-      console.error("[API] Error creating record:", {
-        error: error.message,
-        code: error.code,
-        details: error.details,
-      });
-      return NextResponse.json(
-        { success: false, error: "Failed to create record" },
-        { status: 500 }
-      );
-    }
+		if (error) {
+			console.error("[API] Error creating record:", {
+				error: error.message,
+				code: error.code,
+				details: error.details,
+			});
+			return NextResponse.json(
+				{ success: false, error: "Failed to create record" },
+				{ status: 500 }
+			);
+		}
 
-    return NextResponse.json(
-      { success: true, data },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error("[API] Unexpected error:", error);
-    return NextResponse.json(
-      { success: false, error: "Internal server error" },
-      { status: 500 }
-    );
-  }
+		return NextResponse.json({ success: true, data }, { status: 201 });
+	} catch (error) {
+		console.error("[API] Unexpected error:", error);
+		return NextResponse.json(
+			{ success: false, error: "Internal server error" },
+			{ status: 500 }
+		);
+	}
 }
 ```
 
@@ -967,21 +976,21 @@ export async function POST(request: NextRequest) {
 ```typescript
 // Use prefixed logging
 console.log("[Orders API] Creating order with payload:", {
-  patient_id: body.patient_id,
-  items_count: body.items?.length,
-  // Don't log sensitive data
+	patient_id: body.patient_id,
+	items_count: body.items?.length,
+	// Don't log sensitive data
 });
 
 // Error logging with context
 console.error("[Orders API] Error creating order:", {
-  error: error.message,
-  code: error.code,
-  details: error.details,
-  hint: error.hint,
-  context: {
-    patient_id: body.patient_id,
-    // Relevant debugging info
-  },
+	error: error.message,
+	code: error.code,
+	details: error.details,
+	hint: error.hint,
+	context: {
+		patient_id: body.patient_id,
+		// Relevant debugging info
+	},
 });
 ```
 
@@ -1013,11 +1022,11 @@ console.error("[Orders API] Error creating order:", {
 
 ```typescript
 export const useCart = () => {
-  const context = useContext(CartContext);
-  if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
-  return context;
+	const context = useContext(CartContext);
+	if (context === undefined) {
+		throw new Error("useCart must be used within a CartProvider");
+	}
+	return context;
 };
 ```
 
@@ -1029,18 +1038,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 const schema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+	email: z.string().email("Invalid email"),
+	password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
 type FormData = z.infer<typeof schema>;
 
 const {
-  register,
-  handleSubmit,
-  formState: { errors, isSubmitting },
+	register,
+	handleSubmit,
+	formState: { errors, isSubmitting },
 } = useForm<FormData>({
-  resolver: zodResolver(schema),
+	resolver: zodResolver(schema),
 });
 ```
 
@@ -1052,25 +1061,25 @@ const {
 
 ```json
 {
-  "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "target": "ES6",
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [{ "name": "next" }],
-    "paths": {
-      "@/*": ["./*"]
-    }
-  }
+	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"target": "ES6",
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"plugins": [{ "name": "next" }],
+		"paths": {
+			"@/*": ["./*"]
+		}
+	}
 }
 ```
 
@@ -1088,9 +1097,9 @@ types/
 ```typescript
 // Use interface for object shapes that may be extended
 interface UserProfile {
-  id: number;
-  email: string;
-  first_name: string | null;
+	id: number;
+	email: string;
+	first_name: string | null;
 }
 
 // Use type for unions, intersections, and computed types
@@ -1106,7 +1115,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+	return twMerge(clsx(inputs));
 }
 ```
 
@@ -1149,12 +1158,12 @@ VERCEL_ANALYTICS_ID=
 
 ```json
 {
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  }
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	}
 }
 ```
 
@@ -1163,9 +1172,9 @@ VERCEL_ANALYTICS_ID=
 ```typescript
 // middleware.ts
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|images/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-  ],
+	matcher: [
+		"/((?!api|_next/static|_next/image|favicon.ico|images/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+	],
 };
 ```
 
@@ -1204,4 +1213,3 @@ export const config = {
 - [ ] Set up environment variables
 - [ ] Create translation files structure
 - [ ] Add Cursor rules for Supabase patterns
-
