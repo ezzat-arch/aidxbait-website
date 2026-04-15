@@ -232,10 +232,16 @@ export function Footer() {
 							{tFooter("terms_of_service")}
 						</Link>
 						<Link
+							href="/return-and-refund-policy"
+							className="text-sm hover:text-primary transition-colors"
+						>
+							{tFooter("return_and_refund_policy")}
+						</Link>
+						<Link
 							href="/shipping-policy"
 							className="text-sm hover:text-primary transition-colors"
 						>
-							Shipping Policy
+							{tFooter("shipping_policy")}
 						</Link>
 					</div>
 				</div>

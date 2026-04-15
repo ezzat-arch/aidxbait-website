@@ -86,6 +86,8 @@ export const updateSession = async (request: NextRequest) => {
 		cleanPathname.startsWith("/forgot-password") ||
 		cleanPathname.startsWith("/terms") ||
 		cleanPathname.startsWith("/privacy") ||
+		cleanPathname.startsWith("/return-and-refund-policy") ||
+		cleanPathname.startsWith("/shipping-policy") ||
 		cleanPathname.includes(".");
 
 	if (!user && !isPublicRoute) {

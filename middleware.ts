@@ -13,17 +13,25 @@ export async function middleware(request: NextRequest) {
 
 	// Handle internationalization first
 	const intlResponse = intlMiddleware(request);
-	
-	// If intl middleware returns a response (redirect), handle Supabase session for it
+
+	// If intl middleware returns a response (rewrite/redirect), handle Supabase session for it
 	if (intlResponse) {
 		const supabaseResponse = await updateSession(request);
-		
-		// Merge headers from both middlewares
+
+		// Do not merge an auth redirect onto next-intl's rewrite. That produces an invalid
+		// middleware response (often 404) with both `x-middleware-rewrite` and `Location` set.
+		if (supabaseResponse.status >= 300 && supabaseResponse.status < 400) {
+			for (const cookie of intlResponse.headers.getSetCookie()) {
+				supabaseResponse.headers.append("Set-Cookie", cookie);
+			}
+			return supabaseResponse;
+		}
+
 		const response = intlResponse;
 		supabaseResponse.headers.forEach((value, key) => {
 			response.headers.set(key, value);
 		});
-		
+
 		return response;
 	}
 	
