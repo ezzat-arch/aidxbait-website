@@ -1,6 +1,26 @@
 import { Suspense } from "react";
-import { StoreContent } from "@/components/store/StoreContent";
-import { setRequestLocale, getTranslations } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { shopifyFetch } from "@/lib/shopify";
+import { getAllProductsQuery } from "@/lib/shopify/queries/products";
+import { mapStorefrontProductsToCards } from "@/lib/shopify/map-storefront-products";
+import type { StorefrontProductsQueryData } from "@/lib/shopify/types";
+import { StoreShopifyContent } from "@/components/store/StoreShopifyContent";
+
+async function StoreShopifyProductsSection({ locale }: { locale: string }) {
+	const t = await getTranslations({ locale, namespace: "store.StoreShopifyContent" });
+
+	try {
+		const { body } = await shopifyFetch<StorefrontProductsQueryData>({
+			query: getAllProductsQuery,
+		});
+		const products = mapStorefrontProductsToCards(body.data);
+		return <StoreShopifyContent products={products} />;
+	} catch {
+		return (
+			<StoreShopifyContent products={[]} errorMessage={t("fetch_failed")} />
+		);
+	}
+}
 
 // Loading fallback component
 async function StoreLoadingFallback() {
@@ -17,20 +37,18 @@ async function StoreLoadingFallback() {
 	);
 }
 
-export default async function StorePage({ 
-	params 
-}: { 
-	params: Promise<{ locale: string }> 
+export default async function StorePage({
+	params,
+}: {
+	params: Promise<{ locale: string }>;
 }) {
 	const { locale } = await params;
-	
-	// Enable static rendering
+
 	setRequestLocale(locale);
 
 	return (
 		<Suspense fallback={<StoreLoadingFallback />}>
-			<StoreContent />
+			<StoreShopifyProductsSection locale={locale} />
 		</Suspense>
 	);
 }
-

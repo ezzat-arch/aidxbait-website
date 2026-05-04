@@ -821,6 +821,22 @@
 					"payment_successful": "Payment Successful! 🎉"
 				}
 			}
+		},
+		"StoreShopifyContent": {
+			"hero": {
+				"subtitle": "Shopify catalog — products load from your Storefront API."
+			},
+			"empty_catalog": "No products returned from Shopify. Add products in Shopify admin or check your Storefront API access.",
+			"fetch_failed": "Could not load products from Shopify. Check server logs and your Storefront credentials.",
+			"view_on_store": "View on store",
+			"view_details": "View details",
+			"buy_on_shopify": "Buy on Shopify",
+			"back_to_store": "Back to store",
+			"related_heading": "You may also like",
+			"view_all_store": "View all",
+			"no_image": "No image",
+			"configure_domain": "Set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN for product links.",
+			"no_description": "—"
 		}
 	},
 	"ui": {
