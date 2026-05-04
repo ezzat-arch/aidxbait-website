@@ -821,6 +821,22 @@
 					"payment_successful": "تم الدفع بنجاح! 🎉"
 				}
 			}
+		},
+		"StoreShopifyContent": {
+			"hero": {
+				"subtitle": "كتالوج Shopify — يتم تحميل المنتجات من واجهة Storefront API."
+			},
+			"empty_catalog": "لم يُرجع Shopify أي منتجات. أضف منتجات في لوحة Shopify أو تحقق من صلاحية Storefront API.",
+			"fetch_failed": "تعذر تحميل المنتجات من Shopify. راجع سجلات الخادم وبيانات اعتماد Storefront.",
+			"view_on_store": "عرض في المتجر",
+			"view_details": "عرض التفاصيل",
+			"buy_on_shopify": "الشراء من Shopify",
+			"back_to_store": "العودة إلى المتجر",
+			"related_heading": "قد يعجبك أيضًا",
+			"view_all_store": "عرض الكل",
+			"no_image": "لا توجد صورة",
+			"configure_domain": "عيّن NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN لروابط المنتجات.",
+			"no_description": "—"
 		}
 	},
 	"ui": {
