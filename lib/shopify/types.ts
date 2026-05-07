@@ -33,6 +33,60 @@ export type ShopifyProductCardModel = {
 	currencyCode: string;
 };
 
+/** Storefront API shapes used by collection listing queries */
+export type StorefrontCollectionsQueryData = {
+	collections: {
+		edges: Array<{
+			node: {
+				id: string;
+				title: string;
+				handle: string;
+				description: string;
+				image: { url: string; altText: string | null } | null;
+			};
+		}>;
+	};
+};
+
+/** Minimal collection fields for storefront cards (mapped from GraphQL) */
+export type ShopifyCollectionCardModel = {
+	id: string;
+	title: string;
+	handle: string;
+	description: string | null;
+	imageUrl: string | null;
+	imageAlt: string | null;
+};
+
+/** `collection(handle:)` query payload */
+export type StorefrontCollectionByHandleData = {
+	collection: {
+		id: string;
+		title: string;
+		handle: string;
+		description: string;
+		image: { url: string; altText: string | null } | null;
+		products: {
+			edges: Array<{
+				node: {
+					id: string;
+					title: string;
+					handle: string;
+					description: string;
+					images: {
+						edges: Array<{
+							node: { url: string; altText: string | null };
+						}>;
+					};
+					priceRange: {
+						minVariantPrice: { amount: string; currencyCode: string };
+					};
+				};
+			}>;
+		};
+	} | null;
+};
+
 /** `product(handle:)` query payload */
 export type StorefrontProductByHandleData = {
 	product: {

@@ -837,6 +837,50 @@
 			"no_image": "لا توجد صورة",
 			"configure_domain": "عيّن NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN لروابط المنتجات.",
 			"no_description": "—"
+		},
+		"CollectionsFilterSection": {
+			"all": "جميع المنتجات",
+			"loading": "جارٍ تحميل المنتجات...",
+			"empty": "لا توجد منتجات في هذه المجموعة.",
+			"fetch_error": "فشل تحميل المنتجات. يرجى المحاولة مجدداً."
+		},
+		"StoreCollectionsContent": {
+			"badge": "تصفح حسب المجموعة",
+			"heading": "تسوق حسب المجموعة",
+			"subheading": "استكشف مجموعاتنا المنتقاة وابحث عمّا تحتاجه بالضبط.",
+			"browse_collection": "تصفح المجموعة",
+			"empty_catalog": "لا توجد مجموعات متاحة الآن. تحقق لاحقاً.",
+			"fetch_failed": "تعذر تحميل المجموعات من Shopify. راجع سجلات الخادم وبيانات اعتماد Storefront.",
+			"no_description": "استكشف هذه المجموعة"
+		},
+		"CollectionsPage": {
+			"meta_title": "المجموعات | متجر AidxBait",
+			"meta_description": "تصفح جميع مجموعات المنتجات في متجر AidxBait. اكتشف مجموعات منتقاة من الأجهزة الطبية ودعامات الجسم والمزيد.",
+			"hero_badge": "جميع المجموعات",
+			"hero_title": "مجموعاتنا",
+			"hero_subtitle": "تصفح مجموعة كاملة من المنتجات المنتقاة بعناية لتلبية احتياجاتك.",
+			"breadcrumb_store": "المتجر",
+			"breadcrumb_collections": "المجموعات",
+			"back_to_store": "العودة إلى المتجر",
+			"items_count": "{count, plural, =0 {لا توجد مجموعات} =1 {مجموعة واحدة} other {# مجموعات}}",
+			"empty_heading": "لا توجد مجموعات",
+			"empty_body": "لم نتمكن من العثور على أي مجموعات في الوقت الحالي. يرجى التحقق لاحقاً.",
+			"error_heading": "فشل تحميل المجموعات",
+			"no_description": "استكشف هذه المجموعة"
+		},
+		"CollectionDetailPage": {
+			"meta_title": "{title} | متجر AidxBait",
+			"meta_description": "تسوق {title} — تصفح جميع المنتجات في هذه المجموعة في متجر AidxBait.",
+			"not_found_title": "المجموعة غير موجودة | متجر AidxBait",
+			"breadcrumb_store": "المتجر",
+			"breadcrumb_collections": "المجموعات",
+			"back_to_collections": "العودة إلى المجموعات",
+			"products_count": "{count, plural, =0 {لا توجد منتجات} =1 {منتج واحد} other {# منتجات}}",
+			"empty_heading": "لا توجد منتجات في هذه المجموعة",
+			"empty_body": "لا تحتوي هذه المجموعة على منتجات حتى الآن. تحقق لاحقاً.",
+			"error_heading": "فشل تحميل المجموعة",
+			"view_details": "عرض التفاصيل",
+			"no_image": "لا توجد صورة"
 		}
 	},
 	"ui": {
