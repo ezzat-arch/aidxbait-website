@@ -2,7 +2,7 @@
 
 export const getAllProductsQuery = `
   query getProducts {
-    products(first: 10) {
+    products(first: 20) {
       edges {
         node {
           id
@@ -54,6 +54,63 @@ export const getProductByHandleQuery = `
           node {
             id
             availableForSale
+          }
+        }
+      }
+    }
+  }
+`;
+export const getAllCollectionsQuery = `
+  query getCollections {
+    collections(first: 10) {
+      edges {
+        node {
+          id
+          title
+          handle
+          description
+          image {
+            url
+            altText
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const getCollectionByHandleQuery = `
+  query getCollection($handle: String!) {
+    collection(handle: $handle) {
+      id
+      title
+      handle
+      description
+      image {
+        url
+        altText
+      }
+      products(first: 20) {
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            images(first: 1) {
+              edges {
+                node {
+                  url
+                  altText
+                }
+              }
+            }
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
           }
         }
       }

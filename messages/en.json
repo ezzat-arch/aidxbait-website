@@ -837,6 +837,50 @@
 			"no_image": "No image",
 			"configure_domain": "Set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN for product links.",
 			"no_description": "—"
+		},
+		"CollectionsFilterSection": {
+			"all": "All Products",
+			"loading": "Loading products...",
+			"empty": "No products found in this collection.",
+			"fetch_error": "Failed to load products. Please try again."
+		},
+		"StoreCollectionsContent": {
+			"badge": "Browse by Collection",
+			"heading": "Shop by Collection",
+			"subheading": "Explore our curated collections and find exactly what you need.",
+			"browse_collection": "Browse Collection",
+			"empty_catalog": "No collections available right now. Check back soon.",
+			"fetch_failed": "Could not load collections from Shopify. Check server logs and your Storefront credentials.",
+			"no_description": "Explore this collection"
+		},
+		"CollectionsPage": {
+			"meta_title": "Collections | AidxBait Store",
+			"meta_description": "Browse all product collections in the AidxBait store. Find curated groupings of medical devices, support braces, and more.",
+			"hero_badge": "All Collections",
+			"hero_title": "Our Collections",
+			"hero_subtitle": "Browse our full range of curated product collections — each one carefully selected for your needs.",
+			"breadcrumb_store": "Store",
+			"breadcrumb_collections": "Collections",
+			"back_to_store": "Back to store",
+			"items_count": "{count, plural, =0 {No collections} =1 {1 collection} other {# collections}}",
+			"empty_heading": "No collections found",
+			"empty_body": "We couldn't find any collections at the moment. Please check back soon.",
+			"error_heading": "Failed to load collections",
+			"no_description": "Explore this collection"
+		},
+		"CollectionDetailPage": {
+			"meta_title": "{title} | AidxBait Store",
+			"meta_description": "Shop {title} — browse all products in this collection at AidxBait Store.",
+			"not_found_title": "Collection Not Found | AidxBait Store",
+			"breadcrumb_store": "Store",
+			"breadcrumb_collections": "Collections",
+			"back_to_collections": "Back to collections",
+			"products_count": "{count, plural, =0 {No products} =1 {1 product} other {# products}}",
+			"empty_heading": "No products in this collection",
+			"empty_body": "This collection has no products yet. Check back soon.",
+			"error_heading": "Failed to load collection",
+			"view_details": "View details",
+			"no_image": "No image"
 		}
 	},
 	"ui": {

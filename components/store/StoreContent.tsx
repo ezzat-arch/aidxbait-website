@@ -428,7 +428,7 @@ export function StoreContent() {
 	};
 
 	return (
-		<div className="min-h-screen bg-background pt-20">
+		<div className=" bg-background pt-20">
 			{/* Hero Section */}
 			<div className="relative min-h-[400px] sm:h-[45vh] md:h-[50vh] lg:h-[40vh] max-h-[600px] overflow-hidden">
 				{/* Background Image with Overlay */}

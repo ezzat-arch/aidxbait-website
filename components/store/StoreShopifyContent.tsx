@@ -8,17 +8,19 @@ import type { ShopifyProductCardModel } from "@/lib/shopify/types";
 type StoreShopifyContentProps = {
 	products: ShopifyProductCardModel[];
 	errorMessage?: string | null;
+	heroOnly?: boolean;
 };
 
 export function StoreShopifyContent({
 	products,
 	errorMessage,
+	heroOnly = false,
 }: StoreShopifyContentProps) {
 	const t = useTranslations("store.StoreContent");
 	const tShopify = useTranslations("store.StoreShopifyContent");
 
 	return (
-		<div className="min-h-screen bg-background pt-20">
+		<div className="bg-background pt-20">
 			{/* Hero — aligned with StoreContent */}
 			<div className="relative min-h-[400px] sm:h-[45vh] md:h-[50vh] lg:h-[40vh] max-h-[600px] overflow-hidden">
 				<div className="absolute inset-0">
@@ -70,29 +72,31 @@ export function StoreShopifyContent({
 				</div>
 			</div>
 
-			<div className="container mx-auto px-4 py-8">
-				{errorMessage && (
-					<div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive mb-8">
-						{errorMessage}
-					</div>
-				)}
+			{!heroOnly && (
+				<div className="container mx-auto px-4 py-8">
+					{errorMessage && (
+						<div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive mb-8">
+							{errorMessage}
+						</div>
+					)}
 
-				{!errorMessage && products.length === 0 && (
-					<div className="flex flex-col items-center justify-center py-16 px-4">
-						<p className="text-muted-foreground text-lg text-center max-w-md">
-							{tShopify("empty_catalog")}
-						</p>
-					</div>
-				)}
+					{!errorMessage && products.length === 0 && (
+						<div className="flex flex-col items-center justify-center py-16 px-4">
+							<p className="text-muted-foreground text-lg text-center max-w-md">
+								{tShopify("empty_catalog")}
+							</p>
+						</div>
+					)}
 
-				{products.length > 0 && (
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-						{products.map((product) => (
-							<ShopifyProductCard key={product.id} product={product} />
-						))}
-					</div>
-				)}
-			</div>
+					{products.length > 0 && (
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+							{products.map((product) => (
+								<ShopifyProductCard key={product.id} product={product} />
+							))}
+						</div>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }
