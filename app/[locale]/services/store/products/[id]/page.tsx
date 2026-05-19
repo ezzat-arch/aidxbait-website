@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { AddToCartButton } from "@/components/store/AddToCartButton";
 import { ShopifyProductImageGallery } from "@/components/store/ShopifyProductImageGallery";
 import {
 	getShopifyProductByHandle,
@@ -29,12 +30,6 @@ interface ProductPageProps {
 
 function stripScriptsFromHtml(html: string): string {
 	return html.replace(/<script\b[\s\S]*?<\/script>/gi, "");
-}
-
-function variantGidToNumericId(gid: string | undefined): string | null {
-	if (!gid) return null;
-	const m = gid.match(/(\d+)\s*$/);
-	return m ? m[1] : null;
 }
 
 function formatMoney(
@@ -132,14 +127,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 		locale
 	);
 
-	const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
-	const variantNumeric = variantGidToNumericId(variantNode?.id);
-	const buyUrl =
-		domain && variantNumeric
-			? `https://${domain}/cart/${variantNumeric}:1`
-			: domain
-				? `https://${domain}/products/${decodeURIComponent(handleParam)}`
-				: null;
+	const variantId = variantNode?.id ?? "";
+	const shopifyConfigured = Boolean(
+		process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN &&
+			process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+	);
 
 	const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 	const productPath = `/${locale}/services/store/products/${encodeURIComponent(handleParam)}/`;
@@ -263,12 +255,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 								/>
 							</header>
 
-							{buyUrl ? (
-								<Button size="lg" className="w-full sm:w-auto" asChild>
-									<a href={buyUrl} target="_blank" rel="noopener noreferrer">
-										{t("buy_on_shopify")}
-									</a>
-								</Button>
+							{shopifyConfigured && variantId ? (
+								<AddToCartButton
+									variantId={variantId}
+									text={t("buy_on_shopify")}
+									disabled={!isInStock}
+								/>
 							) : (
 								<p className="text-sm text-muted-foreground">{t("configure_domain")}</p>
 							)}

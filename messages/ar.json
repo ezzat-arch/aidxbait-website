@@ -835,14 +835,19 @@
 			"related_heading": "قد يعجبك أيضًا",
 			"view_all_store": "عرض الكل",
 			"no_image": "لا توجد صورة",
-			"configure_domain": "عيّن NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN لروابط المنتجات.",
+			"configure_domain": "عيّن NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ورمز Storefront API لتفعيل الدفع.",
+			"checkout_error": "تعذّر بدء الدفع. يُرجى المحاولة مرة أخرى.",
 			"no_description": "—"
 		},
 		"CollectionsFilterSection": {
 			"all": "جميع المنتجات",
 			"loading": "جارٍ تحميل المنتجات...",
+			"searching": "جارٍ البحث عن المنتجات...",
 			"empty": "لا توجد منتجات في هذه المجموعة.",
-			"fetch_error": "فشل تحميل المنتجات. يرجى المحاولة مجدداً."
+			"empty_search": "لا توجد منتجات تطابق بحثك.",
+			"fetch_error": "فشل تحميل المنتجات. يرجى المحاولة مجدداً.",
+			"search_placeholder": "ابحث عن المنتجات...",
+			"clear_search": "مسح البحث"
 		},
 		"StoreCollectionsContent": {
 			"badge": "تصفح حسب المجموعة",

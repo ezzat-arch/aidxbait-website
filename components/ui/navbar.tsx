@@ -174,14 +174,15 @@ const Navbar = ({ className }: { className?: string }) => {
 
 	const logo = (
 		<Link href="/" className="flex items-center gap-2">
-			<Image
-				src="/images/aidLogo.svg"
-				alt={tNavAlt("aidxbait_logo")}
-				width={259}
-				height={130}
-				className="object-contain w-[187px] h-[94px] sm:w-[202px] sm:h-[101px] md:w-[230px] md:h-[115px] lg:w-[259px] lg:h-[130px] logo-responsive"
-				priority
-			/>
+			<div className="relative w-[187px] h-[80px] ">
+				<Image
+					src="/images/aidLogo.svg"
+					alt={tNavAlt("aidxbait_logo")}
+					fill
+					className="object-contain  "
+					priority
+				/>
+			</div>
 		</Link>
 	);
 

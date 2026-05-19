@@ -1,5 +1,35 @@
 /** Storefront API — product listings and product-related operations */
 
+/** Product list filtered by Shopify search syntax (title, tags, collection:handle, etc.) */
+export const searchProductsQuery = `
+  query searchProducts($query: String!) {
+    products(first: 20, query: $query) {
+      edges {
+        node {
+          id
+          title
+          handle
+          description
+          images(first: 1) {
+            edges {
+              node {
+                url
+                altText
+              }
+            }
+          }
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const getAllProductsQuery = `
   query getProducts {
     products(first: 20) {
