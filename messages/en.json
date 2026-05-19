@@ -835,14 +835,19 @@
 			"related_heading": "You may also like",
 			"view_all_store": "View all",
 			"no_image": "No image",
-			"configure_domain": "Set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN for product links.",
+			"configure_domain": "Set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN and Storefront API token to enable checkout.",
+			"checkout_error": "Could not start checkout. Please try again.",
 			"no_description": "—"
 		},
 		"CollectionsFilterSection": {
 			"all": "All Products",
 			"loading": "Loading products...",
+			"searching": "Searching products...",
 			"empty": "No products found in this collection.",
-			"fetch_error": "Failed to load products. Please try again."
+			"empty_search": "No products match your search.",
+			"fetch_error": "Failed to load products. Please try again.",
+			"search_placeholder": "Search products...",
+			"clear_search": "Clear search"
 		},
 		"StoreCollectionsContent": {
 			"badge": "Browse by Collection",

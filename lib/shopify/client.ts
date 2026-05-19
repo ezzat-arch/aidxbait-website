@@ -13,9 +13,11 @@ export type ShopifyGraphQLResponse<T = unknown> = {
 export async function shopifyFetch<T = unknown>({
 	query,
 	variables = {},
+	cache = "force-cache",
 }: {
 	query: string;
 	variables?: Record<string, unknown>;
+	cache?: RequestCache;
 }): Promise<{
 	status: number;
 	body: ShopifyGraphQLResponse<T>;
@@ -31,8 +33,7 @@ export async function shopifyFetch<T = unknown>({
 				"X-Shopify-Storefront-Access-Token": key as string,
 			},
 			body: JSON.stringify({ query, variables }),
-			// Tune Next.js fetch caching as needed (e.g. no-store, revalidate).
-			cache: "force-cache",
+			cache,
 		});
 
 		const body = (await result.json()) as ShopifyGraphQLResponse<T>;
