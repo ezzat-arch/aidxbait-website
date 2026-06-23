@@ -22,6 +22,8 @@ export async function GET(request: NextRequest) {
 		const days = Math.min(Number(searchParams.get("days")) || 14, 30);
 		const therapistIdParam = searchParams.get("therapistId");
 		const therapistId = therapistIdParam ? Number(therapistIdParam) : undefined;
+		const specialtyIdParam = searchParams.get("specialtyId");
+		const specialtyId = specialtyIdParam ? Number(specialtyIdParam) : undefined;
 
 		if (!locationId) {
 			return validationError("Missing or invalid locationId query parameter");
@@ -29,8 +31,16 @@ export async function GET(request: NextRequest) {
 		if (therapistIdParam && !therapistId) {
 			return validationError("Invalid therapistId query parameter");
 		}
+		if (specialtyIdParam && !specialtyId) {
+			return validationError("Invalid specialtyId query parameter");
+		}
 
-		const data = await getAreaAvailability(locationId, days, therapistId);
+		const data = await getAreaAvailability(
+			locationId,
+			days,
+			therapistId,
+			specialtyId
+		);
 		return NextResponse.json({ success: true, data });
 	} catch (err: unknown) {
 		return visitRequestErrorResponse(err);

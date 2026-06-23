@@ -12,15 +12,14 @@
 -- Contents, in dependency order:
 --   0. Core prerequisites if missing (locations, admins, therapists,
 --      therapist_locations)
---   1. Therapist module (001): enums, therapist profile columns, documents,
---      weekly availability, schedule overrides, requests + visits tables,
---      private storage bucket for therapist documents
+--   1. Therapist module (001)
 --   2. Directed requests (005): requests.preferred_therapist_id
---   3. In-app notifications (006): notifications table + automatic triggers
---   4. Service-area seed (003): 27 Egyptian governorates
---   5. Admin utility (004): delete_user_completely() function
---   6. Security (002): enable Row Level Security on ALL public tables
---      (runs LAST so it also covers every table created above)
+--   3. In-app notifications (006): table + triggers
+--   4. Specialties (007): specialties table + therapists/requests.specialty_id
+--   5. Visit reviews (008): visit_reviews + therapist rating aggregate + triggers
+--   6. Service-area seed (003): 27 Egyptian governorates
+--   7. Admin utility (004): delete_user_completely()
+--   8. Security (002): enable RLS on ALL public tables (runs LAST)
 --
 -- AFTER RUNNING, also check in the production project:
 --   * Authentication -> Policies -> minimum password length = 8
@@ -67,11 +66,10 @@ CREATE TABLE IF NOT EXISTS therapist_locations
     updated_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
-------------------------------------------------------------------------------
+
 -- ============================================================================
 -- FROM: 001_therapist_module.sql
 -- ============================================================================
-------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 -- THERAPIST MODULE MIGRATION
 -- Run this whole file in the Supabase SQL Editor (Dashboard > SQL Editor).
@@ -379,11 +377,9 @@ $$;
 -- automatically attaches updated_at triggers to the new tables.
 ------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------
 -- ============================================================================
 -- FROM: 005_preferred_therapist.sql
 -- ============================================================================
-------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 -- DIRECTED HOME-VISIT REQUESTS
 -- Run in the Supabase SQL Editor. Idempotent.
@@ -403,11 +399,9 @@ CREATE INDEX IF NOT EXISTS idx_requests_preferred_therapist
 COMMENT ON COLUMN requests.preferred_therapist_id IS
     'NULL = general request visible to all area therapists; set = directed to one therapist';
 
-------------------------------------------------------------------------------
 -- ============================================================================
 -- FROM: 006_notifications.sql
 -- ============================================================================
-------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 -- IN-APP NOTIFICATIONS (therapist app + patient app)
 -- Run in the Supabase SQL Editor. Idempotent.
@@ -613,11 +607,197 @@ CREATE TRIGGER trg_notify_on_visit_status_change
 --   INSERT a test request -> SELECT * FROM notifications ORDER BY id DESC;
 ------------------------------------------------------------------------------
 
+-- ============================================================================
+-- FROM: 007_specialties.sql
+-- ============================================================================
 ------------------------------------------------------------------------------
+-- SPECIALTIES (admin-managed list)
+-- Run in the Supabase SQL Editor. Idempotent.
+--
+-- Turns the free-text therapist `specialty` into a managed catalogue:
+--   * specialties              - the list admins control from the dashboard
+--   * therapists.specialty_id  - which specialty a therapist has (one each)
+--   * requests.specialty_id    - optional specialty a patient asks for
+--
+-- The existing TEXT columns (therapists.specialty) are kept as a denormalized
+-- display value so nothing that reads them breaks; the backend keeps them in
+-- sync when a specialty_id is set.
+------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS specialties
+(
+    id         SERIAL PRIMARY KEY,
+    name       VARCHAR(150) NOT NULL UNIQUE,
+    name_ar    VARCHAR(150),
+    is_active  BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_specialties_active ON specialties (is_active);
+
+-- Seed a starting catalogue (skipped if names already exist).
+INSERT INTO specialties (name, name_ar)
+VALUES
+    ('Orthopedic Physiotherapy',   'العلاج الطبيعي للعظام'),
+    ('Neurological Physiotherapy', 'العلاج الطبيعي للأعصاب'),
+    ('Sports Physiotherapy',       'العلاج الطبيعي الرياضي'),
+    ('Pediatric Physiotherapy',    'العلاج الطبيعي للأطفال'),
+    ('Geriatric Physiotherapy',    'العلاج الطبيعي لكبار السن'),
+    ('Cardiopulmonary Physiotherapy', 'العلاج الطبيعي للقلب والصدر'),
+    ('Post-Surgical Rehabilitation', 'إعادة التأهيل بعد الجراحة'),
+    ('Women''s Health Physiotherapy', 'العلاج الطبيعي لصحة المرأة')
+ON CONFLICT (name) DO NOTHING;
+
+-- Add the reference columns.
+ALTER TABLE therapists
+    ADD COLUMN IF NOT EXISTS specialty_id INTEGER REFERENCES specialties (id);
+
+ALTER TABLE requests
+    ADD COLUMN IF NOT EXISTS specialty_id INTEGER REFERENCES specialties (id);
+
+CREATE INDEX IF NOT EXISTS idx_therapists_specialty_id ON therapists (specialty_id);
+CREATE INDEX IF NOT EXISTS idx_requests_specialty_id   ON requests (specialty_id);
+
+-- Backfill: turn each distinct existing therapist.specialty text into a
+-- specialties row, then link therapists.specialty_id to it.
+INSERT INTO specialties (name)
+SELECT DISTINCT TRIM(specialty)
+FROM therapists
+WHERE specialty IS NOT NULL
+  AND TRIM(specialty) <> ''
+ON CONFLICT (name) DO NOTHING;
+
+UPDATE therapists t
+SET specialty_id = s.id
+FROM specialties s
+WHERE t.specialty_id IS NULL
+  AND t.specialty IS NOT NULL
+  AND TRIM(t.specialty) = s.name;
+
+COMMENT ON COLUMN therapists.specialty_id IS 'Managed specialty (specialties.id); therapists.specialty kept as display text';
+COMMENT ON COLUMN requests.specialty_id IS 'Optional specialty the patient is requesting; NULL = any specialty';
+
+------------------------------------------------------------------------------
+-- DONE.
+------------------------------------------------------------------------------
+
+-- ============================================================================
+-- FROM: 008_visit_reviews.sql
+-- ============================================================================
+------------------------------------------------------------------------------
+-- VISIT REVIEWS (patient rates the therapist after a completed home visit)
+-- Run in the Supabase SQL Editor. Idempotent.
+--
+-- One review per visit (a patient can review only a visit they had, once).
+-- Reviews are tied to the visit, so they're only possible after the doctor
+-- marked the visit "done".
+--
+-- Aggregate columns on `therapists` (rating_avg, rating_count) are kept in
+-- sync by triggers, so listing a doctor's rating never needs a join/scan.
+------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS visit_reviews
+(
+    id           SERIAL PRIMARY KEY,
+    visit_id     INTEGER NOT NULL UNIQUE REFERENCES visits (id) ON DELETE CASCADE,
+    therapist_id INTEGER NOT NULL REFERENCES therapists (id) ON DELETE CASCADE,
+    patient_id   INTEGER NOT NULL REFERENCES patients (id) ON DELETE CASCADE,
+    rating       SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    comment      TEXT,
+    created_at   TIMESTAMPTZ DEFAULT NOW(),
+    updated_at   TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_visit_reviews_therapist ON visit_reviews (therapist_id);
+CREATE INDEX IF NOT EXISTS idx_visit_reviews_patient   ON visit_reviews (patient_id);
+
+ALTER TABLE visit_reviews ENABLE ROW LEVEL SECURITY;
+
+-- Denormalized rating aggregate on the therapist (fast reads everywhere).
+ALTER TABLE therapists
+    ADD COLUMN IF NOT EXISTS rating_avg   NUMERIC(3, 2) NOT NULL DEFAULT 0,
+    ADD COLUMN IF NOT EXISTS rating_count INTEGER       NOT NULL DEFAULT 0;
+
+------------------------------------------------------------------------------
+-- Recompute a therapist's rating aggregate from visit_reviews
+------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION recompute_therapist_rating(p_therapist_id INTEGER)
+RETURNS VOID
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE therapists t
+    SET rating_count = agg.cnt,
+        rating_avg   = COALESCE(agg.avg, 0)
+    FROM (
+        SELECT COUNT(*)::INT AS cnt, ROUND(AVG(rating), 2) AS avg
+        FROM visit_reviews
+        WHERE therapist_id = p_therapist_id
+    ) agg
+    WHERE t.id = p_therapist_id;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION trg_visit_reviews_sync()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF TG_OP = 'DELETE' THEN
+        PERFORM recompute_therapist_rating(OLD.therapist_id);
+        RETURN OLD;
+    END IF;
+    PERFORM recompute_therapist_rating(NEW.therapist_id);
+    RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS visit_reviews_sync ON visit_reviews;
+CREATE TRIGGER visit_reviews_sync
+    AFTER INSERT OR UPDATE OR DELETE ON visit_reviews
+    FOR EACH ROW EXECUTE FUNCTION trg_visit_reviews_sync();
+
+-- Notify the therapist when they receive a review.
+CREATE OR REPLACE FUNCTION notify_therapist_new_review()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+    -- Only if the notifications table exists (migration 006); guard softly.
+    BEGIN
+        INSERT INTO notifications (user_id, type, title, title_ar, body, body_ar, reference_type, reference_id)
+        SELECT t.user_id, 'review_received',
+               'You received a review',
+               'لقد تلقيت تقييمًا',
+               'A patient rated your visit ' || NEW.rating || '/5' ||
+                   CASE WHEN NEW.comment IS NOT NULL AND TRIM(NEW.comment) <> ''
+                        THEN ': "' || NEW.comment || '"' ELSE '.' END,
+               'قيّم مريض زيارتك ' || NEW.rating || '/5' ||
+                   CASE WHEN NEW.comment IS NOT NULL AND TRIM(NEW.comment) <> ''
+                        THEN ': "' || NEW.comment || '"' ELSE '.' END,
+               'review', NEW.id
+        FROM therapists t WHERE t.id = NEW.therapist_id;
+    EXCEPTION WHEN undefined_table THEN
+        NULL;
+    END;
+    RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS visit_reviews_notify ON visit_reviews;
+CREATE TRIGGER visit_reviews_notify
+    AFTER INSERT ON visit_reviews
+    FOR EACH ROW EXECUTE FUNCTION notify_therapist_new_review();
+
+------------------------------------------------------------------------------
+-- DONE. Verify:  SELECT id, rating_avg, rating_count FROM therapists;
+------------------------------------------------------------------------------
+
 -- ============================================================================
 -- FROM: 003_seed_locations.sql
 -- ============================================================================
-------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 -- SEED `locations` (service areas)
 -- Run in the Supabase SQL Editor. Idempotent: ON CONFLICT keeps it re-runnable.
@@ -662,11 +842,9 @@ ON CONFLICT (location_name) DO NOTHING;
 -- DONE. Verify:  SELECT COUNT(*) FROM locations;
 ------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------
 -- ============================================================================
 -- FROM: 004_delete_user_completely.sql
 -- ============================================================================
-------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 -- DELETE A USER COMPLETELY (all related rows in every table + auth account)
 --
@@ -909,11 +1087,9 @@ REVOKE ALL ON FUNCTION _delete_user_exec(TEXT) FROM PUBLIC, anon, authenticated;
 --     "users": 1, "auth_users": 1, ... } }
 ------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------
 -- ============================================================================
 -- FROM: 002_enable_rls.sql
 -- ============================================================================
-------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 -- ENABLE ROW LEVEL SECURITY ON ALL PUBLIC TABLES
 -- Run in Supabase SQL Editor. Idempotent and safe to re-run.

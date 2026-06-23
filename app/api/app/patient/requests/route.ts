@@ -86,6 +86,13 @@ export async function POST(request: NextRequest) {
 		) {
 			return validationError("preferred_therapist_id must be a therapist id");
 		}
+		if (
+			data.specialty_id !== undefined &&
+			data.specialty_id !== null &&
+			!Number(data.specialty_id)
+		) {
+			return validationError("specialty_id must be a specialty id");
+		}
 
 		const created = await createVisitRequest(supabase_id, data);
 		return NextResponse.json({ success: true, data: created });

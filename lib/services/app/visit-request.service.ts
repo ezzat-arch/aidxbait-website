@@ -51,14 +51,17 @@ export class TherapistNotInAreaError extends Error {
 // Therapists available in an area (for the patient's "choose doctor" picker)
 // ---------------------------------------------------------------------------
 
-export async function getAreaTherapists(locationId: number) {
-	const { data, error } = await supabaseAdmin
+export async function getAreaTherapists(
+	locationId: number,
+	specialtyId?: number
+) {
+	let query = supabaseAdmin
 		.from("therapist_locations")
 		.select(
 			`
 			therapists!inner (
-				id, specialty, bio, gender, experience_years,
-				account_status, is_available,
+				id, specialty, specialty_id, bio, gender, experience_years,
+				account_status, is_available, rating_avg, rating_count,
 				users (first_name, last_name, image_url)
 			)
 			`
@@ -67,6 +70,11 @@ export async function getAreaTherapists(locationId: number) {
 		.eq("therapists.account_status", "approved")
 		.eq("therapists.is_available", true);
 
+	if (specialtyId) {
+		query = query.eq("therapists.specialty_id", specialtyId);
+	}
+
+	const { data, error } = await query;
 	if (error) throw error;
 
 	return (data ?? [])
@@ -74,9 +82,12 @@ export async function getAreaTherapists(locationId: number) {
 			const t = row.therapists as unknown as {
 				id: number;
 				specialty: string | null;
+				specialty_id: number | null;
 				bio: string | null;
 				gender: string | null;
 				experience_years: number | null;
+				rating_avg: number | null;
+				rating_count: number | null;
 				users: {
 					first_name: string | null;
 					last_name: string | null;
@@ -86,9 +97,12 @@ export async function getAreaTherapists(locationId: number) {
 			return {
 				id: t.id,
 				specialty: t.specialty,
+				specialty_id: t.specialty_id ?? null,
 				bio: t.bio,
 				gender: t.gender,
 				experience_years: t.experience_years,
+				rating_avg: Number(t.rating_avg) || 0,
+				rating_count: t.rating_count || 0,
 				first_name: t.users?.first_name ?? null,
 				last_name: t.users?.last_name ?? null,
 				image_url: t.users?.image_url ?? null,
@@ -170,18 +184,24 @@ function therapistFreeForSlot(
 export async function getAreaAvailability(
 	locationId: number,
 	days = 14,
-	therapistId?: number
+	therapistId?: number,
+	specialtyId?: number
 ): Promise<{ therapist_count: number; days: DayAvailability[] }> {
 	// Approved, active therapists covering this location
 	let coverageQuery = supabaseAdmin
 		.from("therapist_locations")
-		.select("therapist_id, therapists!inner (id, account_status, is_available)")
+		.select(
+			"therapist_id, therapists!inner (id, account_status, is_available, specialty_id)"
+		)
 		.eq("location_id", locationId)
 		.eq("therapists.account_status", "approved")
 		.eq("therapists.is_available", true);
 
 	if (therapistId) {
 		coverageQuery = coverageQuery.eq("therapist_id", therapistId);
+	}
+	if (specialtyId) {
+		coverageQuery = coverageQuery.eq("therapists.specialty_id", specialtyId);
 	}
 
 	const { data: coverage, error: coverageError } = await coverageQuery;
@@ -271,6 +291,8 @@ export interface CreateVisitRequestData {
 	notes?: string;
 	/** Direct the request to one specific therapist (must cover the area). */
 	preferred_therapist_id?: number;
+	/** Optional specialty filter; only matching doctors see a general request. */
+	specialty_id?: number;
 }
 
 export async function createVisitRequest(
@@ -281,11 +303,13 @@ export async function createVisitRequest(
 
 	// Refuse up front if nobody can take it (better UX than a dead request).
 	// For a directed request this also verifies the chosen therapist is
-	// approved, available, and actually covers the selected area.
+	// approved, available, and actually covers the selected area. For a
+	// general request with a specialty, it checks a matching doctor exists.
 	const availability = await getAreaAvailability(
 		data.location_id,
 		1,
-		data.preferred_therapist_id
+		data.preferred_therapist_id,
+		data.preferred_therapist_id ? undefined : data.specialty_id
 	);
 	if (availability.therapist_count === 0) {
 		throw data.preferred_therapist_id
@@ -310,6 +334,7 @@ export async function createVisitRequest(
 				pain_areas: data.pain_areas ?? [],
 				notes: data.notes?.trim() || null,
 				preferred_therapist_id: data.preferred_therapist_id ?? null,
+				specialty_id: data.specialty_id ?? null,
 			},
 		])
 		.select("id, request_date, time_slot, status, created_at")
@@ -331,7 +356,7 @@ const MY_REQUEST_SELECT = `
 		id, status, scheduled_date, time_slot, therapist_notes,
 		started_at, completed_at, cancelled_at,
 		therapists (
-			id, specialty,
+			id, specialty, rating_avg, rating_count,
 			users (first_name, last_name, phone_number, image_url)
 		)
 	)

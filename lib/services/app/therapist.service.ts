@@ -78,6 +78,7 @@ export interface TherapistProfile {
 	phone_number: string;
 	image_url: string;
 	specialty: string | null;
+	specialty_id: number | null;
 	bio: string | null;
 	gender: string;
 	experience_years: number | null;
@@ -115,7 +116,7 @@ export async function getTherapistBySupabaseId(
 	const { data: therapist, error: therapistError } = await supabaseAdmin
 		.from("therapists")
 		.select(
-			"id, specialty, bio, gender, experience_years, account_status, rejection_reason, is_available"
+			"id, specialty, specialty_id, bio, gender, experience_years, account_status, rejection_reason, is_available"
 		)
 		.eq("user_id", user.id)
 		.single();
@@ -149,6 +150,7 @@ export async function getTherapistBySupabaseId(
 		phone_number: user.phone_number,
 		image_url: user.image_url,
 		specialty: therapist.specialty,
+		specialty_id: therapist.specialty_id ?? null,
 		bio: therapist.bio,
 		gender: therapist.gender,
 		experience_years: therapist.experience_years,
@@ -175,6 +177,7 @@ export interface SignUpTherapistData {
 	last_name: string;
 	phone_number: string;
 	// Optional professional profile captured on the signup form.
+	specialty_id?: number | null;
 	specialty?: string;
 	bio?: string;
 	gender?: string;
@@ -207,6 +210,7 @@ export async function signUpTherapist(
 		first_name,
 		last_name,
 		phone_number,
+		specialty_id,
 		specialty,
 		bio,
 		gender,
@@ -248,7 +252,8 @@ export async function signUpTherapist(
 		// Step 2b: persist the professional profile + covered areas captured on
 		// the signup form, so Specialty / Experience / Areas are saved up front.
 		const profileUpdates: UpdateTherapistData = {};
-		if (specialty?.trim()) profileUpdates.specialty = specialty.trim();
+		if (specialty_id) profileUpdates.specialty_id = specialty_id;
+		else if (specialty?.trim()) profileUpdates.specialty = specialty.trim();
 		if (bio?.trim()) profileUpdates.bio = bio.trim();
 		if (gender) profileUpdates.gender = gender;
 		if (typeof experience_years === "number" && !Number.isNaN(experience_years))
@@ -390,6 +395,9 @@ export interface UpdateTherapistData {
 	first_name?: string;
 	last_name?: string;
 	image_url?: string;
+	/** Managed specialty id (preferred). The text `specialty` is kept in sync. */
+	specialty_id?: number | null;
+	/** Legacy free-text specialty; still accepted for back-compat. */
 	specialty?: string;
 	bio?: string;
 	gender?: string;
@@ -398,6 +406,19 @@ export interface UpdateTherapistData {
 	location_ids?: number[];
 	/** Set true when the therapist finished uploading docs to move to review */
 	submit_for_review?: boolean;
+}
+
+/** Look up a specialty's display name by id (null if not found / null id). */
+async function specialtyNameById(
+	specialtyId: number | null | undefined
+): Promise<string | null> {
+	if (!specialtyId) return null;
+	const { data } = await supabaseAdmin
+		.from("specialties")
+		.select("name")
+		.eq("id", specialtyId)
+		.maybeSingle();
+	return data?.name ?? null;
 }
 
 /**
@@ -423,7 +444,14 @@ export async function updateTherapist(
 	}
 
 	const therapistUpdates: Record<string, unknown> = {};
-	if (data.specialty !== undefined) therapistUpdates.specialty = data.specialty;
+	if (data.specialty_id !== undefined) {
+		// Preferred path: set the managed id and mirror its name into the
+		// denormalized text column so existing reads keep showing a label.
+		therapistUpdates.specialty_id = data.specialty_id;
+		therapistUpdates.specialty = await specialtyNameById(data.specialty_id);
+	} else if (data.specialty !== undefined) {
+		therapistUpdates.specialty = data.specialty;
+	}
 	if (data.bio !== undefined) therapistUpdates.bio = data.bio;
 	if (data.gender !== undefined) therapistUpdates.gender = data.gender;
 	if (data.experience_years !== undefined)
@@ -687,6 +715,17 @@ export async function listIncomingRequests(supabaseId: string) {
 		)
 		.order("request_date", { ascending: true });
 
+	// Respect a request's optional specialty filter: show it only when it has
+	// no specialty, or it matches this therapist's specialty.
+	if (profile.specialty_id) {
+		query = query.or(
+			`specialty_id.is.null,specialty_id.eq.${profile.specialty_id}`
+		);
+	} else {
+		// Therapist has no specialty set → only see specialty-agnostic requests.
+		query = query.is("specialty_id", null);
+	}
+
 	if (excludedIds.length > 0) {
 		query = query.not("id", "in", `(${excludedIds.join(",")})`);
 	}
@@ -882,6 +921,21 @@ export async function listLocations() {
 		.from("locations")
 		.select("id, location_name, latitude, longitude")
 		.order("location_name");
+
+	if (error) throw error;
+	return data ?? [];
+}
+
+// ---------------------------------------------------------------------------
+// Specialties lookup (active list for the signup / request pickers)
+// ---------------------------------------------------------------------------
+
+export async function listActiveSpecialties() {
+	const { data, error } = await supabaseAdmin
+		.from("specialties")
+		.select("id, name, name_ar")
+		.eq("is_active", true)
+		.order("name");
 
 	if (error) throw error;
 	return data ?? [];
