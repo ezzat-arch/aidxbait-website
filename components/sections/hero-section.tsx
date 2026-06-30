@@ -170,7 +170,7 @@ export const HeroSection = React.forwardRef<
 							>
 								<div className="relative max-w-sm mx-auto lg:max-w-md lg:mx-0">
 									<Image
-										src="/images/logo_phone.png"
+										src="/images/doctoory_logo_phone.png"
 										alt="Home medical care - Doctor visiting patient at home"
 										width={400}
 										height={300}
