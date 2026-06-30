@@ -3,10 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { BodyMapSection } from "@/components/sections/body-map-section";
-import { WhyAidXBaitSection } from "@/components/sections/why-aidxbait-section";
+import { WhyDoctoorySection } from "@/components/sections/why-doctoory-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { Footer } from "@/components/layout/footer";
-// import { AidXbaitMetricsSection } from "@/components/sections/aidxbait-metrics-section";
+import { StickyShopButton } from "@/components/store/StickyShopButton";
+// import { DoctooryMetricsSection } from "@/components/sections/doctoory-metrics-section";
 // import { TestimonialsSection } from "@/components/sections/testimonials-section";
 
 export default function Home() {
@@ -27,10 +28,12 @@ export default function Home() {
 			<main>
 				<BodyMapSection />
 				<ServicesSection />
-				<WhyAidXBaitSection />
-				{/* <AidXbaitMetricsSection /> */}
+				<WhyDoctoorySection />
+				{/* <DoctooryMetricsSection /> */}
 				{/* <TestimonialsSection /> */}
 				<ContactSection />
+				<StickyShopButton />
+
 			</main>
 		</div>
 	);

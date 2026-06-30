@@ -2,7 +2,7 @@
 
 ## Overview
 
-The AidxBait store has been fully optimized for search engines with server-side rendering, dynamic metadata, structured data, and automatic sitemap generation.
+The Doctoory store has been fully optimized for search engines with server-side rendering, dynamic metadata, structured data, and automatic sitemap generation.
 
 ## What Was Implemented
 
@@ -23,7 +23,7 @@ The AidxBait store has been fully optimized for search engines with server-side 
 
 **SEO Features:**
 
-- **Page Title:** `{product.name} | AidxBait Store`
+- **Page Title:** `{product.name} | Doctoory Store`
 - **Meta Description:** First 155 characters of product description
 - **Keywords:** Combined from product tags and joint names
 - **Open Graph Tags:** Full support for social media sharing
@@ -110,7 +110,7 @@ The AidxBait store has been fully optimized for search engines with server-side 
 	"sku": "PRD-123",
 	"brand": {
 		"@type": "Brand",
-		"name": "AidxBait"
+		"name": "Doctoory"
 	},
 	"offers": {
 		"@type": "Offer",
@@ -161,7 +161,7 @@ The AidxBait store has been fully optimized for search engines with server-side 
 Ensure this environment variable is set:
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://aidxbait.com
+NEXT_PUBLIC_SITE_URL=https://doctoory.com
 ```
 
 **Note:** For local development, defaults to `http://localhost:3000`
@@ -171,7 +171,7 @@ NEXT_PUBLIC_SITE_URL=https://aidxbait.com
 ### 1. Test Product Page Metadata
 
 ```bash
-curl -I https://aidxbait.com/services/store/products/1
+curl -I https://doctoory.com/services/store/products/1
 ```
 
 Check for:
@@ -193,7 +193,7 @@ Enter your product URL and verify:
 
 ### 3. Test Sitemap
 
-Visit: https://aidxbait.com/sitemap.xml
+Visit: https://doctoory.com/sitemap.xml
 
 Should see:
 
@@ -204,7 +204,7 @@ Should see:
 
 ### 4. Test Robots.txt
 
-Visit: https://aidxbait.com/robots.txt
+Visit: https://doctoory.com/robots.txt
 
 Should see:
 
@@ -278,7 +278,7 @@ Test Open Graph tags:
 
 ### Google Search Console
 
-1. Submit sitemap: https://aidxbait.com/sitemap.xml
+1. Submit sitemap: https://doctoory.com/sitemap.xml
 2. Monitor indexing status
 3. Check for crawl errors
 4. Review search analytics

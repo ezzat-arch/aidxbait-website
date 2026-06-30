@@ -57,7 +57,7 @@ export async function generateMetadata({
 
 	if (!product) {
 		return {
-			title: "Product Not Found | AidxBait Store",
+			title: "Product Not Found | Doctoory Store",
 		};
 	}
 
@@ -74,13 +74,13 @@ export async function generateMetadata({
 	const productUrl = `${baseUrl}${productPath}`;
 
 	return {
-		title: `${product.title} | AidxBait Store`,
+		title: `${product.title} | Doctoory Store`,
 		description: plain,
 		openGraph: {
 			title: product.title,
 			description: plain,
 			url: productUrl,
-			siteName: "AidxBait",
+			siteName: "Doctoory",
 			images: firstImage
 				? [{ url: firstImage, width: 800, height: 800, alt: product.title }]
 				: [],

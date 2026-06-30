@@ -16,7 +16,7 @@ export function Footer() {
 						<Link href="/" className="inline-block mb-6">
 							<Image
 								src="/images/logo-icon.png"
-								alt={tAlt("aidxbait_logo")}
+								alt={tAlt("doctoory_logo")}
 								width={50}
 								height={50}
 								className="h-12 w-auto"
@@ -187,7 +187,7 @@ export function Footer() {
 					<div>
 						<h3 className="text-lg font-bold mb-6 text-white">{tFooter("download_app")}</h3>
 						<p className="mb-6">
-							{tFooter("get_the_aidxbait_app_for")}
+							{tFooter("get_the_doctoory_app_for")}
 						</p>
 						<div className="flex flex-row gap-4">
 							<Link
@@ -217,7 +217,7 @@ export function Footer() {
 
 			<div className="border-t border-gray-800 py-6">
 				<div className="container flex flex-col sm:flex-row justify-between items-center">
-					<p className="text-sm">{tFooter("2025_aidxbait_all_rights_reserved")}</p>
+					<p className="text-sm">{tFooter("2025_doctoory_all_rights_reserved")}</p>
 					<div className="flex gap-6 mt-4 sm:mt-0">
 						<Link
 							href="/privacy-policy"

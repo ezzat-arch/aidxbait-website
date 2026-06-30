@@ -177,7 +177,7 @@ const Navbar = ({ className }: { className?: string }) => {
 			<div className="relative w-[187px] h-[80px] ">
 				<Image
 					src="/images/aidLogo.svg"
-					alt={tNavAlt("aidxbait_logo")}
+					alt={tNavAlt("doctoory_logo")}
 					fill
 					className="object-contain  "
 					priority
@@ -288,7 +288,7 @@ const Navbar = ({ className }: { className?: string }) => {
 											<div className="relative w-[240px] bg-gradient-to-br from-blue-50 to-blue-100/50 ltr:ml-4 rtl:mr-4 rounded-xl p-4 shadow-inner">
 												<img
 													src="/images/services2.png"
-													alt={tFooterAlt("aidxbait_logo")}
+													alt={tFooterAlt("doctoory_logo")}
 													className="w-full h-full object-cover rounded-lg shadow-md border border-white"
 													style={{ minHeight: "140px" }}
 												/>

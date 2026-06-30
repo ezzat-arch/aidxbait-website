@@ -23,7 +23,7 @@ export async function generateMetadata({
 			title: t("meta_title"),
 			description: t("meta_description"),
 			url: pageUrl,
-			siteName: "AidxBait",
+			siteName: "Doctoory",
 			type: "website",
 		},
 		twitter: {

@@ -4,6 +4,7 @@ import { CartProvider } from "@/contexts/cart-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { TrackingProvider } from "@/contexts/tracking-context";
 import { CartSidebar } from "@/components/store/CartSidebar";
+
 import { Toaster } from "@/components/ui/toaster";
 import { NextIntlClientProvider } from "next-intl";
 import {
@@ -29,10 +30,10 @@ export async function generateMetadata({
 	const t = await getTranslations({ locale, namespace: "layout.meta" });
 
 	return {
-		metadataBase: new URL("https://www.aidxbait.com"),
+		metadataBase: new URL("https://www.doctoory.com"),
 		title: t("title"),
 		description: t("description"),
-		generator: "aidxbait",
+		generator: "doctoory",
 		alternates: {
 			canonical: `/${locale}`,
 			languages: {

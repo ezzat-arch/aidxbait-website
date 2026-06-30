@@ -2,9 +2,9 @@ import en from "./strings-en";
 
 const ar = {
 	meta: {
-		title: "سياسة الإرجاع والاسترداد | AidxBait",
+		title: "سياسة الإرجاع والاسترداد | Doctoory",
 		description:
-			"كيف تتعامل AidXBait مع الإرجاع والاستبدال والإلغاء والاسترداد للسلع الطبية والخدمات الصحية في مصر ودول مجلس التعاون الخليجي.",
+			"كيف تتعامل Doctoory مع الإرجاع والاستبدال والإلغاء والاسترداد للسلع الطبية والخدمات الصحية في مصر ودول مجلس التعاون الخليجي.",
 	},
 	header: {
 		h1: "سياسة الإرجاع والاسترداد",
@@ -12,9 +12,9 @@ const ar = {
 		updatedValue: "01-01-2026",
 	},
 	links: {
-		site: "https://www.aidxbait.com",
-		siteDisplay: "www.aidxbait.com",
-		mail: "support@aidxbait.com",
+		site: "https://www.doctoory.com",
+		siteDisplay: "www.doctoory.com",
+		mail: "support@doctoory.com",
 		phone: "00201000088905",
 		phoneHref: "tel:+201000088905",
 	},
@@ -32,7 +32,7 @@ const ar = {
 		defs: [
 			{
 				label: `"الشركة"، "نحن"، "لنا"`,
-				body: "تعني AidXBait، شركة ذات مسؤولية محدودة مسجلة في مصر.",
+				body: "تعني Doctoory، شركة ذات مسؤولية محدودة مسجلة في مصر.",
 			},
 			{
 				label: `"المنصة"`,
@@ -316,7 +316,7 @@ const ar = {
 		h: "18. بيانات الاتصال",
 		p1: "إذا كانت لديك أسئلة أو ترغب في تقديم طلب إرجاع أو إلغاء أو استرداد، يرجى الاتصال بنا:",
 		lines: [
-			{ label: "اسم الشركة:", value: "AidXBait", kind: "text" as const },
+			{ label: "اسم الشركة:", value: "Doctoory", kind: "text" as const },
 			{ label: "العنوان المسجل:", value: "17 فوزي فهيم، الجيزة، مصر", kind: "text" as const },
 			{ label: "البريد الإلكتروني:", kind: "email" as const },
 			{ label: "الهاتف / واتساب:", kind: "phone" as const },

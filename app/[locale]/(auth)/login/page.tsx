@@ -59,7 +59,7 @@ const LoginForm = () => {
 						{t("welcome_back")}
 					</h1>
 					<p className="text-white/90 text-lg font-medium">
-						{t("login_to_your_aidxbait_account")}
+						{t("login_to_your_doctoory_account")}
 					</p>
 				</div>
 

@@ -7,14 +7,14 @@ import type { Testimonial } from "@/components/ui/testimonials-carousel";
 const testimonials: Testimonial[] = [
 	{
 		quote:
-			"AidxBait made my post-surgery recovery so much easier. The home visit scheduling and guided exercises were a game changer!",
+			"Doctoory made my post-surgery recovery so much easier. The home visit scheduling and guided exercises were a game changer!",
 		name: "Sarah Johnson",
 		designation: "Knee Replacement Patient",
 		src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 	},
 	{
 		quote:
-			"As a physical therapist, I love how AidxBait lets me track patient progress and adjust programs remotely. The analytics are fantastic!",
+			"As a physical therapist, I love how Doctoory lets me track patient progress and adjust programs remotely. The analytics are fantastic!",
 		name: "Michael Chen",
 		designation: "Physical Therapist",
 		src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -35,7 +35,7 @@ const testimonials: Testimonial[] = [
 	},
 	{
 		quote:
-			"AidxBait helps our clinic coordinate care and communicate with patients more efficiently. The platform is intuitive and reliable.",
+			"Doctoory helps our clinic coordinate care and communicate with patients more efficiently. The platform is intuitive and reliable.",
 		name: "Priya Patel",
 		designation: "Orthopedic Nurse",
 		src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

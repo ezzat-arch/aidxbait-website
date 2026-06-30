@@ -1,8 +1,8 @@
 export default {
 	meta: {
-		title: "Shipping Policy | AidxBait",
+		title: "Shipping Policy | Doctoory",
 		description:
-			"How AidXBait processes, ships, and tracks medical supply orders across Egypt.",
+			"How Doctoory processes, ships, and tracks medical supply orders across Egypt.",
 	},
 	header: {
 		h1: "Shipping Policy",

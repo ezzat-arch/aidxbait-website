@@ -40,17 +40,17 @@
 	},
 	"layout": {
 		"meta": {
-			"title": "AidxBait | رفيقك الصحي",
-			"description": "AidxBait هي منصة تربط المرضى بمقدمي الرعاية الصحية. نقدم مجموعة واسعة من الخدمات تشمل العلاج الطبيعي، وجراحة العظام، والطب العام، والزيارات المنزلية، والاستشارات عبر الإنترنت."
+			"title": "Doctoory | رفيقك الصحي",
+			"description": "Doctoory هي منصة تربط المرضى بمقدمي الرعاية الصحية. نقدم مجموعة واسعة من الخدمات تشمل العلاج الطبيعي، وجراحة العظام، والطب العام، والزيارات المنزلية، والاستشارات عبر الإنترنت."
 		},
 		"footer": {
 			"attr": {
 				"alt": {
-					"aidxbait_logo": "شعار AidxBait"
+					"doctoory_logo": "شعار Doctoory"
 				}
 			},
 			"text": {
-				"2025_aidxbait_all_rights_reserved": "© 2026 AidxBait. جميع الحقوق محفوظة.",
+				"2025_doctoory_all_rights_reserved": "© 2026 Doctoory. جميع الحقوق محفوظة.",
 				"app_store": "متجر التطبيقات",
 				"appointment_booking": "حجز موعد",
 				"contact": "تواصل معنا",
@@ -59,7 +59,7 @@
 				"download_on_the": "حمّل علي",
 				"exercise_protocols": "بروتوكولات التمارين",
 				"get_it_on": "احصل عليه على",
-				"get_the_aidxbait_app_for": "حمّل تطبيق AidxBait على نظاميّ iOS وAndroid لاستخدام جميع المزايا أي وقت",
+				"get_the_doctoory_app_for": "حمّل تطبيق Doctoory على نظاميّ iOS وAndroid لاستخدام جميع المزايا أي وقت",
 				"google_play": "متجر Google Play",
 				"home": "الصفحة الرئيسية",
 				"how_it_works": "كيف يعمل",
@@ -165,7 +165,7 @@
 			"log_in": "تسجيل الدخول",
 			"logging_in": "جارٍ تسجيل الدخول...",
 			"login": "دخول",
-			"login_to_your_aidxbait_account": "سجّل الدخول إلى حسابك في AidxBait",
+			"login_to_your_doctoory_account": "سجّل الدخول إلى حسابك في Doctoory",
 			"password": "كلمة المرور",
 			"privacy_policy": "سياسة الخصوصية",
 			"terms_of_service": "شروط الخدمة",
@@ -374,7 +374,7 @@
 		"text": {
 			"already_have_an_account": "هل لديك حساب بالفعل؟",
 			"and": "و",
-			"by_creating_an_account_you": "بإنشاءك الحساب، فإنك توافق على استلام الإشعارات والتواصل من AidxBait",
+			"by_creating_an_account_you": "بإنشاءك الحساب، فإنك توافق على استلام الإشعارات والتواصل من Doctoory",
 			"confirm_password": "تأكيد كلمة المرور",
 			"continue": "متابعة",
 			"create_account": "إنشاء حساب",
@@ -384,7 +384,7 @@
 			"fill_in_your_information_to": "أدخل معلوماتك لإنشاء حسابك",
 			"first_name": "الاسم الأول",
 			"i_agree_to_the": "أوافق على",
-			"join_aidxbait": "انضم إلى AidxBait",
+			"join_doctoory": "انضم إلى Doctoory",
 			"last_name": "اسم العائلة",
 			"loading": "جارٍ التحميل...",
 			"log_in_here": "سجّل الدخول هنا",
@@ -441,10 +441,10 @@
 				"follow_us": "تابع <brand></brand> لتكون أول من يعلم بإطلاق هذه الخدمة!"
 			}
 		},
-		"aidxbait": {
+		"doctoory": {
 			"attr": {
 				"alt": {
-					"aidxbait": "AidxBait"
+					"doctoory": "Doctoory"
 				}
 			},
 			"data": {
@@ -460,7 +460,7 @@
 		},
 		"contact": {
 			"text": {
-				"aidxbait_revolutionizes_orthopedic_care_with": "تُحدث AidxBait ثورة في رعاية العظام بفضل التكنولوجيا الحديثة وخطط العلاج المخصصة والدعم الشامل. تواصل مع فريق خبرائنا لتحويل رحلة تعافيك وتحقيق أفضل النتائج الصحية.",
+				"doctoory_revolutionizes_orthopedic_care_with": "تُحدث Doctoory ثورة في رعاية العظام بفضل التكنولوجيا الحديثة وخطط العلاج المخصصة والدعم الشامل. تواصل مع فريق خبرائنا لتحويل رحلة تعافيك وتحقيق أفضل النتائج الصحية.",
 				"follow_us": "تابعنا",
 				"get_in_touch": "تواصل معنا",
 				"ultimate_healthcare_solution": "الحل الصحي التام"
@@ -486,6 +486,7 @@
 				"log_in": "تسجيل الدخول",
 				"on_your_schedule": "، في الوقت الذي يناسبك",
 				"secure_private": "آمن وسرّي",
+				"shop_now": "تسوّق الآن",
 				"stay_at_home_and_order": "ابقَ في المنزل واطلب جميع الخدمات الطبية بضغطة زر",
 				"the_potentials_of": "إمكانيات",
 				"unlock": "اكتشف"
@@ -542,7 +543,7 @@
 			},
 			"text": {
 				"bringing_hospital_care_quality_to": "نقدّم جودة الرعاية الطبية في المستشفى إلى منزلك.",
-				"why_choose_aidxbait": "لماذا تختار AidxBait؟"
+				"why_choose_doctoory": "لماذا تختار Doctoory؟"
 			}
 		}
 	},
@@ -800,7 +801,7 @@
 			"text": "✓",
 			"hero": {
 				"badge": "منتجات عالية الجودة",
-				"title": "تسوق منتجات العلاج الطبيعي",
+				"title": "تسوق المنتجات الطبية",
 				"medical_grade": "طبي معتمد",
 				"fast_delivery": "توصيل سريع",
 				"expert_approved": "معتمد من الخبراء"
@@ -846,7 +847,8 @@
 			"empty": "لا توجد منتجات في هذه المجموعة.",
 			"empty_search": "لا توجد منتجات تطابق بحثك.",
 			"fetch_error": "فشل تحميل المنتجات. يرجى المحاولة مجدداً.",
-			"search_placeholder": "ابحث عن المنتجات...",
+			"search_placeholder": "ابحث عن المنتجات بالاسم أو الوصف...",
+			"search_hint": "نصيحة: ابحث بما يفعله المنتج — مثلاً اكتب \"فيتامين\" لإيجاد المنتجات التي تحتوي على \"فيتامين\" في الاسم أو الوصف.",
 			"clear_search": "مسح البحث"
 		},
 		"StoreCollectionsContent": {
@@ -859,8 +861,8 @@
 			"no_description": "استكشف هذه المجموعة"
 		},
 		"CollectionsPage": {
-			"meta_title": "المجموعات | متجر AidxBait",
-			"meta_description": "تصفح جميع مجموعات المنتجات في متجر AidxBait. اكتشف مجموعات منتقاة من الأجهزة الطبية ودعامات الجسم والمزيد.",
+			"meta_title": "المجموعات | متجر Doctoory",
+			"meta_description": "تصفح جميع مجموعات المنتجات في متجر Doctoory. اكتشف مجموعات منتقاة من الأجهزة الطبية ودعامات الجسم والمزيد.",
 			"hero_badge": "جميع المجموعات",
 			"hero_title": "مجموعاتنا",
 			"hero_subtitle": "تصفح مجموعة كاملة من المنتجات المنتقاة بعناية لتلبية احتياجاتك.",
@@ -874,9 +876,9 @@
 			"no_description": "استكشف هذه المجموعة"
 		},
 		"CollectionDetailPage": {
-			"meta_title": "{title} | متجر AidxBait",
-			"meta_description": "تسوق {title} — تصفح جميع المنتجات في هذه المجموعة في متجر AidxBait.",
-			"not_found_title": "المجموعة غير موجودة | متجر AidxBait",
+			"meta_title": "{title} | متجر Doctoory",
+			"meta_description": "تسوق {title} — تصفح جميع المنتجات في هذه المجموعة في متجر Doctoory.",
+			"not_found_title": "المجموعة غير موجودة | متجر Doctoory",
 			"breadcrumb_store": "المتجر",
 			"breadcrumb_collections": "المجموعات",
 			"back_to_collections": "العودة إلى المجموعات",
@@ -939,13 +941,13 @@
 		"navbar": {
 			"attr": {
 				"alt": {
-					"about_aidxbait": "حول AidxBait",
-					"aidxbait_logo": "AidxBait Logo"
+					"about_doctoory": "حول Doctoory",
+					"doctoory_logo": "Doctoory Logo"
 				}
 			},
 			"text": {
 				"about": "نبذة عنا",
-				"access_your_reports_track_recovery": "احصل على تقاريرك، وتتبع تقدم تعافيك، وواصل رعايتك عبر تطبيق AidxBait. نحن معك في كل خطوة.",
+				"access_your_reports_track_recovery": "احصل على تقاريرك، وتتبع تقدم تعافيك، وواصل رعايتك عبر تطبيق Doctoory. نحن معك في كل خطوة.",
 				"at_home_radiology": "الأشعة المنزلية",
 				"coming_soon": "قريبًا",
 				"call_me_request": "اطلب اتصال",
@@ -1031,20 +1033,20 @@
 	"legal": {
 		"terms_and_conditions": {
 			"meta_title": "الشروط والأحكام",
-			"meta_description": "شروط وأحكام استخدام منصة AidXBait الطبية الرقمية (الموقع الإلكتروني والتطبيق) في مصر وأسواق مختارة من دول مجلس التعاون الخليجي.",
+			"meta_description": "شروط وأحكام استخدام منصة Doctoory الطبية الرقمية (الموقع الإلكتروني والتطبيق) في مصر وأسواق مختارة من دول مجلس التعاون الخليجي.",
 			"title": "الشروط والأحكام",
 			"subtitle": "شروط وأحكام الاستخدام — منصة طبية رقمية (موقع إلكتروني وتطبيق جوال)",
 			"effective_date_label": "تاريخ السريان",
 			"effective_date_value": "01-01-2026",
 			"intro_company_label": "الشركة:",
-			"intro_company_text": "AidXBait، تعمل في مصر وأسواق مختارة من دول مجلس التعاون الخليجي (الإمارات، المملكة العربية السعودية، قطر، البحرين، عُمان، الكويت).",
+			"intro_company_text": "Doctoory، تعمل في مصر وأسواق مختارة من دول مجلس التعاون الخليجي (الإمارات، المملكة العربية السعودية، قطر، البحرين، عُمان، الكويت).",
 			"intro_contact_label": "جهات الاتصال:",
 			"intro_contact_email_label": "البريد الإلكتروني:",
 			"intro_contact_phone_label": "الهاتف:",
 			"intro_contact_phone_placeholder": "—",
 			"intro_contact_address_label": "العنوان:",
 			"intro_contact_address_text": "17 فوزي فهيم، الجيزة، مصر.",
-			"support_email": "support@aidxbait.com",
+			"support_email": "support@doctoory.com",
 			"s01_title": "1) النطاق والقبول",
 			"s01_body": "تحكم هذه الشروط استخدامك لمواقعنا وتطبيقاتنا والتجارة الإلكترونية للمنتجات/المعدات الطبية والاستشارات عن بُعد وزيارات المنزل («الخدمات»). بإنشاء حساب أو الشراء أو الحجز أو استخدام أي من الخدمات، فإنك تقبل هذه الشروط. إذا لم توافق، فلا تستخدم الخدمات.",
 			"s02_title": "2) ليست للطوارئ",
@@ -1114,18 +1116,18 @@
 		},
 		"privacy_policy": {
 			"meta_title": "سياسة الخصوصية",
-			"meta_description": "كيف تجمع AidXBait وتستخدم وتُحمي البيانات الشخصية والصحية عبر موقعنا وتطبيقنا وخدماتنا في مصر وأسواق مجلس التعاون الخليجي.",
+			"meta_description": "كيف تجمع Doctoory وتستخدم وتُحمي البيانات الشخصية والصحية عبر موقعنا وتطبيقنا وخدماتنا في مصر وأسواق مجلس التعاون الخليجي.",
 			"title": "سياسة الخصوصية",
 			"subtitle": "(للمنصة الطبية الرقمية: الموقع الإلكتروني وتطبيق الجوال)",
 			"effective_date_label": "تاريخ السريان",
 			"effective_date_value": "01-01-2026",
 			"intro_who_label": "من نحن:",
-			"intro_who_text": "AidXBait، منصة للخدمات والتجزئة الصحية/الطبية تعمل في مصر وأسواق مختارة من دول مجلس التعاون الخليجي («الخليج»)، بما في ذلك حسب الاقتضاء: الإمارات العربية المتحدة، المملكة العربية السعودية، قطر، البحرين، عُمان والكويت.",
+			"intro_who_text": "Doctoory، منصة للخدمات والتجزئة الصحية/الطبية تعمل في مصر وأسواق مختارة من دول مجلس التعاون الخليجي («الخليج»)، بما في ذلك حسب الاقتضاء: الإمارات العربية المتحدة، المملكة العربية السعودية، قطر، البحرين، عُمان والكويت.",
 			"intro_services_label": "الخدمات:",
 			"intro_services_text": "(أ) بيع المنتجات والمعدات الطبية (B2C/B2B)، (ب) الاستشارات الطبية عبر الإنترنت (الاستشارات عن بُعد)، (ج) زيارات الرعاية الصحية المنزلية.",
 			"intro_contacts_label": "جهات الاتصال:",
 			"intro_li_email_label": "البريد الإلكتروني:",
-			"support_email": "support@aidxbait.com",
+			"support_email": "support@doctoory.com",
 			"intro_li_complaints_label": "الشكاوى",
 			"intro_li_complaints_detail": "راجع «حقوقك وجهات الاتصال حسب البلد» أدناه.",
 			"intro_agreement": "باستخدامك لموقعنا/تطبيقنا/خدماتنا، فإنك توافق على سياسة الخصوصية هذه وشروط الاستخدام لدينا.",

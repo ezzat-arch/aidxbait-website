@@ -1,7 +1,7 @@
 import { CartItem } from "@/lib/store-types";
 import { withRetry } from "./retry-utils";
 
-const CART_STORAGE_KEY = "aidxbait_cart";
+const CART_STORAGE_KEY = "doctoory_cart";
 
 export function loadCartFromLocalStorage(): CartItem[] {
 	if (typeof window === "undefined") return [];

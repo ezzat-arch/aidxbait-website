@@ -2,9 +2,9 @@ import en from "./strings-en";
 
 const ar = {
 	meta: {
-		title: "سياسة الشحن | AidxBait",
+		title: "سياسة الشحن | Doctoory",
 		description:
-			"كيف تعالج AidXBait الطلبات وتشحنها وتتبعها لإمداداتك الطبية في جميع أنحاء مصر.",
+			"كيف تعالج Doctoory الطلبات وتشحنها وتتبعها لإمداداتك الطبية في جميع أنحاء مصر.",
 	},
 	header: {
 		h1: "سياسة الشحن",

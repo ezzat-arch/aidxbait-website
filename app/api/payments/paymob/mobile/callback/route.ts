@@ -17,7 +17,7 @@ const supabaseAdmin = createClient(
 );
 
 // Deep link scheme for the mobile app
-const APP_SCHEME = "aidxbait";
+const APP_SCHEME = "doctoory";
 
 /**
  * Mobile Payment Callback Handler
@@ -30,7 +30,7 @@ const APP_SCHEME = "aidxbait";
  * 1. User completes payment in Paymob SDK webview
  * 2. Paymob redirects to this endpoint with transaction params
  * 3. We verify HMAC and update the order status
- * 4. We redirect to aidxbait://payment-result?... to return to the app
+ * 4. We redirect to doctoory://payment-result?... to return to the app
  */
 export async function GET(request: NextRequest) {
 	try {

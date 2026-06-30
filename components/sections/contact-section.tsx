@@ -22,7 +22,7 @@ export function ContactSection() {
 							</h1>
 
 							<p className="max-w-xl mt-6">
-								{t("aidxbait_revolutionizes_orthopedic_care_with")}
+								{t("doctoory_revolutionizes_orthopedic_care_with")}
 							</p>
 
 							<Button className="px-8 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">

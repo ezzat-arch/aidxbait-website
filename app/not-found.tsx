@@ -7,7 +7,7 @@ export default function NotFound() {
 	return (
 		<html lang="en">
 			<head>
-				<title>404 - Page Not Found | AidxBait</title>
+				<title>404 - Page Not Found | Doctoory</title>
 			</head>
 			<body className="bg-gradient-to-br from-blue-50 to-white">
 				<div className="min-h-screen flex items-center justify-center">

@@ -34,7 +34,7 @@ export async function generateMetadata({
 			title: collection.title,
 			description,
 			url: pageUrl,
-			siteName: "AidxBait",
+			siteName: "Doctoory",
 			images: collection.image
 				? [{ url: collection.image.url, alt: collection.image.altText ?? collection.title }]
 				: [],

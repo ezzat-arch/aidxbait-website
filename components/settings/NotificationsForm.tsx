@@ -79,7 +79,7 @@ export function NotificationsForm() {
 						Email Notifications
 					</CardTitle>
 					<CardDescription>
-						Choose which emails you want to receive from AidXBait
+						Choose which emails you want to receive from Doctoory
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-5">

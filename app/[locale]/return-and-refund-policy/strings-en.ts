@@ -1,8 +1,8 @@
 export default {
 	meta: {
-		title: "Return & Refund Policy | AidxBait",
+		title: "Return & Refund Policy | Doctoory",
 		description:
-			"How AidXBait handles returns, exchanges, cancellations, and refunds for medical goods and healthcare services in Egypt and the GCC.",
+			"How Doctoory handles returns, exchanges, cancellations, and refunds for medical goods and healthcare services in Egypt and the GCC.",
 	},
 	header: {
 		h1: "Return & Refund Policy",
@@ -10,9 +10,9 @@ export default {
 		updatedValue: "01-01-2026",
 	},
 	links: {
-		site: "https://www.aidxbait.com",
-		siteDisplay: "www.aidxbait.com",
-		mail: "support@aidxbait.com",
+		site: "https://www.doctoory.com",
+		siteDisplay: "www.doctoory.com",
+		mail: "support@doctoory.com",
 		phone: "00201000088905",
 		phoneHref: "tel:+201000088905",
 	},
@@ -30,7 +30,7 @@ export default {
 		defs: [
 			{
 				label: `"Company", "we", "us", "our"`,
-				body: "means AidXBait, a limited liability company registered in Egypt.",
+				body: "means Doctoory, a limited liability company registered in Egypt.",
 			},
 			{
 				label: `"Platform"`,
@@ -314,7 +314,7 @@ export default {
 		h: "18. Contact Details",
 		p1: "If you have any questions or wish to submit a return, cancellation, or refund request, please contact us:",
 		lines: [
-			{ label: "Company Name:", value: "AidXBait", kind: "text" as const },
+			{ label: "Company Name:", value: "Doctoory", kind: "text" as const },
 			{ label: "Registered Address:", value: "17 Fawzi Fahim, Giza, Egypt", kind: "text" as const },
 			{ label: "Email:", kind: "email" as const },
 			{ label: "Phone / WhatsApp:", kind: "phone" as const },
