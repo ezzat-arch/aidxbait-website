@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { LayoutGrid, AlertCircle } from "lucide-react";
-import { ShopifyCollectionCard } from "@/components/store/ShopifyCollectionCard";
+import { CollectionsSlider } from "@/components/store/CollectionsSlider";
 import type { ShopifyCollectionCardModel } from "@/lib/shopify/types";
 
 type StoreCollectionsContentProps = {
@@ -58,16 +58,9 @@ export function StoreCollectionsContent({
 					</div>
 				)}
 
-				{/* Collections grid */}
+				{/* Collections — auto-scrolling slider on mobile, grid on desktop */}
 				{collections.length > 0 && (
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-						{collections.map((collection) => (
-							<ShopifyCollectionCard
-								key={collection.id}
-								collection={collection}
-							/>
-						))}
-					</div>
+					<CollectionsSlider collections={collections} />
 				)}
 			</div>
 		</section>
