@@ -5,7 +5,7 @@
 
 import { v4 as uuidv4 } from "uuid";
 
-const SESSION_STORAGE_KEY = "aidxbait_session_id";
+const SESSION_STORAGE_KEY = "doctoory_session_id";
 const SESSION_HEARTBEAT_INTERVAL = 30000; // 30 seconds
 const SESSION_INIT_URL = "/api/tracking/session";
 

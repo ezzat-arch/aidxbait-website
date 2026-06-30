@@ -9,7 +9,7 @@ interface ServiceComingSoonProps {
 	description?: string;
 }
 
-const BRAND_NAME = "AidxBait";
+const BRAND_NAME = "Doctoory";
 
 export function ServiceComingSoon({
 	serviceName,

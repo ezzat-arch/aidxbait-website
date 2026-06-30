@@ -205,8 +205,10 @@ export function CollectionsFilterSection({
 						)}
 					</div>
 
+					<p className="text-xs text-muted-foreground">{t("search_hint")}</p>
+
 					<div
-						className="flex gap-2 overflow-x-auto scrollbar-hide"
+						className="flex flex-wrap gap-1.5 md:gap-2 sm:flex-nowrap sm:overflow-x-auto sm:scrollbar-hide"
 						role="tablist"
 						aria-label="Filter by collection"
 					>
@@ -216,7 +218,7 @@ export function CollectionsFilterSection({
 							aria-selected={activeHandle === "all"}
 							onClick={() => selectCollection("all")}
 							className={cn(
-								"shrink-0 px-4 py-2 text-sm font-medium rounded-full border transition-all duration-200 whitespace-nowrap",
+								"sm:shrink-0 px-4 py-2 text-xs md:text-sm font-medium rounded-full border transition-all duration-200 whitespace-nowrap",
 								activeHandle === "all"
 									? "bg-primary text-primary-foreground border-primary shadow-sm scale-105"
 									: "bg-transparent text-muted-foreground border-border hover:border-primary/60 hover:text-foreground"
@@ -233,7 +235,7 @@ export function CollectionsFilterSection({
 								aria-selected={activeHandle === col.handle}
 								onClick={() => selectCollection(col.handle)}
 								className={cn(
-									"shrink-0 px-4 py-2 text-sm font-medium rounded-full border transition-all duration-200 whitespace-nowrap",
+									"sm:shrink-0 px-4 py-2 text-sm font-medium rounded-full border transition-all duration-200 whitespace-nowrap",
 									activeHandle === col.handle
 										? "bg-primary text-primary-foreground border-primary shadow-sm scale-105"
 										: "bg-transparent text-muted-foreground border-border hover:border-primary/60 hover:text-foreground"

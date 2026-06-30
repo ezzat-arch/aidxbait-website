@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types/i18n";
@@ -49,7 +49,7 @@ export const HeroSection = React.forwardRef<
 				<div className="absolute inset-0 bg-black/70 z-10" />
 				<div className="container relative z-20 px-4 sm:px-6 lg:px-8 max-w-full overflow-x-hidden">
 					<div className="grid gap-2 sm:gap-8 lg:grid-cols-2 lg:gap-16 items-center justify-items-center pt-32 sm:pt-20 md:pt-24 lg:pt-0 hero-content max-w-7xl mx-auto">
-						<div className="overflow-x-hidden w-full flex ltr:lg:justify-end rtl:lg:justify-start justify-center">
+						<div className="w-full flex ltr:lg:justify-end rtl:lg:justify-start justify-center">
 							<motion.div
 								initial={{ opacity: 0, x: -100 }}
 								whileInView={{ opacity: 1, x: 0 }}
@@ -68,41 +68,58 @@ export const HeroSection = React.forwardRef<
 									{t("stay_at_home_and_order")}
 								</p>
 
-								<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-0 sm:mt-6 hero-badges justify-center ltr:lg:justify-start rtl:lg:justify-end items-center">
-									{/* Get Started Button */}
-									{!isAuth && (
+								<div className="flex flex-col gap-4 mt-0 sm:mt-6 hero-badges w-full items-center ltr:lg:items-start rtl:lg:items-end">
+									{/* Action buttons row */}
+									<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto justify-center ltr:lg:justify-start rtl:lg:justify-end items-stretch sm:items-center">
+										{/* Get Started Button */}
+										{!isAuth && (
+											<Link
+												href="/login"
+												className="inline-flex items-center justify-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white font-semibold px-6 h-[48px] rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 active:scale-[0.98]"
+											>
+												{t("get_started")}
+												<ArrowRight className="h-5 w-5 rtl:rotate-180" />
+											</Link>
+										)}
+										{/* Shop Now Button - desktop only */}
 										<Link
-											href="/login"
-											className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 active:scale-[0.98] min-h-[48px]"
+											href="/services/store/"
+											aria-label={t("shop_now")}
+											className="group hidden lg:inline-flex transition-transform duration-200 hover:scale-105 active:scale-95"
 										>
-											{t("get_started")}
-											<ArrowRight className="h-5 w-5 rtl:rotate-180" />
+											<span className="animate-wiggle group-hover:animate-shake-anim inline-flex items-center justify-center gap-2 whitespace-nowrap bg-primary group-hover:bg-primary/90 text-white font-semibold px-6 h-[48px] rounded-xl shadow-lg group-hover:shadow-xl">
+												<ShoppingBag className="h-5 w-5" />
+												{t("shop_now")}
+											</span>
 										</Link>
-									)}
-									<Link
-										href="/download/ios"
-										className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
-									>
-										<Image
-											src="/images/app-store-badge-black.svg"
-											alt={`${tFooter("download_on_the")} ${tFooter("app_store")}`}
-											width={135}
-											height={40}
-											className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
-										/>
-									</Link>
-									<Link
-										href="/download/android"
-										className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
-									>
-										<Image
-											src="/images/google-play-badge.png"
-											alt={`${tFooter("get_it_on")} ${tFooter("google_play")}`}
-											width={135}
-											height={40}
-											className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
-										/>
-									</Link>
+									</div>
+									{/* App store badges row */}
+									<div className="flex flex-row gap-3 sm:gap-4 justify-center ltr:lg:justify-start rtl:lg:justify-end items-center">
+										<Link
+											href="/download/ios"
+											className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
+										>
+											<Image
+												src="/images/app-store-badge-black.svg"
+												alt={`${tFooter("download_on_the")} ${tFooter("app_store")}`}
+												width={135}
+												height={40}
+												className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
+											/>
+										</Link>
+										<Link
+											href="/download/android"
+											className="inline-block transition-all duration-300 hover:opacity-80 hover:scale-105"
+										>
+											<Image
+												src="/images/google-play-badge.png"
+												alt={`${tFooter("get_it_on")} ${tFooter("google_play")}`}
+												width={135}
+												height={40}
+												className="h-[40px] sm:h-[45px] md:h-[50px] w-auto"
+											/>
+										</Link>
+									</div>
 								</div>
 
 							</motion.div>

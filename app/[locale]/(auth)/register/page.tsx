@@ -244,7 +244,7 @@ const RegisterForm = () => {
 				{/* Header */}
 				<div className="text-center mb-10">
 					<h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent mb-3 tracking-tight">
-						{t("join_aidxbait")}
+						{t("join_doctoory")}
 					</h1>
 					<p className="text-white/90 text-lg font-medium">
 						{t("create_your_account_to_get")}

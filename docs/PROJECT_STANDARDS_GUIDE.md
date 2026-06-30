@@ -1,6 +1,6 @@
 # Project Standards Guide
 
-A comprehensive guide for building projects with the same high coding standards as the aidxbait-website. This document serves as a reference template for new projects.
+A comprehensive guide for building projects with the same high coding standards as the doctoory-website. This document serves as a reference template for new projects.
 
 ---
 

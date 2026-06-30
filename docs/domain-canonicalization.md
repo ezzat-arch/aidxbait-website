@@ -4,8 +4,8 @@
 
 The domain is correctly configured in Vercel:
 
-- **Canonical domain**: `https://www.aidxbait.com` (with www) - Production
-- **Redirect**: `https://aidxbait.com` → `https://www.aidxbait.com` (307 redirect)
+- **Canonical domain**: `https://www.doctoory.com` (with www) - Production
+- **Redirect**: `https://doctoory.com` → `https://www.doctoory.com` (307 redirect)
 
 This is the optimal setup and requires no changes at the hosting level.
 
@@ -15,11 +15,11 @@ Google Search Console reported redirect issues and pages not being indexed. This
 
 ### Solution Implemented
 
-Updated all Next.js SEO files to use `https://www.aidxbait.com` as the canonical domain, matching the Vercel configuration:
+Updated all Next.js SEO files to use `https://www.doctoory.com` as the canonical domain, matching the Vercel configuration:
 
-1. **app/sitemap.ts**: Changed baseUrl to `https://www.aidxbait.com`
-2. **app/[locale]/layout.tsx**: Updated metadataBase to `https://www.aidxbait.com`
-3. **app/robots.ts**: Changed baseUrl to `https://www.aidxbait.com`
+1. **app/sitemap.ts**: Changed baseUrl to `https://www.doctoory.com`
+2. **app/[locale]/layout.tsx**: Updated metadataBase to `https://www.doctoory.com`
+3. **app/robots.ts**: Changed baseUrl to `https://www.doctoory.com`
 
 This ensures consistency across:
 
@@ -39,17 +39,17 @@ This ensures consistency across:
 
 After deploying these changes, verify the setup:
 
-1. Visit `https://aidxbait.com` - should redirect to `https://www.aidxbait.com`
-2. Visit `https://www.aidxbait.com` - should load directly
-3. Check sitemap at `https://www.aidxbait.com/sitemap.xml` - all URLs should use www
+1. Visit `https://doctoory.com` - should redirect to `https://www.doctoory.com`
+2. Visit `https://www.doctoory.com` - should load directly
+3. Check sitemap at `https://www.doctoory.com/sitemap.xml` - all URLs should use www
 4. Check page source for canonical tags - should point to www URLs
 5. Monitor Google Search Console as Google recrawls (can take a few days)
 
 ## Implementation Status
 
 - [x] Vercel domain configuration (already correct - www is production)
-- [x] Updated sitemap to use `https://www.aidxbait.com`
-- [x] Updated robots.txt to use `https://www.aidxbait.com`
+- [x] Updated sitemap to use `https://www.doctoory.com`
+- [x] Updated robots.txt to use `https://www.doctoory.com`
 - [x] Added canonical URLs in metadata using www
 - [x] Added internationalization with proper alternate links
 

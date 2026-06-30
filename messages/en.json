@@ -40,17 +40,17 @@
 	},
 	"layout": {
 		"meta": {
-			"title": "AidxBait | Your Health Companion",
-			"description": "AidxBait is a platform that connects patients with healthcare providers. We offer a wide range of services including physical therapy, orthopedics, general medicine, home visits, and online consultations."
+			"title": "Doctoory | Your Health Companion",
+			"description": "Doctoory is a platform that connects patients with healthcare providers. We offer a wide range of services including physical therapy, orthopedics, general medicine, home visits, and online consultations."
 		},
 		"footer": {
 			"attr": {
 				"alt": {
-					"aidxbait_logo": "AidxBait Logo"
+					"doctoory_logo": "Doctoory Logo"
 				}
 			},
 			"text": {
-				"2025_aidxbait_all_rights_reserved": "© 2026 AidxBait. All rights reserved.",
+				"2025_doctoory_all_rights_reserved": "© 2026 Doctoory. All rights reserved.",
 				"app_store": "App Store",
 				"appointment_booking": "Appointment Booking",
 				"contact": "Contact Us",
@@ -59,7 +59,7 @@
 				"download_on_the": "Download on the",
 				"exercise_protocols": "Exercise Protocols",
 				"get_it_on": "Get it on",
-				"get_the_aidxbait_app_for": "Get the AidxBait app for iOS and Android to access all features on the go.",
+				"get_the_doctoory_app_for": "Get the Doctoory app for iOS and Android to access all features on the go.",
 				"google_play": "Google Play",
 				"home": "Home",
 				"how_it_works": "How It Works",
@@ -165,7 +165,7 @@
 			"log_in": "Log In",
 			"logging_in": "Logging In...",
 			"login": "Login",
-			"login_to_your_aidxbait_account": "Login to your AidxBait account",
+			"login_to_your_doctoory_account": "Login to your Doctoory account",
 			"password": "Password",
 			"privacy_policy": "Privacy Policy",
 			"terms_of_service": "Terms of Service",
@@ -374,7 +374,7 @@
 		"text": {
 			"already_have_an_account": "Already have an account?",
 			"and": "and",
-			"by_creating_an_account_you": "By creating an account, you agree to receive communications from AidxBait",
+			"by_creating_an_account_you": "By creating an account, you agree to receive communications from Doctoory",
 			"confirm_password": "Confirm Password",
 			"continue": "Continue",
 			"create_account": "Create Account",
@@ -384,7 +384,7 @@
 			"fill_in_your_information_to": "Fill in your information to create your account",
 			"first_name": "First Name",
 			"i_agree_to_the": "I agree to the",
-			"join_aidxbait": "Join AidxBait",
+			"join_doctoory": "Join Doctoory",
 			"last_name": "Last Name",
 			"loading": "Loading...",
 			"log_in_here": "Log in here",
@@ -441,10 +441,10 @@
 				"follow_us": "Follow <brand></brand> to be the first to know when this service launches!"
 			}
 		},
-		"aidxbait": {
+		"doctoory": {
 			"attr": {
 				"alt": {
-					"aidxbait": "AidxBait"
+					"doctoory": "Doctoory"
 				}
 			},
 			"data": {
@@ -460,7 +460,7 @@
 		},
 		"contact": {
 			"text": {
-				"aidxbait_revolutionizes_orthopedic_care_with": "AidxBait revolutionizes orthopedic care with cutting-edge technology, personalized treatment plans, and comprehensive support. Connect with our expert team to transform your recovery journey and achieve optimal health outcomes.",
+				"doctoory_revolutionizes_orthopedic_care_with": "Doctoory revolutionizes orthopedic care with cutting-edge technology, personalized treatment plans, and comprehensive support. Connect with our expert team to transform your recovery journey and achieve optimal health outcomes.",
 				"follow_us": "Follow us",
 				"get_in_touch": "Get in Touch",
 				"ultimate_healthcare_solution": "Ultimate Healthcare Solution"
@@ -486,6 +486,7 @@
 				"log_in": "Log In",
 				"on_your_schedule": ", On Your Schedule",
 				"secure_private": "Secure & Private",
+				"shop_now": "Shop Now",
 				"stay_at_home_and_order": "Stay at Home and order all medical services with a finger click",
 				"the_potentials_of": "The Potentials Of",
 				"unlock": "Unlock"
@@ -542,7 +543,7 @@
 			},
 			"text": {
 				"bringing_hospital_care_quality_to": "Bringing Hospital-Care quality to your home",
-				"why_choose_aidxbait": "Why Choose AidxBait?"
+				"why_choose_doctoory": "Why Choose Doctoory?"
 			}
 		}
 	},
@@ -800,7 +801,7 @@
 			"text": "✓",
 			"hero": {
 				"badge": "Premium Quality Products",
-				"title": "Shop Physical Therapy Products",
+				"title": "Shop Medical Products",
 				"medical_grade": "Medical Grade",
 				"fast_delivery": "Fast Delivery",
 				"expert_approved": "Expert Approved"
@@ -846,7 +847,8 @@
 			"empty": "No products found in this collection.",
 			"empty_search": "No products match your search.",
 			"fetch_error": "Failed to load products. Please try again.",
-			"search_placeholder": "Search products...",
+			"search_placeholder": "Search products by name or description...",
+			"search_hint": "Tip: search by what a product does — e.g. type \"vitamin\" to find products with \"vitamin\" in their name or description.",
 			"clear_search": "Clear search"
 		},
 		"StoreCollectionsContent": {
@@ -859,8 +861,8 @@
 			"no_description": "Explore this collection"
 		},
 		"CollectionsPage": {
-			"meta_title": "Collections | AidxBait Store",
-			"meta_description": "Browse all product collections in the AidxBait store. Find curated groupings of medical devices, support braces, and more.",
+			"meta_title": "Collections | Doctoory Store",
+			"meta_description": "Browse all product collections in the Doctoory store. Find curated groupings of medical devices, support braces, and more.",
 			"hero_badge": "All Collections",
 			"hero_title": "Our Collections",
 			"hero_subtitle": "Browse our full range of curated product collections — each one carefully selected for your needs.",
@@ -874,9 +876,9 @@
 			"no_description": "Explore this collection"
 		},
 		"CollectionDetailPage": {
-			"meta_title": "{title} | AidxBait Store",
-			"meta_description": "Shop {title} — browse all products in this collection at AidxBait Store.",
-			"not_found_title": "Collection Not Found | AidxBait Store",
+			"meta_title": "{title} | Doctoory Store",
+			"meta_description": "Shop {title} — browse all products in this collection at Doctoory Store.",
+			"not_found_title": "Collection Not Found | Doctoory Store",
 			"breadcrumb_store": "Store",
 			"breadcrumb_collections": "Collections",
 			"back_to_collections": "Back to collections",
@@ -939,13 +941,13 @@
 		"navbar": {
 			"attr": {
 				"alt": {
-					"about_aidxbait": "About AidxBait",
-					"aidxbait_logo": "AidxBait Logo"
+					"about_doctoory": "About Doctoory",
+					"doctoory_logo": "Doctoory Logo"
 				}
 			},
 			"text": {
 				"about": "About Us",
-				"access_your_reports_track_recovery": "Access your reports, track recovery, and continue your care through the AidxBait app. We're with you every step of the way.",
+				"access_your_reports_track_recovery": "Access your reports, track recovery, and continue your care through the Doctoory app. We're with you every step of the way.",
 				"at_home_radiology": "At-home radiology",
 				"coming_soon": "coming soon",
 				"call_me_request": "Call-me Request",
@@ -1031,20 +1033,20 @@
 	"legal": {
 		"terms_and_conditions": {
 			"meta_title": "Terms and Conditions",
-			"meta_description": "Terms and conditions of use for the AidXBait digital medical platform (website and mobile app) in Egypt and selected GCC markets.",
+			"meta_description": "Terms and conditions of use for the Doctoory digital medical platform (website and mobile app) in Egypt and selected GCC markets.",
 			"title": "Terms and Conditions",
 			"subtitle": "Terms & Conditions of Use — Digital Medical Platform (Website & Mobile App)",
 			"effective_date_label": "Effective date",
 			"effective_date_value": "01-01-2026",
 			"intro_company_label": "Company:",
-			"intro_company_text": "AidXBait, operating in Egypt and selected GCC markets (UAE, KSA, Qatar, Bahrain, Oman, Kuwait).",
+			"intro_company_text": "Doctoory, operating in Egypt and selected GCC markets (UAE, KSA, Qatar, Bahrain, Oman, Kuwait).",
 			"intro_contact_label": "Contact:",
 			"intro_contact_email_label": "Email:",
 			"intro_contact_phone_label": "Telephone:",
 			"intro_contact_phone_placeholder": "—",
 			"intro_contact_address_label": "Address:",
 			"intro_contact_address_text": "17 Fawzi Faheem, Giza, Egypt.",
-			"support_email": "support@aidxbait.com",
+			"support_email": "support@doctoory.com",
 			"s01_title": "1) Scope & Acceptance",
 			"s01_body": "These Terms govern your use of our websites, apps, ecommerce of medical products/equipment, telehealth, and home-visit services (“Services”). By creating an account, purchasing, booking, or using any Services, you accept these Terms. If you do not agree, do not use the Services.",
 			"s02_title": "2) Not for Emergencies",
@@ -1114,18 +1116,18 @@
 		},
 		"privacy_policy": {
 			"meta_title": "Privacy Policy",
-			"meta_description": "How AidXBait collects, uses, and protects personal and health data across our website, mobile app, and services in Egypt and GCC markets.",
+			"meta_description": "How Doctoory collects, uses, and protects personal and health data across our website, mobile app, and services in Egypt and GCC markets.",
 			"title": "Privacy Policy",
 			"subtitle": "(for Digital Medical Platform: Website & Mobile App)",
 			"effective_date_label": "Effective date",
 			"effective_date_value": "01-01-2026",
 			"intro_who_label": "Who we are:",
-			"intro_who_text": "AidXBait, a healthcare/medical services and retail platform operating in Egypt and selected Gulf Cooperation Council (\"GCC\") markets, including (as applicable) the UAE, KSA, Qatar, Bahrain, Oman and Kuwait.",
+			"intro_who_text": "Doctoory, a healthcare/medical services and retail platform operating in Egypt and selected Gulf Cooperation Council (\"GCC\") markets, including (as applicable) the UAE, KSA, Qatar, Bahrain, Oman and Kuwait.",
 			"intro_services_label": "Services:",
 			"intro_services_text": "(a) sale of medical products and equipment (B2C/B2B), (b) online medical consultations (telehealth), and (c) home-outreach healthcare visits.",
 			"intro_contacts_label": "Contacts:",
 			"intro_li_email_label": "Email:",
-			"support_email": "support@aidxbait.com",
+			"support_email": "support@doctoory.com",
 			"intro_li_complaints_label": "Complaints",
 			"intro_li_complaints_detail": "see \"Your Rights & Contacts by Country\" below.",
 			"intro_agreement": "By using our Website/App/Services, you agree to this Privacy Policy and our Terms of Use.",

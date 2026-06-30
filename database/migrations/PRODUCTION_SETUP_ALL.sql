@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 -- ============================================================================
--- AIDXBAIT — PRODUCTION DATABASE SETUP (ALL-IN-ONE)
+-- DOCTOORY — PRODUCTION DATABASE SETUP (ALL-IN-ONE)
 -- ============================================================================
 --
 -- Run this WHOLE file ONCE in the PRODUCTION Supabase project:

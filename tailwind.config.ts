@@ -84,6 +84,19 @@ const config = {
 					"0%": { transform: "translateX(-200px)" },
 					"100%": { transform: "translateX(200px)" },
 				},
+				wiggle: {
+					"0%, 100%": { transform: "scale(1) rotate(0deg)" },
+					"20%": { transform: "scale(1.04)" },
+					"40%": { transform: "scale(1.04) rotate(-2deg)" },
+					"60%": { transform: "scale(1.04) rotate(2deg)" },
+					"80%": { transform: "scale(1.02) rotate(-1deg)" },
+				},
+				"shake-anim": {
+					"0%, 100%": { transform: "rotate(0deg)" },
+					"25%": { transform: "rotate(-2deg)" },
+					"50%": { transform: "rotate(2deg)" },
+					"75%": { transform: "rotate(-1deg)" },
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
@@ -91,12 +104,14 @@ const config = {
 				float: "float 6s ease-in-out infinite",
 				pulse: "pulse 3s ease-in-out infinite",
 				move: "move 4s linear infinite",
+				wiggle: "wiggle 2s ease-in-out infinite",
+				"shake-anim": "shake-anim 2.5s ease-in-out infinite",
 			},
 			fontFamily: {
 				sans: [
-					"Inter", 
-					"ui-sans-serif", 
-					"system-ui", 
+					"Inter",
+					"ui-sans-serif",
+					"system-ui",
 					"-apple-system",
 					"BlinkMacSystemFont",
 					"Segoe UI",
@@ -108,7 +123,7 @@ const config = {
 					"Apple Color Emoji",
 					"Segoe UI Emoji",
 					"Segoe UI Symbol",
-					"Noto Color Emoji"
+					"Noto Color Emoji",
 				],
 			},
 		},

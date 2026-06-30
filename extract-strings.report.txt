@@ -9,7 +9,7 @@ Deduped within area 'profile': 'Order #' as profile.my.text.order
 Deduped within area 'profile': 'Confirmed' as profile.my.text.confirmed
 Deduped within area 'profile': 'Shipped' as profile.my.text.shipped
 Deduped within area 'profile': 'Delivered' as profile.my.text.delivered
-Deduped within area 'sections': 'Licensed Professionals' as sections.aidxbait.text.licensed_professionals
+Deduped within area 'sections': 'Licensed Professionals' as sections.doctoory.text.licensed_professionals
 Deduped within area 'store': 'Clear' as store.HorizontalFilters.text.clear
 Deduped within area 'store': 'Clear All' as store.CartSidebar.text.clear_all
 Deduped within area 'store': 'EGP' as store.CartSummary.text.egp

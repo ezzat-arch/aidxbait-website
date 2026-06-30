@@ -22,7 +22,7 @@ export function StoreShopifyContent({
 	return (
 		<div className="bg-background pt-20">
 			{/* Hero — aligned with StoreContent */}
-			<div className="relative min-h-[400px] sm:h-[45vh] md:h-[50vh] lg:h-[40vh] max-h-[600px] overflow-hidden">
+			<div className="relative min-h-[216px] pt-10 sm:h-[45vh] md:h-[50vh] lg:h-[28vh] max-h-[600px] overflow-hidden">
 				<div className="absolute inset-0">
 					<Image
 						src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"

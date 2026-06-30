@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
 	const address = order.shipping_address;
 	const billingData: PaymobBillingData = {
 		apartment: address?.apartment || "N/A",
-		email: "customer@aidxbait.com", // You might want to get this from user profile
+		email: "customer@doctoory.com", // You might want to get this from user profile
 		floor: address?.floor || "N/A",
 		first_name: "Customer", // You might want to get this from user profile
 		street: address?.street || "N/A",

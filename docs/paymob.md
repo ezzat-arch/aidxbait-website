@@ -1,6 +1,6 @@
 # Paymob Payment Gateway Integration
 
-This document provides a comprehensive guide for integrating and using Paymob payment gateway in the AidXbait website.
+This document provides a comprehensive guide for integrating and using Paymob payment gateway in the Doctoory website.
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@ This document provides a comprehensive guide for integrating and using Paymob pa
 
 ## Overview
 
-The Paymob integration enables online card payments for the AidXbait e-commerce store. The integration uses:
+The Paymob integration enables online card payments for the Doctoory e-commerce store. The integration uses:
 
 - **Payment Flow**: Redirect to Paymob hosted payment page
 - **Payment Methods**: Card payments (Visa, Mastercard, etc.)

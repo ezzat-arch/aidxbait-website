@@ -47,7 +47,7 @@ const PatientsHelpedCard = () => {
 				))}
 			</div>
 			<div className="mt-3 space-y-1 text-xs text-blue-700 dark:text-blue-300">
-				<div>Over 10,000 patients have used AidxBait for their recovery.</div>
+				<div>Over 10,000 patients have used Doctoory for their recovery.</div>
 				<div className="font-medium text-blue-600 dark:text-blue-400">
 					Avg. Age: 42 years
 				</div>
@@ -156,7 +156,7 @@ const RecoveryCard = () => {
 				<div className="flex items-center space-x-1">
 					<div className="h-2 w-2 rounded bg-purple-600" />
 					<span className="text-purple-700 dark:text-purple-300">
-						With AidxBait
+						With Doctoory
 					</span>
 				</div>
 			</div>
@@ -247,14 +247,14 @@ const ConsultationsCard = () => {
 			>
 				<img
 					src="/images/logo-icon.png"
-					alt="AidxBait"
+					alt="Doctoory"
 					height={100}
 					width={100}
 					className="h-8 w-8 rounded-full object-cover"
 				/>
 				<div className="flex-1">
 					<p className="mb-1 text-xs leading-tight text-neutral-500">
-						AidxBait offers comprehensive physiotherapy services including home
+						Doctoory offers comprehensive physiotherapy services including home
 						visits, exercise programs, and online consultations to help you
 						recover faster...
 					</p>
@@ -311,7 +311,7 @@ const metrics = [
 		description: (
 			<div>
 				<span className="block text-sm">
-					Over 10,000 patients have used AidxBait for their recovery.
+					Over 10,000 patients have used Doctoory for their recovery.
 				</span>
 				<span className="mt-1 block text-xs text-neutral-500">
 					<b>Avg. Age:</b> 42 years
@@ -395,7 +395,7 @@ const metrics = [
 	},
 ];
 
-export function AidXbaitMetricsSection() {
+export function DoctooryMetricsSection() {
 	return (
 		<section className="bg-gray-50 py-20">
 			<motion.div
@@ -411,7 +411,7 @@ export function AidXbaitMetricsSection() {
 					viewport={{ once: true, amount: 0.5 }}
 					transition={{ duration: 0.6, delay: 0.1 }}
 				>
-					AidxBait in Numbers
+					Doctoory in Numbers
 				</motion.h2>
 				<BentoGrid className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:auto-rows-[26rem] md:grid-cols-3">
 					{metrics.map((item, index) => (

@@ -41,7 +41,7 @@ async function getAllProducts() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-	const baseUrl = "https://www.aidxbait.com";
+	const baseUrl = "https://www.doctoory.com";
 
 	// Fetch all products
 	const products = await getAllProducts();

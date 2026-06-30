@@ -26,7 +26,7 @@ const buildWhyItems = (tTitle: ReturnType<typeof useTranslations>, tDesc: Return
 	},
 ];
 
-export function WhyAidXBaitSection() {
+export function WhyDoctoorySection() {
 	const tText = useTranslations("sections.why.text");
 	const tTitle = useTranslations("sections.why.data.title");
 	const tDesc = useTranslations("sections.why.data.description");
@@ -36,7 +36,7 @@ export function WhyAidXBaitSection() {
 			<div className="container mx-auto px-4">
 				<div className="text-center mb-16">
 					<h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-						{tText("why_choose_aidxbait")}
+						{tText("why_choose_doctoory")}
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
 						{tText("bringing_hospital_care_quality_to")}
