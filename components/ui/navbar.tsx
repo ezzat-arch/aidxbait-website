@@ -176,7 +176,7 @@ const Navbar = ({ className }: { className?: string }) => {
 		<Link href="/" className="flex items-center gap-2">
 			<div className="relative w-[187px] h-[80px] ">
 				<Image
-					src="/images/aidLogo.svg"
+					src="/images/aidLogo.webp"
 					alt={tNavAlt("doctoory_logo")}
 					fill
 					className="object-contain  "
