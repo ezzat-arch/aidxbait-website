@@ -8,13 +8,15 @@ import { StoreShopifyContent } from "@/components/store/StoreShopifyContent";
 import { CollectionsFilterSection } from "@/components/store/CollectionsFilterSection";
 import { StoreCollectionsContent } from "@/components/store/StoreCollectionsContent";
 import { getShopifyCollections } from "@/lib/shopify/get-collections";
+import { toShopifyLanguage } from "@/lib/shopify/locale";
 
 async function StoreProductsWithFilter({ locale }: { locale: string }) {
 	const [collectionsResult, productsResult] = await Promise.allSettled([
-		getShopifyCollections(),
-		shopifyFetch<StorefrontProductsQueryData>({ query: getAllProductsQuery }).then(
-			({ body }) => mapStorefrontProductsToCards(body.data)
-		),
+		getShopifyCollections(locale),
+		shopifyFetch<StorefrontProductsQueryData>({
+			query: getAllProductsQuery,
+			language: toShopifyLanguage(locale),
+		}).then(({ body }) => mapStorefrontProductsToCards(body.data)),
 	]);
 
 	const collections =
@@ -23,7 +25,11 @@ async function StoreProductsWithFilter({ locale }: { locale: string }) {
 		productsResult.status === "fulfilled" ? productsResult.value : [];
 
 	return (
-		<CollectionsFilterSection collections={collections} allProducts={allProducts} />
+		<CollectionsFilterSection
+			collections={collections}
+			allProducts={allProducts}
+			locale={locale}
+		/>
 	);
 }
 
@@ -31,7 +37,7 @@ async function StoreCollectionsSection({ locale }: { locale: string }) {
 	const t = await getTranslations({ locale, namespace: "store.StoreCollectionsContent" });
 
 	try {
-		const collections = await getShopifyCollections();
+		const collections = await getShopifyCollections(locale);
 		return <StoreCollectionsContent collections={collections} />;
 	} catch {
 		return (

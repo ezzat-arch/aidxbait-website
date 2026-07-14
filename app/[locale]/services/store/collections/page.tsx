@@ -47,7 +47,7 @@ export default async function CollectionsPage({ params }: CollectionsPageProps) 
 	const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 	const pageUrl = `${baseUrl}/${locale}/services/store/collections/`;
 
-	let collections = await getShopifyCollections().catch(() => null);
+	let collections = await getShopifyCollections(locale).catch(() => null);
 	const fetchFailed = collections === null;
 	if (fetchFailed) collections = [];
 

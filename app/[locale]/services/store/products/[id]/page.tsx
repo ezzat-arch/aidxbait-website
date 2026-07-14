@@ -53,7 +53,7 @@ export async function generateMetadata({
 	params,
 }: ProductPageProps): Promise<Metadata> {
 	const { locale, id: handleParam } = await params;
-	const product = await getShopifyProductByHandle(handleParam);
+	const product = await getShopifyProductByHandle(handleParam, locale);
 
 	if (!product) {
 		return {
@@ -107,12 +107,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 		namespace: "store.StoreShopifyContent",
 	});
 
-	const product = await getShopifyProductByHandle(handleParam);
+	const product = await getShopifyProductByHandle(handleParam, locale);
 	if (!product) {
 		notFound();
 	}
 
-	const related = await getShopifyRelatedProductCards(handleParam, 4);
+	const related = await getShopifyRelatedProductCards(handleParam, 4, locale);
 
 	const galleryImages = product.images.edges.map((e) => ({
 		url: e.node.url,

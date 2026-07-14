@@ -9,9 +9,11 @@ import type {
 	StorefrontProductsQueryData,
 } from "./types";
 import { mapStorefrontProductsToCards } from "./map-storefront-products";
+import { toShopifyLanguage } from "./locale";
 
 export async function getShopifyProductByHandle(
-	handle: string
+	handle: string,
+	locale?: string
 ): Promise<StorefrontProductByHandleData["product"]> {
 	const decoded = decodeURIComponent(handle.trim());
 	if (!decoded) return null;
@@ -19,6 +21,7 @@ export async function getShopifyProductByHandle(
 	const { body } = await shopifyFetch<StorefrontProductByHandleData>({
 		query: getProductByHandleQuery,
 		variables: { handle: decoded },
+		language: toShopifyLanguage(locale),
 	});
 
 	return body.data?.product ?? null;
@@ -27,10 +30,12 @@ export async function getShopifyProductByHandle(
 /** Other catalog products for “related” grid (excludes current handle). */
 export async function getShopifyRelatedProductCards(
 	excludeHandle: string,
-	limit = 4
+	limit = 4,
+	locale?: string
 ): Promise<ShopifyProductCardModel[]> {
 	const { body } = await shopifyFetch<StorefrontProductsQueryData>({
 		query: getAllProductsQuery,
+		language: toShopifyLanguage(locale),
 	});
 	const cards = mapStorefrontProductsToCards(body.data);
 	const exclude = decodeURIComponent(excludeHandle.trim()).toLowerCase();

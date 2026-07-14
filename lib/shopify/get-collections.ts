@@ -9,16 +9,21 @@ import type {
 	StorefrontCollectionsQueryData,
 } from "./types";
 import { mapStorefrontCollectionsToCards } from "./map-storefront-collections";
+import { toShopifyLanguage } from "./locale";
 
-export async function getShopifyCollections(): Promise<ShopifyCollectionCardModel[]> {
+export async function getShopifyCollections(
+	locale?: string
+): Promise<ShopifyCollectionCardModel[]> {
 	const { body } = await shopifyFetch<StorefrontCollectionsQueryData>({
 		query: getAllCollectionsQuery,
+		language: toShopifyLanguage(locale),
 	});
 	return mapStorefrontCollectionsToCards(body.data);
 }
 
 export async function getShopifyCollectionByHandle(
-	handle: string
+	handle: string,
+	locale?: string
 ): Promise<StorefrontCollectionByHandleData["collection"]> {
 	const decoded = decodeURIComponent(handle.trim());
 	if (!decoded) return null;
@@ -26,6 +31,7 @@ export async function getShopifyCollectionByHandle(
 	const { body } = await shopifyFetch<StorefrontCollectionByHandleData>({
 		query: getCollectionByHandleQuery,
 		variables: { handle: decoded },
+		language: toShopifyLanguage(locale),
 	});
 
 	return body.data?.collection ?? null;
