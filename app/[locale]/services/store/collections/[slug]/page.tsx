@@ -12,7 +12,7 @@ export async function generateMetadata({
 	params,
 }: CollectionDetailPageProps): Promise<Metadata> {
 	const { locale, slug } = await params;
-	const collection = await getShopifyCollectionByHandle(slug);
+	const collection = await getShopifyCollectionByHandle(slug, locale);
 
 	if (!collection) {
 		const t = await getTranslations({ locale, namespace: "store.CollectionDetailPage" });
@@ -56,7 +56,7 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
 	const { locale, slug } = await params;
 	setRequestLocale(locale);
 
-	const collection = await getShopifyCollectionByHandle(slug);
+	const collection = await getShopifyCollectionByHandle(slug, locale);
 	if (!collection) notFound();
 
 	const t = await getTranslations({ locale, namespace: "store.CollectionDetailPage" });

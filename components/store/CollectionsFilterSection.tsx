@@ -14,6 +14,8 @@ import {
 } from "@/lib/shopify/queries/products";
 import { buildShopifyProductSearchQuery } from "@/lib/shopify/build-product-search-query";
 import { mapStorefrontProductsToCards } from "@/lib/shopify/map-storefront-products";
+import { toShopifyLanguage } from "@/lib/shopify/locale";
+import { filterProductsLocally } from "@/lib/shopify/filter-products-locally";
 import { ShopifyProductCard } from "@/components/store/ShopifyProductCard";
 import type {
 	ShopifyCollectionCardModel,
@@ -46,13 +48,17 @@ function mapCollectionProductsToCards(
 type CollectionsFilterSectionProps = {
 	collections: ShopifyCollectionCardModel[];
 	allProducts: ShopifyProductCardModel[];
+	/** Current app locale ("en" | "ar") — drives Shopify localized fetches. */
+	locale: string;
 };
 
 export function CollectionsFilterSection({
 	collections,
 	allProducts,
+	locale,
 }: CollectionsFilterSectionProps) {
 	const t = useTranslations("store.CollectionsFilterSection");
+	const language = toShopifyLanguage(locale);
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
 	const router = useRouter();
@@ -118,15 +124,55 @@ export function CollectionsFilterSection({
 					activeHandle === "all" ? null : activeHandle
 				);
 
+				// Source list for the client-side fallback, already localized via
+				// @inContext. Scoped to the active collection when one is selected.
+				async function localFallbackSource(): Promise<ShopifyProductCardModel[]> {
+					if (activeHandle === "all") return allProducts;
+					try {
+						const { body } = await shopifyFetch<StorefrontCollectionByHandleData>({
+							query: getCollectionByHandleQuery,
+							variables: { handle: activeHandle },
+							language,
+						});
+						const col = body.data?.collection;
+						return col ? mapCollectionProductsToCards(col) : [];
+					} catch {
+						return allProducts;
+					}
+				}
+
 				try {
 					const { body } = await shopifyFetch<StorefrontProductsQueryData>({
 						query: searchProductsQuery,
 						variables: { query: shopifyQuery },
+						language,
 					});
 					if (cancelled) return;
-					setProducts(mapStorefrontProductsToCards(body.data));
+
+					const shopifyResults = mapStorefrontProductsToCards(body.data);
+
+					// Shopify's search index only matches the store's DEFAULT language,
+					// so Arabic terms (e.g. "جبيرة") return nothing here even though the
+					// product displays in Arabic. Fall back to a client-side filter over
+					// the already-localized product list when the native search is empty.
+					if (shopifyResults.length === 0) {
+						const source = await localFallbackSource();
+						if (cancelled) return;
+						setProducts(filterProductsLocally(source, debouncedSearchTrimmed));
+					} else {
+						setProducts(shopifyResults);
+					}
 				} catch {
-					if (!cancelled) setError(true);
+					// Network/API failure — still try the local list so the user gets results.
+					if (cancelled) return;
+					const source = await localFallbackSource();
+					if (cancelled) return;
+					const local = filterProductsLocally(source, debouncedSearchTrimmed);
+					if (local.length > 0) {
+						setProducts(local);
+					} else {
+						setError(true);
+					}
 				} finally {
 					if (!cancelled) setLoading(false);
 				}
@@ -144,6 +190,7 @@ export function CollectionsFilterSection({
 				const { body } = await shopifyFetch<StorefrontCollectionByHandleData>({
 					query: getCollectionByHandleQuery,
 					variables: { handle: activeHandle },
+					language,
 				});
 				if (cancelled) return;
 				const col = body.data?.collection;
@@ -160,7 +207,7 @@ export function CollectionsFilterSection({
 		return () => {
 			cancelled = true;
 		};
-	}, [activeHandle, debouncedSearchTrimmed, allProducts]);
+	}, [activeHandle, debouncedSearchTrimmed, allProducts, language]);
 
 	function selectCollection(handle: string) {
 		const params = new URLSearchParams(searchParams.toString());

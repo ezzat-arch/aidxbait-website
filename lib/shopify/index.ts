@@ -2,6 +2,8 @@
 
 export type { ShopifyGraphQLError, ShopifyGraphQLResponse } from "./client";
 export { shopifyFetch } from "./client";
+export type { ShopifyLanguageCode } from "./locale";
+export { toShopifyLanguage } from "./locale";
 export * from "./queries";
 export type {
 	ShopifyProductCardModel,
