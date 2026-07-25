@@ -49,7 +49,7 @@ export const HeroSection = React.forwardRef<
 				<div className="absolute inset-0 bg-black/70 z-10" />
 				<div className="container relative z-20 px-4 sm:px-6 lg:px-8 max-w-full overflow-x-hidden">
 					<div className="grid gap-2 sm:gap-8 lg:grid-cols-2 lg:gap-16 items-center justify-items-center pt-32 sm:pt-20 md:pt-24 lg:pt-0 hero-content max-w-7xl mx-auto">
-						<div className="w-full flex ltr:lg:justify-end rtl:lg:justify-start justify-center">
+						<div className="w-full flex ltr:lg:justify-end pt-20 rtl:lg:justify-start justify-center">
 							<motion.div
 								initial={{ opacity: 0, x: -100 }}
 								whileInView={{ opacity: 1, x: 0 }}
