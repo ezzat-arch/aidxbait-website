@@ -14,9 +14,6 @@ import {
 	X,
 	ChevronRight,
 	ChevronDown,
-	Store,
-	ShoppingBag,
-	ShoppingCart,
 	Package,
 	MapPin,
 	Settings,
@@ -122,7 +119,6 @@ const Navbar = ({ className }: { className?: string }) => {
 	const tFooterAlt = useTranslations("layout.footer.attr.alt");
 	const tUser = useTranslations("layout.user.text");
 	const tProfileLayout = useTranslations("profile.layout.text");
-	const tLogin = useTranslations("login.text");
 	const tCommon = useTranslations("common.text");
 	const [active, setActive] = useState<string | null>(null);
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -174,7 +170,7 @@ const Navbar = ({ className }: { className?: string }) => {
 
 	const logo = (
 		<Link href="/" className="flex items-center gap-2">
-			<div className="relative w-[187px] h-[80px] ">
+			<div className="relative w-[252px] h-[108px] ">
 				<Image
 					src="/images/aidLogo.webp"
 					alt={tNavAlt("doctoory_logo")}
@@ -486,13 +482,16 @@ const Navbar = ({ className }: { className?: string }) => {
 						<UserNav />
 					</div>
 
-					{/* Mobile Menu Button */}
-					<button
-						className="lg:hidden cursor-pointer text-black dark:text-white"
-						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-					>
-						{isMobileMenuOpen ? <X size={24} /> : <MenuIcon size={24} />}
-					</button>
+					{/* Mobile: Language Switcher + Menu Button */}
+					<div className="lg:hidden flex items-center gap-2">
+						<LocaleSwitcherMobile />
+						<button
+							className="cursor-pointer text-black dark:text-white"
+							onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+						>
+							{isMobileMenuOpen ? <X size={24} /> : <MenuIcon size={24} />}
+						</button>
+					</div>
 				</nav>
 			</div>
 
@@ -503,107 +502,45 @@ const Navbar = ({ className }: { className?: string }) => {
 						className="absolute inset-0 bg-black/50 backdrop-blur-sm"
 						onClick={() => setIsMobileMenuOpen(false)}
 					/>
-					<div className="absolute top-32 left-4 right-4 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden max-h-[80vh] flex flex-col">
+					<div className="absolute top-36 left-4 right-4 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden max-h-[80vh] flex flex-col">
 						{/* Scrollable Menu Content */}
 						<div className="flex-1 overflow-y-auto">
 							<nav className="p-3">
-								{/* Store and Cart Buttons */}
-								<div className="flex gap-2 mb-3">
-									{/* Store Button - Takes most space */}
+								{/* Store */}
+								<div className="border-b border-gray-100 dark:border-gray-800">
 									<Link
 										href="/services/store"
 										onClick={() => setIsMobileMenuOpen(false)}
-										className="flex-1 flex items-center justify-between p-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl shadow-lg transition-all duration-200"
-									>
-										<div className="flex items-center gap-2.5">
-											<div className="w-9 h-9 bg-white/20 rounded-lg flex items-center justify-center">
-												<ShoppingBag className="w-4 h-4" />
-											</div>
-											<div>
-												<h3 className="font-bold text-sm">
-													{tNav("medical_store")}
-												</h3>
-												<p className="text-[10px] text-blue-100">
-													{tNav("shop_supplies")}
-												</p>
-											</div>
-										</div>
-										<ChevronRight className="w-4 h-4" />
-									</Link>
-
-									{/* Cart Button - Square, compact */}
-									<button
-										onClick={handleCartClick}
-										className="relative w-20 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition-all duration-200 flex flex-col items-center justify-center gap-1"
-									>
-										<ShoppingCart className="w-5 h-5" />
-										<span className="text-[10px] font-medium">
-											{tCommon("cart")}
-										</span>
-										{cart.itemCount > 0 && (
-											<span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
-												{cart.itemCount > 9 ? "9+" : cart.itemCount}
-											</span>
-										)}
-									</button>
-								</div>
-
-								{/* Home Visits Section */}
-								<div className="border-b border-gray-100 dark:border-gray-800">
-									<button
-										onClick={() => toggleSection("home-visits")}
 										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
 									>
 										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
-											{tNav("home_visits")}
+											{tNav("medical_store")}
 										</h3>
-										<span className="text-[10px] font-light text-blue-600 italic">
-											{tNav("coming_soon")}
-										</span>
-										<ChevronDown
-											className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${expandedSections.has("home-visits") ? "rotate-180" : ""
-												}`}
-										/>
-									</button>
-									{expandedSections.has("home-visits") && (
-										<div className="px-2 pb-3 space-y-1">
-											{homeVisitsItems.map((item) => (
-												<HoveredLink
-													key={item.name}
-													href={item.href}
-													onClick={() => setIsMobileMenuOpen(false)}
-													className="flex items-center"
-												>
-													<span>{item.name}</span>
-													{item.comingSoon && (
-														<span className="text-[10px] font-light text-blue-600 italic ltr:ml-2 rtl:mr-2">
-															{tNav("coming_soon")}
-														</span>
-													)}
-												</HoveredLink>
-											))}
-										</div>
-									)}
+										<ChevronRight className="w-4 h-4 text-gray-500" />
+									</Link>
 								</div>
 
-								{/* Online Consultations */}
+								{/* Cart */}
 								<div className="border-b border-gray-100 dark:border-gray-800">
-									<Link
-										href="/services/online-consultations"
-										onClick={() => setIsMobileMenuOpen(false)}
+									<button
+										onClick={handleCartClick}
 										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
 									>
 										<div className="flex items-center gap-2">
 											<h3 className="font-bold text-sm text-gray-900 dark:text-white">
-												{tNav("online_video_consultations")}
+												{tCommon("cart")}
 											</h3>
-											<span className="text-[10px] font-light text-blue-600 italic">
-												{tNav("coming_soon")}
-											</span>
+											{cart.itemCount > 0 && (
+												<span className="bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
+													{cart.itemCount > 9 ? "9+" : cart.itemCount}
+												</span>
+											)}
 										</div>
 										<ChevronRight className="w-4 h-4 text-gray-500" />
-									</Link>
+									</button>
 								</div>
+
+
 
 								{/* Exercise Programs */}
 								<div className="border-b border-gray-100 dark:border-gray-800">
@@ -700,26 +637,65 @@ const Navbar = ({ className }: { className?: string }) => {
 										</div>
 									)}
 								</div>
+								{/* Home Visits Section */}
+								<div className="border-b border-gray-100 dark:border-gray-800">
+									<button
+										onClick={() => toggleSection("home-visits")}
+										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
+									>
+										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
+											{tNav("home_visits")}
+										</h3>
+										<span className="text-[10px] font-light text-blue-600 italic">
+											{tNav("coming_soon")}
+										</span>
+										<ChevronDown
+											className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${expandedSections.has("home-visits") ? "rotate-180" : ""
+												}`}
+										/>
+									</button>
+									{expandedSections.has("home-visits") && (
+										<div className="px-2 pb-3 space-y-1">
+											{homeVisitsItems.map((item) => (
+												<HoveredLink
+													key={item.name}
+													href={item.href}
+													onClick={() => setIsMobileMenuOpen(false)}
+													className="flex items-center"
+												>
+													<span>{item.name}</span>
+													{item.comingSoon && (
+														<span className="text-[10px] font-light text-blue-600 italic ltr:ml-2 rtl:mr-2">
+															{tNav("coming_soon")}
+														</span>
+													)}
+												</HoveredLink>
+											))}
+										</div>
+									)}
+								</div>
+
+								{/* Online Consultations */}
+								<div className="border-b border-gray-100 dark:border-gray-800">
+									<Link
+										href="/services/online-consultations"
+										onClick={() => setIsMobileMenuOpen(false)}
+										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
+									>
+										<div className="flex items-center gap-2">
+											<h3 className="font-bold text-sm text-gray-900 dark:text-white">
+												{tNav("online_video_consultations")}
+											</h3>
+											<span className="text-[10px] font-light text-blue-600 italic">
+												{tNav("coming_soon")}
+											</span>
+										</div>
+										<ChevronRight className="w-4 h-4 text-gray-500" />
+									</Link>
+								</div>
 							</nav>
 						</div>
 
-						{/* Footer with Controls */}
-						<div className="border-t border-gray-200 dark:border-gray-700 bg-gradient-to-r from-gray-50 to-blue-50/30 dark:from-gray-800 dark:to-gray-800/50 p-3.5">
-							<div className="flex items-center justify-between gap-4">
-								<div className="text-xs">
-									<p className="font-semibold text-gray-900 dark:text-white">
-										{tLogin("welcome_back")}
-									</p>
-									<p className="text-[10px] text-gray-500 dark:text-gray-400">
-										{tNav("language")}
-									</p>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="text-[10px] font-medium text-gray-600 dark:text-gray-400" />
-									<LocaleSwitcherMobile />
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			)}

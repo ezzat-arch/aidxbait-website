@@ -7,6 +7,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "neck",
 		coordinates: { x: 61, y: 34 },
 		description: "Neck and cervical spine area",
+		descriptionKey: "lib.store.data.body_part_description.neck",
 	},
 	{
 		id: "shoulder",
@@ -14,6 +15,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "shoulder",
 		coordinates: { x: 53, y: 33 },
 		description: "Shoulder joint",
+		descriptionKey: "lib.store.data.body_part_description.shoulder",
 	},
 	{
 		id: "chest",
@@ -21,6 +23,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "chest",
 		coordinates: { x: 58, y: 40 },
 		description: "Chest and pectoral area",
+		descriptionKey: "lib.store.data.body_part_description.chest",
 	},
 	{
 		id: "elbow",
@@ -28,6 +31,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "elbow",
 		coordinates: { x: 68, y: 47.5 },
 		description: "Elbow joint",
+		descriptionKey: "lib.store.data.body_part_description.elbow",
 	},
 	{
 		id: "abdomen",
@@ -35,6 +39,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "abdomen",
 		coordinates: { x: 50, y: 46 },
 		description: "Abdominal and core area",
+		descriptionKey: "lib.store.data.body_part_description.abdomen",
 	},
 	{
 		id: "back",
@@ -42,6 +47,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "back",
 		coordinates: { x: 45, y: 42 },
 		description: "Lower back and lumbar area",
+		descriptionKey: "lib.store.data.body_part_description.back",
 	},
 	{
 		id: "wrist",
@@ -49,6 +55,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "wrist",
 		coordinates: { x: 30, y: 36 },
 		description: "Wrist joint",
+		descriptionKey: "lib.store.data.body_part_description.wrist",
 	},
 	{
 		id: "thigh",
@@ -56,6 +63,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "thigh",
 		coordinates: { x: 42, y: 49 },
 		description: "Thigh area",
+		descriptionKey: "lib.store.data.body_part_description.thigh",
 	},
 	{
 		id: "knee",
@@ -63,6 +71,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "knee",
 		coordinates: { x: 61, y: 54 },
 		description: "Knee joint",
+		descriptionKey: "lib.store.data.body_part_description.knee",
 	},
 	{
 		id: "calf",
@@ -70,6 +79,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "calf",
 		coordinates: { x: 24, y: 59 },
 		description: "Calf muscle area",
+		descriptionKey: "lib.store.data.body_part_description.calf",
 	},
 	{
 		id: "ankle",
@@ -77,6 +87,7 @@ export const bodyPartsForFilter: BodyPart[] = [
 		joint: "ankle",
 		coordinates: { x: 18, y: 64 },
 		description: "Ankle joint",
+		descriptionKey: "lib.store.data.body_part_description.ankle",
 	},
 ];
 

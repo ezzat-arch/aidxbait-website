@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { BodyPart, BodyMapCallbacks } from "@/types/body-map-types";
 import { bodyMapConfig } from "@/lib/body-map-config";
 import { BodyHotspot } from "./body-hotspot";
@@ -21,6 +22,7 @@ export function InteractiveBodyMap({
 	onPartHover,
 	onPartSelect,
 }: InteractiveBodyMapProps) {
+	const t = useTranslations("sections.body_map.map");
 	const [selectedPartId, setSelectedPartId] = useState<string | null>(
 		initialSelectedId || null
 	);
@@ -69,7 +71,7 @@ export function InteractiveBodyMap({
 				<div className="relative w-full h-full">
 					<Image
 						src="/images/axb_runner.png"
-						alt="Interactive body map - Select a body part to explore related products"
+						alt={t("image_alt")}
 						fill
 						className="object-contain"
 						priority
@@ -84,7 +86,7 @@ export function InteractiveBodyMap({
 				<div
 					className="absolute inset-0"
 					role="group"
-					aria-label="Interactive body map"
+					aria-label={t("aria_label")}
 				>
 					{bodyMapConfig.bodyParts.map((bodyPart, index) => (
 						<div

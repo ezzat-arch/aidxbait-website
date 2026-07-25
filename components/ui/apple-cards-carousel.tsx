@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -13,6 +14,7 @@ interface Card {
 }
 
 export const Carousel = ({ items }: { items: React.ReactNode[] }) => {
+	const t = useTranslations("ui.apple.attr.aria-label");
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isHovered, setIsHovered] = useState(false);
 	const carouselRef = useRef<HTMLDivElement>(null);
@@ -66,7 +68,7 @@ export const Carousel = ({ items }: { items: React.ReactNode[] }) => {
 			<button
 				onClick={goToPrevious}
 				className="absolute -left-16 top-1/2 transform -translate-y-1/2 z-30 bg-white/90 dark:bg-black/90 rounded-full p-3 shadow-lg hover:bg-white dark:hover:bg-black transition-all duration-200 hover:scale-110"
-				aria-label="Previous slide"
+				aria-label={t("previous_slide")}
 			>
 				<ChevronLeft className="w-6 h-6 text-blue-600 dark:text-gray-200" />
 			</button>
@@ -75,7 +77,7 @@ export const Carousel = ({ items }: { items: React.ReactNode[] }) => {
 			<button
 				onClick={goToNext}
 				className="absolute -right-16 top-1/2 transform -translate-y-1/2 z-30 bg-white/90 dark:bg-black/90 rounded-full p-3 shadow-lg hover:bg-white dark:hover:bg-black transition-all duration-200 hover:scale-110"
-				aria-label="Next slide"
+				aria-label={t("next_slide")}
 			>
 				<ChevronRight className="w-6 h-6 text-blue-600 dark:text-gray-200" />
 			</button>
@@ -112,7 +114,7 @@ export const Carousel = ({ items }: { items: React.ReactNode[] }) => {
 								? "bg-primary w-8"
 								: "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
 						)}
-						aria-label={`Go to slide ${index + 1}`}
+						aria-label={t("go_to_slide", { number: index + 1 })}
 					/>
 				))}
 			</div>
@@ -233,6 +235,7 @@ export const BlurImage = ({
 	[key: string]: any;
 }) => {
 	const [isLoading, setLoading] = useState(true);
+	const t = useTranslations("ui.apple.attr.alt");
 	return (
 		<img
 			className={cn(
@@ -242,7 +245,7 @@ export const BlurImage = ({
 			)}
 			onLoad={() => setLoading(false)}
 			src={src}
-			alt={alt || "Background of a beautiful view"}
+			alt={alt || t("background_fallback")}
 			{...rest}
 		/>
 	);

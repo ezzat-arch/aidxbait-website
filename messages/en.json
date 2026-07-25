@@ -15,6 +15,16 @@
 				"try_signing_in_again": "Try Signing In Again",
 				"we_encountered_an_error_while": "We encountered an error while trying to authenticate your account"
 			}
+		},
+		"actions": {
+			"email_password_required": "Email and password are required",
+			"login_failed": "Login failed. Please try again.",
+			"all_fields_required": "All fields are required",
+			"failed_to_create_account": "Failed to create user account",
+			"profile_setup_failed": "Account created but profile setup failed. Please contact support.",
+			"check_email": "Check your email to confirm your account",
+			"unexpected_error": "An unexpected error occurred. Please try again.",
+			"unable_to_sign_out": "Unable to sign out"
 		}
 	},
 	"contact": {
@@ -75,7 +85,9 @@
 				"terms_of_service": "Terms of Service",
 				"return_and_refund_policy": "Return & Refund Policy",
 				"testimonials": "Testimonials",
-				"virtual_consultations": "Virtual Consultations"
+				"virtual_consultations": "Virtual Consultations",
+				"online_consultations": "Online consultations",
+				"exercise_programs": "Exercise Programs"
 			}
 		},
 		"user": {
@@ -129,7 +141,15 @@
 					"therapy_equipment": "Therapy Equipment",
 					"thigh": "Thigh",
 					"wrist": "Wrist",
-					"wrist_support": "Wrist Support"
+					"wrist_support": "Wrist Support",
+					"shoulder_support": "Shoulder Support",
+					"elbow_support": "Elbow Support",
+					"thigh_support": "Thigh Support",
+					"knee_support": "Knee Support",
+					"ankle_support": "Ankle Support",
+					"abdomen_support": "Abdomen Support",
+					"calf_support": "Calf Support",
+					"chest_support": "Chest Support"
 				},
 				"name": {
 					"carpal_tunnel_wrist_brace": "Carpal Tunnel Wrist Brace",
@@ -142,6 +162,19 @@
 					"soft_cervical_collar": "Soft Cervical Collar",
 					"sport_ankle_stabilizer": "Sport Ankle Stabilizer",
 					"tennis_elbow_compression_sleeve": "Tennis Elbow Compression Sleeve"
+				},
+				"body_part_description": {
+					"neck": "Neck and cervical spine area",
+					"shoulder": "Shoulder joint",
+					"chest": "Chest and pectoral area",
+					"elbow": "Elbow joint",
+					"abdomen": "Abdominal and core area",
+					"back": "Lower back and lumbar area",
+					"wrist": "Wrist joint",
+					"thigh": "Thigh area",
+					"knee": "Knee joint",
+					"calf": "Calf muscle area",
+					"ankle": "Ankle joint"
 				}
 			}
 		}
@@ -264,7 +297,22 @@
 			}
 		},
 		"page": {
-			"text": "!"
+			"text": {
+				"welcome_back": "Welcome back, {name}!",
+				"manage_orders_and_settings": "Manage your orders and account settings",
+				"my_orders": "My Orders",
+				"my_orders_description": "View and track all your orders, check order status, and access invoices.",
+				"view_orders": "View Orders",
+				"my_addresses": "My Addresses",
+				"my_addresses_description": "Manage your shipping and billing addresses for faster checkout.",
+				"manage_addresses": "Manage Addresses",
+				"account_information": "Account Information",
+				"full_name": "Full Name",
+				"email": "Email",
+				"not_set": "Not set",
+				"phone": "Phone",
+				"account_type": "Account Type"
+			}
 		},
 		"my_orders": {
 			"attr": {
@@ -309,7 +357,8 @@
 				"try_changing_filter": "Try changing the filter to view other orders",
 				"view_all_orders": "View All Orders",
 				"view_and_track": "View and track your order history",
-				"your_order_history": "Your order history will appear here"
+				"your_order_history": "Your order history will appear here",
+				"product": "Product"
 			},
 			"toast": {
 				"description": {
@@ -430,6 +479,15 @@
 				"click_on_any_area_to_discover_products_designed_specifically_for_your_needs": "Click on any area to discover products designed specifically for your needs",
 				"not_sure_what_you_need_explore_our_full_collection": "Not sure what you need? Explore our full collection",
 				"browse_all_products": "Browse All Products"
+			},
+			"modal": {
+				"title": "Products for Your <highlight>{part}</highlight>",
+				"description": "Discover specialized gear designed to support and protect your <highlight>{part}</highlight>",
+				"view_products": "View Products"
+			},
+			"map": {
+				"image_alt": "Interactive body map - Select a body part to explore related products",
+				"aria_label": "Interactive body map"
 			}
 		},
 		"coming_soon": {
@@ -456,7 +514,63 @@
 					"physical_therapy": "Physical Therapy"
 				}
 			},
-			"text": "%"
+			"text": "%",
+			"metrics": {
+				"heading": "Doctoory in Numbers",
+				"patients": {
+					"label": "Patients Helped",
+					"summary": "Over 10,000 patients have used Doctoory for their recovery.",
+					"avg_age_label": "Avg. Age:",
+					"avg_age_value": "42 years",
+					"fun_fact": "Fun fact: Our youngest patient was just 3 years old!"
+				},
+				"specialists": {
+					"label": "Licensed Professionals"
+				},
+				"recovery": {
+					"title": "30% Faster Recovery",
+					"week": "Week {number}",
+					"before": "Before",
+					"with_doctoory": "With Doctoory",
+					"faster_recovery": "Faster Recovery",
+					"summary": "Patients report 30% faster recovery with our programs.",
+					"program_length_label": "Avg. Program Length:",
+					"program_length_value": "6 weeks",
+					"fun_fact": "Fun fact: Our fastest recovery was just 2 weeks!"
+				},
+				"downloads": {
+					"title": "5,000+ App Downloads",
+					"rating": "4.8/5 Rating",
+					"daily_active_users": "85% daily active users",
+					"available_on_stores": "Available on iOS and Android stores.",
+					"fun_fact": "Most users check progress daily!",
+					"grid_title": "App Downloads",
+					"summary": "5,000+ downloads of our mobile app across iOS and Android.",
+					"rating_label": "Average Rating:",
+					"rating_value": "4.8/5 stars",
+					"grid_fun_fact": "Fun fact: 85% of users open the app daily!"
+				},
+				"consultations": {
+					"blurb": "Doctoory offers comprehensive physiotherapy services including home visits, exercise programs, and online consultations to help you recover faster...",
+					"available_247": "Available 24/7 for emergency consultations",
+					"start_today": "Start your recovery today!",
+					"stats_title": "Consultation Stats:",
+					"home_visits_label": "Home Visits:",
+					"online_sessions_label": "Online Sessions:",
+					"avg_session_label": "Avg. Session Time:",
+					"avg_session_value": "45 min",
+					"satisfaction_label": "Patient Satisfaction:",
+					"grid_title": "Consultations Booked",
+					"summary": "8,000+ online and in-person consultations booked."
+				},
+				"therapists": {
+					"title": "Therapists Onboard",
+					"summary": "500+ certified therapists available for home visits and consultations.",
+					"top_specialty_label": "Top Specialty:",
+					"top_specialty_value": "Orthopedic Rehab",
+					"fun_fact": "Fun fact: 60% of our therapists speak two or more languages!"
+				}
+			}
 		},
 		"contact": {
 			"text": {
@@ -464,6 +578,11 @@
 				"follow_us": "Follow us",
 				"get_in_touch": "Get in Touch",
 				"ultimate_healthcare_solution": "Ultimate Healthcare Solution"
+			},
+			"attr": {
+				"alt": {
+					"contact_background": "Contact background"
+				}
 			}
 		},
 		"hero": {
@@ -471,7 +590,8 @@
 				"alt": {
 					"home_medical_care_doctor_visiting": "Home medical care - Doctor visiting patient at home",
 					"medical_technology_and_healthcare_services": "Medical Technology and Healthcare Services",
-					"patient_connecting_with_healthcare_professional_at_home": "Patient connecting with healthcare professional at home"
+					"patient_connecting_with_healthcare_professional_at_home": "Patient connecting with healthcare professional at home",
+					"hero_background": "Hero background"
 				}
 			},
 			"text": {
@@ -523,6 +643,20 @@
 					"michael_chen": "Michael Chen",
 					"priya_patel": "Priya Patel",
 					"sarah_johnson": "Sarah Johnson"
+				},
+				"quote": {
+					"sarah_johnson": "Doctoory made my post-surgery recovery so much easier. The home visit scheduling and guided exercises were a game changer!",
+					"michael_chen": "As a physical therapist, I love how Doctoory lets me track patient progress and adjust programs remotely. The analytics are fantastic!",
+					"emily_rodriguez": "Booking online consultations was seamless and the reminders kept me on track. I felt supported every step of my rehab journey.",
+					"james_lee": "The product store is so convenient! I found all the rehab equipment I needed and the delivery was fast.",
+					"priya_patel": "Doctoory helps our clinic coordinate care and communicate with patients more efficiently. The platform is intuitive and reliable."
+				},
+				"designation": {
+					"sarah_johnson": "Knee Replacement Patient",
+					"michael_chen": "Physical Therapist",
+					"emily_rodriguez": "ACL Recovery Patient",
+					"james_lee": "Hip Surgery Patient",
+					"priya_patel": "Orthopedic Nurse"
 				}
 			}
 		},
@@ -635,7 +769,14 @@
 				"customer": "Customer",
 				"per_day": "Per Day",
 				"per_week": "Per Week",
-				"per_month": "Per Month"
+				"per_month": "Per Month",
+				"view_image_of": "View image {index} of {name}",
+				"rating_aria": "{rating} out of 5 stars",
+				"decrease_quantity": "Decrease quantity",
+				"increase_quantity": "Increase quantity",
+				"add_to_wishlist": "Add to wishlist",
+				"remove_from_wishlist": "Remove from wishlist",
+				"product_id": "ID:"
 			}
 		},
 		"ProductDescription": {
@@ -715,7 +856,8 @@
 				"subtotal": "Subtotal",
 				"tax_14": "Tax (14%)",
 				"terms_agreement": "By placing your order, you agree to our Terms of Service and Privacy Policy",
-				"total": "Total"
+				"total": "Total",
+				"place_order_with_total": "Place Order - {amount} EGP"
 			},
 			"toast": {
 				"description": {
@@ -786,10 +928,27 @@
 			"attr": {
 				"placeholder": {
 					"select_category": "Select category",
-					"select_joint_type": "Select joint type"
+					"select_joint_type": "Select joint type",
+					"search_products": "Search products..."
 				}
 			},
-			"text": "\""
+			"text": {
+				"joint_type": "Joint Type",
+				"category": "Category",
+				"price_range": "Price Range",
+				"price_egp": "{price} EGP",
+				"in_stock_only": "In stock only",
+				"products_count": "{count} products",
+				"filters_count": "{count} filters",
+				"clear": "Clear",
+				"filters": "Filters",
+				"refine_your_product_search": "Refine your product search",
+				"clear_all_filters": "Clear All Filters",
+				"clear_all": "Clear All",
+				"search_badge": "Search: \"{query}\"",
+				"price_range_badge": "{min} - {max} EGP",
+				"in_stock": "In Stock"
+			}
 		},
 		"ProductGrid": {
 			"text": {
@@ -804,7 +963,8 @@
 				"title": "Shop Medical Products",
 				"medical_grade": "Medical Grade",
 				"fast_delivery": "Fast Delivery",
-				"expert_approved": "Expert Approved"
+				"expert_approved": "Expert Approved",
+				"background_alt": "Store hero background"
 			},
 			"loading": {
 				"store": "Loading store...",
@@ -820,6 +980,15 @@
 					"payment_failed": "Payment Failed",
 					"payment_pending": "Payment Pending",
 					"payment_successful": "Payment Successful! 🎉"
+				},
+				"description": {
+					"order_placed_with_id": "Your order #{orderId} has been placed successfully. We'll process it shortly.",
+					"payment_successful": "Your payment was successful. Thank you for your order!",
+					"payment_error_detail": "Error: {error}",
+					"payment_failed_reason": "Reason: {reason}",
+					"payment_failed_generic": "Please try again or contact support.",
+					"order_pending_with_id": "Your order #{orderId} is pending payment confirmation.",
+					"payment_pending": "Your payment is being processed. We'll notify you once confirmed."
 				}
 			}
 		},
@@ -831,14 +1000,17 @@
 			"fetch_failed": "Could not load products from Shopify. Check server logs and your Storefront credentials.",
 			"view_on_store": "View on store",
 			"view_details": "View details",
-			"buy_on_shopify": "Buy on Shopify",
+			"buy_on_shopify": "Buy Now",
 			"back_to_store": "Back to store",
 			"related_heading": "You may also like",
 			"view_all_store": "View all",
 			"no_image": "No image",
 			"configure_domain": "Set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN and Storefront API token to enable checkout.",
 			"checkout_error": "Could not start checkout. Please try again.",
-			"no_description": "—"
+			"no_description": "—",
+			"product_not_found_title": "Product Not Found | Doctoory Store",
+			"currently_unavailable": "Currently Unavailable",
+			"save_percent": "Save {percent}%"
 		},
 		"CollectionsFilterSection": {
 			"all": "All Products",
@@ -848,8 +1020,13 @@
 			"empty_search": "No products match your search.",
 			"fetch_error": "Failed to load products. Please try again.",
 			"search_placeholder": "Search products by name or description...",
-			"search_hint": "Tip: search by what a product does — e.g. type \"vitamin\" to find products with \"vitamin\" in their name or description.",
-			"clear_search": "Clear search"
+			"search_hint": "Tip: search by what a product does — e.g. type \"knee\" to find products with \"knee\" in their name or description.",
+			"clear_search": "Clear search",
+			"filter_by_collection_aria": "Filter by collection",
+			"filtering_by_joint": "Showing products for: {joint}",
+			"filter_by_body_part": "Filter by body part",
+			"body_map_title": "Find products by body part",
+			"body_map_subtitle": "Click a body part to filter the products for that area."
 		},
 		"StoreCollectionsContent": {
 			"badge": "Browse by Collection",
@@ -873,7 +1050,10 @@
 			"empty_heading": "No collections found",
 			"empty_body": "We couldn't find any collections at the moment. Please check back soon.",
 			"error_heading": "Failed to load collections",
-			"no_description": "Explore this collection"
+			"no_description": "Explore this collection",
+			"hero_background_alt": "Collections hero",
+			"breadcrumb_aria": "Breadcrumb",
+			"breadcrumb_home": "Home"
 		},
 		"CollectionDetailPage": {
 			"meta_title": "{title} | Doctoory Store",
@@ -887,7 +1067,18 @@
 			"empty_body": "This collection has no products yet. Check back soon.",
 			"error_heading": "Failed to load collection",
 			"view_details": "View details",
-			"no_image": "No image"
+			"no_image": "No image",
+			"breadcrumb_aria": "Breadcrumb",
+			"breadcrumb_home": "Home",
+			"currently_unavailable": "Currently Unavailable",
+			"save_percent": "Save {percent}%"
+		},
+		"StoreBodyMap": {
+			"title": "Find Products by Body Part",
+			"subtitle": "Click on any area to filter products for that specific body part"
+		},
+		"CategoryFilter": {
+			"all_products": "All Products"
 		}
 	},
 	"ui": {
@@ -900,7 +1091,11 @@
 			"attr": {
 				"aria-label": {
 					"next_slide": "Next slide",
-					"previous_slide": "Previous slide"
+					"previous_slide": "Previous slide",
+					"go_to_slide": "Go to slide {number}"
+				},
+				"alt": {
+					"background_fallback": "Background of a beautiful view"
 				}
 			}
 		},
@@ -926,6 +1121,10 @@
 					"carousel": "carousel",
 					"slide": "slide"
 				}
+			},
+			"text": {
+				"previous_slide": "Previous slide",
+				"next_slide": "Next slide"
 			}
 		},
 		"dialog": {
@@ -936,7 +1135,8 @@
 		"language": {
 			"data": {
 				"label": "العربية"
-			}
+			},
+			"switch_aria": "Switch language"
 		},
 		"navbar": {
 			"attr": {
@@ -1028,6 +1228,14 @@
 			"text": {
 				"toggle_sidebar": "Toggle Sidebar"
 			}
+		},
+		"multi_select": {
+			"select_items": "Select items",
+			"no_results_found": "No results found.",
+			"search": "Search...",
+			"select_all": "Select All",
+			"clear": "Clear",
+			"n_selected": "{count} selected"
 		}
 	},
 	"legal": {
@@ -1225,6 +1433,118 @@
 			"s19_li_ksa": "SDAIA (KSA): see SDAIA guidance/portals.",
 			"s20_notes_title": "Notes on sources & alignment",
 			"s20_notes_body": "This policy's legal hooks map to: Egypt PDPL No. 151/2020, UAE PDPL (Decree-Law 45/2021) plus the UAE Health Data Law (Federal Law 2/2019, Article 13) for strict health-data localization, and Saudi PDPL with 72-hour breach notification and transfer/localization guidance; plus general GCC PDPLs (Qatar 13/2016; Bahrain 30/2018; Oman RD 6/2022) and Kuwait's sectoral regime."
+		}
+	},
+	"settings": {
+		"layout": {
+			"loading": "Loading..."
+		},
+		"page": {
+			"title": "Settings",
+			"subtitle": "Manage your account settings and preferences",
+			"tabs": {
+				"profile": "Profile",
+				"security": "Security",
+				"notifications": "Notifications",
+				"account": "Account"
+			}
+		},
+		"profile": {
+			"toast": {
+				"error": "Error",
+				"updated_title": "Profile updated",
+				"updated_description": "Your changes have been saved."
+			},
+			"profile_information": "Profile Information",
+			"update_your_personal_details": "Update your personal details",
+			"first_name": "First Name",
+			"first_name_placeholder": "First name",
+			"last_name": "Last Name",
+			"last_name_placeholder": "Last name",
+			"email_address": "Email Address",
+			"email_cannot_be_changed": "Email address cannot be changed. Contact support if needed.",
+			"phone_number": "Phone Number",
+			"save_changes": "Save Changes",
+			"account_details": "Account Details",
+			"account_type": "Account Type",
+			"patient_id": "Patient ID"
+		},
+		"security": {
+			"requirements": {
+				"min_characters": "8+ characters",
+				"uppercase_letter": "Uppercase letter",
+				"number": "Number",
+				"special_character": "Special character"
+			},
+			"toast": {
+				"passwords_dont_match": "Passwords don't match",
+				"error": "Error",
+				"password_changed": "Password changed",
+				"password_changed_description": "Your password has been updated successfully."
+			},
+			"change_password": "Change Password",
+			"change_password_description": "Update your password regularly to keep your account secure",
+			"current_password": "Current Password",
+			"new_password": "New Password",
+			"confirm_new_password": "Confirm New Password",
+			"passwords_do_not_match": "Passwords do not match",
+			"security_tips": "Security Tips",
+			"tips": {
+				"unique_password": "Use a unique password not used on other sites",
+				"mix_characters": "Include a mix of letters, numbers, and symbols",
+				"never_share": "Never share your password with anyone",
+				"change_if_suspect": "Change your password if you suspect unauthorized access"
+			}
+		},
+		"notifications": {
+			"toast": {
+				"saved_title": "Preferences saved",
+				"saved_description": "Your notification settings have been updated."
+			},
+			"email_notifications": "Email Notifications",
+			"email_notifications_description": "Choose which emails you want to receive from Doctoory",
+			"order_updates": "Order Updates",
+			"order_updates_description": "Shipping confirmations, delivery status, and order changes",
+			"appointment_reminders": "Appointment Reminders",
+			"appointment_reminders_description": "Reminders before home visits, consultations, and lab tests",
+			"promotions": "Promotions & Offers",
+			"promotions_description": "Exclusive discounts, seasonal deals, and new service announcements",
+			"sms_notifications": "SMS Notifications",
+			"sms_notifications_description": "Text message alerts sent to your registered phone number",
+			"sms_order_alerts": "Order Alerts",
+			"sms_order_alerts_description": "SMS when your order ships or is out for delivery",
+			"sms_appointment_alerts": "Appointment Alerts",
+			"sms_appointment_alerts_description": "SMS reminders 1 hour before your scheduled appointments",
+			"push_notifications": "Push Notifications",
+			"push_notifications_description": "In-app notifications when you are active on the platform",
+			"push_always_enabled": "Push notifications are always enabled for critical account alerts such as payment confirmations and security events.",
+			"save_preferences": "Save Preferences"
+		},
+		"danger_zone": {
+			"sign_out": "Sign Out",
+			"sign_out_description": "Sign out of your account on this device",
+			"danger_zone": "Danger Zone",
+			"danger_zone_description": "Irreversible actions. Please read carefully before proceeding.",
+			"delete_account": "Delete Account",
+			"delete_account_description": "Permanently remove your account and all associated data. This cannot be undone."
+		},
+		"delete_dialog": {
+			"toast": {
+				"error": "Error"
+			},
+			"title": "Delete Your Account",
+			"warning": "This action is <strong>permanent</strong> and cannot be undone. The following data will be deleted:",
+			"data": {
+				"profile": "Your profile and personal information",
+				"orders": "Your complete order history",
+				"addresses": "All saved addresses",
+				"appointments": "Appointment and consultation records"
+			},
+			"enter_password": "Enter your password to confirm",
+			"password_placeholder": "Your current password",
+			"type_to_confirm": "Type <strong>{phrase}</strong> to confirm",
+			"cancel": "Cancel",
+			"permanently_delete": "Permanently Delete Account"
 		}
 	}
 }

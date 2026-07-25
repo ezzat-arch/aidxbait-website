@@ -17,7 +17,7 @@ import {
 	getLocalizedProductDescription,
 	getLocalizedJointName,
 } from "@/lib/i18n/data-utils";
-import { getLocalizedCurrency } from "@/lib/i18n/utils";
+import { getDisplayCurrency } from "@/lib/i18n/utils";
 
 interface ProductCardProps {
 	product: Product;
@@ -217,12 +217,12 @@ export function ProductCard({ product, className }: ProductCardProps) {
 						<div className="flex items-center gap-2">
 							<span className="text-lg font-bold text-primary">
 								{effectivePrice.toFixed(2)}{" "}
-								{getLocalizedCurrency(product.currency, locale)}
+								{getDisplayCurrency(locale)}
 							</span>
 							{hasDiscount && (
 								<span className="text-sm text-muted-foreground line-through">
 									{product.price.toFixed(2)}{" "}
-									{getLocalizedCurrency(product.currency, locale)}
+									{getDisplayCurrency(locale)}
 								</span>
 							)}
 						</div>

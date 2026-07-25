@@ -2,10 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 
 export const login = async (formData: FormData) => {
 	const supabase = await createClient();
+	const t = await getTranslations("auth.actions");
 
 	// Extract and validate form data
 	const email = formData.get("email") as string;
@@ -15,7 +17,7 @@ export const login = async (formData: FormData) => {
 	// Basic validation
 	if (!email?.trim() || !password?.trim()) {
 		const params = new URLSearchParams({
-			error: "Email and password are required",
+			error: t("email_password_required"),
 		});
 		if (redirectTo) params.set("redirect", redirectTo);
 		redirect(`/login?${params.toString()}`);
@@ -76,7 +78,7 @@ export const login = async (formData: FormData) => {
 	// Check if user exists
 	if (!data.user) {
 		const params = new URLSearchParams({
-			error: "Login failed. Please try again.",
+			error: t("login_failed"),
 		});
 		if (redirectTo) params.set("redirect", redirectTo);
 		redirect(`/login?${params.toString()}`);
@@ -88,6 +90,7 @@ export const login = async (formData: FormData) => {
 
 export const signup = async (formData: FormData) => {
 	const supabase = await createClient();
+	const t = await getTranslations("auth.actions");
 
 	// Extract form data
 	const firstName = formData.get("firstName") as string;
@@ -105,7 +108,7 @@ export const signup = async (formData: FormData) => {
 		!phone?.trim() ||
 		!password?.trim()
 	) {
-		const params = new URLSearchParams({ error: "All fields are required" });
+		const params = new URLSearchParams({ error: t("all_fields_required") });
 		if (redirectTo) params.set("redirect", redirectTo);
 		redirect(`/register?${params.toString()}`);
 	}
@@ -125,7 +128,7 @@ export const signup = async (formData: FormData) => {
 
 		if (!authData.user?.id) {
 			const params = new URLSearchParams({
-				error: "Failed to create user account",
+				error: t("failed_to_create_account"),
 			});
 			if (redirectTo) params.set("redirect", redirectTo);
 			redirect(`/register?${params.toString()}`);
@@ -148,8 +151,7 @@ export const signup = async (formData: FormData) => {
 			// For now, log the error and redirect with a message
 			console.error("Database error:", dbError);
 			const params = new URLSearchParams({
-				error:
-					"Account created but profile setup failed. Please contact support.",
+				error: t("profile_setup_failed"),
 			});
 			if (redirectTo) params.set("redirect", redirectTo);
 			redirect(`/register?${params.toString()}`);
@@ -157,14 +159,14 @@ export const signup = async (formData: FormData) => {
 
 		revalidatePath("/", "layout");
 		const params = new URLSearchParams({
-			message: "Check your email to confirm your account",
+			message: t("check_email"),
 		});
 		if (redirectTo) params.set("redirect", redirectTo);
 		redirect(`/login?${params.toString()}`);
 	} catch (error) {
 		console.error("Signup error:", error);
 		const params = new URLSearchParams({
-			error: "An unexpected error occurred. Please try again.",
+			error: t("unexpected_error"),
 		});
 		if (redirectTo) params.set("redirect", redirectTo);
 		redirect(`/register?${params.toString()}`);
@@ -173,11 +175,13 @@ export const signup = async (formData: FormData) => {
 
 export const signOut = async () => {
 	const supabase = await createClient();
+	const t = await getTranslations("auth.actions");
 
 	const { error } = await supabase.auth.signOut();
 
 	if (error) {
-		redirect("/login?error=Unable to sign out");
+		const params = new URLSearchParams({ error: t("unable_to_sign_out") });
+		redirect(`/login?${params.toString()}`);
 	}
 
 	revalidatePath("/", "layout");

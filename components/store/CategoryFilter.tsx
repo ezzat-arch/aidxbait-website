@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types/i18n";
 import { cn } from "@/lib/utils";
 import { StoreCategory, StoreSubcategory } from "@/lib/store-types";
@@ -29,6 +29,7 @@ export function CategoryFilter({
     className,
 }: CategoryFilterProps) {
     const locale = useLocale() as Locale;
+    const t = useTranslations("store.CategoryFilter");
     const [expandedCategoryId, setExpandedCategoryId] = useState<number | null>(
         selectedCategoryId
     );
@@ -99,7 +100,7 @@ export function CategoryFilter({
                         selectedCategoryId === null && "bg-primary text-primary-foreground"
                     )}
                 >
-                    {locale === "ar" ? "جميع المنتجات" : "All Products"}
+                    {t("all_products")}
                 </Button>
 
                 {/* Categories from API */}

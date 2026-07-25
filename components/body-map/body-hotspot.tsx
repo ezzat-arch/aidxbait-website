@@ -64,7 +64,11 @@ export function BodyHotspot({
 							top: `${bodyPart.coordinates.y}%`,
 							transform: "translate(-50%, -50%)",
 						}}
-						aria-label={`${translatedLabel} - ${bodyPart.description || ""}`}
+						aria-label={
+							bodyPart.descriptionKey
+								? `${translatedLabel} - ${t(bodyPart.descriptionKey)}`
+								: translatedLabel
+						}
 						role="button"
 						tabIndex={0}
 					>

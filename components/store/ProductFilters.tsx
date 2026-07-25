@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/sheet";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
+import { useTranslations } from "next-intl";
 import { JOINT_CATEGORIES, PRODUCT_CATEGORIES } from "@/lib/store-data";
 import { FilterOptions, Joint } from "@/lib/store-types";
 
@@ -41,6 +42,8 @@ export function ProductFilters({
 	onClearFilters,
 	productsCount,
 }: ProductFiltersProps) {
+	const t = useTranslations("store.ProductFilters");
+	const tLabel = useTranslations("lib.store.data.label");
 	const handleJointChange = (value: string) => {
 		onFiltersChange({
 			...filters,
@@ -94,15 +97,15 @@ export function ProductFilters({
 		<div className="space-y-6">
 			{/* Joint Filter */}
 			<div className="space-y-3">
-				<h3 className="font-semibold text-sm">Joint Type</h3>
+				<h3 className="font-semibold text-sm">{t("text.joint_type")}</h3>
 				<Select value={filters.joint} onValueChange={handleJointChange}>
 					<SelectTrigger>
-						<SelectValue placeholder="Select joint type" />
+						<SelectValue placeholder={t("attr.placeholder.select_joint_type")} />
 					</SelectTrigger>
 					<SelectContent>
 						{JOINT_CATEGORIES.map((joint) => (
 							<SelectItem key={joint.value} value={joint.value}>
-								{joint.label}
+								{tLabel(joint.labelKey)}
 							</SelectItem>
 						))}
 					</SelectContent>
@@ -111,15 +114,15 @@ export function ProductFilters({
 
 			{/* Category Filter */}
 			<div className="space-y-3">
-				<h3 className="font-semibold text-sm">Category</h3>
+				<h3 className="font-semibold text-sm">{t("text.category")}</h3>
 				<Select value={filters.category} onValueChange={handleCategoryChange}>
 					<SelectTrigger>
-						<SelectValue placeholder="Select category" />
+						<SelectValue placeholder={t("attr.placeholder.select_category")} />
 					</SelectTrigger>
 					<SelectContent>
 						{PRODUCT_CATEGORIES.map((category) => (
 							<SelectItem key={category.value} value={category.value}>
-								{category.label}
+								{tLabel(category.labelKey)}
 							</SelectItem>
 						))}
 					</SelectContent>
@@ -128,7 +131,7 @@ export function ProductFilters({
 
 			{/* Price Range Filter */}
 			<div className="space-y-3">
-				<h3 className="font-semibold text-sm">Price Range</h3>
+				<h3 className="font-semibold text-sm">{t("text.price_range")}</h3>
 				<div className="px-2">
 					<Slider
 						value={[filters.priceRange.min, filters.priceRange.max]}
@@ -139,8 +142,8 @@ export function ProductFilters({
 						className="w-full"
 					/>
 					<div className="flex justify-between text-sm text-muted-foreground mt-2">
-						<span>{filters.priceRange.min} EGP</span>
-						<span>{filters.priceRange.max} EGP</span>
+						<span>{t("text.price_egp", { price: filters.priceRange.min })}</span>
+						<span>{t("text.price_egp", { price: filters.priceRange.max })}</span>
 					</div>
 				</div>
 			</div>
@@ -156,7 +159,7 @@ export function ProductFilters({
 					htmlFor="inStock"
 					className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 				>
-					In stock only
+					{t("text.in_stock_only")}
 				</label>
 			</div>
 		</div>
@@ -168,7 +171,7 @@ export function ProductFilters({
 			<div className="relative">
 				<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
 				<Input
-					placeholder="Search products..."
+					placeholder={t("attr.placeholder.search_products")}
 					value={searchQuery}
 					onChange={(e) => onSearchChange(e.target.value)}
 					className="pl-10"
@@ -179,10 +182,12 @@ export function ProductFilters({
 			<div className="flex items-center justify-between lg:hidden">
 				<div className="flex items-center gap-2">
 					<span className="text-sm text-muted-foreground">
-						{productsCount} products
+						{t("text.products_count", { count: productsCount })}
 					</span>
 					{hasActiveFilters && (
-						<Badge variant="secondary">{getActiveFiltersCount()} filters</Badge>
+						<Badge variant="secondary">
+							{t("text.filters_count", { count: getActiveFiltersCount() })}
+						</Badge>
 					)}
 				</div>
 
@@ -195,7 +200,7 @@ export function ProductFilters({
 							className="text-muted-foreground"
 						>
 							<X className="h-4 w-4 mr-1" />
-							Clear
+							{t("text.clear")}
 						</Button>
 					)}
 
@@ -203,7 +208,7 @@ export function ProductFilters({
 						<SheetTrigger asChild>
 							<Button variant="outline" size="sm">
 								<SlidersHorizontal className="h-4 w-4 mr-2" />
-								Filters
+								{t("text.filters")}
 								{hasActiveFilters && (
 									<Badge
 										variant="secondary"
@@ -216,8 +221,8 @@ export function ProductFilters({
 						</SheetTrigger>
 						<SheetContent side="left" className="w-80">
 							<SheetHeader>
-								<SheetTitle>Filters</SheetTitle>
-								<SheetDescription>Refine your product search</SheetDescription>
+								<SheetTitle>{t("text.filters")}</SheetTitle>
+								<SheetDescription>{t("text.refine_your_product_search")}</SheetDescription>
 							</SheetHeader>
 							<div className="mt-6">
 								<FiltersContent />
@@ -228,7 +233,7 @@ export function ProductFilters({
 										className="w-full mt-6"
 									>
 										<X className="h-4 w-4 mr-2" />
-										Clear All Filters
+										{t("text.clear_all_filters")}
 									</Button>
 								)}
 							</div>
@@ -240,10 +245,10 @@ export function ProductFilters({
 			{/* Desktop Filters */}
 			<div className="hidden lg:block">
 				<div className="flex items-center justify-between mb-4">
-					<h2 className="font-semibold">Filters</h2>
+					<h2 className="font-semibold">{t("text.filters")}</h2>
 					<div className="flex items-center gap-2">
 						<span className="text-sm text-muted-foreground">
-							{productsCount} products
+							{t("text.products_count", { count: productsCount })}
 						</span>
 						{hasActiveFilters && (
 							<Button
@@ -253,7 +258,7 @@ export function ProductFilters({
 								className="text-muted-foreground"
 							>
 								<X className="h-4 w-4 mr-1" />
-								Clear All
+								{t("text.clear_all")}
 							</Button>
 						)}
 					</div>
@@ -266,7 +271,7 @@ export function ProductFilters({
 				<div className="flex flex-wrap gap-2">
 					{searchQuery && (
 						<Badge variant="outline" className="gap-1">
-							Search: "{searchQuery}"
+							{t("text.search_badge", { query: searchQuery })}
 							<X
 								className="h-3 w-3 cursor-pointer"
 								onClick={() => onSearchChange("")}
@@ -275,7 +280,12 @@ export function ProductFilters({
 					)}
 					{filters.joint !== "all" && (
 						<Badge variant="outline" className="gap-1">
-							{JOINT_CATEGORIES.find((j) => j.value === filters.joint)?.label}
+							{(() => {
+								const joint = JOINT_CATEGORIES.find(
+									(j) => j.value === filters.joint
+								);
+								return joint ? tLabel(joint.labelKey) : null;
+							})()}
 							<X
 								className="h-3 w-3 cursor-pointer"
 								onClick={() => handleJointChange("all")}
@@ -284,10 +294,12 @@ export function ProductFilters({
 					)}
 					{filters.category !== "all" && (
 						<Badge variant="outline" className="gap-1">
-							{
-								PRODUCT_CATEGORIES.find((c) => c.value === filters.category)
-									?.label
-							}
+							{(() => {
+								const category = PRODUCT_CATEGORIES.find(
+									(c) => c.value === filters.category
+								);
+								return category ? tLabel(category.labelKey) : null;
+							})()}
 							<X
 								className="h-3 w-3 cursor-pointer"
 								onClick={() => handleCategoryChange("all")}
@@ -296,7 +308,10 @@ export function ProductFilters({
 					)}
 					{(filters.priceRange.min > 0 || filters.priceRange.max < 200) && (
 						<Badge variant="outline" className="gap-1">
-							{filters.priceRange.min} - {filters.priceRange.max} EGP
+							{t("text.price_range_badge", {
+								min: filters.priceRange.min,
+								max: filters.priceRange.max,
+							})}
 							<X
 								className="h-3 w-3 cursor-pointer"
 								onClick={() => handlePriceRangeChange([0, 200])}
@@ -305,7 +320,7 @@ export function ProductFilters({
 					)}
 					{filters.inStock && (
 						<Badge variant="outline" className="gap-1">
-							In Stock
+							{t("text.in_stock")}
 							<X
 								className="h-3 w-3 cursor-pointer"
 								onClick={() => handleInStockChange(false)}

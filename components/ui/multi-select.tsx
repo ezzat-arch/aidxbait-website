@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Check, ChevronsUpDown, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -40,12 +41,16 @@ export function MultiSelect({
 	options,
 	selected,
 	onChange,
-	placeholder = "Select items",
+	placeholder,
 	maxDisplayed = 2,
 	className,
-	emptyText = "No results found.",
-	searchPlaceholder = "Search...",
+	emptyText,
+	searchPlaceholder,
 }: MultiSelectProps) {
+	const t = useTranslations("ui.multi_select");
+	const resolvedPlaceholder = placeholder ?? t("select_items");
+	const resolvedEmptyText = emptyText ?? t("no_results_found");
+	const resolvedSearchPlaceholder = searchPlaceholder ?? t("search");
 	const [open, setOpen] = React.useState(false);
 
 	const handleToggle = (value: string) => {
@@ -66,7 +71,7 @@ export function MultiSelect({
 
 	const getDisplayText = () => {
 		if (selected.length === 0) {
-			return placeholder;
+			return resolvedPlaceholder;
 		}
 
 		if (selected.length <= maxDisplayed) {
@@ -78,7 +83,7 @@ export function MultiSelect({
 				.join(", ");
 		}
 
-		return `${selected.length} selected`;
+		return t("n_selected", { count: selected.length });
 	};
 
 	const isAllSelected = selected.length === options.length;
@@ -111,9 +116,9 @@ export function MultiSelect({
 			</PopoverTrigger>
 			<PopoverContent className="w-[280px] p-0" align="start">
 				<Command>
-					<CommandInput placeholder={searchPlaceholder} />
+					<CommandInput placeholder={resolvedSearchPlaceholder} />
 					<CommandList>
-						<CommandEmpty>{emptyText}</CommandEmpty>
+						<CommandEmpty>{resolvedEmptyText}</CommandEmpty>
 						<CommandGroup>
 							{/* Action Buttons */}
 							<div className="flex items-center justify-between gap-2 px-2 py-2 border-b">
@@ -125,7 +130,7 @@ export function MultiSelect({
 									className="h-7 px-2 text-xs"
 								>
 									<Check className="h-3 w-3 mr-1" />
-									Select All
+									{t("select_all")}
 								</Button>
 								<Button
 									variant="ghost"
@@ -135,7 +140,7 @@ export function MultiSelect({
 									className="h-7 px-2 text-xs text-muted-foreground hover:text-destructive"
 								>
 									<X className="h-3 w-3 mr-1" />
-									Clear
+									{t("clear")}
 								</Button>
 							</div>
 

@@ -1,23 +1,24 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { InteractiveBodyMap } from "@/components/body-map";
-import { JointSelectionModal } from "@/components/body-map/joint-selection-modal";
 import { BodyPart } from "@/types/body-map-types";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
 export function BodyMapSection() {
 	const router = useRouter();
-	const [selectedPart, setSelectedPart] = useState<BodyPart | null>(null);
 	const t = useTranslations("sections.body_map.text");
 
-	const handlePartClick = useCallback((bodyPart: BodyPart) => {
-		setSelectedPart(bodyPart);
-	}, []);
+	const handlePartClick = useCallback(
+		(bodyPart: BodyPart) => {
+			router.push(`/services/store?joint=${bodyPart.joint}`);
+		},
+		[router]
+	);
 
 	return (
 		<section className="py-20 bg-white dark:bg-gray-950">
@@ -45,35 +46,26 @@ export function BodyMapSection() {
 					<InteractiveBodyMap onPartClick={handlePartClick} className="" />
 				</div>
 
-				{/* Joint Selection Modal/Drawer */}
-				<JointSelectionModal
-					isOpen={!!selectedPart}
-					onOpenChange={(open) => !open && setSelectedPart(null)}
-					selectedPart={selectedPart}
-				/>
-
-				{/* Call to Action - When nothing is selected */}
-				{!selectedPart && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ delay: 0.5, duration: 0.6 }}
-						className="text-center mt-8 md:mt-12 px-4 relative z-10"
+				{/* Call to Action */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ delay: 0.5, duration: 0.6 }}
+					className="text-center mt-8 md:mt-12 px-4 relative z-10"
+				>
+					<p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-6">
+						{t("not_sure_what_you_need_explore_our_full_collection")}
+					</p>
+					<Button
+						onClick={() => router.push("/services/store")}
+						variant="outline"
+						size="lg"
+						className="group w-full sm:w-auto"
 					>
-						<p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-6">
-							{t("not_sure_what_you_need_explore_our_full_collection")}
-						</p>
-						<Button
-							onClick={() => router.push("/services/store")}
-							variant="outline"
-							size="lg"
-							className="group w-full sm:w-auto"
-						>
-							{t("browse_all_products")}
-							<ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-						</Button>
-					</motion.div>
-				)}
+						{t("browse_all_products")}
+						<ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+					</Button>
+				</motion.div>
 			</div>
 		</section>
 	);

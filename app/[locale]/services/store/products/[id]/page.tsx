@@ -20,6 +20,7 @@ import {
 	getShopifyProductByHandle,
 	getShopifyRelatedProductCards,
 } from "@/lib/shopify/get-product-by-handle";
+import { DEFAULT_CURRENCY } from "@/lib/i18n/utils";
 /** URL segment `[id]` is the Shopify product handle (slug), e.g. `knee-support-brace`. */
 interface ProductPageProps {
 	params: Promise<{
@@ -56,8 +57,12 @@ export async function generateMetadata({
 	const product = await getShopifyProductByHandle(handleParam, locale);
 
 	if (!product) {
+		const t = await getTranslations({
+			locale,
+			namespace: "store.StoreShopifyContent",
+		});
 		return {
-			title: "Product Not Found | Doctoory Store",
+			title: t("product_not_found_title"),
 		};
 	}
 
@@ -106,6 +111,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
 		locale,
 		namespace: "store.StoreShopifyContent",
 	});
+	const tDetail = await getTranslations({
+		locale,
+		namespace: "store.ProductDetail.text",
+	});
+	const tCommon = await getTranslations({ locale, namespace: "common.text" });
+	const tFooter = await getTranslations({
+		locale,
+		namespace: "layout.footer.text",
+	});
+	const tBreadcrumb = await getTranslations({
+		locale,
+		namespace: "ui.breadcrumb.attr.aria-label",
+	});
 
 	const product = await getShopifyProductByHandle(handleParam, locale);
 	if (!product) {
@@ -123,7 +141,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 	const isInStock = variantNode?.availableForSale ?? false;
 	const priceLabel = formatMoney(
 		product.priceRange.minVariantPrice.amount,
-		product.priceRange.minVariantPrice.currencyCode,
+		DEFAULT_CURRENCY,
 		locale
 	);
 
@@ -150,7 +168,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 		offers: {
 			"@type": "Offer",
 			url: productUrl,
-			priceCurrency: product.priceRange.minVariantPrice.currencyCode,
+			priceCurrency: DEFAULT_CURRENCY,
 			price: product.priceRange.minVariantPrice.amount,
 			availability: isInStock
 				? "https://schema.org/InStock"
@@ -166,13 +184,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
 			{
 				"@type": "ListItem",
 				position: 1,
-				name: "Home",
+				name: tFooter("home"),
 				item: baseUrl,
 			},
 			{
 				"@type": "ListItem",
 				position: 2,
-				name: "Store",
+				name: tCommon("store"),
 				item: `${baseUrl}/${locale}/services/store/`,
 			},
 			{
@@ -198,11 +216,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 			<div className="min-h-screen bg-background pt-40">
 				<div className="container mx-auto px-4 py-8">
 					<nav
-						aria-label="Breadcrumb"
+						aria-label={tBreadcrumb("breadcrumb")}
 						className="flex items-center gap-2 text-sm text-muted-foreground mb-8"
 					>
 						<Link href="/services/store" className="hover:text-primary">
-							Store
+							{tCommon("store")}
 						</Link>
 						<span>/</span>
 						<span className="text-foreground line-clamp-1">{product.title}</span>
@@ -236,12 +254,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 									{isInStock ? (
 										<div className="flex items-center gap-2 text-green-600">
 											<Check className="h-5 w-5" />
-											<span className="font-medium">In stock</span>
+											<span className="font-medium">{tDetail("in_stock")}</span>
 										</div>
 									) : (
 										<div className="flex items-center gap-2 text-destructive">
 											<Info className="h-5 w-5" />
-											<span className="font-medium">Unavailable</span>
+											<span className="font-medium">{tDetail("currently_unavailable")}</span>
 										</div>
 									)}
 								</div>
@@ -271,16 +289,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
 										<div className="flex flex-col items-center text-center p-4">
 											<Shield className="h-7 w-7 text-primary mb-2" />
 											<span className="text-sm font-medium">
-												Quality guaranteed
+												{tDetail("quality_guaranteed")}
 											</span>
 										</div>
 										<div className="flex flex-col items-center text-center p-4">
 											<Truck className="h-7 w-7 text-primary mb-2" />
-											<span className="text-sm font-medium">Fast shipping</span>
+											<span className="text-sm font-medium">{tDetail("fast_shipping")}</span>
 										</div>
 										<div className="flex flex-col items-center text-center p-4">
 											<RotateCcw className="h-7 w-7 text-primary mb-2" />
-											<span className="text-sm font-medium">Easy returns</span>
+											<span className="text-sm font-medium">{tDetail("easy_returns")}</span>
 										</div>
 									</div>
 								</CardContent>
@@ -291,7 +309,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 									<div className="flex items-center gap-2">
 										<Package className="h-4 w-4 text-muted-foreground" />
 										<span className="text-muted-foreground">
-											ID:{" "}
+											{tDetail("product_id")}{" "}
 											<span className="font-mono text-xs break-all">
 												{product.id}
 											</span>

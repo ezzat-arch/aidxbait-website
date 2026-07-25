@@ -5,8 +5,10 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Package, Tag } from "lucide-react";
 import type { StorefrontCollectionByHandleData } from "@/lib/shopify/types";
+import { DEFAULT_CURRENCY } from "@/lib/i18n/utils";
 
 type Collection = NonNullable<StorefrontCollectionByHandleData["collection"]>;
 type Product = Collection["products"]["edges"][number]["node"];
@@ -33,6 +35,18 @@ function CollectionProductCard({ product }: { product: Product }) {
 	const price = product.priceRange.minVariantPrice;
 	const href = `/services/store/products/${encodeURIComponent(product.handle)}/`;
 
+	const priceNum = Number.parseFloat(price.amount);
+	const compareRaw = product.compareAtPriceRange?.minVariantPrice.amount;
+	const compareNum = compareRaw != null ? Number.parseFloat(compareRaw) : NaN;
+	const onSale =
+		Number.isFinite(priceNum) &&
+		Number.isFinite(compareNum) &&
+		compareNum > priceNum;
+	const discountPercent = onSale
+		? Math.round(((compareNum - priceNum) / compareNum) * 100)
+		: null;
+	const isUnavailable = !product.availableForSale;
+
 	return (
 		<Card className="group overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-0 bg-card">
 			<div className="relative aspect-square overflow-hidden bg-muted">
@@ -41,12 +55,30 @@ function CollectionProductCard({ product }: { product: Product }) {
 						src={imgNode.url}
 						alt={imgNode.altText ?? product.title}
 						fill
-						className="object-cover transition-transform duration-500 group-hover:scale-110"
+						className={`object-cover transition-transform duration-500 group-hover:scale-110 ${isUnavailable ? "opacity-60 grayscale" : ""
+							}`}
 						sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
 					/>
 				) : (
 					<div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
 						<Package className="h-10 w-10 text-muted-foreground/40" />
+					</div>
+				)}
+
+				{discountPercent != null && (
+					<Badge
+						variant="destructive"
+						className="absolute top-3 ltr:left-3 rtl:right-3 shadow-lg font-semibold"
+					>
+						{t("save_percent", { percent: discountPercent })}
+					</Badge>
+				)}
+
+				{isUnavailable && (
+					<div className="absolute inset-0 flex items-center justify-center bg-background/40">
+						<span className="rounded-full bg-background/90 px-4 py-1.5 text-sm font-semibold text-foreground shadow-lg ring-1 ring-border backdrop-blur-sm">
+							{t("currently_unavailable")}
+						</span>
 					</div>
 				)}
 			</div>
@@ -58,19 +90,27 @@ function CollectionProductCard({ product }: { product: Product }) {
 				<p className="text-sm text-muted-foreground line-clamp-2 min-h-[2.5rem] mb-2">
 					{product.description?.trim() || t("no_image")}
 				</p>
-				<p className="text-lg font-bold text-primary">
-					{formatPrice(price.amount, price.currencyCode, locale)}
-				</p>
+				<div className="flex items-baseline gap-2">
+					<p className="text-lg font-bold text-primary">
+						{formatPrice(price.amount, DEFAULT_CURRENCY, locale)}
+					</p>
+					{onSale && compareRaw != null && (
+						<p className="text-sm text-muted-foreground line-through">
+							{formatPrice(compareRaw, DEFAULT_CURRENCY, locale)}
+						</p>
+					)}
+				</div>
 			</CardContent>
 
 			<CardFooter className="p-4 pt-2">
 				<Button
 					type="button"
+					variant={isUnavailable ? "outline" : "default"}
 					size="sm"
 					className="w-full"
 					onClick={() => router.push(href)}
 				>
-					{t("view_details")}
+					{isUnavailable ? t("currently_unavailable") : t("view_details")}
 				</Button>
 			</CardFooter>
 		</Card>
@@ -138,7 +178,7 @@ export function CollectionDetailPageContent({
 			<div className="container mx-auto px-4 py-10">
 				{/* Breadcrumb + back */}
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
-					<nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
+					<nav aria-label={t("breadcrumb_aria")} className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
 						<Link href="/services/store" className="hover:text-primary transition-colors">
 							{t("breadcrumb_store")}
 						</Link>

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
 export default function NotFoundPage() {
-	const t = useTranslations("NotFound");
+	const t = useTranslations("ui.NotFound");
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white">

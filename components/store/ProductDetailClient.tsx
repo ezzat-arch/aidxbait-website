@@ -31,7 +31,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Product } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
 import { eventService } from "@/lib/tracking/event-service";
-import { getLocalizedCurrency } from "@/lib/i18n/utils";
+import { getDisplayCurrency } from "@/lib/i18n/utils";
 import { Locale } from "@/types/i18n";
 
 interface ProductDetailClientProps {
@@ -90,8 +90,8 @@ export default function ProductDetailClient({
 	const discountPercentage =
 		hasDiscount && product
 			? Math.round(
-					((product.price - product.discounted_price!) / product.price) * 100
-			  )
+				((product.price - product.discounted_price!) / product.price) * 100
+			)
 			: 0;
 	const mainImage =
 		product?.images.find((img) => img.is_main)?.image_url ||
@@ -146,17 +146,17 @@ export default function ProductDetailClient({
 					<span className="text-foreground line-clamp-1">{product.name}</span>
 				</nav>
 
-			{/* Back Button */}
-			<Button variant="ghost" className="mb-6 -ml-4" asChild>
-				<Link href="/services/store" className="flex items-center">
-					{locale === "ar" ? (
-						<ArrowRight className="h-4 w-4 ml-2" />
-					) : (
-						<ArrowLeft className="h-4 w-4 mr-2" />
-					)}
-					{tDetail("back_to_store")}
-				</Link>
-			</Button>
+				{/* Back Button */}
+				<Button variant="ghost" className="mb-6 -ml-4" asChild>
+					<Link href="/services/store" className="flex items-center">
+						{locale === "ar" ? (
+							<ArrowRight className="h-4 w-4 ml-2" />
+						) : (
+							<ArrowLeft className="h-4 w-4 mr-2" />
+						)}
+						{tDetail("back_to_store")}
+					</Link>
+				</Button>
 
 				{/* Product Details */}
 				<article className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
@@ -215,11 +215,10 @@ export default function ProductDetailClient({
 									<button
 										key={image.id}
 										onClick={() => setSelectedImageIndex(index)}
-										className={`relative w-20 h-20 flex-shrink-0 rounded border-2 overflow-hidden transition-all ${
-											selectedImageIndex === index
+										className={`relative w-20 h-20 flex-shrink-0 rounded border-2 overflow-hidden transition-all ${selectedImageIndex === index
 												? "border-primary scale-105 shadow-md"
 												: "border-border hover:border-primary/50"
-										}`}
+											}`}
 										aria-label={`View image ${index + 1} of ${product.name}`}
 									>
 										<Image
@@ -276,11 +275,10 @@ export default function ProductDetailClient({
 														<StarHalf className="h-5 w-5 text-yellow-400 fill-current" />
 													) : (
 														<Star
-															className={`h-5 w-5 ${
-																filled
+															className={`h-5 w-5 ${filled
 																	? "text-yellow-400 fill-current"
 																	: "text-gray-300"
-															}`}
+																}`}
 														/>
 													)}
 												</div>
@@ -294,27 +292,27 @@ export default function ProductDetailClient({
 								</div>
 							)}
 
-						{/* Price */}
-						<div className="flex items-baseline gap-3 mb-4">
-							<span className="text-4xl font-bold text-primary">
-								{effectivePrice.toFixed(2)} {getLocalizedCurrency(product.currency, locale as Locale)}
-							</span>
-							{hasDiscount && (
-								<span className="text-2xl text-muted-foreground line-through">
-									{product.price.toFixed(2)} {getLocalizedCurrency(product.currency, locale as Locale)}
+							{/* Price */}
+							<div className="flex items-baseline gap-3 mb-4">
+								<span className="text-4xl font-bold text-primary">
+									{effectivePrice.toFixed(2)} {getDisplayCurrency(locale as Locale)}
 								</span>
-							)}
-						</div>
-
-						{/* Rental Info */}
-						{product.is_for_rent && product.rent_term && (
-							<div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
-								<Calendar className="h-4 w-4" />
-								<span className="capitalize">
-									{tDetail(product.rent_term)}
-								</span>
+								{hasDiscount && (
+									<span className="text-2xl text-muted-foreground line-through">
+										{product.price.toFixed(2)} {getDisplayCurrency(locale as Locale)}
+									</span>
+								)}
 							</div>
-						)}
+
+							{/* Rental Info */}
+							{product.is_for_rent && product.rent_term && (
+								<div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
+									<Calendar className="h-4 w-4" />
+									<span className="capitalize">
+										{tDetail(product.rent_term)}
+									</span>
+								</div>
+							)}
 
 							{/* Stock Status */}
 							<div className="mb-6">
@@ -345,8 +343,8 @@ export default function ProductDetailClient({
 											{isDescriptionExpanded
 												? product.description_ar
 												: product.description_ar.length > 200
-												? `${product.description_ar.substring(0, 200)}...`
-												: product.description_ar}
+													? `${product.description_ar.substring(0, 200)}...`
+													: product.description_ar}
 										</p>
 									</div>
 								)}
@@ -358,8 +356,8 @@ export default function ProductDetailClient({
 											{isDescriptionExpanded
 												? product.description
 												: product.description.length > 200
-												? `${product.description.substring(0, 200)}...`
-												: product.description}
+													? `${product.description.substring(0, 200)}...`
+													: product.description}
 										</p>
 									</div>
 								)}
@@ -369,27 +367,27 @@ export default function ProductDetailClient({
 									product.description_ar.length > 200) ||
 									(product.description &&
 										product.description.length > 200)) && (
-									<Button
-										variant="ghost"
-										size="sm"
-										onClick={() =>
-											setIsDescriptionExpanded(!isDescriptionExpanded)
-										}
-										className="w-full flex items-center justify-center gap-2 hover:bg-primary/10"
-									>
-										{isDescriptionExpanded ? (
-											<>
-												<span>{tDesc("see_less")}</span>
-												<ChevronUp className="h-4 w-4" />
-											</>
-										) : (
-											<>
-												<span>{tDesc("see_more")}</span>
-												<ChevronDown className="h-4 w-4" />
-											</>
-										)}
-									</Button>
-								)}
+										<Button
+											variant="ghost"
+											size="sm"
+											onClick={() =>
+												setIsDescriptionExpanded(!isDescriptionExpanded)
+											}
+											className="w-full flex items-center justify-center gap-2 hover:bg-primary/10"
+										>
+											{isDescriptionExpanded ? (
+												<>
+													<span>{tDesc("see_less")}</span>
+													<ChevronUp className="h-4 w-4" />
+												</>
+											) : (
+												<>
+													<span>{tDesc("see_more")}</span>
+													<ChevronDown className="h-4 w-4" />
+												</>
+											)}
+										</Button>
+									)}
 
 								{/* Show message if no description */}
 								{!product.description && !product.description_ar && (
@@ -459,9 +457,8 @@ export default function ProductDetailClient({
 									variant="outline"
 									size="lg"
 									onClick={() => setIsLiked(!isLiked)}
-									className={`h-12 px-6 ${
-										isLiked ? "text-red-500 border-red-300 bg-red-50" : ""
-									}`}
+									className={`h-12 px-6 ${isLiked ? "text-red-500 border-red-300 bg-red-50" : ""
+										}`}
 									aria-label={isLiked ? "Remove from wishlist" : "Add to wishlist"}
 								>
 									<Heart
@@ -546,20 +543,19 @@ export default function ProductDetailClient({
 												</Avatar>
 												<div className="flex-1 space-y-2">
 													<div className="flex items-center justify-between">
-													<div className="flex items-center gap-2">
-														<span className="font-medium">
-															{review.patient_name ||
-																`${tDetail("customer")} ${review.patient_id}`}
-														</span>
+														<div className="flex items-center gap-2">
+															<span className="font-medium">
+																{review.patient_name ||
+																	`${tDetail("customer")} ${review.patient_id}`}
+															</span>
 															<div className="flex items-center">
 																{[...Array(5)].map((_, i) => (
 																	<Star
 																		key={i}
-																		className={`h-4 w-4 ${
-																			i < review.rating
+																		className={`h-4 w-4 ${i < review.rating
 																				? "text-yellow-400 fill-current"
 																				: "text-gray-300"
-																		}`}
+																			}`}
 																	/>
 																))}
 															</div>
@@ -642,19 +638,19 @@ export default function ProductDetailClient({
 															((relatedProduct.price -
 																relatedProduct.discounted_price!) /
 																relatedProduct.price) *
-																100
+															100
 														)}
 														%
 													</Badge>
 												)}
-											{!relatedIsInStock && (
-												<Badge
-													variant="outline"
-													className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm"
-												>
-													{tCard("out_of_stock")}
-												</Badge>
-											)}
+												{!relatedIsInStock && (
+													<Badge
+														variant="outline"
+														className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm"
+													>
+														{tCard("out_of_stock")}
+													</Badge>
+												)}
 											</div>
 											<CardContent className="p-4">
 												<h3 className="font-semibold line-clamp-2 mb-2 group-hover:text-primary transition-colors">
@@ -669,18 +665,18 @@ export default function ProductDetailClient({
 														</span>
 													</div>
 												)}
-											<div className="flex items-center gap-2">
-												<span className="font-bold text-primary text-lg">
-													{relatedEffectivePrice.toFixed(2)}{" "}
-													{getLocalizedCurrency(relatedProduct.currency, locale as Locale)}
-												</span>
-												{relatedHasDiscount && (
-													<span className="text-sm text-muted-foreground line-through">
-														{relatedProduct.price.toFixed(2)}{" "}
-														{getLocalizedCurrency(relatedProduct.currency, locale as Locale)}
+												<div className="flex items-center gap-2">
+													<span className="font-bold text-primary text-lg">
+														{relatedEffectivePrice.toFixed(2)}{" "}
+														{getDisplayCurrency(locale as Locale)}
 													</span>
-												)}
-											</div>
+													{relatedHasDiscount && (
+														<span className="text-sm text-muted-foreground line-through">
+															{relatedProduct.price.toFixed(2)}{" "}
+															{getDisplayCurrency(locale as Locale)}
+														</span>
+													)}
+												</div>
 											</CardContent>
 										</Link>
 									</Card>

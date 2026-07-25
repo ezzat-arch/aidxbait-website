@@ -12,7 +12,10 @@ export type {
 	StorefrontCollectionsQueryData,
 	StorefrontCollectionByHandleData,
 } from "./types";
-export { mapStorefrontProductsToCards } from "./map-storefront-products";
+export {
+	mapStorefrontProductsToCards,
+	mapStorefrontProductNodeToCard,
+} from "./map-storefront-products";
 export { mapStorefrontCollectionsToCards } from "./map-storefront-collections";
 export {
 	getShopifyProductByHandle,

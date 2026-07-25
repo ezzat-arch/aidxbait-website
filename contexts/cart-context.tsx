@@ -19,6 +19,7 @@ import {
 	clearCartOnServer,
 } from "@/lib/cart/cart-service";
 import { toast } from "@/hooks/use-toast";
+import { useTranslations } from "next-intl";
 import { eventService } from "@/lib/tracking/event-service";
 
 interface CartContextType {
@@ -241,6 +242,7 @@ interface CartProviderProps {
 
 export function CartProvider({ children }: CartProviderProps) {
 	const [state, dispatch] = useReducer(cartReducer, initialState);
+	const tToast = useTranslations("contexts.cart.toast");
 	const { user, userProfile, loading: authLoading } = useAuth();
 	const [isSyncing, setIsSyncing] = React.useState(false);
 	const [syncError, setSyncError] = React.useState<string | null>(null);
@@ -262,8 +264,8 @@ export function CartProvider({ children }: CartProviderProps) {
 				console.error("[CartContext] Sync failed:", error);
 				setSyncError(error instanceof Error ? error.message : "Sync failed");
 				toast({
-					title: "Cart sync issue",
-					description: "Failed to sync cart. Your cart is saved locally.",
+					title: tToast("title.cart_sync_issue"),
+					description: tToast("description.failed_to_sync_cart_your"),
 					variant: "destructive",
 				});
 			} finally {

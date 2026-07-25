@@ -89,52 +89,52 @@ export function Footer() {
 					</div>
 
 					<div className="lg:col-span-2 hidden">
-						<h3 className="text-lg font-bold mb-6 text-white">Services</h3>
+						<h3 className="text-lg font-bold mb-6 text-white">{tFooter("services")}</h3>
 						<div className="grid grid-cols-2 gap-x-12">
 							<ul className="space-y-2.5">
 								{/* Home visits */}
 								<li>
 									<FooterLink href="#" isParent comingSoon>
-										Home visits
+										{tNavbar("home_visits")}
 									</FooterLink>
 								</li>
 								<li className="pl-3">
 									<FooterLink href="#" level={2}>
-										Physical therapy
+										{tNavbar("home_visits_physical_therapy")}
 									</FooterLink>
 								</li>
 								<li className="pl-3">
 									<FooterLink href="#" level={2}>
-										Specialist doctors
+										{tNavbar("home_visits_specialist_doctors")}
 									</FooterLink>
 								</li>
 								<li className="pl-3">
 									<FooterLink href="#" level={2}>
-										Nursing
+										{tNavbar("home_visits_nursing")}
 									</FooterLink>
 								</li>
 								<li className="pl-3">
 									<FooterLink href="#" level={2}>
-										Imaging
+										{tNavbar("home_visits_imaging")}
 									</FooterLink>
 								</li>
 								<li className="pl-3">
 									<FooterLink href="#" level={2}>
-										Lab services
+										{tNavbar("home_visits_lab_services")}
 									</FooterLink>
 								</li>
 
 								{/* Online consultations */}
 								<li className="mt-4">
 									<FooterLink href="#" isParent comingSoon>
-										Online consultations
+										{tFooter("online_consultations")}
 									</FooterLink>
 								</li>
 
 								{/* Exercise Programs */}
 								<li className="mt-4">
 									<FooterLink href="#" isParent>
-										Exercise Programs
+										{tFooter("exercise_programs")}
 									</FooterLink>
 								</li>
 							</ul>
@@ -142,42 +142,42 @@ export function Footer() {
 								{/* Store */}
 								<li>
 									<FooterLink href="#" isParent>
-										Store
+										{tNavbar("store")}
 									</FooterLink>
 								</li>
 								<li className="pl-3">
 									<FooterLink href="#" level={2}>
-										Support, Braces & walking Aids
+										{tNavbar("store_support_braces_walking_aids")}
 									</FooterLink>
 								</li>
 								<li className="pl-3">
 									<FooterLink href="#" level={2}>
-										Medical devices
+										{tNavbar("medical_devices")}
 									</FooterLink>
 								</li>
 								<li className="pl-6">
 									<FooterLink href="#" level={3}>
-										Blood glucose monitoring
+										{tNavbar("store_blood_glucose_monitoring")}
 									</FooterLink>
 								</li>
 								<li className="pl-6">
 									<FooterLink href="#" level={3}>
-										Blood pressure monitoring
+										{tNavbar("store_blood_pressure_monitoring")}
 									</FooterLink>
 								</li>
 								<li className="pl-6">
 									<FooterLink href="#" level={3}>
-										Oximeters
+										{tNavbar("store_oximeters")}
 									</FooterLink>
 								</li>
 								<li className="pl-6">
 									<FooterLink href="#" level={3}>
-										Thermometers
+										{tNavbar("store_thermometers")}
 									</FooterLink>
 								</li>
 								<li className="pl-3">
 									<FooterLink href="#" level={2}>
-										Rental of equipment
+										{tNavbar("store_rental_equipment")}
 									</FooterLink>
 								</li>
 							</ul>

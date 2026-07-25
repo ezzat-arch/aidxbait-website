@@ -149,7 +149,7 @@ export default function OrderDetailsPage() {
 										<div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
 											<Image
 												src={mainImage}
-												alt={product?.name || "Product"}
+												alt={product?.name || t("product")}
 												fill
 												className="object-cover"
 												sizes="80px"

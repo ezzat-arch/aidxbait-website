@@ -60,7 +60,7 @@ export default async function CollectionsPage({ params }: CollectionsPageProps) 
 			{
 				"@type": "ListItem",
 				position: 1,
-				name: "Home",
+				name: t("breadcrumb_home"),
 				item: baseUrl,
 			},
 			{

@@ -4,11 +4,12 @@ import Image from "next/image";
 
 export function ContactSection() {
 	const t = useTranslations("sections.contact.text");
+	const tAlt = useTranslations("sections.contact.attr.alt");
 	return (
 		<section id="contact" className="relative min-h-screen">
 			<Image
 				src="/images/contact_bg.png"
-				alt="Contact background"
+				alt={tAlt("contact_background")}
 				fill
 				className="object-cover z-0"
 				sizes="100vw"

@@ -15,13 +15,15 @@ import { Separator } from "@/components/ui/separator";
 import { changePassword } from "@/lib/auth/settings-actions";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Eye, EyeOff, KeyRound, CheckCircle2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function PasswordStrength({ password }: { password: string }) {
+	const t = useTranslations("settings.security.requirements");
 	const checks = [
-		{ label: "8+ characters", pass: password.length >= 8 },
-		{ label: "Uppercase letter", pass: /[A-Z]/.test(password) },
-		{ label: "Number", pass: /\d/.test(password) },
-		{ label: "Special character", pass: /[^A-Za-z0-9]/.test(password) },
+		{ label: t("min_characters"), pass: password.length >= 8 },
+		{ label: t("uppercase_letter"), pass: /[A-Z]/.test(password) },
+		{ label: t("number"), pass: /\d/.test(password) },
+		{ label: t("special_character"), pass: /[^A-Za-z0-9]/.test(password) },
 	];
 	const score = checks.filter((c) => c.pass).length;
 	const colors = ["bg-destructive", "bg-orange-400", "bg-yellow-400", "bg-green-500", "bg-green-600"];
@@ -96,6 +98,7 @@ function PasswordField({ id, label, value, onChange, show, onToggle, children }:
 
 export function SecurityForm() {
 	const { toast } = useToast();
+	const t = useTranslations("settings.security");
 	const [loading, setLoading] = useState(false);
 	const [showCurrent, setShowCurrent] = useState(false);
 	const [showNew, setShowNew] = useState(false);
@@ -109,7 +112,7 @@ export function SecurityForm() {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (mismatch) {
-			toast({ title: "Passwords don't match", variant: "destructive" });
+			toast({ title: t("toast.passwords_dont_match"), variant: "destructive" });
 			return;
 		}
 		setLoading(true);
@@ -120,9 +123,9 @@ export function SecurityForm() {
 				confirmPassword,
 			});
 			if (result.error) {
-				toast({ title: "Error", description: result.error, variant: "destructive" });
+				toast({ title: t("toast.error"), description: result.error, variant: "destructive" });
 			} else {
-				toast({ title: "Password changed", description: "Your password has been updated successfully." });
+				toast({ title: t("toast.password_changed"), description: t("toast.password_changed_description") });
 				setCurrentPassword("");
 				setNewPassword("");
 				setConfirmPassword("");
@@ -138,17 +141,17 @@ export function SecurityForm() {
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<KeyRound className="h-5 w-5 text-primary" />
-						Change Password
+						{t("change_password")}
 					</CardTitle>
 					<CardDescription>
-						Update your password regularly to keep your account secure
+						{t("change_password_description")}
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit} className="space-y-5">
 						<PasswordField
 							id="currentPassword"
-							label="Current Password"
+							label={t("current_password")}
 							value={currentPassword}
 							onChange={setCurrentPassword}
 							show={showCurrent}
@@ -159,7 +162,7 @@ export function SecurityForm() {
 
 						<PasswordField
 							id="newPassword"
-							label="New Password"
+							label={t("new_password")}
 							value={newPassword}
 							onChange={setNewPassword}
 							show={showNew}
@@ -170,14 +173,14 @@ export function SecurityForm() {
 
 						<PasswordField
 							id="confirmPassword"
-							label="Confirm New Password"
+							label={t("confirm_new_password")}
 							value={confirmPassword}
 							onChange={setConfirmPassword}
 							show={showConfirm}
 							onToggle={() => setShowConfirm(!showConfirm)}
 						>
 							{mismatch && (
-								<p className="text-xs text-destructive">Passwords do not match</p>
+								<p className="text-xs text-destructive">{t("passwords_do_not_match")}</p>
 							)}
 						</PasswordField>
 
@@ -186,7 +189,7 @@ export function SecurityForm() {
 							disabled={loading || !currentPassword || !newPassword || !confirmPassword}
 						>
 							{loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-							Change Password
+							{t("change_password")}
 						</Button>
 					</form>
 				</CardContent>
@@ -194,14 +197,14 @@ export function SecurityForm() {
 
 			<Card>
 				<CardHeader>
-					<CardTitle className="text-base">Security Tips</CardTitle>
+					<CardTitle className="text-base">{t("security_tips")}</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<ul className="text-sm text-muted-foreground space-y-1.5 list-disc list-inside">
-						<li>Use a unique password not used on other sites</li>
-						<li>Include a mix of letters, numbers, and symbols</li>
-						<li>Never share your password with anyone</li>
-						<li>Change your password if you suspect unauthorized access</li>
+						<li>{t("tips.unique_password")}</li>
+						<li>{t("tips.mix_characters")}</li>
+						<li>{t("tips.never_share")}</li>
+						<li>{t("tips.change_if_suspect")}</li>
 					</ul>
 				</CardContent>
 			</Card>

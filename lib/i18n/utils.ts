@@ -1,6 +1,14 @@
 import { Locale } from '@/types/i18n';
 
 /**
+ * The single currency the storefront trades in. Prices are always displayed in
+ * Egyptian Pounds regardless of any currency code stored on the underlying
+ * product/order data, so use this constant (or `getDisplayCurrency`) for all
+ * user-facing price rendering rather than trusting incoming `currency` fields.
+ */
+export const DEFAULT_CURRENCY = 'EGP';
+
+/**
  * Check if the locale is RTL (Right-to-Left)
  */
 export function isRTL(locale: Locale): boolean {
@@ -33,7 +41,7 @@ export function formatNumber(value: number, locale: Locale): string {
  */
 export function formatCurrency(
 	value: number,
-	currency: string = 'EGP',
+	currency: string = DEFAULT_CURRENCY,
 	locale: Locale
 ): string {
 	return new Intl.NumberFormat(locale === 'ar' ? 'ar-EG' : 'en-US', {
@@ -119,5 +127,14 @@ export function getLocalizedCurrency(currencyCode: string, locale: Locale): stri
 	};
 
 	return currencyMap[currencyCode]?.[locale] || currencyCode;
+}
+
+/**
+ * The localized label for the storefront's display currency (always EGP).
+ * Use this for price rendering so that a stray currency code on the data
+ * (e.g. USD/SAR/AED) can never surface to the user.
+ */
+export function getDisplayCurrency(locale: Locale): string {
+	return getLocalizedCurrency(DEFAULT_CURRENCY, locale);
 }
 

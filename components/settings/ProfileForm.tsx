@@ -18,10 +18,12 @@ import { Separator } from "@/components/ui/separator";
 import { updateProfile } from "@/lib/auth/settings-actions";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, User, Mail, Phone, ShieldCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function ProfileForm() {
 	const { userProfile } = useAuth();
 	const { toast } = useToast();
+	const t = useTranslations("settings.profile");
 	const [saving, setSaving] = useState(false);
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
@@ -53,9 +55,9 @@ export function ProfileForm() {
 				phoneNumber: phone,
 			});
 			if (result.error) {
-				toast({ title: "Error", description: result.error, variant: "destructive" });
+				toast({ title: t("toast.error"), description: result.error, variant: "destructive" });
 			} else {
-				toast({ title: "Profile updated", description: "Your changes have been saved." });
+				toast({ title: t("toast.updated_title"), description: t("toast.updated_description") });
 			}
 		} finally {
 			setSaving(false);
@@ -67,8 +69,8 @@ export function ProfileForm() {
 			{/* Identity card */}
 			<Card>
 				<CardHeader>
-					<CardTitle>Profile Information</CardTitle>
-					<CardDescription>Update your personal details</CardDescription>
+					<CardTitle>{t("profile_information")}</CardTitle>
+					<CardDescription>{t("update_your_personal_details")}</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
 					{/* Avatar row */}
@@ -98,22 +100,22 @@ export function ProfileForm() {
 					<form onSubmit={handleSubmit} className="space-y-5">
 						<div className="grid gap-4 sm:grid-cols-2">
 							<div className="space-y-2">
-								<Label htmlFor="firstName">First Name</Label>
+								<Label htmlFor="firstName">{t("first_name")}</Label>
 								<Input
 									id="firstName"
 									value={firstName}
 									onChange={(e) => setFirstName(e.target.value)}
-									placeholder="First name"
+									placeholder={t("first_name_placeholder")}
 									required
 								/>
 							</div>
 							<div className="space-y-2">
-								<Label htmlFor="lastName">Last Name</Label>
+								<Label htmlFor="lastName">{t("last_name")}</Label>
 								<Input
 									id="lastName"
 									value={lastName}
 									onChange={(e) => setLastName(e.target.value)}
-									placeholder="Last name"
+									placeholder={t("last_name_placeholder")}
 									required
 								/>
 							</div>
@@ -122,7 +124,7 @@ export function ProfileForm() {
 						<div className="space-y-2">
 							<Label htmlFor="email" className="flex items-center gap-1.5">
 								<Mail className="h-3.5 w-3.5" />
-								Email Address
+								{t("email_address")}
 							</Label>
 							<Input
 								id="email"
@@ -131,14 +133,14 @@ export function ProfileForm() {
 								className="bg-muted cursor-not-allowed"
 							/>
 							<p className="text-xs text-muted-foreground">
-								Email address cannot be changed. Contact support if needed.
+								{t("email_cannot_be_changed")}
 							</p>
 						</div>
 
 						<div className="space-y-2">
 							<Label htmlFor="phone" className="flex items-center gap-1.5">
 								<Phone className="h-3.5 w-3.5" />
-								Phone Number
+								{t("phone_number")}
 							</Label>
 							<Input
 								id="phone"
@@ -151,7 +153,7 @@ export function ProfileForm() {
 
 						<Button type="submit" disabled={saving || !hasChanges}>
 							{saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-							Save Changes
+							{t("save_changes")}
 						</Button>
 					</form>
 				</CardContent>
@@ -162,19 +164,19 @@ export function ProfileForm() {
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2 text-base">
 						<ShieldCheck className="h-4 w-4 text-primary" />
-						Account Details
+						{t("account_details")}
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<dl className="grid gap-3 sm:grid-cols-2 text-sm">
 						<div>
-							<dt className="text-muted-foreground">Account Type</dt>
+							<dt className="text-muted-foreground">{t("account_type")}</dt>
 							<dd className="font-medium capitalize mt-0.5">
 								{userProfile?.user_type ?? "—"}
 							</dd>
 						</div>
 						<div>
-							<dt className="text-muted-foreground">Patient ID</dt>
+							<dt className="text-muted-foreground">{t("patient_id")}</dt>
 							<dd className="font-medium mt-0.5">
 								{userProfile?.patient_id ? `#${userProfile.patient_id}` : "—"}
 							</dd>

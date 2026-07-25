@@ -35,6 +35,7 @@ export function JointsFilterDialog({
 }: JointsFilterDialogProps) {
 	const t = useTranslations("store.HorizontalFilters");
 	const tLib = useTranslations("lib.store.data.label");
+	const tMap = useTranslations("sections.body_map.map");
 	const [isOpen, setIsOpen] = useState(false);
 	const [hoveredPartId, setHoveredPartId] = useState<string | null>(null);
 
@@ -87,14 +88,14 @@ export function JointsFilterDialog({
 					>
 						<Image
 							src="/images/axb_runner.png"
-							alt="Interactive body map"
+							alt={tMap("aria_label")}
 							fill
 							className="object-contain"
 							priority
 							sizes="(max-width: 768px) 100vw, 600px"
 						/>
 
-						<div className="absolute inset-0" role="group" aria-label="Interactive body map">
+						<div className="absolute inset-0" role="group" aria-label={tMap("aria_label")}>
 							{bodyPartsForFilter.map((bodyPart, index) => {
 								const isSelected = isJointSelected(bodyPart.joint);
 								const isHovered = hoveredPartId === bodyPart.id;

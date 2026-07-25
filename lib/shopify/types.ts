@@ -3,21 +3,28 @@
 export type StorefrontProductsQueryData = {
 	products: {
 		edges: Array<{
-			node: {
-				id: string;
-				title: string;
-				handle: string;
-				description: string;
-				images: {
-					edges: Array<{
-						node: { url: string; altText: string | null };
-					}>;
-				};
-				priceRange: {
-					minVariantPrice: { amount: string; currencyCode: string };
-				};
-			};
+			node: StorefrontProductCardNode;
 		}>;
+	};
+};
+
+/** Raw GraphQL node shared by product listing / search / collection queries */
+export type StorefrontProductCardNode = {
+	id: string;
+	title: string;
+	handle: string;
+	description: string;
+	availableForSale: boolean;
+	images: {
+		edges: Array<{
+			node: { url: string; altText: string | null };
+		}>;
+	};
+	priceRange: {
+		minVariantPrice: { amount: string; currencyCode: string };
+	};
+	compareAtPriceRange?: {
+		minVariantPrice: { amount: string; currencyCode: string };
 	};
 };
 
@@ -31,6 +38,12 @@ export type ShopifyProductCardModel = {
 	imageAlt: string | null;
 	priceAmount: string;
 	currencyCode: string;
+	/** Original ("was") price when the product is on sale; null otherwise */
+	compareAtAmount: string | null;
+	/** Whether the product can currently be purchased */
+	availableForSale: boolean;
+	/** Rounded discount percentage (e.g. 20 for 20% off), or null when not on sale */
+	discountPercent: number | null;
 };
 
 /** Storefront API shapes used by collection listing queries */
@@ -68,20 +81,7 @@ export type StorefrontCollectionByHandleData = {
 		image: { url: string; altText: string | null } | null;
 		products: {
 			edges: Array<{
-				node: {
-					id: string;
-					title: string;
-					handle: string;
-					description: string;
-					images: {
-						edges: Array<{
-							node: { url: string; altText: string | null };
-						}>;
-					};
-					priceRange: {
-						minVariantPrice: { amount: string; currencyCode: string };
-					};
-				};
+				node: StorefrontProductCardNode;
 			}>;
 		};
 	} | null;

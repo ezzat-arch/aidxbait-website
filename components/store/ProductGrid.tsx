@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Product } from "@/lib/store-types";
 import { ProductCard } from "./ProductCard";
 
@@ -9,6 +10,7 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ products, className }: ProductGridProps) {
+	const t = useTranslations("store.ProductGrid.text");
 	if (products.length === 0) {
 		return (
 			<div className="flex flex-col items-center justify-center py-16 px-4">
@@ -29,11 +31,10 @@ export function ProductGrid({ products, className }: ProductGridProps) {
 						</svg>
 					</div>
 					<h3 className="text-lg font-semibold text-foreground">
-						No products found
+						{t("no_products_found")}
 					</h3>
 					<p className="text-muted-foreground max-w-md">
-						We couldn't find any products matching your criteria. Try adjusting
-						your filters or search terms.
+						{t("we_couldn_t_find_any")}
 					</p>
 				</div>
 			</div>

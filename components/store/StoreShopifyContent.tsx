@@ -26,7 +26,7 @@ export function StoreShopifyContent({
 				<div className="absolute inset-0">
 					<Image
 						src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
-						alt="Store hero background"
+						alt={t("hero.background_alt")}
 						fill
 						className="object-cover"
 						sizes="100vw"
@@ -65,9 +65,7 @@ export function StoreShopifyContent({
 							<div className="h-px w-16 bg-white/40" />
 						</div>
 
-						<p className="text-white/90 text-sm sm:text-base max-w-xl mx-auto">
-							{tShopify("hero.subtitle")}
-						</p>
+
 					</div>
 				</div>
 			</div>

@@ -26,7 +26,7 @@ export function CollectionsPageContent({
 				<div className="absolute inset-0">
 					<Image
 						src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"
-						alt="Collections hero"
+						alt={t("hero_background_alt")}
 						fill
 						priority
 						className="object-cover"
@@ -78,7 +78,7 @@ export function CollectionsPageContent({
 			<div className="container mx-auto px-4 py-10">
 				{/* Breadcrumb + back */}
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
-					<nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-muted-foreground">
+					<nav aria-label={t("breadcrumb_aria")} className="flex items-center gap-2 text-sm text-muted-foreground">
 						<Link href="/services/store" className="hover:text-primary transition-colors">
 							{t("breadcrumb_store")}
 						</Link>

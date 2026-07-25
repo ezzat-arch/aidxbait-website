@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, Sparkles, ShoppingBag } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types/i18n";
@@ -36,8 +36,8 @@ export const HeroSection = React.forwardRef<
 				className="relative min-h-screen hero-height flex items-center p-0 m-0 overflow-x-hidden"
 			>
 				<Image
-					src="/images/hero_image.jpg"
-					alt="Hero background"
+					src="/images/doctoory_logo_phone.jpg"
+					alt={tAlt("hero_background")}
 					fill
 					priority
 					className="object-cover opacity-80 z-0"
@@ -81,17 +81,6 @@ export const HeroSection = React.forwardRef<
 												<ArrowRight className="h-5 w-5 rtl:rotate-180" />
 											</Link>
 										)}
-										{/* Shop Now Button - desktop only */}
-										<Link
-											href="/services/store/"
-											aria-label={t("shop_now")}
-											className="group hidden lg:inline-flex transition-transform duration-200 hover:scale-105 active:scale-95"
-										>
-											<span className="animate-wiggle group-hover:animate-shake-anim inline-flex items-center justify-center gap-2 whitespace-nowrap bg-primary group-hover:bg-primary/90 text-white font-semibold px-6 h-[48px] rounded-xl shadow-lg group-hover:shadow-xl">
-												<ShoppingBag className="h-5 w-5" />
-												{t("shop_now")}
-											</span>
-										</Link>
 									</div>
 									{/* App store badges row */}
 									<div className="flex flex-row gap-3 sm:gap-4 justify-center ltr:lg:justify-start rtl:lg:justify-end items-center">
@@ -171,7 +160,7 @@ export const HeroSection = React.forwardRef<
 								<div className="relative max-w-sm mx-auto lg:max-w-md lg:mx-0">
 									<Image
 										src="/images/doctoory_logo_phone.jpg"
-										alt="Home medical care - Doctor visiting patient at home"
+										alt={tAlt("home_medical_care_doctor_visiting")}
 										width={400}
 										height={300}
 										className="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[3/3]"

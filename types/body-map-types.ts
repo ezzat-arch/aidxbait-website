@@ -27,6 +27,8 @@ export interface BodyPart {
 	side?: "left" | "right";
 	/** Optional: Description for accessibility */
 	description?: string;
+	/** Optional: Translation key for the accessibility description */
+	descriptionKey?: string;
 }
 
 /**

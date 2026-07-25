@@ -535,9 +535,9 @@ export default function CheckoutPage() {
 							<Lock className="h-4 w-4 ltr:mr-2 rtl:ml-2" />
 							{isSubmitting
 								? t("placing_order")
-								: `${t("place_order")} - ${orderCalculation.total.toFixed(
-										2
-								  )} EGP`}
+								: t("place_order_with_total", {
+										amount: orderCalculation.total.toFixed(2),
+								  })}
 						</Button>
 
 						<p className="text-xs text-muted-foreground text-center">

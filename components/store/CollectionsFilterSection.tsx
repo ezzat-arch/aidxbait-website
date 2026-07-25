@@ -3,17 +3,33 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Loader2, LayoutGrid, AlertCircle, Search, X } from "lucide-react";
+import { Loader2, LayoutGrid, AlertCircle, Search, X, PersonStanding } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogDescription,
+} from "@/components/ui/dialog";
+import { InteractiveBodyMap } from "@/components/body-map";
+import type { BodyPart } from "@/types/body-map-types";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { shopifyFetch } from "@/lib/shopify";
 import {
 	getCollectionByHandleQuery,
 	searchProductsQuery,
 } from "@/lib/shopify/queries/products";
-import { buildShopifyProductSearchQuery } from "@/lib/shopify/build-product-search-query";
-import { mapStorefrontProductsToCards } from "@/lib/shopify/map-storefront-products";
+import {
+	buildShopifyProductSearchQuery,
+	buildShopifyTagSearchQuery,
+} from "@/lib/shopify/build-product-search-query";
+import {
+	mapStorefrontProductNodeToCard,
+	mapStorefrontProductsToCards,
+} from "@/lib/shopify/map-storefront-products";
 import { toShopifyLanguage } from "@/lib/shopify/locale";
 import { filterProductsLocally } from "@/lib/shopify/filter-products-locally";
 import { ShopifyProductCard } from "@/components/store/ShopifyProductCard";
@@ -30,19 +46,9 @@ const SEARCH_DEBOUNCE_MS = 500;
 function mapCollectionProductsToCards(
 	collection: NonNullable<StorefrontCollectionByHandleData["collection"]>
 ): ShopifyProductCardModel[] {
-	return collection.products.edges.map(({ node }) => {
-		const imgNode = node.images.edges[0]?.node;
-		return {
-			id: node.id,
-			title: node.title,
-			handle: node.handle,
-			descriptionPlain: node.description?.trim() || null,
-			imageUrl: imgNode?.url ?? null,
-			imageAlt: imgNode?.altText ?? node.title,
-			priceAmount: node.priceRange.minVariantPrice.amount,
-			currencyCode: node.priceRange.minVariantPrice.currencyCode,
-		};
-	});
+	return collection.products.edges.map(({ node }) =>
+		mapStorefrontProductNodeToCard(node)
+	);
 }
 
 type CollectionsFilterSectionProps = {
@@ -65,10 +71,15 @@ export function CollectionsFilterSection({
 
 	const activeHandle = searchParams.get("collection") ?? "all";
 	const urlSearch = searchParams.get("search") ?? "";
+	// Body-map deep link: /services/store?joint=shoulder → filter by product tag.
+	// A free-text search in the box takes priority over the joint tag.
+	const jointTag = (searchParams.get("joint") ?? "").trim();
 
 	const [searchInput, setSearchInput] = useState(urlSearch);
 	const debouncedSearch = useDebouncedValue(searchInput, SEARCH_DEBOUNCE_MS);
 	const debouncedSearchTrimmed = debouncedSearch.trim();
+
+	const [bodyMapOpen, setBodyMapOpen] = useState(false);
 
 	const [products, setProducts] = useState<ShopifyProductCardModel[]>(allProducts);
 	const [loading, setLoading] = useState(false);
@@ -88,6 +99,8 @@ export function CollectionsFilterSection({
 		const params = new URLSearchParams(searchParams.toString());
 		if (debouncedSearchTrimmed) {
 			params.set("search", debouncedSearchTrimmed);
+			// Free-text search supersedes a body-map joint deep link.
+			params.delete("joint");
 		} else {
 			params.delete("search");
 		}
@@ -179,6 +192,30 @@ export function CollectionsFilterSection({
 				return;
 			}
 
+			// Joint tag filter (from body-map deep link). Uses Shopify's `tag:`
+			// search syntax; requires products to be tagged with the joint name.
+			if (jointTag) {
+				setLoading(true);
+				const tagQuery = buildShopifyTagSearchQuery(
+					jointTag,
+					activeHandle === "all" ? null : activeHandle
+				);
+				try {
+					const { body } = await shopifyFetch<StorefrontProductsQueryData>({
+						query: searchProductsQuery,
+						variables: { query: tagQuery },
+						language,
+					});
+					if (cancelled) return;
+					setProducts(mapStorefrontProductsToCards(body.data));
+				} catch {
+					if (!cancelled) setError(true);
+				} finally {
+					if (!cancelled) setLoading(false);
+				}
+				return;
+			}
+
 			if (activeHandle === "all") {
 				setProducts(allProducts);
 				setLoading(false);
@@ -207,7 +244,7 @@ export function CollectionsFilterSection({
 		return () => {
 			cancelled = true;
 		};
-	}, [activeHandle, debouncedSearchTrimmed, allProducts, language]);
+	}, [activeHandle, debouncedSearchTrimmed, jointTag, allProducts, language]);
 
 	function selectCollection(handle: string) {
 		const params = new URLSearchParams(searchParams.toString());
@@ -216,48 +253,102 @@ export function CollectionsFilterSection({
 		} else {
 			params.set("collection", handle);
 		}
+		// Choosing a collection tab clears any body-map joint deep link.
+		params.delete("joint");
 		const qs = params.toString();
 		router.push(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
 	}
 
 	const isSearching = Boolean(debouncedSearchTrimmed);
+	const isJointFiltering = Boolean(jointTag) && !isSearching;
 	const showLoading = loading || isSearchPending;
-	const emptyMessage = isSearching ? t("empty_search") : t("empty");
-	const loadingMessage = isSearchPending || isSearching ? t("searching") : t("loading");
+	const emptyMessage =
+		isSearching || isJointFiltering ? t("empty_search") : t("empty");
+	const loadingMessage =
+		isSearchPending || isSearching || isJointFiltering
+			? t("searching")
+			: t("loading");
+
+	function clearJoint() {
+		const params = new URLSearchParams(searchParams.toString());
+		params.delete("joint");
+		const qs = params.toString();
+		router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
+	}
+
+	function handleBodyPartSelect(bodyPart: BodyPart) {
+		const params = new URLSearchParams(searchParams.toString());
+		params.set("joint", bodyPart.joint);
+		// A body-part pick replaces any active free-text search.
+		params.delete("search");
+		setSearchInput("");
+		setBodyMapOpen(false);
+		const qs = params.toString();
+		router.push(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
+	}
 
 	return (
 		<section className="w-full">
 			<div className="sticky top-16 z-20 bg-background/95 backdrop-blur-sm border-b shadow-sm">
 				<div className="container mx-auto px-4 space-y-3 py-3">
-					<div className="relative">
-						<Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-						<Input
-							type="search"
-							value={searchInput}
-							onChange={handleSearchChange}
-							placeholder={t("search_placeholder")}
-							className="h-11 pl-10 pr-10 border-2"
-							aria-label={t("search_placeholder")}
-							autoComplete="off"
-						/>
-						{searchInput && (
-							<button
-								type="button"
-								onClick={handleSearchClear}
-								aria-label={t("clear_search")}
-								className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-							>
-								<X className="h-4 w-4" />
-							</button>
-						)}
+					<div className="flex items-center gap-2">
+						<div className="relative flex-1">
+							<Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+							<Input
+								type="search"
+								value={searchInput}
+								onChange={handleSearchChange}
+								placeholder={t("search_placeholder")}
+								className="h-11 pl-10 pr-10 border-2 text-xs placeholder:text-xs sm:text-sm sm:placeholder:text-sm placeholder:truncate"
+								aria-label={t("search_placeholder")}
+								autoComplete="off"
+							/>
+							{searchInput && (
+								<button
+									type="button"
+									onClick={handleSearchClear}
+									aria-label={t("clear_search")}
+									className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+								>
+									<X className="h-4 w-4" />
+								</button>
+							)}
+						</div>
+
+						<Button
+							type="button"
+							variant="outline"
+							onClick={() => setBodyMapOpen(true)}
+							className="h-11 shrink-0 gap-2 border-2"
+							aria-label={t("filter_by_body_part")}
+						>
+							<PersonStanding className="h-4 w-4" />
+							<span className="hidden sm:inline">{t("filter_by_body_part")}</span>
+						</Button>
 					</div>
 
 					<p className="text-xs text-muted-foreground">{t("search_hint")}</p>
 
+					{isJointFiltering && (
+						<div className="flex items-center gap-2">
+							<span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">
+								{t("filtering_by_joint", { joint: jointTag })}
+								<button
+									type="button"
+									onClick={clearJoint}
+									aria-label={t("clear_search")}
+									className="hover:text-primary/70"
+								>
+									<X className="h-3.5 w-3.5" />
+								</button>
+							</span>
+						</div>
+					)}
+
 					<div
-						className="flex flex-wrap gap-1.5 md:gap-2 sm:flex-nowrap sm:overflow-x-auto sm:scrollbar-hide"
+						className="grid grid-cols-2 gap-2 sm:flex sm:flex-nowrap sm:gap-2 sm:overflow-x-auto sm:scrollbar-hide"
 						role="tablist"
-						aria-label="Filter by collection"
+						aria-label={t("filter_by_collection_aria")}
 					>
 						<button
 							type="button"
@@ -265,9 +356,9 @@ export function CollectionsFilterSection({
 							aria-selected={activeHandle === "all"}
 							onClick={() => selectCollection("all")}
 							className={cn(
-								"sm:shrink-0 px-4 py-2 text-xs md:text-sm font-medium rounded-full border transition-all duration-200 whitespace-nowrap",
+								"flex items-center justify-center text-center px-4 py-3 sm:py-2 text-sm font-medium rounded-xl sm:rounded-full border transition-all duration-200 sm:shrink-0 sm:whitespace-nowrap",
 								activeHandle === "all"
-									? "bg-primary text-primary-foreground border-primary shadow-sm scale-105"
+									? "bg-primary text-primary-foreground border-primary shadow-sm sm:scale-105"
 									: "bg-transparent text-muted-foreground border-border hover:border-primary/60 hover:text-foreground"
 							)}
 						>
@@ -282,9 +373,9 @@ export function CollectionsFilterSection({
 								aria-selected={activeHandle === col.handle}
 								onClick={() => selectCollection(col.handle)}
 								className={cn(
-									"sm:shrink-0 px-4 py-2 text-sm font-medium rounded-full border transition-all duration-200 whitespace-nowrap",
+									"flex items-center justify-center text-center px-4 py-3 sm:py-2 text-sm font-medium rounded-xl sm:rounded-full border transition-all duration-200 sm:shrink-0 sm:whitespace-nowrap",
 									activeHandle === col.handle
-										? "bg-primary text-primary-foreground border-primary shadow-sm scale-105"
+										? "bg-primary text-primary-foreground border-primary shadow-sm sm:scale-105"
 										: "bg-transparent text-muted-foreground border-border hover:border-primary/60 hover:text-foreground"
 								)}
 							>
@@ -327,6 +418,21 @@ export function CollectionsFilterSection({
 					</div>
 				)}
 			</div>
+				{/* Body-map filter modal */}
+				<Dialog open={bodyMapOpen} onOpenChange={setBodyMapOpen}>
+					<DialogContent className="max-w-3xl">
+						<DialogHeader>
+							<DialogTitle>{t("body_map_title")}</DialogTitle>
+							<DialogDescription>{t("body_map_subtitle")}</DialogDescription>
+						</DialogHeader>
+						<div className="mt-2">
+							<InteractiveBodyMap
+								onPartClick={handleBodyPartSelect}
+								initialSelectedId={jointTag || undefined}
+							/>
+						</div>
+					</DialogContent>
+				</Dialog>
 		</section>
 	);
 }

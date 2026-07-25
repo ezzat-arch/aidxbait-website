@@ -211,28 +211,28 @@ export function StoreContent() {
 				// Clear cart on successful payment
 				clearCart();
 				toast({
-					title: "Payment Successful! 🎉",
+					title: t("toast.title.payment_successful"),
 					description: orderId
-						? `Your order #${orderId} has been placed successfully. We'll process it shortly.`
-						: "Your payment was successful. Thank you for your order!",
+						? t("toast.description.order_placed_with_id", { orderId })
+						: t("toast.description.payment_successful"),
 				});
 			} else if (paymentStatus === "failed") {
 				const errorMessage = paymentError
-					? `Error: ${paymentError}`
+					? t("toast.description.payment_error_detail", { error: paymentError })
 					: reason
-						? `Reason: ${reason}`
-						: "Please try again or contact support.";
+						? t("toast.description.payment_failed_reason", { reason })
+						: t("toast.description.payment_failed_generic");
 				toast({
-					title: "Payment Failed",
+					title: t("toast.title.payment_failed"),
 					description: errorMessage,
 					variant: "destructive",
 				});
 			} else if (paymentStatus === "pending") {
 				toast({
-					title: "Payment Pending",
+					title: t("toast.title.payment_pending"),
 					description: orderId
-						? `Your order #${orderId} is pending payment confirmation.`
-						: "Your payment is being processed. We'll notify you once confirmed.",
+						? t("toast.description.order_pending_with_id", { orderId })
+						: t("toast.description.payment_pending"),
 				});
 			}
 
@@ -435,7 +435,7 @@ export function StoreContent() {
 				<div className="absolute inset-0">
 					<Image
 						src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
-						alt="Store hero background"
+						alt={t("hero.background_alt")}
 						fill
 						className="object-cover"
 						sizes="100vw"

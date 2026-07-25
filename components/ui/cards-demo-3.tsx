@@ -1,20 +1,19 @@
 "use client";
 import { animate, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Activity, Calendar, Video, ShoppingBag, Clock } from "lucide-react";
 
 export default function CardDemo() {
+	const t = useTranslations("ui.cards.text");
 	return (
 		<Card>
 			<CardSkeletonContainer>
 				<Skeleton />
 			</CardSkeletonContainer>
-			<CardTitle>Damn good card</CardTitle>
-			<CardDescription>
-				A card that showcases a set of tools that you use to create your
-				product.
-			</CardDescription>
+			<CardTitle>{t("damn_good_card")}</CardTitle>
+			<CardDescription>{t("a_card_that_showcases_a")}</CardDescription>
 		</Card>
 	);
 }

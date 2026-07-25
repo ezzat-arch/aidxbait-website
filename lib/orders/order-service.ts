@@ -7,6 +7,7 @@ import type {
 	OrderCalculation,
 } from "@/lib/order-types";
 import { TAX_RATE, SHIPPING_COST } from "@/lib/order-types";
+import { DEFAULT_CURRENCY } from "@/lib/i18n/utils";
 
 /**
  * Calculate order totals
@@ -233,7 +234,7 @@ export function getOrderTypeText(type: string): string {
  */
 export function formatCurrency(
 	amount: number,
-	currency: string = "EGP"
+	currency: string = DEFAULT_CURRENCY
 ): string {
 	return new Intl.NumberFormat("en-US", {
 		style: "currency",

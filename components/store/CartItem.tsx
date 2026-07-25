@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CartItem as CartItemType } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { getDisplayCurrency } from "@/lib/i18n/utils";
+import { Locale } from "@/types/i18n";
 
 interface CartItemProps {
 	item: CartItemType;
@@ -18,6 +20,8 @@ export function CartItem({ item, className }: CartItemProps) {
 	const { updateQuantity, removeFromCart, updateRentalWeeks } = useCart();
 	const { product, quantity, rental_weeks } = item;
 	const t = useTranslations("store.CartItemLabels");
+	const locale = useLocale() as Locale;
+	const currencyLabel = getDisplayCurrency(locale);
 
 	// Compute derived values
 	const effectivePrice = product.discounted_price || product.price;
@@ -102,11 +106,11 @@ export function CartItem({ item, className }: CartItemProps) {
 				<div className="flex justify-between items-center">
 					<div className="flex items-center gap-2">
 						<span className="font-semibold text-primary">
-							{effectivePrice.toFixed(2)} {product.currency}
+							{effectivePrice.toFixed(2)} {currencyLabel}
 						</span>
 						{hasDiscount && (
 							<span className="text-xs text-muted-foreground line-through">
-								{product.price.toFixed(2)} {product.currency}
+								{product.price.toFixed(2)} {currencyLabel}
 							</span>
 						)}
 					</div>
@@ -188,7 +192,7 @@ export function CartItem({ item, className }: CartItemProps) {
 				{/* Item Total */}
 				<div className="flex justify-between items-center mt-2">
 					<div className="text-xs text-muted-foreground">
-						{quantity} × {effectivePrice.toFixed(2)} {product.currency}
+						{quantity} × {effectivePrice.toFixed(2)} {currencyLabel}
 						{product.is_for_rent &&
 							rental_weeks &&
 							` × ${rental_weeks} ${
@@ -196,7 +200,7 @@ export function CartItem({ item, className }: CartItemProps) {
 							}`}
 					</div>
 					<div className="font-semibold">
-						{total.toFixed(2)} {product.currency}
+						{total.toFixed(2)} {currencyLabel}
 					</div>
 				</div>
 			</div>

@@ -2,6 +2,7 @@
 
 import { useCallback } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { InteractiveBodyMap } from "@/components/body-map";
 import { BodyPart } from "@/types/body-map-types";
 import { Joint } from "@/lib/store-types";
@@ -20,6 +21,7 @@ export function StoreBodyMapSection({
 	onJointSelect,
 	className = "",
 }: StoreBodyMapSectionProps) {
+	const t = useTranslations("store.StoreBodyMap");
 	const handlePartClick = useCallback(
 		(bodyPart: BodyPart) => {
 			// Map body part ID to joint type
@@ -72,10 +74,10 @@ export function StoreBodyMapSection({
 					transition={{ duration: 0.8, type: "spring" }}
 				>
 					<h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2 sm:mb-3">
-						Find Products by Body Part
+						{t("title")}
 					</h2>
 					<p className="text-sm sm:text-base md:text-lg text-muted-foreground px-4">
-						Click on any area to filter products for that specific body part
+						{t("subtitle")}
 					</p>
 				</motion.div>
 

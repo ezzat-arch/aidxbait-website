@@ -15,6 +15,16 @@
 				"try_signing_in_again": "حاول تسجيل الدخول مرة أخرى",
 				"we_encountered_an_error_while": "واجهنا خطأ أثناء محاولة التحقق من حسابك"
 			}
+		},
+		"actions": {
+			"email_password_required": "البريد الإلكتروني وكلمة المرور مطلوبان",
+			"login_failed": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+			"all_fields_required": "جميع الحقول مطلوبة",
+			"failed_to_create_account": "فشل إنشاء الحساب",
+			"profile_setup_failed": "تم إنشاء الحساب لكن تعذّر إعداد الملف الشخصي. يرجى التواصل مع الدعم.",
+			"check_email": "تحقق من بريدك الإلكتروني لتأكيد حسابك",
+			"unexpected_error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+			"unable_to_sign_out": "تعذّر تسجيل الخروج"
 		}
 	},
 	"contact": {
@@ -75,7 +85,9 @@
 				"terms_of_service": "شروط الخدمة",
 				"return_and_refund_policy": "سياسة الإرجاع والاسترداد",
 				"testimonials": "آراء المستخدمين",
-				"virtual_consultations": "استشارات افتراضية أونلاين"
+				"virtual_consultations": "استشارات افتراضية أونلاين",
+				"online_consultations": "استشارات أونلاين",
+				"exercise_programs": "برامج التمارين"
 			}
 		},
 		"user": {
@@ -129,7 +141,15 @@
 					"therapy_equipment": "معدّات العلاج",
 					"thigh": "الفخذ",
 					"wrist": "المعصم",
-					"wrist_support": "دعم المعصم"
+					"wrist_support": "دعم المعصم",
+					"shoulder_support": "دعم الكتف",
+					"elbow_support": "دعم الكوع",
+					"thigh_support": "دعم الفخذ",
+					"knee_support": "دعم الركبة",
+					"ankle_support": "دعم الكاحل",
+					"abdomen_support": "دعم البطن",
+					"calf_support": "دعم الساق",
+					"chest_support": "دعم الصدر"
 				},
 				"name": {
 					"carpal_tunnel_wrist_brace": "جبيرة داعمة للمعصم لمتلازمة النفق الرسغيّ",
@@ -142,6 +162,19 @@
 					"soft_cervical_collar": "طوق عنقي طريّ",
 					"sport_ankle_stabilizer": "مثبّت كاحل رياضيّ",
 					"tennis_elbow_compression_sleeve": "كُمّ ضاغط لمرفق التنس"
+				},
+				"body_part_description": {
+					"neck": "منطقة الرقبة والفقرات العنقية",
+					"shoulder": "مفصل الكتف",
+					"chest": "منطقة الصدر والعضلات الصدرية",
+					"elbow": "مفصل الكوع",
+					"abdomen": "منطقة البطن والجذع",
+					"back": "أسفل الظهر والمنطقة القطنية",
+					"wrist": "مفصل المعصم",
+					"thigh": "منطقة الفخذ",
+					"knee": "مفصل الركبة",
+					"calf": "منطقة عضلة الساق",
+					"ankle": "مفصل الكاحل"
 				}
 			}
 		}
@@ -264,7 +297,22 @@
 			}
 		},
 		"page": {
-			"text": "!"
+			"text": {
+				"welcome_back": "مرحبًا بعودتك يا {name}!",
+				"manage_orders_and_settings": "إدارة طلباتك وإعدادات حسابك",
+				"my_orders": "طلباتي",
+				"my_orders_description": "اعرض وتتبع جميع طلباتك، وتحقق من حالتها، واطّلع على الفواتير.",
+				"view_orders": "عرض الطلبات",
+				"my_addresses": "عناويني",
+				"my_addresses_description": "أدر عناوين الشحن والفوترة لإتمام الطلب بشكل أسرع.",
+				"manage_addresses": "إدارة العناوين",
+				"account_information": "معلومات الحساب",
+				"full_name": "الاسم الكامل",
+				"email": "البريد الإلكتروني",
+				"not_set": "غير محدد",
+				"phone": "الهاتف",
+				"account_type": "نوع الحساب"
+			}
 		},
 		"my_orders": {
 			"attr": {
@@ -309,7 +357,8 @@
 				"try_changing_filter": "جرّب تغيير الفلتر لعرض طلبات أخرى",
 				"view_all_orders": "عرض جميع الطلبات",
 				"view_and_track": "عرض وتتبع سجل طلباتك",
-				"your_order_history": "سيظهر سجل طلباتك هنا"
+				"your_order_history": "سيظهر سجل طلباتك هنا",
+				"product": "منتج"
 			},
 			"toast": {
 				"description": {
@@ -430,6 +479,15 @@
 				"click_on_any_area_to_discover_products_designed_specifically_for_your_needs": "اضغط على أي منطقة لاكتشاف منتجات مصمّمة خصيصًا لاحتياجاتك",
 				"not_sure_what_you_need_explore_our_full_collection": "مش متأكد من احتياجك؟ تصفّح كل مجموعتنا",
 				"browse_all_products": "تصفّح كل المنتجات"
+			},
+			"modal": {
+				"title": "منتجات مخصصة لـ<highlight>{part}</highlight>",
+				"description": "اكتشف مستلزمات متخصصة مصممة لدعم وحماية <highlight>{part}</highlight>",
+				"view_products": "عرض المنتجات"
+			},
+			"map": {
+				"image_alt": "خريطة الجسم التفاعلية - اختر جزءًا من الجسم لاستكشاف المنتجات المرتبطة به",
+				"aria_label": "خريطة الجسم التفاعلية"
 			}
 		},
 		"coming_soon": {
@@ -453,10 +511,66 @@
 					"imaging": "الآشعة المنزلية",
 					"lab_services": "خدمات التحاليل",
 					"nursing": "التمريض",
-					"physical_therapy": "Physical Therapy"
+					"physical_therapy": "العلاج الطبيعي"
 				}
 			},
-			"text": "٪"
+			"text": "٪",
+			"metrics": {
+				"heading": "Doctoory في أرقام",
+				"patients": {
+					"label": "مرضى تمت مساعدتهم",
+					"summary": "استخدم أكثر من 10,000 مريض Doctoory في رحلة تعافيهم.",
+					"avg_age_label": "متوسط العمر:",
+					"avg_age_value": "42 عامًا",
+					"fun_fact": "معلومة طريفة: أصغر مرضانا كان عمره 3 سنوات فقط!"
+				},
+				"specialists": {
+					"label": "مهنيون مرخّصون"
+				},
+				"recovery": {
+					"title": "تعافٍ أسرع بنسبة 30%",
+					"week": "الأسبوع {number}",
+					"before": "قبل",
+					"with_doctoory": "مع Doctoory",
+					"faster_recovery": "تعافٍ أسرع",
+					"summary": "يُبلغ المرضى عن تعافٍ أسرع بنسبة 30% مع برامجنا.",
+					"program_length_label": "متوسط مدة البرنامج:",
+					"program_length_value": "6 أسابيع",
+					"fun_fact": "معلومة طريفة: أسرع تعافٍ لدينا استغرق أسبوعين فقط!"
+				},
+				"downloads": {
+					"title": "أكثر من 5,000 تحميل للتطبيق",
+					"rating": "تقييم 4.8/5",
+					"daily_active_users": "85% مستخدمون نشطون يوميًا",
+					"available_on_stores": "متوفر على متجري iOS وAndroid.",
+					"fun_fact": "معظم المستخدمين يتابعون تقدمهم يوميًا!",
+					"grid_title": "تحميلات التطبيق",
+					"summary": "أكثر من 5,000 تحميل لتطبيقنا على iOS وAndroid.",
+					"rating_label": "متوسط التقييم:",
+					"rating_value": "4.8 من 5 نجوم",
+					"grid_fun_fact": "معلومة طريفة: 85% من المستخدمين يفتحون التطبيق يوميًا!"
+				},
+				"consultations": {
+					"blurb": "تقدم Doctoory خدمات علاج طبيعي شاملة تشمل الزيارات المنزلية وبرامج التمارين والاستشارات عبر الإنترنت لمساعدتك على التعافي بشكل أسرع...",
+					"available_247": "متاحون على مدار الساعة للاستشارات الطارئة",
+					"start_today": "ابدأ رحلة تعافيك اليوم!",
+					"stats_title": "إحصاءات الاستشارات:",
+					"home_visits_label": "الزيارات المنزلية:",
+					"online_sessions_label": "الجلسات عبر الإنترنت:",
+					"avg_session_label": "متوسط مدة الجلسة:",
+					"avg_session_value": "45 دقيقة",
+					"satisfaction_label": "رضا المرضى:",
+					"grid_title": "استشارات محجوزة",
+					"summary": "أكثر من 8,000 استشارة محجوزة عبر الإنترنت وحضوريًا."
+				},
+				"therapists": {
+					"title": "أخصائيون منضمون إلينا",
+					"summary": "أكثر من 500 أخصائي معتمد متاحون للزيارات المنزلية والاستشارات.",
+					"top_specialty_label": "التخصص الأبرز:",
+					"top_specialty_value": "تأهيل العظام",
+					"fun_fact": "معلومة طريفة: 60% من أخصائيينا يتحدثون لغتين أو أكثر!"
+				}
+			}
 		},
 		"contact": {
 			"text": {
@@ -464,6 +578,11 @@
 				"follow_us": "تابعنا",
 				"get_in_touch": "تواصل معنا",
 				"ultimate_healthcare_solution": "الحل الصحي التام"
+			},
+			"attr": {
+				"alt": {
+					"contact_background": "خلفية صفحة التواصل"
+				}
 			}
 		},
 		"hero": {
@@ -471,7 +590,8 @@
 				"alt": {
 					"home_medical_care_doctor_visiting": "رعاية طبية منزلية - طبيب يزور المريض في المنزل",
 					"medical_technology_and_healthcare_services": "التكنولوجيا الطبية وخدمات الرعاية الصحية",
-					"patient_connecting_with_healthcare_professional_at_home": "مريض يتواصل مع مقدم رعاية صحية في المنزل"
+					"patient_connecting_with_healthcare_professional_at_home": "مريض يتواصل مع مقدم رعاية صحية في المنزل",
+					"hero_background": "خلفية الصفحة الرئيسية"
 				}
 			},
 			"text": {
@@ -523,6 +643,20 @@
 					"michael_chen": "مايكل تشين",
 					"priya_patel": "بريا باتيل",
 					"sarah_johnson": "سارة جونسون"
+				},
+				"quote": {
+					"sarah_johnson": "جعلت Doctoory تعافيّ بعد الجراحة أسهل بكثير. جدولة الزيارات المنزلية والتمارين الموجهة غيّرت كل شيء!",
+					"michael_chen": "بصفتي أخصائي علاج طبيعي، أحب كيف تتيح لي Doctoory متابعة تقدم المرضى وتعديل البرامج عن بُعد. التحليلات رائعة!",
+					"emily_rodriguez": "كان حجز الاستشارات عبر الإنترنت سلسًا، وساعدتني التذكيرات على الالتزام. شعرت بالدعم في كل خطوة من رحلة تأهيلي.",
+					"james_lee": "متجر المنتجات مريح للغاية! وجدت كل معدات التأهيل التي احتجتها وكان التوصيل سريعًا.",
+					"priya_patel": "تساعد Doctoory عيادتنا على تنسيق الرعاية والتواصل مع المرضى بكفاءة أكبر. المنصة سهلة الاستخدام وموثوقة."
+				},
+				"designation": {
+					"sarah_johnson": "مريضة استبدال مفصل الركبة",
+					"michael_chen": "أخصائي علاج طبيعي",
+					"emily_rodriguez": "مريضة تعافٍ من إصابة الرباط الصليبي",
+					"james_lee": "مريض جراحة الورك",
+					"priya_patel": "ممرضة عظام"
 				}
 			}
 		},
@@ -571,16 +705,16 @@
 			"text": ")",
 			"toast": {
 				"description": {
-					"failed_to_load_addresses_please": "Failed to load addresses. Please try again.",
+					"failed_to_load_addresses_please": "فشل تحميل العناوين. يرجى المحاولة مرة أخرى.",
 					"please_select_a_shipping_address": "يرجى اختيار عنوان للشحن.",
-					"user_information_not_available_please": "User information not available. Please log in again.",
+					"user_information_not_available_please": "معلومات المستخدم غير متوفرة. يرجى تسجيل الدخول مرة أخرى.",
 					"your_cart_is_empty": "سلة المشتريات فارغة.",
 					"your_order_has_been_placed": "تم تقديم طلبك بنجاح."
 				},
 				"title": {
 					"address_required": "العنوان مطلوب",
 					"empty_cart": "سلة فارغة",
-					"error": "Error",
+					"error": "خطأ",
 					"order_placed": "تم إنشاء الطلب!",
 					"payment_error": "خطأ في الدفع"
 				}
@@ -635,7 +769,14 @@
 				"customer": "عميل",
 				"per_day": "باليوم",
 				"per_week": "بالأسبوع",
-				"per_month": "بالشهر"
+				"per_month": "بالشهر",
+				"view_image_of": "عرض الصورة {index} للمنتج {name}",
+				"rating_aria": "{rating} من 5 نجوم",
+				"decrease_quantity": "تقليل الكمية",
+				"increase_quantity": "زيادة الكمية",
+				"add_to_wishlist": "أضف إلى المفضلة",
+				"remove_from_wishlist": "إزالة من المفضلة",
+				"product_id": "المعرّف:"
 			}
 		},
 		"ProductDescription": {
@@ -715,7 +856,8 @@
 				"subtotal": "المجموع الفرعي",
 				"tax_14": "الضريبة (١٤٪)",
 				"terms_agreement": "بتأكيد طلبك، فإنك توافق على شروط الخدمة وسياسة الخصوصية",
-				"total": "الإجمالي"
+				"total": "الإجمالي",
+				"place_order_with_total": "تأكيد الطلب - {amount} جنيه مصري"
 			},
 			"toast": {
 				"description": {
@@ -786,10 +928,27 @@
 			"attr": {
 				"placeholder": {
 					"select_category": "اختر الفئة",
-					"select_joint_type": "اختر نوع المفصل"
+					"select_joint_type": "اختر نوع المفصل",
+					"search_products": "ابحث عن المنتجات..."
 				}
 			},
-			"text": "\""
+			"text": {
+				"joint_type": "نوع المفصل",
+				"category": "الفئة",
+				"price_range": "نطاق السعر",
+				"price_egp": "{price} جنيه مصري",
+				"in_stock_only": "المتوفر فقط",
+				"products_count": "{count} منتج",
+				"filters_count": "{count} فلاتر",
+				"clear": "مسح",
+				"filters": "الفلاتر",
+				"refine_your_product_search": "حسّن بحثك عن المنتجات",
+				"clear_all_filters": "مسح جميع الفلاتر",
+				"clear_all": "مسح الكل",
+				"search_badge": "البحث: \"{query}\"",
+				"price_range_badge": "{min} - {max} جنيه مصري",
+				"in_stock": "متوفر"
+			}
 		},
 		"ProductGrid": {
 			"text": {
@@ -804,7 +963,8 @@
 				"title": "تسوق المنتجات الطبية",
 				"medical_grade": "طبي معتمد",
 				"fast_delivery": "توصيل سريع",
-				"expert_approved": "معتمد من الخبراء"
+				"expert_approved": "معتمد من الخبراء",
+				"background_alt": "خلفية صفحة المتجر"
 			},
 			"loading": {
 				"store": "جارٍ تحميل المتجر...",
@@ -820,6 +980,15 @@
 					"payment_failed": "فشل الدفع",
 					"payment_pending": "الدفع قيد الانتظار",
 					"payment_successful": "تم الدفع بنجاح! 🎉"
+				},
+				"description": {
+					"order_placed_with_id": "تم تقديم طلبك رقم {orderId} بنجاح. سنقوم بمعالجته قريبًا.",
+					"payment_successful": "تم الدفع بنجاح. شكرًا لطلبك!",
+					"payment_error_detail": "خطأ: {error}",
+					"payment_failed_reason": "السبب: {reason}",
+					"payment_failed_generic": "يرجى المحاولة مرة أخرى أو التواصل مع الدعم.",
+					"order_pending_with_id": "طلبك رقم {orderId} في انتظار تأكيد الدفع.",
+					"payment_pending": "جارٍ معالجة عملية الدفع. سنخطرك فور التأكيد."
 				}
 			}
 		},
@@ -831,14 +1000,17 @@
 			"fetch_failed": "تعذر تحميل المنتجات من Shopify. راجع سجلات الخادم وبيانات اعتماد Storefront.",
 			"view_on_store": "عرض في المتجر",
 			"view_details": "عرض التفاصيل",
-			"buy_on_shopify": "الشراء من Shopify",
+			"buy_on_shopify": "اشتري الآن",
 			"back_to_store": "العودة إلى المتجر",
 			"related_heading": "قد يعجبك أيضًا",
 			"view_all_store": "عرض الكل",
 			"no_image": "لا توجد صورة",
 			"configure_domain": "عيّن NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ورمز Storefront API لتفعيل الدفع.",
 			"checkout_error": "تعذّر بدء الدفع. يُرجى المحاولة مرة أخرى.",
-			"no_description": "—"
+			"no_description": "—",
+			"product_not_found_title": "المنتج غير موجود | متجر Doctoory",
+			"currently_unavailable": "غير متوفر حاليًا",
+			"save_percent": "وفّر {percent}%"
 		},
 		"CollectionsFilterSection": {
 			"all": "جميع المنتجات",
@@ -848,8 +1020,13 @@
 			"empty_search": "لا توجد منتجات تطابق بحثك.",
 			"fetch_error": "فشل تحميل المنتجات. يرجى المحاولة مجدداً.",
 			"search_placeholder": "ابحث عن المنتجات بالاسم أو الوصف...",
-			"search_hint": "نصيحة: ابحث بما يفعله المنتج — مثلاً اكتب \"فيتامين\" لإيجاد المنتجات التي تحتوي على \"فيتامين\" في الاسم أو الوصف.",
-			"clear_search": "مسح البحث"
+			"search_hint": "نصيحة: ابحث بما يفعله المنتج — مثلاً اكتب \"الركبة\" لإيجاد المنتجات التي تحتوي على \"الركبة\" في الاسم أو الوصف.",
+			"clear_search": "مسح البحث",
+			"filter_by_collection_aria": "تصفية حسب المجموعة",
+			"filtering_by_joint": "عرض المنتجات لـ: {joint}",
+			"filter_by_body_part": "التصفية حسب الجزء",
+			"body_map_title": "ابحث عن المنتجات حسب الجزء",
+			"body_map_subtitle": "اضغط على أي جزء من الجسم لتصفية المنتجات الخاصة بهذه المنطقة."
 		},
 		"StoreCollectionsContent": {
 			"badge": "تصفح حسب المجموعة",
@@ -873,7 +1050,10 @@
 			"empty_heading": "لا توجد مجموعات",
 			"empty_body": "لم نتمكن من العثور على أي مجموعات في الوقت الحالي. يرجى التحقق لاحقاً.",
 			"error_heading": "فشل تحميل المجموعات",
-			"no_description": "استكشف هذه المجموعة"
+			"no_description": "استكشف هذه المجموعة",
+			"hero_background_alt": "خلفية صفحة المجموعات",
+			"breadcrumb_aria": "مسار التنقل",
+			"breadcrumb_home": "الصفحة الرئيسية"
 		},
 		"CollectionDetailPage": {
 			"meta_title": "{title} | متجر Doctoory",
@@ -887,7 +1067,18 @@
 			"empty_body": "لا تحتوي هذه المجموعة على منتجات حتى الآن. تحقق لاحقاً.",
 			"error_heading": "فشل تحميل المجموعة",
 			"view_details": "عرض التفاصيل",
-			"no_image": "لا توجد صورة"
+			"no_image": "لا توجد صورة",
+			"breadcrumb_aria": "مسار التنقل",
+			"breadcrumb_home": "الصفحة الرئيسية",
+			"currently_unavailable": "غير متوفر حاليًا",
+			"save_percent": "وفّر {percent}%"
+		},
+		"StoreBodyMap": {
+			"title": "اعثر على المنتجات حسب جزء الجسم",
+			"subtitle": "اضغط على أي منطقة لتصفية المنتجات الخاصة بذلك الجزء من الجسم"
+		},
+		"CategoryFilter": {
+			"all_products": "جميع المنتجات"
 		}
 	},
 	"ui": {
@@ -900,7 +1091,11 @@
 			"attr": {
 				"aria-label": {
 					"next_slide": "الصفحة التالية",
-					"previous_slide": "الصفحة السابقة"
+					"previous_slide": "الصفحة السابقة",
+					"go_to_slide": "انتقل إلى الشريحة {number}"
+				},
+				"alt": {
+					"background_fallback": "خلفية لمنظر جميل"
 				}
 			}
 		},
@@ -926,6 +1121,10 @@
 					"carousel": "سير التمرير",
 					"slide": "شريحة"
 				}
+			},
+			"text": {
+				"previous_slide": "الشريحة السابقة",
+				"next_slide": "الشريحة التالية"
 			}
 		},
 		"dialog": {
@@ -936,13 +1135,14 @@
 		"language": {
 			"data": {
 				"label": "العربية"
-			}
+			},
+			"switch_aria": "تبديل اللغة"
 		},
 		"navbar": {
 			"attr": {
 				"alt": {
 					"about_doctoory": "حول Doctoory",
-					"doctoory_logo": "Doctoory Logo"
+					"doctoory_logo": "شعار Doctoory"
 				}
 			},
 			"text": {
@@ -977,7 +1177,7 @@
 				"products": "المنتجات",
 				"select_the_healthcare_service_you": "اختر خدمة الرعاية الصحية التي تحتاجها:",
 				"send_a_message": "أرسل رسالة",
-				"services": "Services",
+				"services": "الخدمات",
 				"store": "المتجر",
 				"to_order_braces_mobility_aids": "لطلب الدعامات، وأجهزة الحركة، ومعدات التأهيل، وغيرها  لتُسلَّم إلى منزلك دون الحاجة إلى موعد.",
 				"to_revolutionize_healthcare_delivery_by": "نسعى لإحداث ثورة في تقديم الرعاية الصحية من خلال جعل الخدمات الطبية عالية الجودة متاحة في المنزل، لتمكين المرضى من الحصول على رعاية احترافية في بيئتهم الخاصة.",
@@ -1028,6 +1228,14 @@
 			"text": {
 				"toggle_sidebar": "إظهار/إخفاء الشريط الجانبي"
 			}
+		},
+		"multi_select": {
+			"select_items": "اختر عناصر",
+			"no_results_found": "لا توجد نتائج.",
+			"search": "ابحث...",
+			"select_all": "تحديد الكل",
+			"clear": "مسح",
+			"n_selected": "{count} محدد"
 		}
 	},
 	"legal": {
@@ -1225,6 +1433,118 @@
 			"s19_li_ksa": "سدايا (السعودية): راجع الإرشادات/البوابات.",
 			"s20_notes_title": "ملاحظات على المصادر والمواءمة",
 			"s20_notes_body": "تربط هذه السياسة قانونياً بـ: قانون حماية البيانات الشخصية المصري 151/2020، وقانون حماية البيانات الإماراتي (مرسوم بقانون 45/2021) مع قانون بيانات الصحة الإماراتي (القانون الاتحادي 2/2019، المادة 13) للتخزين المحلي الصارم لبيانات الصحة، ونظام حماية البيانات السعودي مع إخطار الخرق خلال 72 ساعة وإرشادات النقل/التخزين المحلي؛ بالإضافة إلى قوانين حماية البيانات الخليجية العامة (قطر 13/2016؛ البحرين 30/2018؛ عُمان المرسوم 6/2022) والنظام القطاعي في الكويت."
+		}
+	},
+	"settings": {
+		"layout": {
+			"loading": "جارٍ التحميل..."
+		},
+		"page": {
+			"title": "الإعدادات",
+			"subtitle": "إدارة إعدادات حسابك وتفضيلاتك",
+			"tabs": {
+				"profile": "الملف الشخصي",
+				"security": "الأمان",
+				"notifications": "الإشعارات",
+				"account": "الحساب"
+			}
+		},
+		"profile": {
+			"toast": {
+				"error": "خطأ",
+				"updated_title": "تم تحديث الملف الشخصي",
+				"updated_description": "تم حفظ تغييراتك."
+			},
+			"profile_information": "معلومات الملف الشخصي",
+			"update_your_personal_details": "حدّث بياناتك الشخصية",
+			"first_name": "الاسم الأول",
+			"first_name_placeholder": "الاسم الأول",
+			"last_name": "اسم العائلة",
+			"last_name_placeholder": "اسم العائلة",
+			"email_address": "البريد الإلكتروني",
+			"email_cannot_be_changed": "لا يمكن تغيير البريد الإلكتروني. تواصل مع الدعم إذا لزم الأمر.",
+			"phone_number": "رقم الهاتف",
+			"save_changes": "حفظ التغييرات",
+			"account_details": "تفاصيل الحساب",
+			"account_type": "نوع الحساب",
+			"patient_id": "رقم المريض"
+		},
+		"security": {
+			"requirements": {
+				"min_characters": "8 أحرف على الأقل",
+				"uppercase_letter": "حرف كبير",
+				"number": "رقم",
+				"special_character": "رمز خاص"
+			},
+			"toast": {
+				"passwords_dont_match": "كلمتا المرور غير متطابقتين",
+				"error": "خطأ",
+				"password_changed": "تم تغيير كلمة المرور",
+				"password_changed_description": "تم تحديث كلمة المرور بنجاح."
+			},
+			"change_password": "تغيير كلمة المرور",
+			"change_password_description": "حدّث كلمة المرور بانتظام للحفاظ على أمان حسابك",
+			"current_password": "كلمة المرور الحالية",
+			"new_password": "كلمة المرور الجديدة",
+			"confirm_new_password": "تأكيد كلمة المرور الجديدة",
+			"passwords_do_not_match": "كلمتا المرور غير متطابقتين",
+			"security_tips": "نصائح أمنية",
+			"tips": {
+				"unique_password": "استخدم كلمة مرور فريدة لا تستخدمها في مواقع أخرى",
+				"mix_characters": "استخدم مزيجًا من الحروف والأرقام والرموز",
+				"never_share": "لا تشارك كلمة المرور مع أي شخص",
+				"change_if_suspect": "غيّر كلمة المرور إذا اشتبهت في وصول غير مصرح به"
+			}
+		},
+		"notifications": {
+			"toast": {
+				"saved_title": "تم حفظ التفضيلات",
+				"saved_description": "تم تحديث إعدادات الإشعارات."
+			},
+			"email_notifications": "إشعارات البريد الإلكتروني",
+			"email_notifications_description": "اختر الرسائل التي تريد استلامها من Doctoory",
+			"order_updates": "تحديثات الطلبات",
+			"order_updates_description": "تأكيدات الشحن وحالة التوصيل وتغييرات الطلب",
+			"appointment_reminders": "تذكيرات المواعيد",
+			"appointment_reminders_description": "تذكيرات قبل الزيارات المنزلية والاستشارات والتحاليل",
+			"promotions": "العروض والخصومات",
+			"promotions_description": "خصومات حصرية وعروض موسمية وإعلانات عن الخدمات الجديدة",
+			"sms_notifications": "إشعارات الرسائل النصية",
+			"sms_notifications_description": "تنبيهات نصية تُرسل إلى رقم هاتفك المسجّل",
+			"sms_order_alerts": "تنبيهات الطلبات",
+			"sms_order_alerts_description": "رسالة نصية عند شحن طلبك أو خروجه للتوصيل",
+			"sms_appointment_alerts": "تنبيهات المواعيد",
+			"sms_appointment_alerts_description": "تذكير نصي قبل موعدك بساعة واحدة",
+			"push_notifications": "الإشعارات الفورية",
+			"push_notifications_description": "إشعارات داخل التطبيق أثناء استخدامك للمنصة",
+			"push_always_enabled": "تظل الإشعارات الفورية مفعّلة دائمًا للتنبيهات المهمة مثل تأكيدات الدفع والأحداث الأمنية.",
+			"save_preferences": "حفظ التفضيلات"
+		},
+		"danger_zone": {
+			"sign_out": "تسجيل الخروج",
+			"sign_out_description": "تسجيل الخروج من حسابك على هذا الجهاز",
+			"danger_zone": "منطقة الخطر",
+			"danger_zone_description": "إجراءات لا يمكن التراجع عنها. يرجى القراءة بعناية قبل المتابعة.",
+			"delete_account": "حذف الحساب",
+			"delete_account_description": "احذف حسابك وجميع بياناته نهائيًا. لا يمكن التراجع عن هذا الإجراء."
+		},
+		"delete_dialog": {
+			"toast": {
+				"error": "خطأ"
+			},
+			"title": "حذف حسابك",
+			"warning": "هذا الإجراء <strong>نهائي</strong> ولا يمكن التراجع عنه. سيتم حذف البيانات التالية:",
+			"data": {
+				"profile": "ملفك الشخصي ومعلوماتك الشخصية",
+				"orders": "سجل طلباتك بالكامل",
+				"addresses": "جميع العناوين المحفوظة",
+				"appointments": "سجلات المواعيد والاستشارات"
+			},
+			"enter_password": "أدخل كلمة المرور للتأكيد",
+			"password_placeholder": "كلمة المرور الحالية",
+			"type_to_confirm": "اكتب <strong>{phrase}</strong> للتأكيد",
+			"cancel": "إلغاء",
+			"permanently_delete": "حذف الحساب نهائيًا"
 		}
 	}
 }

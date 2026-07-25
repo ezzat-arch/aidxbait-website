@@ -16,6 +16,7 @@ export const searchProductsQuery = `
           title
           handle
           description
+          availableForSale
           images(first: 1) {
             edges {
               node {
@@ -25,6 +26,12 @@ export const searchProductsQuery = `
             }
           }
           priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          compareAtPriceRange {
             minVariantPrice {
               amount
               currencyCode
@@ -46,6 +53,7 @@ export const getAllProductsQuery = `
           title
           handle
           description
+          availableForSale
           images(first: 1) {
             edges {
               node {
@@ -55,6 +63,12 @@ export const getAllProductsQuery = `
             }
           }
           priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          compareAtPriceRange {
             minVariantPrice {
               amount
               currencyCode
@@ -137,6 +151,7 @@ export const getCollectionByHandleQuery = `
             title
             handle
             description
+            availableForSale
             images(first: 1) {
               edges {
                 node {
@@ -146,6 +161,12 @@ export const getCollectionByHandleQuery = `
               }
             }
             priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            compareAtPriceRange {
               minVariantPrice {
                 amount
                 currencyCode

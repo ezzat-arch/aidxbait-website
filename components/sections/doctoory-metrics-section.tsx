@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import {
@@ -17,6 +18,7 @@ const cardAnimation = {
 };
 
 const PatientsHelpedCard = () => {
+	const t = useTranslations("sections.doctoory.metrics.patients");
 	const variants = {
 		initial: { scale: 1 },
 		animate: { scale: 1.05, transition: { duration: 0.3 } },
@@ -33,7 +35,7 @@ const PatientsHelpedCard = () => {
 					10,000+
 				</div>
 				<div className="text-sm font-medium text-blue-800 dark:text-blue-300">
-					Patients Helped
+					{t("label")}
 				</div>
 			</motion.div>
 			<div className="mt-2 flex space-x-1">
@@ -47,12 +49,12 @@ const PatientsHelpedCard = () => {
 				))}
 			</div>
 			<div className="mt-3 space-y-1 text-xs text-blue-700 dark:text-blue-300">
-				<div>Over 10,000 patients have used Doctoory for their recovery.</div>
+				<div>{t("summary")}</div>
 				<div className="font-medium text-blue-600 dark:text-blue-400">
-					Avg. Age: 42 years
+					{t("avg_age_label")} {t("avg_age_value")}
 				</div>
 				<div className="italic text-blue-500 dark:text-blue-300">
-					Fun fact: Our youngest patient was just 3 years old!
+					{t("fun_fact")}
 				</div>
 			</div>
 		</motion.div>
@@ -60,12 +62,13 @@ const PatientsHelpedCard = () => {
 };
 
 const SpecialistsCard = () => {
+	const t = useTranslations("sections.doctoory");
 	const specialties = [
-		{ name: "Physical Therapy", count: 185, percentage: 37 },
-		{ name: "Lab Services", count: 95, percentage: 19 },
-		{ name: "Imaging", count: 120, percentage: 24 },
-		{ name: "Nursing", count: 80, percentage: 16 },
-		{ name: "Consultations", count: 20, percentage: 4 },
+		{ name: t("data.name.physical_therapy"), count: 185, percentage: 37 },
+		{ name: t("data.name.lab_services"), count: 95, percentage: 19 },
+		{ name: t("data.name.imaging"), count: 120, percentage: 24 },
+		{ name: t("data.name.nursing"), count: 80, percentage: 16 },
+		{ name: t("data.name.consultations"), count: 20, percentage: 4 },
 	];
 
 	return (
@@ -75,7 +78,7 @@ const SpecialistsCard = () => {
 					500+
 				</div>
 				<div className="text-sm text-green-700 dark:text-green-300">
-					Licensed Professionals
+					{t("metrics.specialists.label")}
 				</div>
 			</div>
 			<div className="space-y-3">
@@ -111,17 +114,18 @@ const SpecialistsCard = () => {
 };
 
 const RecoveryCard = () => {
+	const t = useTranslations("sections.doctoory.metrics.recovery");
 	const recoveryData = [
-		{ week: "Week 1", before: 20, after: 35 },
-		{ week: "Week 2", before: 30, after: 50 },
-		{ week: "Week 3", before: 40, after: 70 },
-		{ week: "Week 4", before: 50, after: 85 },
+		{ week: t("week", { number: 1 }), before: 20, after: 35 },
+		{ week: t("week", { number: 2 }), before: 30, after: 50 },
+		{ week: t("week", { number: 3 }), before: 40, after: 70 },
+		{ week: t("week", { number: 4 }), before: 50, after: 85 },
 	];
 
 	return (
 		<motion.div className="flex h-full min-h-[6rem] w-full flex-1 flex-col justify-center rounded-lg bg-gradient-to-br from-purple-50 to-purple-100 p-4 dark:from-purple-900/20 dark:to-purple-800/20">
 			<div className="mb-2 text-center text-lg font-bold text-purple-600 dark:text-purple-400">
-				30% Faster Recovery
+				{t("title")}
 			</div>
 			<div className="mb-2 flex h-16 justify-between">
 				{recoveryData.map((data, index) => (
@@ -151,25 +155,25 @@ const RecoveryCard = () => {
 			<div className="mb-3 flex justify-center space-x-3 text-xs">
 				<div className="flex items-center space-x-1">
 					<div className="h-2 w-2 rounded bg-purple-300" />
-					<span className="text-purple-700 dark:text-purple-300">Before</span>
+					<span className="text-purple-700 dark:text-purple-300">{t("before")}</span>
 				</div>
 				<div className="flex items-center space-x-1">
 					<div className="h-2 w-2 rounded bg-purple-600" />
 					<span className="text-purple-700 dark:text-purple-300">
-						With Doctoory
+						{t("with_doctoory")}
 					</span>
 				</div>
 			</div>
 			<div className="space-y-1 text-center text-xs text-purple-700 dark:text-purple-300">
-				<div>📈 Faster Recovery</div>
+				<div>📈 {t("faster_recovery")}</div>
 				<div className="text-purple-600 dark:text-purple-400">
-					Patients report 30% faster recovery with our programs.
+					{t("summary")}
 				</div>
 				<div className="font-medium text-purple-600 dark:text-purple-400">
-					Avg. Program Length: 6 weeks
+					{t("program_length_label")} {t("program_length_value")}
 				</div>
 				<div className="italic text-purple-500 dark:text-purple-300">
-					Fun fact: Our fastest recovery was just 2 weeks!
+					{t("fun_fact")}
 				</div>
 			</div>
 		</motion.div>
@@ -177,6 +181,7 @@ const RecoveryCard = () => {
 };
 
 const AppDownloadsCard = () => {
+	const t = useTranslations("sections.doctoory.metrics.downloads");
 	const downloadStats = [
 		{ platform: "iOS", downloads: 2800, color: "bg-blue-500" },
 		{ platform: "Android", downloads: 2200, color: "bg-green-500" },
@@ -189,7 +194,7 @@ const AppDownloadsCard = () => {
 	return (
 		<motion.div className="flex h-full min-h-[6rem] w-full flex-1 flex-col justify-center rounded-lg bg-gradient-to-br from-teal-50 to-teal-100 p-4 text-center dark:from-teal-900/20 dark:to-teal-800/20">
 			<div className="mb-3 text-xl font-bold text-teal-600 dark:text-teal-400">
-				5,000+ App Downloads
+				{t("title")}
 			</div>
 			<div className="mb-3 flex justify-center space-x-6">
 				{downloadStats.map((stat, index) => (
@@ -213,12 +218,12 @@ const AppDownloadsCard = () => {
 			</div>
 			<div className="space-y-1 text-xs text-teal-600 dark:text-teal-400">
 				<div className="font-medium text-teal-700 dark:text-teal-300">
-					⭐ 4.8/5 Rating
+					⭐ {t("rating")}
 				</div>
-				<div>85% daily active users</div>
-				<div>Available on iOS and Android stores.</div>
+				<div>{t("daily_active_users")}</div>
+				<div>{t("available_on_stores")}</div>
 				<div className="italic text-teal-500 dark:text-teal-300">
-					Most users check progress daily!
+					{t("fun_fact")}
 				</div>
 			</div>
 		</motion.div>
@@ -226,6 +231,8 @@ const AppDownloadsCard = () => {
 };
 
 const ConsultationsCard = () => {
+	const t = useTranslations("sections.doctoory.metrics.consultations");
+	const tAlt = useTranslations("sections.doctoory.attr.alt");
 	const marqueeVariants = {
 		initial: { x: 0 },
 		animate: { x: 10, rotate: 5, transition: { duration: 0.2 } },
@@ -247,19 +254,17 @@ const ConsultationsCard = () => {
 			>
 				<img
 					src="/images/logo-icon.png"
-					alt="Doctoory"
+					alt={tAlt("doctoory")}
 					height={100}
 					width={100}
 					className="h-8 w-8 rounded-full object-cover"
 				/>
 				<div className="flex-1">
 					<p className="mb-1 text-xs leading-tight text-neutral-500">
-						Doctoory offers comprehensive physiotherapy services including home
-						visits, exercise programs, and online consultations to help you
-						recover faster...
+						{t("blurb")}
 					</p>
 					<p className="text-xs font-medium text-neutral-400">
-						Available 24/7 for emergency consultations
+						{t("available_247")}
 					</p>
 				</div>
 			</motion.div>
@@ -267,34 +272,34 @@ const ConsultationsCard = () => {
 				variants={responseVariants}
 				className="ml-auto flex w-3/4 flex-row items-center justify-end space-x-2 rounded-full border border-neutral-100 bg-white p-1 dark:border-white/[0.2] dark:bg-black"
 			>
-				<p className="text-xs text-neutral-500">Start your recovery today!</p>
+				<p className="text-xs text-neutral-500">{t("start_today")}</p>
 				<div className="h-5 w-5 shrink-0 rounded-full bg-gradient-to-r from-blue-500 to-green-500" />
 			</motion.div>
 			<div className="mt-1 space-y-0.5 rounded-lg bg-neutral-50 p-2 dark:bg-neutral-800">
 				<p className="mb-1 text-xs text-neutral-600 dark:text-neutral-400">
-					📊 Consultation Stats:
+					📊 {t("stats_title")}
 				</p>
 				<div className="space-y-0.5">
 					<div className="flex justify-between text-xs">
-						<span className="text-neutral-500">Home Visits:</span>
+						<span className="text-neutral-500">{t("home_visits_label")}</span>
 						<span className="font-medium text-neutral-700 dark:text-neutral-300">
 							3,200+
 						</span>
 					</div>
 					<div className="flex justify-between text-xs">
-						<span className="text-neutral-500">Online Sessions:</span>
+						<span className="text-neutral-500">{t("online_sessions_label")}</span>
 						<span className="font-medium text-neutral-700 dark:text-neutral-300">
 							4,800+
 						</span>
 					</div>
 					<div className="flex justify-between text-xs">
-						<span className="text-neutral-500">Avg. Session Time:</span>
+						<span className="text-neutral-500">{t("avg_session_label")}</span>
 						<span className="font-medium text-neutral-700 dark:text-neutral-300">
-							45 min
+							{t("avg_session_value")}
 						</span>
 					</div>
 					<div className="flex justify-between text-xs">
-						<span className="text-neutral-500">Patient Satisfaction:</span>
+						<span className="text-neutral-500">{t("satisfaction_label")}</span>
 						<span className="font-medium text-neutral-700 dark:text-neutral-300">
 							98%
 						</span>
@@ -305,97 +310,91 @@ const ConsultationsCard = () => {
 	);
 };
 
-const metrics = [
-	{
-		title: "Patients Helped",
-		description: (
-			<div>
-				<span className="block text-sm">
-					Over 10,000 patients have used Doctoory for their recovery.
-				</span>
-				<span className="mt-1 block text-xs text-neutral-500">
-					<b>Avg. Age:</b> 42 years
-				</span>
-				<span className="mt-1 block text-[11px] italic text-blue-600 dark:text-blue-300">
-					Fun fact: Our youngest patient was just 3 years old!
-				</span>
-			</div>
-		),
-		header: <PatientsHelpedCard />,
-		className: "md:col-span-1",
-		icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
-	},
-	{
-		title: "Therapists Onboard",
-		description: (
-			<div>
-				<span className="block text-sm">
-					500+ certified therapists available for home visits and consultations.
-				</span>
-				<span className="mt-1 block text-xs text-neutral-500">
-					<b>Top Specialty:</b> Orthopedic Rehab
-				</span>
-				<span className="mt-1 block text-[11px] italic text-green-600 dark:text-green-300">
-					Fun fact: 60% of our therapists speak two or more languages!
-				</span>
-			</div>
-		),
-		header: <SpecialistsCard />,
-		className: "md:col-span-1",
-		icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
-	},
-	{
-		title: "Faster Recovery",
-		description: (
-			<div>
-				<span className="block text-sm">
-					Patients report 30% faster recovery with our programs.
-				</span>
-				<span className="mt-1 block text-xs text-neutral-500">
-					<b>Avg. Program Length:</b> 6 weeks
-				</span>
-				<span className="mt-1 block text-[11px] italic text-purple-600 dark:text-purple-300">
-					Fun fact: Our fastest recovery was just 2 weeks!
-				</span>
-			</div>
-		),
-		header: <RecoveryCard />,
-		className: "md:col-span-1",
-		icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
-	},
-	{
-		title: "App Downloads",
-		description: (
-			<div>
-				<span className="block text-sm">
-					5,000+ downloads of our mobile app across iOS and Android.
-				</span>
-				<span className="mt-1 block text-xs text-neutral-500">
-					<b>Average Rating:</b> 4.8/5 stars
-				</span>
-				<span className="mt-1 block text-[11px] italic text-orange-600 dark:text-orange-300">
-					Fun fact: 85% of users open the app daily!
-				</span>
-			</div>
-		),
-		header: <AppDownloadsCard />,
-		className: "md:col-span-2",
-		icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
-	},
-	{
-		title: "Consultations Booked",
-		description: (
-			<span className="text-sm">
-				8,000+ online and in-person consultations booked.
-			</span>
-		),
-		header: <ConsultationsCard />,
-		className: "md:col-span-1",
-		icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
-	},
-];
-
 export function DoctooryMetricsSection() {
+	const t = useTranslations("sections.doctoory.metrics");
+
+	const metrics = [
+		{
+			title: t("patients.label"),
+			description: (
+				<div>
+					<span className="block text-sm">{t("patients.summary")}</span>
+					<span className="mt-1 block text-xs text-neutral-500">
+						<b>{t("patients.avg_age_label")}</b> {t("patients.avg_age_value")}
+					</span>
+					<span className="mt-1 block text-[11px] italic text-blue-600 dark:text-blue-300">
+						{t("patients.fun_fact")}
+					</span>
+				</div>
+			),
+			header: <PatientsHelpedCard />,
+			className: "md:col-span-1",
+			icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
+		},
+		{
+			title: t("therapists.title"),
+			description: (
+				<div>
+					<span className="block text-sm">{t("therapists.summary")}</span>
+					<span className="mt-1 block text-xs text-neutral-500">
+						<b>{t("therapists.top_specialty_label")}</b>{" "}
+						{t("therapists.top_specialty_value")}
+					</span>
+					<span className="mt-1 block text-[11px] italic text-green-600 dark:text-green-300">
+						{t("therapists.fun_fact")}
+					</span>
+				</div>
+			),
+			header: <SpecialistsCard />,
+			className: "md:col-span-1",
+			icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
+		},
+		{
+			title: t("recovery.faster_recovery"),
+			description: (
+				<div>
+					<span className="block text-sm">{t("recovery.summary")}</span>
+					<span className="mt-1 block text-xs text-neutral-500">
+						<b>{t("recovery.program_length_label")}</b>{" "}
+						{t("recovery.program_length_value")}
+					</span>
+					<span className="mt-1 block text-[11px] italic text-purple-600 dark:text-purple-300">
+						{t("recovery.fun_fact")}
+					</span>
+				</div>
+			),
+			header: <RecoveryCard />,
+			className: "md:col-span-1",
+			icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
+		},
+		{
+			title: t("downloads.grid_title"),
+			description: (
+				<div>
+					<span className="block text-sm">{t("downloads.summary")}</span>
+					<span className="mt-1 block text-xs text-neutral-500">
+						<b>{t("downloads.rating_label")}</b> {t("downloads.rating_value")}
+					</span>
+					<span className="mt-1 block text-[11px] italic text-orange-600 dark:text-orange-300">
+						{t("downloads.grid_fun_fact")}
+					</span>
+				</div>
+			),
+			header: <AppDownloadsCard />,
+			className: "md:col-span-2",
+			icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
+		},
+		{
+			title: t("consultations.grid_title"),
+			description: (
+				<span className="text-sm">{t("consultations.summary")}</span>
+			),
+			header: <ConsultationsCard />,
+			className: "md:col-span-1",
+			icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
+		},
+	];
+
 	return (
 		<section className="bg-gray-50 py-20">
 			<motion.div
@@ -411,12 +410,12 @@ export function DoctooryMetricsSection() {
 					viewport={{ once: true, amount: 0.5 }}
 					transition={{ duration: 0.6, delay: 0.1 }}
 				>
-					Doctoory in Numbers
+					{t("heading")}
 				</motion.h2>
 				<BentoGrid className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:auto-rows-[26rem] md:grid-cols-3">
 					{metrics.map((item, index) => (
 						<motion.div
-							key={item.title}
+							key={index}
 							initial={cardAnimation.initial}
 							whileInView={cardAnimation.animate}
 							viewport={{ once: true, amount: 0.3 }}

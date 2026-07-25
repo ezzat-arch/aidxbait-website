@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { CollectionDetailPageContent } from "@/components/store/CollectionDetailPageContent";
 import { getShopifyCollectionByHandle } from "@/lib/shopify/get-collections";
+import { DEFAULT_CURRENCY } from "@/lib/i18n/utils";
 
 interface CollectionDetailPageProps {
 	params: Promise<{ locale: string; slug: string }>;
@@ -67,7 +68,7 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",
 		itemListElement: [
-			{ "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+			{ "@type": "ListItem", position: 1, name: t("breadcrumb_home"), item: baseUrl },
 			{ "@type": "ListItem", position: 2, name: t("breadcrumb_store"), item: `${baseUrl}/${locale}/services/store/` },
 			{ "@type": "ListItem", position: 3, name: t("breadcrumb_collections"), item: `${baseUrl}/${locale}/services/store/collections/` },
 			{ "@type": "ListItem", position: 4, name: collection.title, item: pageUrl },
@@ -91,7 +92,7 @@ export default async function CollectionDetailPage({ params }: CollectionDetailP
 			offers: {
 				"@type": "Offer",
 				price: p.priceRange.minVariantPrice.amount,
-				priceCurrency: p.priceRange.minVariantPrice.currencyCode,
+				priceCurrency: DEFAULT_CURRENCY,
 			},
 		})),
 	};
