@@ -1147,6 +1147,7 @@
 			},
 			"text": {
 				"about": "About Us",
+				"blog": "Blog",
 				"access_your_reports_track_recovery": "Access your reports, track recovery, and continue your care through the Doctoory app. We're with you every step of the way.",
 				"at_home_radiology": "At-home radiology",
 				"coming_soon": "coming soon",
@@ -1545,6 +1546,29 @@
 			"type_to_confirm": "Type <strong>{phrase}</strong> to confirm",
 			"cancel": "Cancel",
 			"permanently_delete": "Permanently Delete Account"
+		}
+	},
+	"blog": {
+		"list": {
+			"text": {
+				"title": "Blog",
+				"subtitle": "Health tips, guides, and news from the Doctoory team",
+				"empty": "No posts have been published yet. Check back soon.",
+				"read_more": "Read more",
+				"previous": "Previous",
+				"next": "Next"
+			}
+		},
+		"post": {
+			"text": {
+				"home": "Home",
+				"blog": "Blog",
+				"published_on": "Published on {date}",
+				"related_products": "Related Products",
+				"visit_link": "Visit link",
+				"back_to_blog": "Back to Blog",
+				"not_found_title": "Post not found"
+			}
 		}
 	}
 }

@@ -1147,6 +1147,7 @@
 			},
 			"text": {
 				"about": "نبذة عنا",
+				"blog": "المدونة",
 				"access_your_reports_track_recovery": "احصل على تقاريرك، وتتبع تقدم تعافيك، وواصل رعايتك عبر تطبيق Doctoory. نحن معك في كل خطوة.",
 				"at_home_radiology": "الأشعة المنزلية",
 				"coming_soon": "قريبًا",
@@ -1545,6 +1546,29 @@
 			"type_to_confirm": "اكتب <strong>{phrase}</strong> للتأكيد",
 			"cancel": "إلغاء",
 			"permanently_delete": "حذف الحساب نهائيًا"
+		}
+	},
+	"blog": {
+		"list": {
+			"text": {
+				"title": "المدونة",
+				"subtitle": "نصائح صحية وإرشادات وأخبار من فريق Doctoory",
+				"empty": "لا توجد مقالات منشورة حتى الآن. عاود الزيارة قريبًا.",
+				"read_more": "اقرأ المزيد",
+				"previous": "السابق",
+				"next": "التالي"
+			}
+		},
+		"post": {
+			"text": {
+				"home": "الرئيسية",
+				"blog": "المدونة",
+				"published_on": "نُشر في {date}",
+				"related_products": "منتجات ذات صلة",
+				"visit_link": "زيارة الرابط",
+				"back_to_blog": "العودة إلى المدونة",
+				"not_found_title": "المقال غير موجود"
+			}
 		}
 	}
 }

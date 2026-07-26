@@ -25,16 +25,6 @@ import { UserNav } from "@/components/layout/user-nav";
 import { useCart } from "@/contexts/cart-context";
 import { useTranslations } from "next-intl";
 
-// Coming Soon Text Component (for dropdown items)
-const ComingSoonText = () => {
-	const t = useTranslations("ui.navbar.text");
-	return (
-		<span className="block text-[10px] font-light text-blue-600 italic mt-0.5">
-			{t("coming_soon")}
-		</span>
-	);
-};
-
 // New navigation data structure - converted to functions to support translations
 const getHomeVisitsItems = (t: any) => [
 	{
@@ -115,15 +105,12 @@ const getStoreItems = (t: any) => [
 const Navbar = ({ className }: { className?: string }) => {
 	const tNav = useTranslations("ui.navbar.text");
 	const tNavAlt = useTranslations("ui.navbar.attr.alt");
-	const tServicesDesc = useTranslations("sections.services.data.description");
-	const tFooterAlt = useTranslations("layout.footer.attr.alt");
 	const tUser = useTranslations("layout.user.text");
 	const tProfileLayout = useTranslations("profile.layout.text");
 	const tCommon = useTranslations("common.text");
 	const [active, setActive] = useState<string | null>(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const [activeHomeVisitsIdx, setActiveHomeVisitsIdx] = useState(0);
 	const [activeStoreIdx, setActiveStoreIdx] = useState(0);
 	const [isMounted, setIsMounted] = useState(false);
 	const [currentLanguage, setCurrentLanguage] = useState("En");
@@ -205,117 +192,65 @@ const Navbar = ({ className }: { className?: string }) => {
 					</div>
 
 					{/* Left Menu Items */}
-					<div className="hidden lg:flex items-center ltr:space-x-4 ltr:xl:space-x-6 rtl:space-x-reverse rtl:space-x-4 rtl:xl:space-x-6">
-						{/* Home Visits Menu */}
+					<div className="hidden lg:flex items-center gap-x-1 xl:gap-x-3">
+						{/* Services (home visits + online consultations, both coming soon) */}
 						<div
-							onMouseEnter={() => setActive("HomeVisits")}
+							onMouseEnter={() => setActive("Services")}
 							onMouseLeave={() => setActive(null)}
 							className="relative"
 						>
-							<span className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center">
-								<span className="relative inline-block">
-									<span>{tNav("home_visits")}</span>
-									<span className="absolute -bottom-3.5 ltr:right-0 rtl:left-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
-										{tNav("coming_soon")}
-									</span>
-								</span>
+							<span className="text-sm px-2.5 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center whitespace-nowrap">
+								{tNav("services")}
+								<ChevronDown className="ltr:ml-1 rtl:mr-1 h-3.5 w-3.5" />
 							</span>
-							{active === "HomeVisits" && (
+							{active === "Services" && (
 								<div className="absolute top-full ltr:left-0 rtl:right-0 pt-2 z-50">
-									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-6 w-[680px] animate-in fade-in slide-in-from-top-2 duration-200">
-										<div className="flex">
-											<ul className="space-y-1 ltr:pr-4 rtl:pl-4 ltr:border-r rtl:border-l border-gray-200 w-[220px] flex-shrink-0">
-												{homeVisitsItems.map((item, idx) => (
-													<li key={item.name}>
-														<Link href={item.href}>
-															<button
-																className={`w-full ltr:text-left rtl:text-right px-3 py-2.5 rounded-lg transition-all duration-150 text-sm font-medium ${idx === activeHomeVisitsIdx
-																	? "bg-blue-50 text-blue-700 border border-blue-200 shadow-sm"
-																	: "hover:bg-gray-50 text-gray-700 hover:shadow-sm"
-																	}`}
-																onMouseEnter={() => setActiveHomeVisitsIdx(idx)}
-																onFocus={() => setActiveHomeVisitsIdx(idx)}
-																tabIndex={0}
-															>
-																<div>
-																	{item.name}
-																	{item.comingSoon && <ComingSoonText />}
-																</div>
-															</button>
-														</Link>
-													</li>
-												))}
-											</ul>
-											<div className="flex flex-col justify-center px-4 w-[200px] ltr:border-r rtl:border-l border-gray-100 flex-shrink-0">
-												<h4 className="font-semibold text-base mb-2 text-gray-900 leading-tight ltr:text-left rtl:text-right">
-													{
-														[
-															tNav("home_physical_therapy"),
-															tNav("home_doctor_visits"),
-															tNav("home_nursing"),
-															tNav("home_imaging"),
-															tNav("home_lab_tests"),
-														][activeHomeVisitsIdx]
-													}
-												</h4>
-												<p className="text-xs text-gray-600 mb-4 leading-relaxed ltr:text-left rtl:text-right">
-													{
-														[
-															tServicesDesc(
-																"licensed_physical_therapists_provide_one"
-															),
-															tServicesDesc("licensed_doctors_provide_one"),
-															tServicesDesc(
-																"professional_nurses_available_for_home"
-															),
-															tServicesDesc("portable_x_rays_and_ultrasounds"),
-															tServicesDesc("we_send_a_nurse_to"),
-														][activeHomeVisitsIdx]
-													}
-												</p>
-												<Link
-													href={homeVisitsItems[activeHomeVisitsIdx].href}
-													className="inline-flex items-center text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors group"
-												>
-													{tNav("learn_more")}{" "}
-													<ChevronRight className="ltr:ml-1 rtl:mr-1 h-3.5 w-3.5 transition-transform group-hover:ltr:translate-x-0.5 group-hover:rtl:-translate-x-0.5 rtl:rotate-180" />
-												</Link>
-											</div>
-											<div className="relative w-[240px] bg-gradient-to-br from-blue-50 to-blue-100/50 ltr:ml-4 rtl:mr-4 rounded-xl p-4 shadow-inner">
-												<img
-													src="/images/services2.png"
-													alt={tFooterAlt("doctoory_logo")}
-													className="w-full h-full object-cover rounded-lg shadow-md border border-white"
-													style={{ minHeight: "140px" }}
-												/>
-											</div>
-										</div>
+									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-2 w-80 animate-in fade-in slide-in-from-top-2 duration-200">
+										<Link
+											href="/services/home-visits"
+											className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg hover:bg-blue-50 transition-all duration-150 text-sm font-medium text-gray-700 hover:text-blue-600 group"
+										>
+											<span className="flex items-center gap-2">
+												{tNav("home_visits")}
+												<span className="text-[10px] font-semibold text-blue-600 bg-blue-50 border border-blue-200 rounded-full px-1.5 py-0.5 whitespace-nowrap">
+													{tNav("coming_soon")}
+												</span>
+											</span>
+											<ChevronRight className="h-3.5 w-3.5 flex-shrink-0 text-gray-400 group-hover:text-blue-600 rtl:rotate-180" />
+										</Link>
+										<Link
+											href="/services/online-consultations"
+											className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg hover:bg-blue-50 transition-all duration-150 text-sm font-medium text-gray-700 hover:text-blue-600 group"
+										>
+											<span className="flex items-center gap-2">
+												{tNav("online_video_consultations")}
+												<span className="text-[10px] font-semibold text-blue-600 bg-blue-50 border border-blue-200 rounded-full px-1.5 py-0.5 whitespace-nowrap">
+													{tNav("coming_soon")}
+												</span>
+											</span>
+											<ChevronRight className="h-3.5 w-3.5 flex-shrink-0 text-gray-400 group-hover:text-blue-600 rtl:rotate-180" />
+										</Link>
 									</div>
 								</div>
 							)}
 						</div>
 
-						{/* Online Consultations */}
-						<Link
-							href="/services/online-consultations"
-							onMouseEnter={() => setActive(null)}
-							className="text-sm px-3 py-3 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm flex items-center justify-center text-center"
-						>
-							<span className="relative inline-block">
-								<span>{tNav("online_video_consultations")}</span>
-								<span className="absolute -bottom-3.5 ltr:right-0 rtl:left-0 text-[10px] font-medium text-blue-600 italic whitespace-nowrap">
-									{tNav("coming_soon")}
-								</span>
-							</span>
-						</Link>
-
 						{/* Exercise Programs */}
 						<Link
 							href="/services/exercise-programs"
 							onMouseEnter={() => setActive(null)}
-							className="text-sm px-3 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm text-center flex items-center justify-center"
+							className="text-sm px-2.5 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm text-center flex items-center justify-center whitespace-nowrap"
 						>
 							{tNav("home_exercise_programs")}
+						</Link>
+
+						{/* Blog */}
+						<Link
+							href="/blog"
+							onMouseEnter={() => setActive(null)}
+							className="text-sm px-2.5 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm text-center flex items-center justify-center whitespace-nowrap"
+						>
+							{tNav("blog")}
 						</Link>
 
 						{/* Store Menu */}
@@ -326,7 +261,7 @@ const Navbar = ({ className }: { className?: string }) => {
 						>
 							<Link
 								href="/services/store/"
-								className="text-sm px-3 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center"
+								className="text-sm px-2.5 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
 							>
 								{tNav("store")}
 							</Link>
@@ -439,37 +374,35 @@ const Navbar = ({ className }: { className?: string }) => {
 					<div className="flex-grow"></div>
 
 					{/* Right Side Menu Items */}
-					<div className="hidden lg:flex items-center ltr:space-x-4 ltr:xl:space-x-6 rtl:space-x-reverse rtl:space-x-4 rtl:xl:space-x-6 ltr:ml-8 ltr:lg:ml-12 rtl:mr-8 rtl:lg:mr-12">
-						{/* Contact & About - Stacked Vertically */}
-						<div className="flex flex-col gap-1">
-							{/* Contact */}
-							<Link
-								href="/contact"
-								onMouseEnter={() => setActive(null)}
-								className="text-sm px-3 py-1 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm text-center whitespace-nowrap"
-							>
-								{tNav("contact")}
-							</Link>
-
-							{/* About */}
-							<div
-								onMouseEnter={() => setActive("About")}
-								onMouseLeave={() => setActive(null)}
-								className="relative"
-							>
-								<span className="text-sm px-3 py-1 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center whitespace-nowrap block">
-									{tNav("about")}
-								</span>
-								{active === "About" && (
-									<div className="absolute top-full ltr:right-0 rtl:left-0 pt-2 z-50">
-										<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-6 w-[480px] animate-in fade-in slide-in-from-top-2 duration-200">
-											<p className="text-sm text-gray-600 leading-relaxed">
-												{tNav("about_description")}
-											</p>
+					<div className="hidden lg:flex items-center gap-x-1 xl:gap-x-3 ltr:ml-4 rtl:mr-4">
+						{/* About & Contact (combined) */}
+						<div
+							onMouseEnter={() => setActive("About")}
+							onMouseLeave={() => setActive(null)}
+							className="relative"
+						>
+							<span className="text-sm px-2.5 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center whitespace-nowrap flex items-center justify-center">
+								{tNav("about")}
+								<ChevronDown className="ltr:ml-1 rtl:mr-1 h-3.5 w-3.5" />
+							</span>
+							{active === "About" && (
+								<div className="absolute top-full ltr:right-0 rtl:left-0 pt-2 z-50">
+									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-4 w-[400px] animate-in fade-in slide-in-from-top-2 duration-200">
+										<p className="text-sm text-gray-600 leading-relaxed px-2 pb-3">
+											{tNav("about_description")}
+										</p>
+										<div className="border-t border-gray-100 pt-2">
+											<Link
+												href="/contact"
+												className="flex items-center justify-between px-2 py-2 rounded-lg hover:bg-blue-50 transition-all duration-150 text-sm font-medium text-gray-700 hover:text-blue-600 group"
+											>
+												{tNav("contact")}
+												<ChevronRight className="h-3.5 w-3.5 flex-shrink-0 text-gray-400 group-hover:text-blue-600 rtl:rotate-180" />
+											</Link>
 										</div>
 									</div>
-								)}
-							</div>
+								</div>
+							)}
 						</div>
 
 						{/* Language Switcher */}
@@ -551,6 +484,20 @@ const Navbar = ({ className }: { className?: string }) => {
 									>
 										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
 											{tNav("home_exercise_programs")}
+										</h3>
+										<ChevronRight className="w-4 h-4 text-gray-500" />
+									</Link>
+								</div>
+
+								{/* Blog */}
+								<div className="border-b border-gray-100 dark:border-gray-800">
+									<Link
+										href="/blog"
+										onClick={() => setIsMobileMenuOpen(false)}
+										className="w-full flex items-center justify-between p-3.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
+									>
+										<h3 className="font-bold text-sm text-gray-900 dark:text-white">
+											{tNav("blog")}
 										</h3>
 										<ChevronRight className="w-4 h-4 text-gray-500" />
 									</Link>

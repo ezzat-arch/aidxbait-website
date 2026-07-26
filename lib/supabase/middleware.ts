@@ -81,6 +81,7 @@ export const updateSession = async (request: NextRequest) => {
 		cleanPathname.startsWith("/api") ||
 		cleanPathname.startsWith("/_next") ||
 		cleanPathname.startsWith("/services") ||
+		cleanPathname.startsWith("/blog") ||
 		cleanPathname.startsWith("/contact") ||
 		cleanPathname.startsWith("/about") ||
 		cleanPathname.startsWith("/forgot-password") ||
