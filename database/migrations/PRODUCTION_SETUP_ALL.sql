@@ -1402,7 +1402,7 @@ CREATE INDEX IF NOT EXISTS idx_post_shopify_products_display_order ON post_shopi
 ------------------------------------------------------------------------------
 ALTER TABLE post_shopify_products ENABLE ROW LEVEL SECURITY;
 
-DO $
+DO $$
 BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM pg_policies
@@ -1416,7 +1416,7 @@ BEGIN
                              AND p.status = 'published'));
     END IF;
 END
-$;
+$$;
 
 ------------------------------------------------------------------------------
 -- DONE. Verify after running:

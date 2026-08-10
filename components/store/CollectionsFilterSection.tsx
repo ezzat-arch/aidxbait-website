@@ -299,7 +299,7 @@ export function CollectionsFilterSection({
 								value={searchInput}
 								onChange={handleSearchChange}
 								placeholder={t("search_placeholder")}
-								className="h-11 pl-10 pr-10 border-2 text-xs placeholder:text-xs sm:text-sm sm:placeholder:text-sm placeholder:truncate"
+								className="h-11 pl-10 pr-10 border-2 text-xs placeholder:text-xs sm:text-sm sm:placeholder:text-sm placeholder:truncate [&::-webkit-search-cancel-button]:hidden"
 								aria-label={t("search_placeholder")}
 								autoComplete="off"
 							/>
