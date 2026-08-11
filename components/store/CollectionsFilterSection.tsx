@@ -3,10 +3,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Loader2, LayoutGrid, AlertCircle, Search, X, PersonStanding } from "lucide-react";
+import {
+	Loader2,
+	LayoutGrid,
+	AlertCircle,
+	Search,
+	X,
+	PersonStanding,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -291,40 +297,27 @@ export function CollectionsFilterSection({
 		<section className="w-full">
 			<div className="sticky top-16 z-20 bg-background/95 backdrop-blur-sm border-b shadow-sm">
 				<div className="container mx-auto px-4 space-y-3 py-3">
-					<div className="flex items-center gap-2">
-						<div className="relative flex-1">
-							<Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-							<Input
-								type="search"
-								value={searchInput}
-								onChange={handleSearchChange}
-								placeholder={t("search_placeholder")}
-								className="h-11 pl-10 pr-10 border-2 text-xs placeholder:text-xs sm:text-sm sm:placeholder:text-sm placeholder:truncate [&::-webkit-search-cancel-button]:hidden"
-								aria-label={t("search_placeholder")}
-								autoComplete="off"
-							/>
-							{searchInput && (
-								<button
-									type="button"
-									onClick={handleSearchClear}
-									aria-label={t("clear_search")}
-									className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-								>
-									<X className="h-4 w-4" />
-								</button>
-							)}
-						</div>
-
-						<Button
-							type="button"
-							variant="outline"
-							onClick={() => setBodyMapOpen(true)}
-							className="h-11 shrink-0 gap-2 border-2"
-							aria-label={t("filter_by_body_part")}
-						>
-							<PersonStanding className="h-4 w-4" />
-							<span className="hidden sm:inline">{t("filter_by_body_part")}</span>
-						</Button>
+					<div className="relative">
+						<Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+						<Input
+							type="search"
+							value={searchInput}
+							onChange={handleSearchChange}
+							placeholder={t("search_placeholder")}
+							className="h-11 pl-10 pr-10 border-2 text-xs placeholder:text-xs sm:text-sm sm:placeholder:text-sm placeholder:truncate [&::-webkit-search-cancel-button]:hidden"
+							aria-label={t("search_placeholder")}
+							autoComplete="off"
+						/>
+						{searchInput && (
+							<button
+								type="button"
+								onClick={handleSearchClear}
+								aria-label={t("clear_search")}
+								className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+							>
+								<X className="h-4 w-4" />
+							</button>
+						)}
 					</div>
 
 					<p className="text-xs text-muted-foreground">{t("search_hint")}</p>
@@ -350,7 +343,7 @@ export function CollectionsFilterSection({
 						role="tablist"
 						aria-label={t("filter_by_collection_aria")}
 					>
-						<button
+						{/* <button
 							type="button"
 							role="tab"
 							aria-selected={activeHandle === "all"}
@@ -363,7 +356,7 @@ export function CollectionsFilterSection({
 							)}
 						>
 							{t("all")}
-						</button>
+						</button> */}
 
 						{collections.map((col) => (
 							<button
@@ -384,6 +377,18 @@ export function CollectionsFilterSection({
 						))}
 					</div>
 				</div>
+			</div>
+
+			{/* Body-map filter — button sits below the tabs, opens the map in a modal */}
+			<div className="container mx-auto px-4 pt-4">
+				<button
+					type="button"
+					onClick={() => setBodyMapOpen(true)}
+					className="flex w-full items-center justify-center gap-2 rounded-lg border border-border py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
+				>
+					<PersonStanding className="h-4 w-4" />
+					{t("filter_by_body_part")}
+				</button>
 			</div>
 
 			<div className="container mx-auto px-4 py-8">
@@ -418,21 +423,22 @@ export function CollectionsFilterSection({
 					</div>
 				)}
 			</div>
-				{/* Body-map filter modal */}
-				<Dialog open={bodyMapOpen} onOpenChange={setBodyMapOpen}>
-					<DialogContent className="max-w-3xl">
-						<DialogHeader>
-							<DialogTitle>{t("body_map_title")}</DialogTitle>
-							<DialogDescription>{t("body_map_subtitle")}</DialogDescription>
-						</DialogHeader>
-						<div className="mt-2">
-							<InteractiveBodyMap
-								onPartClick={handleBodyPartSelect}
-								initialSelectedId={jointTag || undefined}
-							/>
-						</div>
-					</DialogContent>
-				</Dialog>
+
+			{/* Body-map filter modal */}
+			<Dialog open={bodyMapOpen} onOpenChange={setBodyMapOpen}>
+				<DialogContent className="max-w-3xl">
+					<DialogHeader>
+						<DialogTitle>{t("body_map_title")}</DialogTitle>
+						<DialogDescription>{t("body_map_subtitle")}</DialogDescription>
+					</DialogHeader>
+					<div className="mt-2">
+						<InteractiveBodyMap
+							onPartClick={handleBodyPartSelect}
+							initialSelectedId={jointTag || undefined}
+						/>
+					</div>
+				</DialogContent>
+			</Dialog>
 		</section>
 	);
 }
