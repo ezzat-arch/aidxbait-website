@@ -82,7 +82,11 @@ export function CollectionsFilterSection({
 	const jointTag = (searchParams.get("joint") ?? "").trim();
 
 	const [searchInput, setSearchInput] = useState(urlSearch);
-	const debouncedSearch = useDebouncedValue(searchInput, SEARCH_DEBOUNCE_MS);
+	// An emptied box applies instantly: without this, the pending timer would
+	// re-commit the old term right after a clear and bring the results back.
+	const debouncedSearch = useDebouncedValue(searchInput, SEARCH_DEBOUNCE_MS, {
+		immediateWhen: (value) => value.trim() === "",
+	});
 	const debouncedSearchTrimmed = debouncedSearch.trim();
 
 	const [bodyMapOpen, setBodyMapOpen] = useState(false);
@@ -121,13 +125,11 @@ export function CollectionsFilterSection({
 		[]
 	);
 
+	// Clearing the box is enough — the debounce applies "" immediately and the
+	// sync effect above drops `search` from the URL.
 	const handleSearchClear = useCallback(() => {
 		setSearchInput("");
-		const params = new URLSearchParams(searchParams.toString());
-		params.delete("search");
-		const qs = params.toString();
-		router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
-	}, [searchParams, pathname, router]);
+	}, []);
 
 	// Load products when debounced search or collection changes
 	useEffect(() => {
