@@ -1,19 +1,32 @@
 /**
- * Builds a Storefront API `products(query:)` string.
+ * Builds a Storefront API `products(query:)` string scoped to title and tags
+ * only. An unfielded term would also match product descriptions (body), which
+ * surfaces irrelevant results — so each token is turned into an explicit
+ * `title:`/`tag:` prefix match instead.
  * @see https://shopify.dev/docs/api/usage/search-syntax
  */
 export function buildShopifyProductSearchQuery(
 	searchTerm: string,
 	collectionHandle: string | null
 ): string {
-	const term = searchTerm.trim();
-	if (!term) return "";
+	// Strip characters with special meaning in Shopify's search syntax.
+	const tokens = searchTerm
+		.replace(/['"\\():*-]/g, " ")
+		.split(/\s+/)
+		.filter(Boolean);
+	if (tokens.length === 0) return "";
+
+	// Adjacent clauses are ANDed, so every token must match in the title
+	// (or every token in the tags).
+	const titleClause = tokens.map((t) => `title:${t}*`).join(" ");
+	const tagClause = tokens.map((t) => `tag:${t}*`).join(" ");
+	const fielded = `((${titleClause}) OR (${tagClause}))`;
 
 	if (collectionHandle && collectionHandle !== "all") {
-		return `collection:${collectionHandle} ${term}`;
+		return `collection:${collectionHandle} ${fielded}`;
 	}
 
-	return term;
+	return fielded;
 }
 
 /**

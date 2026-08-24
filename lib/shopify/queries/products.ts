@@ -16,6 +16,7 @@ export const searchProductsQuery = `
           title
           handle
           description
+          tags
           availableForSale
           images(first: 1) {
             edges {
@@ -53,6 +54,7 @@ export const getAllProductsQuery = `
           title
           handle
           description
+          tags
           availableForSale
           images(first: 1) {
             edges {
@@ -151,6 +153,7 @@ export const getCollectionByHandleQuery = `
             title
             handle
             description
+            tags
             availableForSale
             images(first: 1) {
               edges {

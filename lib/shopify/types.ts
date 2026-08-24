@@ -14,6 +14,7 @@ export type StorefrontProductCardNode = {
 	title: string;
 	handle: string;
 	description: string;
+	tags: string[];
 	availableForSale: boolean;
 	images: {
 		edges: Array<{
@@ -34,6 +35,8 @@ export type ShopifyProductCardModel = {
 	title: string;
 	handle: string;
 	descriptionPlain: string | null;
+	/** Shopify product tags, used for tag-scoped search matching */
+	tags: string[];
 	imageUrl: string | null;
 	imageAlt: string | null;
 	priceAmount: string;

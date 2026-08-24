@@ -34,9 +34,11 @@ export function normalizeSearchText(value: string): string {
 
 /**
  * Filter product cards by a search term, matching against the (possibly
- * localized) title and description. Every whitespace-separated token in the
- * term must appear somewhere in the product's searchable text (AND semantics),
- * mirroring how a user expects multi-word search to behave.
+ * localized) title and tags — deliberately NOT the description, mirroring the
+ * fielded `title:`/`tag:` scope of the native Shopify query. Every
+ * whitespace-separated token in the term must appear somewhere in the
+ * product's searchable text (AND semantics), mirroring how a user expects
+ * multi-word search to behave.
  */
 export function filterProductsLocally(
 	products: ShopifyProductCardModel[],
@@ -49,7 +51,7 @@ export function filterProductsLocally(
 
 	return products.filter((product) => {
 		const haystack = normalizeSearchText(
-			`${product.title} ${product.descriptionPlain ?? ""}`
+			`${product.title} ${product.tags.join(" ")}`
 		);
 		return tokens.every((token) => haystack.includes(token));
 	});

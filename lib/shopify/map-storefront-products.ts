@@ -38,6 +38,7 @@ export function mapStorefrontProductNodeToCard(
 		title: node.title,
 		handle: node.handle,
 		descriptionPlain: desc,
+		tags: node.tags ?? [],
 		imageUrl: imgEdge?.url ?? null,
 		imageAlt: imgEdge?.altText ?? node.title,
 		priceAmount: node.priceRange.minVariantPrice.amount,

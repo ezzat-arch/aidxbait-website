@@ -145,6 +145,7 @@ export async function getRelatedShopifyProductCards(
 			title: row.title,
 			handle: row.handle,
 			descriptionPlain: null,
+			tags: [],
 			imageUrl: row.image_url,
 			imageAlt: row.title,
 			priceAmount: row.price_amount ?? "0",

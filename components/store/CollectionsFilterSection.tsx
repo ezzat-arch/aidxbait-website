@@ -322,8 +322,6 @@ export function CollectionsFilterSection({
 						)}
 					</div>
 
-					<p className="text-xs text-muted-foreground">{t("search_hint")}</p>
-
 					{isJointFiltering && (
 						<div className="flex items-center gap-2">
 							<span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">
