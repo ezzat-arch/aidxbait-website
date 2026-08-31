@@ -12,15 +12,29 @@ export type ShopifyGraphQLResponse<T = unknown> = {
 	errors?: ShopifyGraphQLError[];
 };
 
+/**
+ * How long (seconds) Storefront responses stay fresh. Without this, Next.js
+ * caches product data permanently, so unpublishing or editing a product in
+ * Shopify never reaches the site.
+ */
+export const DEFAULT_REVALIDATE_SECONDS = 300;
+
 export async function shopifyFetch<T = unknown>({
 	query,
 	variables = {},
-	cache = "force-cache",
+	cache,
+	revalidate = DEFAULT_REVALIDATE_SECONDS,
 	language,
 }: {
 	query: string;
 	variables?: Record<string, unknown>;
 	cache?: RequestCache;
+	/**
+	 * Seconds before a cached response is considered stale. Defaults to
+	 * `DEFAULT_REVALIDATE_SECONDS`; pass 0 to always hit Shopify. Ignored when an
+	 * explicit `cache` mode is supplied, since the two options conflict.
+	 */
+	revalidate?: number;
 	/**
 	 * Storefront language for localized content. When set, it is injected as the
 	 * `$language` GraphQL variable (consumed by `@inContext(language:)`) and sent
@@ -50,7 +64,9 @@ export async function shopifyFetch<T = unknown>({
 			method: "POST",
 			headers,
 			body: JSON.stringify({ query, variables: mergedVariables }),
-			cache,
+			// `cache` and `next.revalidate` are mutually exclusive in Next.js, so
+			// only one of them is ever sent.
+			...(cache ? { cache } : { next: { revalidate } }),
 		});
 
 		const body = (await result.json()) as ShopifyGraphQLResponse<T>;
