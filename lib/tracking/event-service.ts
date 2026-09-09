@@ -4,7 +4,7 @@
  */
 
 import { sessionService } from "./session-service";
-import type { CartItem } from "@/lib/store-types";
+import type { CartLine } from "@/lib/store-types";
 
 const EVENTS_API_URL = "/api/tracking/events";
 const CART_SNAPSHOT_API_URL = "/api/tracking/cart-snapshot";
@@ -12,12 +12,7 @@ const BATCH_INTERVAL = 5000; // Send events every 5 seconds
 const MAX_BATCH_SIZE = 50;
 
 type CartEventType =
-	| "add"
-	| "remove"
-	| "update_quantity"
-	| "clear"
-	| "open"
-	| "close";
+	"add" | "remove" | "update_quantity" | "clear" | "open" | "close";
 
 type CheckoutEventType =
 	| "started"
@@ -159,7 +154,7 @@ class EventService {
 	 * Create cart snapshot (for abandonment tracking)
 	 */
 	async createCartSnapshot(
-		cartItems: CartItem[],
+		cartItems: CartLine[],
 		totalValue: number
 	): Promise<void> {
 		const sessionId = sessionService.getSessionId();
@@ -173,11 +168,14 @@ class EventService {
 		const snapshotData = {
 			session_id: sessionId,
 			user_id: userId,
-			cart_items: cartItems.map((item) => ({
-				product_id: item.product.id,
-				quantity: item.quantity,
-				rental_weeks: item.rental_weeks,
-				price: item.product.discounted_price || item.product.price,
+			// `cart_snapshots.cart_items` is free-form JSONB, so Shopify identifiers
+			// go in as-is. There is no `product_id` here: that column elsewhere is an
+			// integer key into the Supabase catalog and cannot hold a Shopify id.
+			cart_items: cartItems.map((line) => ({
+				shopify_variant_id: line.variantId,
+				handle: line.handle,
+				quantity: line.quantity,
+				price: line.price,
 			})),
 			total_value: totalValue,
 			item_count: cartItems.reduce((sum, item) => sum + item.quantity, 0),
@@ -332,4 +330,3 @@ class EventService {
 
 // Singleton instance
 export const eventService = new EventService();
-

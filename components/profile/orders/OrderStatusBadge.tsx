@@ -69,12 +69,18 @@ export function PaymentStatusBadge({
 }: PaymentStatusBadgeProps) {
 	const t = useTranslations("profile.orders.data.payment_status");
 
+	// The database enum's paid label is `completed`, not `paid`. This switched on
+	// `paid`, so every paid order fell through to the grey default and rendered
+	// the raw value. The message key is still called `paid`; only the status
+	// value changed.
 	const getStatusColor = (status: PaymentStatus) => {
 		switch (status) {
 			case "pending":
 				return "bg-yellow-100 text-yellow-800 border-yellow-200";
-			case "paid":
+			case "completed":
 				return "bg-green-100 text-green-800 border-green-200";
+			case "refunded":
+				return "bg-blue-100 text-blue-800 border-blue-200";
 			case "failed":
 				return "bg-red-100 text-red-800 border-red-200";
 			default:
@@ -91,8 +97,10 @@ export function PaymentStatusBadge({
 				return paymentMethod === "cash_on_delivery"
 					? t("on_delivery")
 					: t("pending");
-			case "paid":
+			case "completed":
 				return t("paid");
+			case "refunded":
+				return t("refunded");
 			case "failed":
 				return t("failed");
 			default:

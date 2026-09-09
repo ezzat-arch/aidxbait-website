@@ -15,7 +15,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, MapPin, Package, Calendar, CreditCard } from "lucide-react";
+import {
+	ArrowLeft,
+	MapPin,
+	Package,
+	Calendar,
+	CreditCard,
+	Truck,
+} from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { toast } from "@/hooks/use-toast";
@@ -36,18 +43,19 @@ export default function OrderDetailsPage() {
 	const [order, setOrder] = useState<Order | null>(null);
 	const [loading, setLoading] = useState(true);
 
+	// The API answers 404 for an order that is not the caller's own, so the gate
+	// here is only "is the session loaded", not "does this profile carry a
+	// patient id" (which is null at runtime for non-patient accounts).
 	useEffect(() => {
-		if (userProfile?.patient_id && orderId) {
+		if (userProfile && orderId) {
 			loadOrder();
 		}
-	}, [userProfile?.patient_id, orderId]);
+	}, [userProfile?.id, orderId]);
 
 	const loadOrder = async () => {
-		if (!userProfile?.patient_id) return;
-
 		try {
 			setLoading(true);
-			const data = await fetchOrderDetails(orderId, userProfile.patient_id);
+			const data = await fetchOrderDetails(orderId);
 			setOrder(data);
 		} catch (error) {
 			console.error("Error loading order:", error);
@@ -82,6 +90,12 @@ export default function OrderDetailsPage() {
 		return null;
 	}
 
+	// Store buyers know their order by Shopify's number (`#1001`), which is what
+	// the confirmation email and Shopify's tracking page show. Mobile orders have
+	// no Shopify number and keep the internal id.
+	const orderReference = order.shopify_order_name ?? `#${order.id}`;
+	const isWebsiteOrder = order.channel === "website";
+
 	const orderDate = new Date(order.order_date).toLocaleDateString(
 		locale === "ar" ? "ar-EG" : "en-US",
 		{
@@ -105,7 +119,7 @@ export default function OrderDetailsPage() {
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 					<div>
 						<h1 className="text-3xl font-bold mb-2">
-							{t("order")} #{order.id}
+							{t("order")} {orderReference}
 						</h1>
 						<div className="flex items-center gap-2 text-muted-foreground">
 							<Calendar className="h-4 w-4" />
@@ -139,17 +153,22 @@ export default function OrderDetailsPage() {
 								const product = (item as any).products || item.product;
 								const productImages =
 									product?.product_images || product?.images || [];
+								// A Shopify line has no `products` row at all (`product_id` is
+								// null), so the snapshot columns are what it renders from.
 								const mainImage =
 									productImages?.find((img: any) => img.is_main)?.image_url ||
 									productImages?.[0]?.image_url ||
+									item.image_url_snapshot ||
 									"/placeholder.jpg";
+								const itemTitle =
+									product?.name || item.title_snapshot || t("product");
 
 								return (
 									<div key={item.id} className="flex gap-4">
 										<div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
 											<Image
 												src={mainImage}
-												alt={product?.name || t("product")}
+												alt={itemTitle}
 												fill
 												className="object-cover"
 												sizes="80px"
@@ -165,8 +184,22 @@ export default function OrderDetailsPage() {
 										</div>
 										<div className="flex-1 min-w-0">
 											<h4 className="font-medium line-clamp-2">
-												{product?.name}
+												{item.shopify_handle ? (
+													<Link
+														href={`/services/store/products/${encodeURIComponent(item.shopify_handle)}/`}
+														className="hover:text-primary transition-colors"
+													>
+														{itemTitle}
+													</Link>
+												) : (
+													itemTitle
+												)}
 											</h4>
+											{item.variant_title_snapshot && (
+												<p className="text-sm text-muted-foreground mt-0.5">
+													{item.variant_title_snapshot}
+												</p>
+											)}
 											<div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
 												<span>
 													{t("quantity")} {item.quantity}
@@ -231,7 +264,12 @@ export default function OrderDetailsPage() {
 								<span>{formatCurrency(order.subtotal_amount, "EGP")}</span>
 							</div>
 							<div className="flex justify-between text-sm">
-								<span className="text-muted-foreground">{t("tax_14")}</span>
+								{/* The hardcoded "(14%)" is the Paymob flow's own arithmetic.
+								    Shopify works tax out from its own settings, so a store order
+								    shows a plain "Tax" with whatever Shopify actually charged. */}
+								<span className="text-muted-foreground">
+									{isWebsiteOrder ? t("tax") : t("tax_14")}
+								</span>
 								<span>{formatCurrency(order.tax_amount, "EGP")}</span>
 							</div>
 							<div className="flex justify-between text-sm">
@@ -276,6 +314,24 @@ export default function OrderDetailsPage() {
 							</div>
 						</CardContent>
 					</Card>
+
+					{/* Track order on Shopify */}
+					{order.shopify_order_status_url && (
+						<Card>
+							<CardContent className="p-4">
+								<Button asChild variant="outline" className="w-full">
+									<a
+										href={order.shopify_order_status_url}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<Truck className="h-4 w-4 me-2" />
+										{t("track_order")}
+									</a>
+								</Button>
+							</CardContent>
+						</Card>
+					)}
 
 					{/* Shipping Address */}
 					{order.shipping_address && (

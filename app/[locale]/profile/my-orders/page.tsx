@@ -29,20 +29,19 @@ export default function MyOrdersPage() {
 	const tToastTitle = useTranslations("profile.my_orders.toast.title");
 	const tToastDesc = useTranslations("profile.my_orders.toast.description");
 
+	// Gated on the profile being loaded rather than on `patient_id`: the API
+	// derives the patient from the session, and it is also what claims any order
+	// placed as a guest with this email, which a client-side id check would skip.
 	useEffect(() => {
-		if (userProfile?.patient_id) {
+		if (userProfile) {
 			loadOrders();
 		}
-	}, [userProfile?.patient_id, statusFilter]);
+	}, [userProfile?.id, statusFilter]);
 
 	const loadOrders = async () => {
-		if (!userProfile?.patient_id) return;
-
 		try {
 			setLoading(true);
-			const filters: { patient_id: number; order_status?: OrderStatus } = {
-				patient_id: userProfile.patient_id,
-			};
+			const filters: { order_status?: OrderStatus } = {};
 
 			if (statusFilter !== "all") {
 				filters.order_status = statusFilter;

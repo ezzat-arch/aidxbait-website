@@ -1,72 +1,45 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import { Cart } from "@/lib/store-types";
-import { useTranslations } from "next-intl";
+import type { Cart } from "@/lib/store-types";
+import { useLocale, useTranslations } from "next-intl";
+import { DEFAULT_CURRENCY, formatCurrency } from "@/lib/i18n/utils";
+import type { Locale } from "@/types/i18n";
 
-interface CartSummaryProps {
+/**
+ * Subtotal only, on purpose.
+ *
+ * Tax, shipping and discounts are Shopify's to compute from its own settings,
+ * and they are not known until the buyer has entered an address at checkout.
+ * There used to be a 14% tax and a flat 50 EGP shipping fee in this repo; they
+ * belonged to the Paymob flow, never described a Shopify order, and were removed
+ * with it. Showing a total here would only risk a number that disagrees with the
+ * one the buyer is actually charged.
+ */
+export function CartSummary({
+	cart,
+	className,
+}: {
 	cart: Cart;
 	className?: string;
-}
-
-export function CartSummary({ cart, className }: CartSummaryProps) {
+}) {
 	const t = useTranslations("store.CartSummary.text");
-	const subtotal = cart.total;
-	const shipping = subtotal > 50 ? 0 : 9.99; // Free shipping over $50
-	const tax = subtotal * 0.08; // 8% tax
-	const total = subtotal + shipping + tax;
+	const locale = useLocale() as Locale;
 
 	return (
-		<div className={`space-y-4 ${className}`}>
+		<div className={`space-y-4 ${className ?? ""}`}>
 			<h3 className="font-semibold">{t("order_summary")}</h3>
-
-			<div className="space-y-2">
-				<div className="flex justify-between text-sm">
-					<span>
-						{t("subtotal")} ({cart.itemCount} {t("items")})
-					</span>
-					<span>
-						{subtotal.toFixed(2)} {t("egp")}
-					</span>
-				</div>
-
-				<div className="flex justify-between text-sm">
-					<span>{t("shipping")}</span>
-					<span>
-						{shipping === 0 ? (
-							<span className="text-green-600 font-medium">{t("free")}</span>
-						) : (
-							`${shipping.toFixed(2)} ${t("egp")}`
-						)}
-					</span>
-				</div>
-
-				<div className="flex justify-between text-sm">
-					<span>{t("tax")}</span>
-					<span>
-						{tax.toFixed(2)} {t("egp")}
-					</span>
-				</div>
-
-				{shipping > 0 && (
-					<div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
-						{t("add")} {(50 - subtotal).toFixed(2)} {t("egp_more_for_free_shipping")}
-					</div>
-				)}
-			</div>
 
 			<Separator />
 
-			<div className="flex justify-between font-semibold text-lg">
-				<span>{t("total")}</span>
-				<span>
-					{total.toFixed(2)} {t("egp")}
-				</span>
+			<div className="flex justify-between font-semibold text-lg gap-2">
+				<span>{t("subtotal")}</span>
+				<span>{formatCurrency(cart.total, DEFAULT_CURRENCY, locale)}</span>
 			</div>
 
-			<div className="text-xs text-muted-foreground">
-				{t("tax_calculated_at_checkout_final")}
-			</div>
+			<p className="text-xs text-muted-foreground">
+				{t("taxes_shipping_at_checkout")}
+			</p>
 		</div>
 	);
 }

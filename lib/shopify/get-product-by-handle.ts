@@ -5,16 +5,21 @@ import {
 } from "./queries/products";
 import type {
 	ShopifyProductCardModel,
+	ShopifyProductDetailModel,
 	StorefrontProductByHandleData,
 	StorefrontProductsQueryData,
 } from "./types";
-import { mapStorefrontProductsToCards } from "./map-storefront-products";
+import {
+	mapStorefrontProductToDetail,
+	mapStorefrontProductsToCards,
+} from "./map-storefront-products";
 import { toShopifyLanguage } from "./locale";
 
+/** One product with all of its variants and options, or null when the handle is unknown. */
 export async function getShopifyProductByHandle(
 	handle: string,
 	locale?: string
-): Promise<StorefrontProductByHandleData["product"]> {
+): Promise<ShopifyProductDetailModel | null> {
 	const decoded = decodeURIComponent(handle.trim());
 	if (!decoded) return null;
 
@@ -24,7 +29,7 @@ export async function getShopifyProductByHandle(
 		language: toShopifyLanguage(locale),
 	});
 
-	return body.data?.product ?? null;
+	return mapStorefrontProductToDetail(body.data?.product ?? null);
 }
 
 /** Other catalog products for “related” grid (excludes current handle). */

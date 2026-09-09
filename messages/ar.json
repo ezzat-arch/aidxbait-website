@@ -358,7 +358,9 @@
 				"view_all_orders": "عرض جميع الطلبات",
 				"view_and_track": "عرض وتتبع سجل طلباتك",
 				"your_order_history": "سيظهر سجل طلباتك هنا",
-				"product": "منتج"
+				"product": "منتج",
+				"tax": "الضريبة",
+				"track_order": "تتبع الطلب"
 			},
 			"toast": {
 				"description": {
@@ -394,7 +396,8 @@
 					"failed": "الدفع: فشل",
 					"on_delivery": "الدفع: عند الاستلام",
 					"paid": "الدفع: مكتمل",
-					"pending": "الدفع: قيد الانتظار"
+					"pending": "الدفع: قيد الانتظار",
+					"refunded": "الدفع: مسترد"
 				}
 			},
 			"text": {
@@ -405,7 +408,8 @@
 				"order": "طلب",
 				"order_cancelled": "تم إلغاء الطلب",
 				"reason": "السبب:",
-				"view_details": "عرض التفاصيل"
+				"view_details": "عرض التفاصيل",
+				"track_order": "تتبع الطلب"
 			}
 		}
 	},
@@ -726,11 +730,9 @@
 			"text": "×"
 		},
 		"CartItemLabels": {
-			"all_purpose": "متعدد الاستخدامات",
-			"for_rent": "للإيجار",
-			"rental_period": "مدة الإيجار:",
-			"week": "أسبوع",
-			"weeks": "أسابيع"
+			"remove": "إزالة من السلة",
+			"increase_quantity": "زيادة الكمية",
+			"decrease_quantity": "تقليل الكمية"
 		},
 		"ProductCard": {
 			"text": {
@@ -806,17 +808,9 @@
 		},
 		"CartSummary": {
 			"text": {
-				"add": "💡 أضف",
-				"egp": "جنيه مصري",
-				"egp_more_for_free_shipping": "جنيهات إضافية للحصول على شحن مجاني",
-				"free": "مجاني",
-				"items": "عناصر)",
 				"order_summary": "ملخص الطلب",
-				"shipping": "الشحن",
-				"subtotal": "المجموع الفرعي (",
-				"tax": "الضريبة",
-				"tax_calculated_at_checkout_final": "يتم حساب الضريبة عند الدفع. قد يختلف الإجمالي النهائي.",
-				"total": "الإجمالي"
+				"subtotal": "المجموع الفرعي",
+				"taxes_shipping_at_checkout": "يتم احتساب الضرائب والشحن عند إتمام الدفع."
 			}
 		},
 		"checkout": {
@@ -1000,7 +994,6 @@
 			"fetch_failed": "تعذر تحميل المنتجات من Shopify. راجع سجلات الخادم وبيانات اعتماد Storefront.",
 			"view_on_store": "عرض في المتجر",
 			"view_details": "عرض التفاصيل",
-			"buy_on_shopify": "اشتري الآن",
 			"back_to_store": "العودة إلى المتجر",
 			"related_heading": "قد يعجبك أيضًا",
 			"view_all_store": "عرض الكل",
@@ -1010,7 +1003,15 @@
 			"no_description": "—",
 			"product_not_found_title": "المنتج غير موجود | متجر Doctoory",
 			"currently_unavailable": "غير متوفر حاليًا",
-			"save_percent": "وفّر {percent}%"
+			"save_percent": "وفّر {percent}%",
+			"add_to_cart": "أضف إلى السلة",
+			"added_to_cart": "تمت الإضافة إلى سلتك",
+			"select_option": "{name}",
+			"out_of_stock": "غير متوفر",
+			"unavailable_combination": "هذا الاختيار غير متاح",
+			"quantity": "الكمية",
+			"increase_quantity": "زيادة الكمية",
+			"decrease_quantity": "تقليل الكمية"
 		},
 		"CollectionsFilterSection": {
 			"all": "جميع المنتجات",

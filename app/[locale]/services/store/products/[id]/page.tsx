@@ -1,20 +1,12 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Metadata } from "next";
-import {
-	ArrowLeft,
-	Check,
-	Info,
-	Package,
-	RotateCcw,
-	Shield,
-	Truck,
-} from "lucide-react";
+import { ArrowLeft, Package, RotateCcw, Shield, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { AddToCartButton } from "@/components/store/AddToCartButton";
+import { ProductPurchasePanel } from "@/components/store/ProductPurchasePanel";
 import { ShopifyProductImageGallery } from "@/components/store/ShopifyProductImageGallery";
 import {
 	getShopifyProductByHandle,
@@ -41,10 +33,10 @@ function formatMoney(
 	const n = Number.parseFloat(amount);
 	if (Number.isNaN(n)) return `${amount} ${currencyCode}`;
 	try {
-		return new Intl.NumberFormat(
-			locale === "ar" ? "ar-EG" : "en-US",
-			{ style: "currency", currency: currencyCode }
-		).format(n);
+		return new Intl.NumberFormat(locale === "ar" ? "ar-EG" : "en-US", {
+			style: "currency",
+			currency: currencyCode,
+		}).format(n);
 	} catch {
 		return `${n.toFixed(2)} ${currencyCode}`;
 	}
@@ -73,7 +65,7 @@ export async function generateMetadata({
 			.trim()
 			.slice(0, 155) || product.title;
 
-	const firstImage = product.images.edges[0]?.node?.url;
+	const firstImage = product.images[0]?.url;
 	const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 	const productPath = `/${locale}/services/store/products/${encodeURIComponent(handleParam)}/`;
 	const productUrl = `${baseUrl}${productPath}`;
@@ -132,23 +124,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
 	const related = await getShopifyRelatedProductCards(handleParam, 4, locale);
 
-	const galleryImages = product.images.edges.map((e) => ({
-		url: e.node.url,
-		altText: e.node.altText,
-	}));
+	const galleryImages = product.images;
 
-	const variantNode = product.variants.edges[0]?.node;
-	const isInStock = variantNode?.availableForSale ?? false;
-	const priceLabel = formatMoney(
-		product.priceRange.minVariantPrice.amount,
-		DEFAULT_CURRENCY,
-		locale
-	);
+	// In stock means *some* variant is buyable; the panel narrows that to the
+	// variant the buyer has actually selected.
+	const isInStock = product.variants.some((v) => v.availableForSale);
 
-	const variantId = variantNode?.id ?? "";
 	const shopifyConfigured = Boolean(
 		process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN &&
-			process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+		process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN
 	);
 
 	const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -169,7 +153,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 			"@type": "Offer",
 			url: productUrl,
 			priceCurrency: DEFAULT_CURRENCY,
-			price: product.priceRange.minVariantPrice.amount,
+			price: product.minPriceAmount,
 			availability: isInStock
 				? "https://schema.org/InStock"
 				: "https://schema.org/OutOfStock",
@@ -223,7 +207,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
 							{tCommon("store")}
 						</Link>
 						<span>/</span>
-						<span className="text-foreground line-clamp-1">{product.title}</span>
+						<span className="text-foreground line-clamp-1">
+							{product.title}
+						</span>
 					</nav>
 
 					<Button variant="ghost" className="mb-6 -ml-4" asChild>
@@ -244,26 +230,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 							<header>
 								<h1 className="text-4xl font-bold mb-4">{product.title}</h1>
 
-								<div className="flex items-baseline gap-3 mb-4">
-									<span className="text-4xl font-bold text-primary">
-										{priceLabel}
-									</span>
-								</div>
-
-								<div className="mb-6">
-									{isInStock ? (
-										<div className="flex items-center gap-2 text-green-600">
-											<Check className="h-5 w-5" />
-											<span className="font-medium">{tDetail("in_stock")}</span>
-										</div>
-									) : (
-										<div className="flex items-center gap-2 text-destructive">
-											<Info className="h-5 w-5" />
-											<span className="font-medium">{tDetail("currently_unavailable")}</span>
-										</div>
-									)}
-								</div>
-
 								<div
 									className="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground"
 									// Shopify admin HTML — scripts stripped server-side
@@ -273,14 +239,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 								/>
 							</header>
 
-							{shopifyConfigured && variantId ? (
-								<AddToCartButton
-									variantId={variantId}
-									text={t("buy_on_shopify")}
-									disabled={!isInStock}
-								/>
+							{shopifyConfigured && product.variants.length > 0 ? (
+								<ProductPurchasePanel product={product} />
 							) : (
-								<p className="text-sm text-muted-foreground">{t("configure_domain")}</p>
+								<p className="text-sm text-muted-foreground">
+									{t("configure_domain")}
+								</p>
 							)}
 
 							<Card className="border-2">
@@ -294,11 +258,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
 										</div>
 										<div className="flex flex-col items-center text-center p-4">
 											<Truck className="h-7 w-7 text-primary mb-2" />
-											<span className="text-sm font-medium">{tDetail("fast_shipping")}</span>
+											<span className="text-sm font-medium">
+												{tDetail("fast_shipping")}
+											</span>
 										</div>
 										<div className="flex flex-col items-center text-center p-4">
 											<RotateCcw className="h-7 w-7 text-primary mb-2" />
-											<span className="text-sm font-medium">{tDetail("easy_returns")}</span>
+											<span className="text-sm font-medium">
+												{tDetail("easy_returns")}
+											</span>
 										</div>
 									</div>
 								</CardContent>
@@ -363,11 +331,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 												</h3>
 												<div className="flex items-center gap-2">
 													<span className="font-bold text-primary text-lg">
-														{formatMoney(
-															p.priceAmount,
-															p.currencyCode,
-															locale
-														)}
+														{formatMoney(p.priceAmount, p.currencyCode, locale)}
 													</span>
 												</div>
 											</CardContent>

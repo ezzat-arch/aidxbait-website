@@ -13,6 +13,14 @@ export type ShopifyGraphQLResponse<T = unknown> = {
 };
 
 /**
+ * Storefront API version sent with every request. Shopify keeps a version
+ * live for a year and then "falls forward" to the oldest live one, so a stale
+ * pin silently changes what the API returns. Bump this deliberately, after
+ * reading the changelog: https://shopify.dev/docs/api/usage/versioning
+ */
+export const SHOPIFY_STOREFRONT_API_VERSION = "2026-07";
+
+/**
  * How long (seconds) Storefront responses stay fresh. Without this, Next.js
  * caches product data permanently, so unpublishing or editing a product in
  * Shopify never reaches the site.
@@ -25,6 +33,7 @@ export async function shopifyFetch<T = unknown>({
 	cache,
 	revalidate = DEFAULT_REVALIDATE_SECONDS,
 	language,
+	signal,
 }: {
 	query: string;
 	variables?: Record<string, unknown>;
@@ -41,11 +50,17 @@ export async function shopifyFetch<T = unknown>({
 	 * as the `Accept-Language` header. Omit for non-localized requests.
 	 */
 	language?: ShopifyLanguageCode;
+	/**
+	 * Aborts the request when it fires. Used where a slow Storefront call must
+	 * not hold up something with its own deadline, e.g. the order webhook, which
+	 * Shopify gives roughly five seconds before it counts the delivery as failed.
+	 */
+	signal?: AbortSignal;
 }): Promise<{
 	status: number;
 	body: ShopifyGraphQLResponse<T>;
 }> {
-	const endpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2024-04/graphql.json`;
+	const endpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/${SHOPIFY_STOREFRONT_API_VERSION}/graphql.json`;
 	const key = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
 	const headers: Record<string, string> = {
@@ -64,6 +79,7 @@ export async function shopifyFetch<T = unknown>({
 			method: "POST",
 			headers,
 			body: JSON.stringify({ query, variables: mergedVariables }),
+			signal,
 			// `cache` and `next.revalidate` are mutually exclusive in Next.js, so
 			// only one of them is ever sent.
 			...(cache ? { cache } : { next: { revalidate } }),
