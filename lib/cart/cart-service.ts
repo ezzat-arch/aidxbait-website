@@ -1,29 +1,63 @@
-import { CartItem } from "@/lib/store-types";
-import { withRetry } from "./retry-utils";
+/**
+ * Cart persistence. localStorage only: the cart holds Shopify variant global
+ * ids, and the `user_cart` table it used to sync to keys rows on an INTEGER
+ * foreign key into the Supabase catalog, which cannot hold one. Shopify owns
+ * the cart from checkout onwards, so a cross-device web cart would need a
+ * Shopify cart id per account, which is not worth a table for.
+ */
 
-const CART_STORAGE_KEY = "doctoory_cart";
+import type { CartLine } from "@/lib/store-types";
 
-export function loadCartFromLocalStorage(): CartItem[] {
+/**
+ * Version 2 of the key. Version 1 holds whole Supabase `Product` objects from
+ * the catalog the store no longer renders, so it must not be read; a returning
+ * buyer simply starts with an empty cart once.
+ */
+const CART_STORAGE_KEY = "doctoory_cart_v2";
+
+/** A stored line is only usable if it still has the fields the UI and checkout need. */
+function isCartLine(value: unknown): value is CartLine {
+	if (!value || typeof value !== "object") return false;
+	const line = value as Partial<CartLine>;
+	return (
+		typeof line.variantId === "string" &&
+		line.variantId.length > 0 &&
+		typeof line.title === "string" &&
+		typeof line.price === "number" &&
+		Number.isFinite(line.price) &&
+		typeof line.quantity === "number" &&
+		Number.isInteger(line.quantity) &&
+		line.quantity > 0
+	);
+}
+
+export function loadCartFromLocalStorage(): CartLine[] {
 	if (typeof window === "undefined") return [];
 
 	try {
 		const stored = localStorage.getItem(CART_STORAGE_KEY);
 		if (!stored) return [];
 
-		const parsed = JSON.parse(stored);
-		return Array.isArray(parsed) ? parsed : [];
+		const parsed: unknown = JSON.parse(stored);
+		if (!Array.isArray(parsed)) return [];
+
+		// Drop anything malformed rather than the whole cart: a single bad line
+		// from an older build should not cost the buyer the rest of their basket.
+		return parsed.filter(isCartLine);
 	} catch (error) {
 		console.error("[CartService] Failed to load from localStorage:", error);
 		return [];
 	}
 }
 
-export function saveCartToLocalStorage(items: CartItem[]): void {
+export function saveCartToLocalStorage(items: CartLine[]): void {
 	if (typeof window === "undefined") return;
 
 	try {
 		localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
 	} catch (error) {
+		// Private browsing and a full quota both land here. The in-memory cart is
+		// still correct, so the buyer can carry on and only loses persistence.
 		console.error("[CartService] Failed to save to localStorage:", error);
 	}
 }
@@ -36,104 +70,4 @@ export function clearLocalStorageCart(): void {
 	} catch (error) {
 		console.error("[CartService] Failed to clear localStorage:", error);
 	}
-}
-
-export async function syncCartToServer(
-	userId: number,
-	items: CartItem[]
-): Promise<void> {
-	await withRetry(async () => {
-		const response = await fetch("/api/cart/sync", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				userId,
-				items: items.map((item) => ({
-					product_id: item.product.id,
-					quantity: item.quantity,
-					rental_weeks: item.rental_weeks,
-				})),
-			}),
-		});
-
-		if (!response.ok) {
-			const error = await response
-				.json()
-				.catch(() => ({ error: "Unknown error" }));
-			throw new Error(error.error || "Failed to sync cart");
-		}
-
-		return await response.json();
-	});
-}
-
-export async function fetchCartFromServer(userId: number): Promise<CartItem[]> {
-	return await withRetry(async () => {
-		const response = await fetch(`/api/cart?userId=${userId}`);
-
-		if (!response.ok) {
-			throw new Error("Failed to fetch cart from server");
-		}
-
-		const data = await response.json();
-		return data.items || [];
-	});
-}
-
-export async function updateCartItemOnServer(
-	userId: number,
-	productId: number,
-	quantity: number
-): Promise<void> {
-	await withRetry(async () => {
-		const response = await fetch(`/api/cart/${productId}`, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ userId, quantity }),
-		});
-
-		if (!response.ok) {
-			throw new Error("Failed to update cart item");
-		}
-	});
-}
-
-export async function removeCartItemFromServer(
-	userId: number,
-	productId: number
-): Promise<void> {
-	await withRetry(async () => {
-		const response = await fetch(`/api/cart/${productId}`, {
-			method: "DELETE",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ userId }),
-		});
-
-		if (!response.ok) {
-			throw new Error("Failed to remove cart item");
-		}
-	});
-}
-
-/**
- * Clear entire cart on server
- * Used for immediate cart clearing (e.g., after successful order creation)
- */
-export async function clearCartOnServer(userId: number): Promise<void> {
-	await withRetry(async () => {
-		const response = await fetch("/api/cart/clear", {
-			method: "DELETE",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ userId }),
-		});
-
-		if (!response.ok) {
-			const error = await response
-				.json()
-				.catch(() => ({ error: "Unknown error" }));
-			throw new Error(error.error || "Failed to clear cart");
-		}
-
-		return await response.json();
-	});
 }

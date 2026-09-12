@@ -49,8 +49,10 @@ export function OrderCard({ order }: OrderCardProps) {
 				<div className="flex items-start justify-between">
 					<div>
 						<div className="flex items-center gap-2 mb-1">
+							{/* Store buyers know their order by Shopify's number; mobile
+							    orders have none and keep the internal id. */}
 							<span className="font-semibold text-sm text-muted-foreground">
-								{t("order")} #{order.id}
+								{t("order")} {order.shopify_order_name ?? `#${order.id}`}
 							</span>
 							<Badge variant="outline">
 								{tOrderType(getOrderTypeKey(order.order_type))}

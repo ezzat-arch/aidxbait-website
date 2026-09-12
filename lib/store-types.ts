@@ -1,15 +1,6 @@
 // Database types matching the schema
 export type Currency =
-	| "EGP"
-	| "USD"
-	| "EUR"
-	| "GBP"
-	| "AED"
-	| "SAR"
-	| "KWD"
-	| "BHD"
-	| "OMR"
-	| "QAR";
+	"EGP" | "USD" | "EUR" | "GBP" | "AED" | "SAR" | "KWD" | "BHD" | "OMR" | "QAR";
 export type RentTerm = "per_day" | "per_week" | "per_month";
 export type Joint =
 	| "knee"
@@ -122,16 +113,29 @@ export interface ProductReview {
 }
 
 // Cart types
-export interface CartItem {
-	product: Product;
+//
+// The cart holds Shopify variants, not Supabase products: the catalog the store
+// renders comes from the Storefront API, and checkout is Shopify's. Everything a
+// line needs to render is copied onto it, so the sidebar never has to re-fetch a
+// product, and a line survives in localStorage on its own.
+export interface CartLine {
+	/** `gid://shopify/ProductVariant/…`. The identity of a line: two lines never share one. */
+	variantId: string;
+	/** `gid://shopify/Product/…`, kept for analytics and "view product" links. */
+	productId: string;
+	/** Shopify handle, for the link back to the product page. */
+	handle: string;
+	title: string;
+	/** e.g. `"Large / Black"`. Null for single-variant products (Shopify calls those "Default Title"). */
+	variantTitle: string | null;
+	imageUrl: string | null;
+	/** Unit price at the time it was added. Shopify re-prices at checkout; this is for display. */
+	price: number;
 	quantity: number;
-	rental_weeks?: number; // Number of weeks for rental products
-	rental_start_date?: string; // ISO date string for rental products (calculated at checkout)
-	rental_end_date?: string; // ISO date string for rental products (calculated at checkout)
 }
 
 export interface Cart {
-	items: CartItem[];
+	items: CartLine[];
 	total: number;
 	itemCount: number;
 }
@@ -177,28 +181,4 @@ export interface CategoriesResponse {
 	data?: StoreCategory[];
 	error?: string;
 	count?: number;
-}
-
-// Cart sync types
-export interface UserCartItem {
-	id: number;
-	user_id: number;
-	product_id: number;
-	quantity: number;
-	added_at: string;
-	updated_at: string;
-}
-
-export interface CartSyncRequest {
-	userId: number;
-	items: Array<{
-		product_id: number;
-		quantity: number;
-		rental_weeks?: number;
-	}>;
-}
-
-export interface CartSyncResponse {
-	success: boolean;
-	error?: string;
 }

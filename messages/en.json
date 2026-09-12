@@ -368,7 +368,9 @@
 				"view_all_orders": "View All Orders",
 				"view_and_track": "View and track your order history",
 				"your_order_history": "Your order history will appear here",
-				"product": "Product"
+				"product": "Product",
+				"tax": "Tax",
+				"track_order": "Track order"
 			},
 			"toast": {
 				"description": {
@@ -404,7 +406,8 @@
 					"failed": "Payment: Failed",
 					"on_delivery": "Payment: On delivery",
 					"paid": "Payment: Completed",
-					"pending": "Payment: Pending"
+					"pending": "Payment: Pending",
+					"refunded": "Payment: Refunded"
 				}
 			},
 			"text": {
@@ -415,7 +418,8 @@
 				"order": "Order",
 				"order_cancelled": "Order Cancelled",
 				"reason": "Reason:",
-				"view_details": "View Details"
+				"view_details": "View Details",
+				"track_order": "Track order"
 			}
 		}
 	},
@@ -737,11 +741,9 @@
 			"text": "×"
 		},
 		"CartItemLabels": {
-			"all_purpose": "All Purpose",
-			"for_rent": "For Rent",
-			"rental_period": "Rental Period:",
-			"week": "week",
-			"weeks": "weeks"
+			"remove": "Remove from cart",
+			"increase_quantity": "Increase quantity",
+			"decrease_quantity": "Decrease quantity"
 		},
 		"ProductCard": {
 			"text": {
@@ -817,17 +819,9 @@
 		},
 		"CartSummary": {
 			"text": {
-				"add": "💡 Add",
-				"egp": "EGP",
-				"egp_more_for_free_shipping": "EGP more for free shipping",
-				"free": "Free",
-				"items": "items)",
 				"order_summary": "Order Summary",
-				"shipping": "Shipping",
-				"subtotal": "Subtotal (",
-				"tax": "Tax",
-				"tax_calculated_at_checkout_final": "Tax calculated at checkout. Final total may vary.",
-				"total": "Total"
+				"subtotal": "Subtotal",
+				"taxes_shipping_at_checkout": "Taxes and shipping are calculated at checkout."
 			}
 		},
 		"checkout": {
@@ -1011,7 +1005,6 @@
 			"fetch_failed": "Could not load products from Shopify. Check server logs and your Storefront credentials.",
 			"view_on_store": "View on store",
 			"view_details": "View details",
-			"buy_on_shopify": "Buy Now",
 			"back_to_store": "Back to store",
 			"related_heading": "You may also like",
 			"view_all_store": "View all",
@@ -1021,7 +1014,15 @@
 			"no_description": "—",
 			"product_not_found_title": "Product Not Found | Doctoory Store",
 			"currently_unavailable": "Currently Unavailable",
-			"save_percent": "Save {percent}%"
+			"save_percent": "Save {percent}%",
+			"add_to_cart": "Add to cart",
+			"added_to_cart": "Added to your cart",
+			"select_option": "{name}",
+			"out_of_stock": "Out of stock",
+			"unavailable_combination": "That combination is not available",
+			"quantity": "Quantity",
+			"increase_quantity": "Increase quantity",
+			"decrease_quantity": "Decrease quantity"
 		},
 		"CollectionsFilterSection": {
 			"all": "All Products",
