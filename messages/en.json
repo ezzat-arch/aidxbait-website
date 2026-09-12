@@ -24,7 +24,16 @@
 			"profile_setup_failed": "Account created but profile setup failed. Please contact support.",
 			"check_email": "Check your email to confirm your account",
 			"unexpected_error": "An unexpected error occurred. Please try again.",
-			"unable_to_sign_out": "Unable to sign out"
+			"unable_to_sign_out": "Unable to sign out",
+			"valid_email_required": "Please enter a valid email address",
+			"too_many_requests": "Too many attempts. Please wait a few minutes and try again.",
+			"password_too_short": "Password must be at least 8 characters",
+			"passwords_do_not_match": "Passwords do not match",
+			"password_must_differ": "New password must be different from your current password",
+			"password_update_failed": "Failed to update password. Please request a new reset link.",
+			"password_updated": "Your password has been updated. Please log in with your new password.",
+			"reset_link_invalid": "This reset link is invalid or has expired. Please request a new one.",
+			"reset_link_wrong_browser": "This link must be opened in the same browser you used to request it. Please request a new link and open it here, or copy the link into this browser."
 		}
 	},
 	"contact": {
@@ -87,7 +96,8 @@
 				"testimonials": "Testimonials",
 				"virtual_consultations": "Virtual Consultations",
 				"online_consultations": "Online consultations",
-				"exercise_programs": "Exercise Programs"
+				"exercise_programs": "Exercise Programs",
+				"call_us": "Call us"
 			}
 		},
 		"user": {
@@ -577,7 +587,8 @@
 				"doctoory_revolutionizes_orthopedic_care_with": "Doctoory revolutionizes orthopedic care with cutting-edge technology, personalized treatment plans, and comprehensive support. Connect with our expert team to transform your recovery journey and achieve optimal health outcomes.",
 				"follow_us": "Follow us",
 				"get_in_touch": "Get in Touch",
-				"ultimate_healthcare_solution": "Ultimate Healthcare Solution"
+				"ultimate_healthcare_solution": "Ultimate Healthcare Solution",
+				"call_us": "Call us"
 			},
 			"attr": {
 				"alt": {
@@ -1568,6 +1579,55 @@
 				"back_to_blog": "Back to Blog",
 				"not_found_title": "Post not found"
 			}
+		}
+	},
+	"forgot_password": {
+		"attr": {
+			"placeholder": {
+				"enter_your_email_address": "Enter your email address"
+			}
+		},
+		"text": {
+			"forgot_your_password": "Forgot your password?",
+			"no_worries_we_ll_help": "No worries, we’ll help you get back in",
+			"reset_password": "Reset Password",
+			"enter_email_and_we_ll_send": "Enter your account email and we’ll send you a link to reset your password",
+			"email_address": "Email Address",
+			"send_reset_link": "Send Reset Link",
+			"sending": "Sending...",
+			"back_to_login": "Back to login",
+			"check_your_inbox": "Check your inbox",
+			"if_account_exists_we_sent": "If an account exists for this email, we’ve sent a password reset link to",
+			"link_expires_check_spam": "The link expires in about an hour. If you don’t see the email, check your spam folder.",
+			"didn_t_get_it_try_again": "Didn’t get it? Try again",
+			"link_expired_request_new": "Your reset link has expired or already been used. Please request a new one.",
+			"we_never_share_your_email": "We never share your email with anyone",
+			"loading": "Loading..."
+		}
+	},
+	"reset_password": {
+		"attr": {
+			"placeholder": {
+				"enter_new_password": "Enter new password",
+				"re_enter_new_password": "Re-enter new password"
+			}
+		},
+		"text": {
+			"set_a_new_password": "Set a New Password",
+			"choose_a_strong_password": "Choose a strong password you don’t use elsewhere",
+			"reset_password": "Reset Password",
+			"enter_new_password_below": "Enter your new password below",
+			"new_password": "New Password",
+			"confirm_new_password": "Confirm New Password",
+			"show_password": "Show password",
+			"hide_password": "Hide password",
+			"at_least_8_characters": "At least 8 characters",
+			"passwords_match": "Passwords match",
+			"update_password": "Update Password",
+			"updating": "Updating...",
+			"back_to_login": "Back to login",
+			"you_ll_be_asked_to_log_in_again": "You’ll be asked to log in again with your new password",
+			"loading": "Loading..."
 		}
 	}
 }

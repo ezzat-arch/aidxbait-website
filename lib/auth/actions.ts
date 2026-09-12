@@ -1,9 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { routing } from "@/i18n/routing";
 
 export const login = async (formData: FormData) => {
 	const supabase = await createClient();
@@ -201,4 +203,122 @@ export const getUser = async () => {
 	}
 
 	return user;
+};
+
+// ---------------------------------------------------------------------------
+// Password reset flow
+//   1. /forgot-password  → requestPasswordReset()  → Supabase sends recovery email
+//   2. email link        → /auth/callback          → session established from code
+//   3. /reset-password   → resetPassword()         → password updated, back to /login
+// ---------------------------------------------------------------------------
+
+const PASSWORD_MIN_LENGTH = 8;
+
+/** Absolute origin of the site, used to build the recovery redirect URL. */
+const getSiteOrigin = async () => {
+	const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+	if (configured) return configured.replace(/\/+$/, "");
+
+	const h = await headers();
+	const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
+	const proto =
+		h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
+	return `${proto}://${host}`;
+};
+
+/** Prefix a path with the current locale unless it's the default one. */
+const withLocale = (locale: string, path: string) =>
+	locale === routing.defaultLocale ? path : `/${locale}${path}`;
+
+export const requestPasswordReset = async (formData: FormData) => {
+	const supabase = await createClient();
+	const t = await getTranslations("auth.actions");
+	const locale = await getLocale();
+
+	const email = (formData.get("email") as string | null)?.trim() ?? "";
+
+	if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+		const params = new URLSearchParams({ error: t("valid_email_required") });
+		redirect(withLocale(locale, `/forgot-password?${params.toString()}`));
+	}
+
+	const origin = await getSiteOrigin();
+	// After the user clicks the email link Supabase sends them here with a
+	// one-time code; the callback turns it into a session and forwards to
+	// /reset-password. Both URLs must be allow-listed in Supabase Auth.
+	const next = withLocale(locale, "/reset-password/");
+	const redirectTo = `${origin}${withLocale(
+		locale,
+		"/auth/callback/"
+	)}?next=${encodeURIComponent(next)}`;
+
+	const { error } = await supabase.auth.resetPasswordForEmail(email, {
+		redirectTo,
+	});
+
+	if (error) {
+		console.error("Password reset request error:", error);
+		// Rate limiting is the one failure the user can act on; everything else
+		// falls through to the generic "sent" state so we never reveal whether
+		// an email address is registered.
+		if (error.status === 429 || /rate limit/i.test(error.message)) {
+			const params = new URLSearchParams({ error: t("too_many_requests") });
+			redirect(withLocale(locale, `/forgot-password?${params.toString()}`));
+		}
+	}
+
+	const params = new URLSearchParams({ sent: "1", email });
+	redirect(withLocale(locale, `/forgot-password?${params.toString()}`));
+};
+
+export const resetPassword = async (formData: FormData) => {
+	const supabase = await createClient();
+	const t = await getTranslations("auth.actions");
+	const locale = await getLocale();
+
+	const password = (formData.get("password") as string | null) ?? "";
+	const confirmPassword = (formData.get("confirmPassword") as string | null) ?? "";
+
+	// The recovery link must have produced a session before we can change anything.
+	const {
+		data: { user },
+		error: userError,
+	} = await supabase.auth.getUser();
+
+	if (userError || !user) {
+		redirect(withLocale(locale, "/forgot-password?expired=1"));
+	}
+
+	if (!password || !confirmPassword) {
+		const params = new URLSearchParams({ error: t("all_fields_required") });
+		redirect(withLocale(locale, `/reset-password?${params.toString()}`));
+	}
+
+	if (password.length < PASSWORD_MIN_LENGTH) {
+		const params = new URLSearchParams({ error: t("password_too_short") });
+		redirect(withLocale(locale, `/reset-password?${params.toString()}`));
+	}
+
+	if (password !== confirmPassword) {
+		const params = new URLSearchParams({ error: t("passwords_do_not_match") });
+		redirect(withLocale(locale, `/reset-password?${params.toString()}`));
+	}
+
+	const { error } = await supabase.auth.updateUser({ password });
+
+	if (error) {
+		console.error("Password reset error:", error);
+		const message = /same password|different from the old/i.test(error.message)
+			? t("password_must_differ")
+			: t("password_update_failed");
+		const params = new URLSearchParams({ error: message });
+		redirect(withLocale(locale, `/reset-password?${params.toString()}`));
+	}
+
+	// End the temporary recovery session so the user signs in with the new password.
+	await supabase.auth.signOut();
+	revalidatePath("/", "layout");
+
+	const params = new URLSearchParams({ message: t("password_updated") });
+	redirect(withLocale(locale, `/login?${params.toString()}`));
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
@@ -82,6 +82,7 @@ export function CollectionsFilterSection({
 	const jointTag = (searchParams.get("joint") ?? "").trim();
 
 	const [searchInput, setSearchInput] = useState(urlSearch);
+	const searchInputRef = useRef<HTMLInputElement>(null);
 	// An emptied box applies instantly: without this, the pending timer would
 	// re-commit the old term right after a clear and bring the results back.
 	const debouncedSearch = useDebouncedValue(searchInput, SEARCH_DEBOUNCE_MS, {
@@ -130,6 +131,32 @@ export function CollectionsFilterSection({
 	const handleSearchClear = useCallback(() => {
 		setSearchInput("");
 	}, []);
+
+	// Mobile: the keyboard's Search/Go/Enter key submits the form. Nothing to
+	// navigate (search is already applied live via the debounce) — just drop
+	// focus so the on-screen keyboard closes and the results become visible.
+	const dismissSearchKeyboard = useCallback(() => {
+		searchInputRef.current?.blur();
+	}, []);
+
+	const handleSearchSubmit = useCallback(
+		(event: React.FormEvent<HTMLFormElement>) => {
+			event.preventDefault();
+			dismissSearchKeyboard();
+		},
+		[dismissSearchKeyboard]
+	);
+
+	// Fallback for keyboards/browsers that send Enter without firing submit.
+	const handleSearchKeyDown = useCallback(
+		(event: React.KeyboardEvent<HTMLInputElement>) => {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				dismissSearchKeyboard();
+			}
+		},
+		[dismissSearchKeyboard]
+	);
 
 	// Load products when debounced search or collection changes
 	useEffect(() => {
@@ -299,16 +326,29 @@ export function CollectionsFilterSection({
 		<section className="w-full">
 			<div className="sticky top-16 z-20 bg-background/95 backdrop-blur-sm border-b shadow-sm">
 				<div className="container mx-auto px-4 space-y-3 py-3">
-					<div className="relative">
+					<form
+						role="search"
+						action="."
+						onSubmit={handleSearchSubmit}
+						className="relative"
+					>
 						<Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 						<Input
+							ref={searchInputRef}
 							type="search"
+							name="search"
+							inputMode="search"
+							enterKeyHint="search"
 							value={searchInput}
 							onChange={handleSearchChange}
+							onKeyDown={handleSearchKeyDown}
 							placeholder={t("search_placeholder")}
 							className="h-11 pl-10 pr-10 border-2 text-xs placeholder:text-xs sm:text-sm sm:placeholder:text-sm placeholder:truncate [&::-webkit-search-cancel-button]:hidden"
 							aria-label={t("search_placeholder")}
 							autoComplete="off"
+							autoCorrect="off"
+							autoCapitalize="off"
+							spellCheck={false}
 						/>
 						{searchInput && (
 							<button
@@ -320,7 +360,7 @@ export function CollectionsFilterSection({
 								<X className="h-4 w-4" />
 							</button>
 						)}
-					</div>
+					</form>
 
 					{isJointFiltering && (
 						<div className="flex items-center gap-2">

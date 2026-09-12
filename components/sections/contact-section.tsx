@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { SITE_PHONE, SITE_PHONE_TEL_HREF } from "@/lib/site-contact";
+import { Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
@@ -26,9 +28,38 @@ export function ContactSection() {
 								{t("doctoory_revolutionizes_orthopedic_care_with")}
 							</p>
 
-							<Button className="px-8 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">
-								{t("get_in_touch")}
+							<Button
+								asChild
+								className="px-8 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50"
+							>
+								<a href={SITE_PHONE_TEL_HREF}>
+									<Phone className="h-4 w-4" aria-hidden="true" />
+									{t("get_in_touch")}
+								</a>
 							</Button>
+
+							{/* Direct contact channels */}
+							<div className="mt-8 max-w-md">
+								<a
+									href={SITE_PHONE_TEL_HREF}
+									className="group flex items-center gap-4 rounded-xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm transition-colors hover:border-blue-400/60 hover:bg-white/15"
+								>
+									<span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white transition-colors group-hover:bg-blue-500">
+										<Phone className="h-5 w-5" aria-hidden="true" />
+									</span>
+									<span className="flex flex-col">
+										<span className="text-xs uppercase tracking-wide text-gray-300">
+											{t("call_us")}
+										</span>
+										<span
+											dir="ltr"
+											className="text-lg font-semibold tabular-nums text-white"
+										>
+											{SITE_PHONE.display}
+										</span>
+									</span>
+								</a>
+							</div>
 
 							<div className="mt-6 md:mt-8">
 								<h3 className="text-gray-300">{t("follow_us")}</h3>

@@ -1,8 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import {
+	Facebook,
+	Twitter,
+	Instagram,
+	Linkedin,
+	Phone,
+} from "lucide-react";
 import { FooterLink } from "./footer-link";
 import { useTranslations } from "next-intl";
+import { SITE_PHONE, SITE_PHONE_TEL_HREF } from "@/lib/site-contact";
 
 export function Footer() {
 	const tFooter = useTranslations("layout.footer.text");
@@ -11,7 +18,7 @@ export function Footer() {
 	return (
 		<footer className="bg-gray-900 text-gray-300">
 			<div className="container py-12">
-				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
 					<div>
 						<Link href="/" className="inline-block mb-6">
 							<Image
@@ -182,6 +189,28 @@ export function Footer() {
 								</li>
 							</ul>
 						</div>
+					</div>
+
+					<div>
+						<h3 className="text-lg font-bold mb-6 text-white">{tFooter("contact")}</h3>
+						<ul className="space-y-4">
+							<li>
+								<a
+									href={SITE_PHONE_TEL_HREF}
+									className="group flex items-center gap-3 transition-colors hover:text-primary"
+								>
+									<span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-800 text-primary transition-colors group-hover:bg-primary/20">
+										<Phone className="h-4 w-4" aria-hidden="true" />
+									</span>
+									<span className="flex flex-col">
+										<span className="text-xs text-gray-500">{tFooter("call_us")}</span>
+										<span dir="ltr" className="font-semibold tabular-nums text-white">
+											{SITE_PHONE.display}
+										</span>
+									</span>
+								</a>
+							</li>
+						</ul>
 					</div>
 
 					<div>

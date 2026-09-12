@@ -58,6 +58,19 @@ export const updateSession = async (request: NextRequest) => {
 		return path;
 	};
 
+	// Safety net for Supabase email links. When the requested redirect URL is
+	// not on the Supabase allow list, Supabase falls back to the project Site
+	// URL (the home page) and appends either ?code=... or ?error=.... Forward
+	// those to the auth callback so the reset flow still completes.
+	if (cleanPathname === "/") {
+		const sp = request.nextUrl.searchParams;
+		if (sp.has("code") || sp.has("token_hash") || sp.has("error") || sp.has("error_description")) {
+			const url = request.nextUrl.clone();
+			url.pathname = localePath("/auth/callback/");
+			return NextResponse.redirect(url);
+		}
+	}
+
 	// If user is authenticated and trying to access auth pages, redirect to home
 	if (
 		user &&
@@ -90,6 +103,16 @@ export const updateSession = async (request: NextRequest) => {
 		cleanPathname.startsWith("/return-and-refund-policy") ||
 		cleanPathname.startsWith("/shipping-policy") ||
 		cleanPathname.includes(".");
+
+	// Password reset: the page only makes sense with the temporary recovery
+	// session created by the email link. Without one, send the user back to
+	// request a fresh link instead of bouncing them to /login.
+	if (!user && cleanPathname.startsWith("/reset-password")) {
+		const url = request.nextUrl.clone();
+		url.pathname = localePath("/forgot-password");
+		url.search = "?expired=1";
+		return NextResponse.redirect(url);
+	}
 
 	if (!user && !isPublicRoute) {
 		// no user, potentially respond by redirecting the user to the login page
