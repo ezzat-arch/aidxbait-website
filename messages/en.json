@@ -33,7 +33,8 @@
 			"password_update_failed": "Failed to update password. Please request a new reset link.",
 			"password_updated": "Your password has been updated. Please log in with your new password.",
 			"reset_link_invalid": "This reset link is invalid or has expired. Please request a new one.",
-			"reset_link_wrong_browser": "This link must be opened in the same browser you used to request it. Please request a new link and open it here, or copy the link into this browser."
+			"reset_link_wrong_browser": "This link must be opened in the same browser you used to request it. Please request a new link and open it here, or copy the link into this browser.",
+			"email_send_failed": "We could not send the email right now. Please try again in a few minutes or contact support."
 		}
 	},
 	"contact": {

@@ -265,6 +265,13 @@ export const requestPasswordReset = async (formData: FormData) => {
 			const params = new URLSearchParams({ error: t("too_many_requests") });
 			redirect(withLocale(locale, `/forgot-password?${params.toString()}`));
 		}
+		// A 5xx means Supabase itself could not send (SMTP/template problem). That
+		// happens regardless of whether the address exists, so telling the user is
+		// safe and far better than a false "check your inbox".
+		if ((error.status ?? 0) >= 500 || /error sending/i.test(error.message)) {
+			const params = new URLSearchParams({ error: t("email_send_failed") });
+			redirect(withLocale(locale, `/forgot-password?${params.toString()}`));
+		}
 	}
 
 	const params = new URLSearchParams({ sent: "1", email });
