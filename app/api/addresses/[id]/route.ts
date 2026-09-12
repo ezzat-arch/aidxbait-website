@@ -1,17 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { supabaseAdmin } from "@/lib/supabase/admin";
+import { getSessionPatient } from "@/lib/auth/get-session-patient";
 import type { UpdateAddressRequest } from "@/lib/order-types";
 
-const supabaseAdmin = createClient(
-	process.env.NEXT_PUBLIC_SUPABASE_URL!,
-	process.env.SUPABASE_SERVICE_ROLE_KEY!,
-	{
-		auth: {
-			autoRefreshToken: false,
-			persistSession: false,
-		},
-	}
-);
+const LOG = "[Addresses API]";
 
 interface RouteContext {
 	params: Promise<{
@@ -19,37 +11,66 @@ interface RouteContext {
 	}>;
 }
 
-// PUT - Update address
+/**
+ * The address, but only if it belongs to the signed-in buyer. Ownership is
+ * checked against the session's patient, never against a `patient_id` the
+ * caller supplied.
+ */
+async function loadOwnedAddress(
+	id: string
+): Promise<
+	| { patientId: number; address: { id: number; is_primary: boolean } }
+	| { response: NextResponse }
+> {
+	const session = await getSessionPatient();
+	if (!session) {
+		return {
+			response: NextResponse.json(
+				{ success: false, error: "Not signed in" },
+				{ status: 401 }
+			),
+		};
+	}
+
+	const notFound = {
+		response: NextResponse.json(
+			{ success: false, error: "Address not found" },
+			{ status: 404 }
+		),
+	};
+	if (!session.patientId) return notFound;
+
+	const { data: address, error } = await supabaseAdmin
+		.from("patient_addresses")
+		.select("id, is_primary")
+		.eq("id", id)
+		.eq("patient_id", session.patientId)
+		.eq("is_deleted", false)
+		.maybeSingle();
+
+	if (error) {
+		console.error(`${LOG} Error loading address:`, error.message);
+		return {
+			response: NextResponse.json(
+				{ success: false, error: "Failed to load address" },
+				{ status: 500 }
+			),
+		};
+	}
+	if (!address) return notFound;
+
+	return { patientId: session.patientId, address };
+}
+
+/** PUT /api/addresses/[id]/ — edit one of the caller's own addresses. */
 export async function PUT(request: NextRequest, context: RouteContext) {
 	try {
 		const { id } = await context.params;
-		const body: UpdateAddressRequest & { patient_id: number } =
-			await request.json();
+		const owned = await loadOwnedAddress(id);
+		if ("response" in owned) return owned.response;
 
-		if (!body.patient_id) {
-			return NextResponse.json(
-				{ success: false, error: "Patient ID is required" },
-				{ status: 400 }
-			);
-		}
+		const body: UpdateAddressRequest = await request.json();
 
-		// Verify the address belongs to the patient
-		const { data: existingAddress, error: fetchError } = await supabaseAdmin
-			.from("patient_addresses")
-			.select("*")
-			.eq("id", id)
-			.eq("patient_id", body.patient_id)
-			.eq("is_deleted", false)
-			.single();
-
-		if (fetchError || !existingAddress) {
-			return NextResponse.json(
-				{ success: false, error: "Address not found" },
-				{ status: 404 }
-			);
-		}
-
-		// Validate address_type if provided
 		if (
 			body.address_type &&
 			!["House", "Apartment"].includes(body.address_type)
@@ -63,52 +84,49 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 			);
 		}
 
-		// If this is being set as primary, unset any existing primary address
-		if (body.is_primary && !existingAddress.is_primary) {
+		if (body.is_primary && !owned.address.is_primary) {
 			await supabaseAdmin
 				.from("patient_addresses")
 				.update({ is_primary: false })
-				.eq("patient_id", body.patient_id)
+				.eq("patient_id", owned.patientId)
 				.eq("is_primary", true);
 		}
 
-		// Prepare update data (only include fields that are provided)
-		const updateData: any = {
+		// Only the fields actually supplied are written, so a partial edit cannot
+		// blank out the rest of the address.
+		const updateData: Record<string, unknown> = {
 			updated_at: new Date().toISOString(),
 		};
+		const editable = [
+			"address_type",
+			"address_label",
+			"google_map_url",
+			"latitude",
+			"longitude",
+			"governorate",
+			"city",
+			"street",
+			"building_name",
+			"floor",
+			"apartment",
+			"additional_directions",
+			"phone",
+			"is_primary",
+		] as const;
+		for (const field of editable) {
+			if (body[field] !== undefined) updateData[field] = body[field];
+		}
 
-		if (body.address_type !== undefined)
-			updateData.address_type = body.address_type;
-		if (body.address_label !== undefined)
-			updateData.address_label = body.address_label;
-		if (body.google_map_url !== undefined)
-			updateData.google_map_url = body.google_map_url;
-		if (body.latitude !== undefined) updateData.latitude = body.latitude;
-		if (body.longitude !== undefined) updateData.longitude = body.longitude;
-		if (body.governorate !== undefined)
-			updateData.governorate = body.governorate;
-		if (body.city !== undefined) updateData.city = body.city;
-		if (body.street !== undefined) updateData.street = body.street;
-		if (body.building_name !== undefined)
-			updateData.building_name = body.building_name;
-		if (body.floor !== undefined) updateData.floor = body.floor;
-		if (body.apartment !== undefined) updateData.apartment = body.apartment;
-		if (body.additional_directions !== undefined)
-			updateData.additional_directions = body.additional_directions;
-		if (body.phone !== undefined) updateData.phone = body.phone;
-		if (body.is_primary !== undefined) updateData.is_primary = body.is_primary;
-
-		// Update the address
 		const { data: updatedAddress, error: updateError } = await supabaseAdmin
 			.from("patient_addresses")
 			.update(updateData)
 			.eq("id", id)
-			.eq("patient_id", body.patient_id)
+			.eq("patient_id", owned.patientId)
 			.select()
 			.single();
 
 		if (updateError) {
-			console.error("[Addresses API] Error updating address:", updateError);
+			console.error(`${LOG} Error updating address:`, updateError.message);
 			return NextResponse.json(
 				{ success: false, error: "Failed to update address" },
 				{ status: 500 }
@@ -117,7 +135,7 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 
 		return NextResponse.json({ success: true, data: updatedAddress });
 	} catch (error) {
-		console.error("[Addresses API] Unexpected error:", error);
+		console.error(`${LOG} Unexpected error:`, error);
 		return NextResponse.json(
 			{ success: false, error: "Internal server error" },
 			{ status: 500 }
@@ -125,49 +143,27 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 	}
 }
 
-// DELETE - Soft delete address
-export async function DELETE(request: NextRequest, context: RouteContext) {
+/** DELETE /api/addresses/[id]/ — soft delete one of the caller's own addresses. */
+export async function DELETE(_request: NextRequest, context: RouteContext) {
 	try {
 		const { id } = await context.params;
-		const { searchParams } = new URL(request.url);
-		const patientId = searchParams.get("patient_id");
+		const owned = await loadOwnedAddress(id);
+		if ("response" in owned) return owned.response;
 
-		if (!patientId) {
-			return NextResponse.json(
-				{ success: false, error: "Patient ID is required" },
-				{ status: 400 }
-			);
-		}
-
-		// Verify the address belongs to the patient
-		const { data: existingAddress, error: fetchError } = await supabaseAdmin
-			.from("patient_addresses")
-			.select("*")
-			.eq("id", id)
-			.eq("patient_id", patientId)
-			.eq("is_deleted", false)
-			.single();
-
-		if (fetchError || !existingAddress) {
-			return NextResponse.json(
-				{ success: false, error: "Address not found" },
-				{ status: 404 }
-			);
-		}
-
-		// Soft delete the address
 		const { error: deleteError } = await supabaseAdmin
 			.from("patient_addresses")
 			.update({
 				is_deleted: true,
-				is_primary: false, // Remove primary status when deleting
+				// A deleted address must not stay the primary one, or pre-fill would
+				// keep reaching for a row nothing else can see.
+				is_primary: false,
 				updated_at: new Date().toISOString(),
 			})
 			.eq("id", id)
-			.eq("patient_id", patientId);
+			.eq("patient_id", owned.patientId);
 
 		if (deleteError) {
-			console.error("[Addresses API] Error deleting address:", deleteError);
+			console.error(`${LOG} Error deleting address:`, deleteError.message);
 			return NextResponse.json(
 				{ success: false, error: "Failed to delete address" },
 				{ status: 500 }
@@ -176,7 +172,7 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
 
 		return NextResponse.json({ success: true });
 	} catch (error) {
-		console.error("[Addresses API] Unexpected error:", error);
+		console.error(`${LOG} Unexpected error:`, error);
 		return NextResponse.json(
 			{ success: false, error: "Internal server error" },
 			{ status: 500 }

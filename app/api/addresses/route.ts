@@ -1,89 +1,65 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-import type {
-	CreateAddressRequest,
-	AddressesResponse,
-	AddressResponse,
-} from "@/lib/order-types";
+import { supabaseAdmin } from "@/lib/supabase/admin";
+import { getSessionPatient } from "@/lib/auth/get-session-patient";
+import type { CreateAddressRequest } from "@/lib/order-types";
 
-const supabaseAdmin = createClient(
-	process.env.NEXT_PUBLIC_SUPABASE_URL!,
-	process.env.SUPABASE_SERVICE_ROLE_KEY!,
-	{
-		auth: {
-			autoRefreshToken: false,
-			persistSession: false,
-		},
+const LOG = "[Addresses API]";
+
+/**
+ * The signed-in buyer's patient id, or a ready-made error response.
+ *
+ * Every handler in this file derives the patient from the session cookie. A
+ * `patient_id` in the request body or query string is ignored: it used to be
+ * trusted, which let any caller read and write any patient's address book.
+ */
+async function requirePatient(): Promise<
+	{ patientId: number } | { response: NextResponse }
+> {
+	const session = await getSessionPatient();
+	if (!session) {
+		return {
+			response: NextResponse.json(
+				{ success: false, error: "Not signed in" },
+				{ status: 401 }
+			),
+		};
 	}
-);
+	if (!session.patientId) {
+		return {
+			response: NextResponse.json(
+				{ success: false, error: "This account has no patient profile" },
+				{ status: 403 }
+			),
+		};
+	}
+	return { patientId: session.patientId };
+}
 
-// GET - Fetch patient addresses
-export async function GET(request: NextRequest) {
-	const startTime = Date.now();
-	
+/** GET /api/addresses/ — the caller's own addresses, primary first. */
+export async function GET(_request: NextRequest) {
 	try {
-		const { searchParams } = new URL(request.url);
-		const patientId = searchParams.get("patient_id");
+		const auth = await requirePatient();
+		if ("response" in auth) return auth.response;
 
-		console.log("[ADDRESS-API-DEBUG] GET request received:", {
-			patientId,
-			timestamp: new Date().toISOString(),
-		});
-
-		if (!patientId) {
-			console.log("[ADDRESS-API-DEBUG] Request rejected - missing patient_id");
-			return NextResponse.json(
-				{ success: false, error: "Patient ID is required" },
-				{ status: 400 }
-			);
-		}
-
-		console.log("[ADDRESS-API-DEBUG] Querying database for addresses...");
-		const queryStartTime = Date.now();
-		
 		const { data: addresses, error } = await supabaseAdmin
 			.from("patient_addresses")
 			.select("*")
-			.eq("patient_id", patientId)
+			.eq("patient_id", auth.patientId)
 			.eq("is_deleted", false)
 			.order("is_primary", { ascending: false })
 			.order("created_at", { ascending: false });
 
-		const queryDuration = Date.now() - queryStartTime;
-		
 		if (error) {
-			console.error("[ADDRESS-API-DEBUG] Database query error:", {
-				error: error.message,
-				code: error.code,
-				details: error.details,
-				hint: error.hint,
-				patientId,
-				queryDurationMs: queryDuration,
-				timestamp: new Date().toISOString(),
-			});
+			console.error(`${LOG} Error fetching addresses:`, error.message);
 			return NextResponse.json(
 				{ success: false, error: "Failed to fetch addresses" },
 				{ status: 500 }
 			);
 		}
 
-		const totalDuration = Date.now() - startTime;
-		console.log("[ADDRESS-API-DEBUG] Request completed successfully:", {
-			addressCount: addresses?.length || 0,
-			queryDurationMs: queryDuration,
-			totalDurationMs: totalDuration,
-			timestamp: new Date().toISOString(),
-		});
-
 		return NextResponse.json({ success: true, data: addresses });
 	} catch (error) {
-		const totalDuration = Date.now() - startTime;
-		console.error("[ADDRESS-API-DEBUG] Unexpected error:", {
-			error: error instanceof Error ? error.message : String(error),
-			stack: error instanceof Error ? error.stack : undefined,
-			totalDurationMs: totalDuration,
-			timestamp: new Date().toISOString(),
-		});
+		console.error(`${LOG} Unexpected error:`, error);
 		return NextResponse.json(
 			{ success: false, error: "Internal server error" },
 			{ status: 500 }
@@ -91,14 +67,15 @@ export async function GET(request: NextRequest) {
 	}
 }
 
-// POST - Create new patient address
+/** POST /api/addresses/ — add an address to the caller's own address book. */
 export async function POST(request: NextRequest) {
 	try {
+		const auth = await requirePatient();
+		if ("response" in auth) return auth.response;
+
 		const body: CreateAddressRequest = await request.json();
 
-		// Validate required fields
 		if (
-			!body.patient_id ||
 			!body.address_type ||
 			!body.address_label ||
 			!body.governorate ||
@@ -109,13 +86,12 @@ export async function POST(request: NextRequest) {
 				{
 					success: false,
 					error:
-						"Missing required fields: patient_id, address_type, address_label, governorate, city, street",
+						"Missing required fields: address_type, address_label, governorate, city, street",
 				},
 				{ status: 400 }
 			);
 		}
 
-		// Validate address_type
 		if (!["House", "Apartment"].includes(body.address_type)) {
 			return NextResponse.json(
 				{
@@ -126,20 +102,19 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		// If this is being set as primary, unset any existing primary address
+		// Only one address can be primary, so demote the current one first.
 		if (body.is_primary) {
 			await supabaseAdmin
 				.from("patient_addresses")
 				.update({ is_primary: false })
-				.eq("patient_id", body.patient_id)
+				.eq("patient_id", auth.patientId)
 				.eq("is_primary", true);
 		}
 
-		// Insert the new address
 		const { data: newAddress, error } = await supabaseAdmin
 			.from("patient_addresses")
 			.insert({
-				patient_id: body.patient_id,
+				patient_id: auth.patientId,
 				address_type: body.address_type,
 				address_label: body.address_label,
 				google_map_url: body.google_map_url || null,
@@ -159,7 +134,7 @@ export async function POST(request: NextRequest) {
 			.single();
 
 		if (error) {
-			console.error("[Addresses API] Error creating address:", error);
+			console.error(`${LOG} Error creating address:`, error.message);
 			return NextResponse.json(
 				{ success: false, error: "Failed to create address" },
 				{ status: 500 }
@@ -171,7 +146,7 @@ export async function POST(request: NextRequest) {
 			{ status: 201 }
 		);
 	} catch (error) {
-		console.error("[Addresses API] Unexpected error:", error);
+		console.error(`${LOG} Unexpected error:`, error);
 		return NextResponse.json(
 			{ success: false, error: "Internal server error" },
 			{ status: 500 }

@@ -1,206 +1,119 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { CartItem as CartItemType } from "@/lib/store-types";
+import { Link } from "@/i18n/navigation";
+import type { CartLine } from "@/lib/store-types";
 import { useCart } from "@/contexts/cart-context";
-import { useTranslations, useLocale } from "next-intl";
-import { getDisplayCurrency } from "@/lib/i18n/utils";
-import { Locale } from "@/types/i18n";
+import { useLocale, useTranslations } from "next-intl";
+import { DEFAULT_CURRENCY, formatCurrency } from "@/lib/i18n/utils";
+import { MAX_QUANTITY_PER_LINE } from "@/lib/shopify/cart-limits";
+import type { Locale } from "@/types/i18n";
 
-interface CartItemProps {
-	item: CartItemType;
+/** One line of the cart sidebar: image, title, unit price, stepper, line total. */
+export function CartItem({
+	line,
+	className,
+}: {
+	line: CartLine;
 	className?: string;
-}
-
-export function CartItem({ item, className }: CartItemProps) {
-	const { updateQuantity, removeFromCart, updateRentalWeeks } = useCart();
-	const { product, quantity, rental_weeks } = item;
+}) {
+	const { setQuantity, removeLine } = useCart();
 	const t = useTranslations("store.CartItemLabels");
 	const locale = useLocale() as Locale;
-	const currencyLabel = getDisplayCurrency(locale);
 
-	// Compute derived values
-	const effectivePrice = product.discounted_price || product.price;
-	const hasDiscount = !!product.discounted_price;
-	const mainImage =
-		product.images.find((img) => img.is_main)?.image_url ||
-		product.images[0]?.image_url ||
-		"/placeholder.jpg";
-	const primaryJoint = product.joints[0]?.joint_name || "general";
+	const money = (value: number) =>
+		formatCurrency(value, DEFAULT_CURRENCY, locale);
 
-	const handleQuantityChange = (newQuantity: number) => {
-		if (newQuantity <= 0) {
-			removeFromCart(product.id);
-		} else {
-			updateQuantity(product.id, newQuantity);
-		}
-	};
-
-	const handleRentalWeeksChange = (weeks: number) => {
-		if (weeks > 0) {
-			updateRentalWeeks(product.id, weeks);
-		}
-	};
-
-	const total = effectivePrice * quantity;
+	// Shopify carries the handle on the line, so the link works without a fetch.
+	const productHref = `/services/store/products/${encodeURIComponent(line.handle)}/`;
 
 	return (
-		<div className={`flex gap-4 py-4 ${className}`}>
-			{/* Product Image */}
-			<div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
-				<Link href={`/services/store/products/${product.id}`}>
-					<Image
-						src={mainImage}
-						alt={product.name}
-						fill
-						className="object-cover"
-						sizes="64px"
-					/>
+		<div className={`flex gap-4 py-4 ${className ?? ""}`}>
+			<div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
+				<Link href={productHref}>
+					{line.imageUrl ? (
+						<Image
+							src={line.imageUrl}
+							alt={line.title}
+							fill
+							className="object-cover"
+							sizes="64px"
+						/>
+					) : (
+						<span className="sr-only">{line.title}</span>
+					)}
 				</Link>
 			</div>
 
-			{/* Product Details */}
 			<div className="flex-1 min-w-0">
-				<div className="flex justify-between items-start mb-2">
+				<div className="flex justify-between items-start gap-2 mb-2">
 					<div className="flex-1 min-w-0">
-						<Link href={`/services/store/products/${product.id}`}>
+						<Link href={productHref}>
 							<h3 className="font-medium text-sm line-clamp-2 hover:text-primary transition-colors">
-								{product.name}
+								{line.title}
 							</h3>
 						</Link>
-						<div className="mt-1 flex flex-wrap gap-1">
-							{product.joints.slice(0, 2).map((joint) => (
-								<Badge
-									key={joint.joint_id}
-									variant="secondary"
-									className="text-xs capitalize"
-								>
-									{joint.joint_name === "general"
-										? t("all_purpose")
-										: joint.joint_name}
-								</Badge>
-							))}
-							{product.is_for_rent && (
-								<Badge variant="outline" className="text-xs">
-									{t("for_rent")}
-								</Badge>
-							)}
-						</div>
+						{line.variantTitle && (
+							<p className="text-xs text-muted-foreground mt-1">
+								{line.variantTitle}
+							</p>
+						)}
 					</div>
 
 					<Button
 						variant="ghost"
 						size="icon"
 						className="h-8 w-8 text-muted-foreground hover:text-destructive"
-						onClick={() => removeFromCart(product.id)}
+						aria-label={t("remove")}
+						onClick={() => removeLine(line.variantId)}
 					>
 						<Trash2 className="h-4 w-4" />
 					</Button>
 				</div>
 
-				{/* Price and Quantity */}
-				<div className="flex justify-between items-center">
-					<div className="flex items-center gap-2">
-						<span className="font-semibold text-primary">
-							{effectivePrice.toFixed(2)} {currencyLabel}
-						</span>
-						{hasDiscount && (
-							<span className="text-xs text-muted-foreground line-through">
-								{product.price.toFixed(2)} {currencyLabel}
-							</span>
-						)}
-					</div>
+				<div className="flex justify-between items-center gap-2">
+					<span className="font-semibold text-primary">
+						{money(line.price)}
+					</span>
 
-					{/* Quantity Controls */}
+					{/* No stepper primitive exists in components/ui, so two buttons and a
+					    readout. Gaps and order flip with the document direction. */}
 					<div className="flex items-center gap-2">
 						<Button
 							variant="outline"
 							size="icon"
 							className="h-7 w-7"
-							onClick={() => handleQuantityChange(quantity - 1)}
+							aria-label={t("decrease_quantity")}
+							onClick={() => setQuantity(line.variantId, line.quantity - 1)}
 						>
 							<Minus className="h-3 w-3" />
 						</Button>
 
-						<span className="w-8 text-center text-sm font-medium">
-							{quantity}
+						<span className="w-8 text-center text-sm font-medium tabular-nums">
+							{line.quantity}
 						</span>
 
 						<Button
 							variant="outline"
 							size="icon"
 							className="h-7 w-7"
-							onClick={() => handleQuantityChange(quantity + 1)}
-							disabled={quantity >= product.stock}
+							aria-label={t("increase_quantity")}
+							disabled={line.quantity >= MAX_QUANTITY_PER_LINE}
+							onClick={() => setQuantity(line.variantId, line.quantity + 1)}
 						>
 							<Plus className="h-3 w-3" />
 						</Button>
 					</div>
 				</div>
 
-				{/* Rental Weeks Control */}
-				{product.is_for_rent && rental_weeks !== undefined && (
-					<div className="flex items-center gap-2 mt-2">
-						<span className="text-xs text-muted-foreground">
-							{t("rental_period")}
-						</span>
-						<div className="flex items-center gap-1">
-							<Button
-								variant="outline"
-								size="icon"
-								className="h-6 w-6"
-								onClick={() => handleRentalWeeksChange(rental_weeks - 1)}
-								disabled={rental_weeks <= 1}
-							>
-								<Minus className="h-3 w-3" />
-							</Button>
-
-							<input
-								type="number"
-								min="1"
-								max="52"
-								value={rental_weeks}
-								onChange={(e) =>
-									handleRentalWeeksChange(
-										Math.max(1, parseInt(e.target.value) || 1)
-									)
-								}
-								className="w-12 h-6 text-center text-xs border border-input rounded px-1 bg-background"
-							/>
-
-							<Button
-								variant="outline"
-								size="icon"
-								className="h-6 w-6"
-								onClick={() => handleRentalWeeksChange(rental_weeks + 1)}
-								disabled={rental_weeks >= 52}
-							>
-								<Plus className="h-3 w-3" />
-							</Button>
-
-							<span className="text-xs text-muted-foreground ml-1">
-								{rental_weeks === 1 ? t("week") : t("weeks")}
-							</span>
-						</div>
-					</div>
-				)}
-
-				{/* Item Total */}
-				<div className="flex justify-between items-center mt-2">
+				<div className="flex justify-between items-center mt-2 gap-2">
 					<div className="text-xs text-muted-foreground">
-						{quantity} × {effectivePrice.toFixed(2)} {currencyLabel}
-						{product.is_for_rent &&
-							rental_weeks &&
-							` × ${rental_weeks} ${
-								rental_weeks === 1 ? t("week") : t("weeks")
-							}`}
+						{line.quantity} × {money(line.price)}
 					</div>
 					<div className="font-semibold">
-						{total.toFixed(2)} {currencyLabel}
+						{money(line.price * line.quantity)}
 					</div>
 				</div>
 			</div>

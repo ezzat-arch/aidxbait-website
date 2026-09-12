@@ -16,6 +16,32 @@ const supabaseAdmin = createClient(
 	}
 );
 
+const siteUrl = () =>
+	process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+/**
+ * Where the buyer's browser lands once Paymob hands it back.
+ *
+ * This used to be `/services/store?payment=…`. The banner that read those
+ * parameters lived on the store checkout page, which was removed along with the
+ * Supabase-catalog checkout, so nothing has read them since. The buyer is sent to
+ * the order itself instead, where the payment status badge says the same thing
+ * and keeps saying it on every later visit.
+ *
+ * Trailing slash on purpose: `trailingSlash: true` in `next.config.mjs` answers
+ * the un-slashed path with a 308. No locale prefix: `localePrefix` is
+ * "as-needed", and these orders carry no locale of their own.
+ *
+ * Only orders already in flight can reach here. The route that started this
+ * flow, `paymob/create-intention`, is gone; the callback stays because the
+ * Paymob dashboard still points at it and changing that is a dashboard change.
+ */
+const orderPageUrl = (orderId: number) =>
+	`${siteUrl()}/profile/my-orders/${orderId}/`;
+
+/** Fallback for the failures that happen before an order is identified. */
+const storeUrl = () => `${siteUrl()}/services/store/`;
+
 export async function GET(request: NextRequest) {
 	try {
 		const { searchParams } = new URL(request.url);
@@ -84,11 +110,7 @@ export async function GET(request: NextRequest) {
 		const isValidHmac = verifyHMAC(callbackData, requireHmac);
 		if (!isValidHmac) {
 			console.error("[Paymob Callback GET] Invalid HMAC signature");
-			return NextResponse.redirect(
-				`${
-					process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-				}/services/store?payment=failed&error=invalid_signature`
-			);
+			return NextResponse.redirect(storeUrl());
 		}
 
 		console.log("[Paymob Callback] HMAC verified successfully");
@@ -108,11 +130,7 @@ export async function GET(request: NextRequest) {
 
 		if (orderError || !order) {
 			console.error("[Paymob Callback] Order not found:", orderError);
-			return NextResponse.redirect(
-				`${
-					process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-				}/services/store?payment=failed&error=order_not_found`
-			);
+			return NextResponse.redirect(storeUrl());
 		}
 
 		console.log("[Paymob Callback] Order found:", order.id);
@@ -151,47 +169,22 @@ export async function GET(request: NextRequest) {
 
 		if (updateError) {
 			console.error("[Paymob Callback] Order update error:", updateError);
-			return NextResponse.redirect(
-				`${
-					process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-				}/services/store?payment=failed&error=update_failed`
-			);
+			return NextResponse.redirect(orderPageUrl(order.id));
 		}
 
 		console.log("[Paymob Callback] Order updated successfully");
 
-		// NOTE: Cart clearing is NOT needed here
-		// The cart was already cleared when the order was created (see /api/orders)
-		// Client-side cart was also cleared before redirecting to payment gateway
-		// This ensures cart is empty regardless of payment outcome
+		// No cart clearing here. The cart this flow belonged to no longer exists:
+		// the website's cart is now Shopify's, and the `POST /api/orders` that used
+		// to clear `user_cart` went with the Supabase-catalog checkout.
 
-		// Step 6: Redirect based on payment status
-		const redirectUrl = `${
-			process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-		}/services/store`;
-
-		if (success && !pending) {
-			return NextResponse.redirect(
-				`${redirectUrl}?payment=success&order_id=${order.id}`
-			);
-		} else if (!success && !pending) {
-			return NextResponse.redirect(
-				`${redirectUrl}?payment=failed&reason=${
-					callbackData.error_occured || "unknown"
-				}`
-			);
-		} else {
-			return NextResponse.redirect(
-				`${redirectUrl}?payment=pending&order_id=${order.id}`
-			);
-		}
+		// Step 6: Back to the order. Success, failure and pending all land on the
+		// same page, because the status written in step 5 is what it renders: one
+		// destination instead of three query strings nothing reads.
+		return NextResponse.redirect(orderPageUrl(order.id));
 	} catch (error) {
 		console.error("[Paymob Callback] Unexpected error:", error);
-		return NextResponse.redirect(
-			`${
-				process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-			}/services/store?payment=failed&error=server_error`
-		);
+		return NextResponse.redirect(storeUrl());
 	}
 }
 
@@ -199,7 +192,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
 	try {
 		const callbackData = await request.json();
-		
+
 		// Extract HMAC from URL query parameters (Paymob sends HMAC in URL, not body)
 		const { searchParams } = new URL(request.url);
 		const urlHmac = searchParams.get("hmac");
@@ -216,18 +209,14 @@ export async function POST(request: NextRequest) {
 		// Extract transaction details from nested object
 		// Important: HMAC is in URL query params, transaction data is in 'obj'
 		const transactionData = callbackData.obj || callbackData;
-		
+
 		// Check for HMAC in multiple locations (URL, parent level, or transaction level)
 		if (urlHmac) {
 			transactionData.hmac = urlHmac;
-			console.log(
-				"[Paymob Callback POST] HMAC found in URL query parameters"
-			);
+			console.log("[Paymob Callback POST] HMAC found in URL query parameters");
 		} else if (callbackData.obj && callbackData.hmac) {
 			transactionData.hmac = callbackData.hmac;
-			console.log(
-				"[Paymob Callback POST] HMAC found at parent level in body"
-			);
+			console.log("[Paymob Callback POST] HMAC found at parent level in body");
 		}
 
 		console.log("[Paymob Callback POST] Transaction summary:", {
@@ -264,8 +253,8 @@ export async function POST(request: NextRequest) {
 					`  ${field}: ${
 						hmacStr.length > 40
 							? hmacStr.substring(0, 20) +
-							  "..." +
-							  hmacStr.substring(hmacStr.length - 20)
+								"..." +
+								hmacStr.substring(hmacStr.length - 20)
 							: hmacStr
 					}`
 				);
