@@ -4,7 +4,12 @@ import { Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
-export function ContactSection() {
+export function ContactSection({
+	standalone = false,
+}: {
+	/** True when the section is the first block on a page, so content clears the fixed navbar. */
+	standalone?: boolean;
+}) {
 	const t = useTranslations("sections.contact.text");
 	const tAlt = useTranslations("sections.contact.attr.alt");
 	return (
@@ -17,7 +22,11 @@ export function ContactSection() {
 				sizes="100vw"
 			/>
 			<div className="relative flex flex-col min-h-screen bg-black/60 z-10">
-				<div className="container flex flex-col flex-1 px-6 py-12 mx-auto">
+				<div
+					className={`container flex flex-col flex-1 px-6 pb-12 mx-auto ${
+						standalone ? "pt-44 md:pt-52" : "pt-12"
+					}`}
+				>
 					<div className="flex-1 lg:flex lg:items-center lg:-mx-6">
 						<div className="text-white lg:w-1/2 lg:mx-6">
 							<h1 className="text-2xl font-semibold capitalize lg:text-3xl">

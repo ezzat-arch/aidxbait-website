@@ -1,4 +1,23 @@
 {
+	"about": {
+		"page": {
+			"meta": {
+				"title": "نبذة عنا | Doctoory",
+				"description": "يجعل Doctoory الرعاية الصحية أسهل وصولًا وأبسط في الثقة: أجهزة طبية موثوقة واستشارات آمنة عبر الإنترنت وزيارات منزلية يقدمها مختصون في تطبيق واحد."
+			},
+			"text": {
+				"eyebrow": "من نحن",
+				"pillar_devices_title": "أجهزة طبية موثوقة",
+				"pillar_devices_description": "أجهزة ومستلزمات يمكنك الاعتماد عليها، تصل إلى باب منزلك.",
+				"pillar_consultations_title": "استشارات عبر الإنترنت",
+				"pillar_consultations_description": "استشارات آمنة بالفيديو والمحادثة مع أطباء مرخصين.",
+				"pillar_home_visits_title": "زيارات منزلية بيد مختصين",
+				"pillar_home_visits_description": "علاج طبيعي وتمريض ورعاية تخصصية في منزلك.",
+				"pillar_privacy_title": "الخصوصية أولًا",
+				"pillar_privacy_description": "معايير سريرية وتقنيات تحافظ على الخصوصية تحمي بياناتك."
+			}
+		}
+	},
 	"auth": {
 		"auth": {
 			"text": {
@@ -38,6 +57,26 @@
 		}
 	},
 	"contact": {
+		"page": {
+			"meta": {
+				"title": "تواصل معنا | Doctoory",
+				"description": "تواصل مع فريق Doctoory عبر الهاتف أو واتساب أو البريد الإلكتروني. اعرف رقم الدعم وعنوان الشركة المسجل ونطاق الخدمة في القاهرة والجيزة."
+			},
+			"text": {
+				"title": "تواصل معنا",
+				"subtitle": "لديك سؤال عن زيارة منزلية أو طلب أو حسابك؟ تواصل مع فريق Doctoory عبر أي من القنوات التالية وسنرد عليك في أسرع وقت.",
+				"response_time": "نرد عادةً في أقل من 24 ساعة",
+				"call_us": "اتصل بنا",
+				"call_us_description": "تحدث مباشرة مع فريق الرعاية لدينا.",
+				"whatsapp": "واتساب",
+				"whatsapp_description": "راسلنا بخصوص الحجوزات والطلبات والمرتجعات.",
+				"email_us": "راسلنا عبر البريد",
+				"email_us_description": "للدعم والشكاوى وطلبات الاسترداد.",
+				"registered_address": "العنوان المسجل",
+				"address_value": "17 فوزي فهيم، الجيزة، مصر",
+				"open_in_maps": "افتح في خرائط جوجل"
+			}
+		},
 		"providers": {
 			"text": {
 				"loading": "جارٍ التحميل...",
@@ -1159,6 +1198,7 @@
 			},
 			"text": {
 				"about": "نبذة عنا",
+				"company": "عن الشركة",
 				"blog": "المدونة",
 				"access_your_reports_track_recovery": "احصل على تقاريرك، وتتبع تقدم تعافيك، وواصل رعايتك عبر تطبيق Doctoory. نحن معك في كل خطوة.",
 				"at_home_radiology": "الأشعة المنزلية",

@@ -1,4 +1,23 @@
 {
+	"about": {
+		"page": {
+			"meta": {
+				"title": "About Us | Doctoory",
+				"description": "Doctoory makes healthcare easier to access and simpler to trust: verified medical devices, secure online consultations and professional home visits in one app."
+			},
+			"text": {
+				"eyebrow": "Who we are",
+				"pillar_devices_title": "Verified medical devices",
+				"pillar_devices_description": "Equipment and supplies you can rely on, delivered to your door.",
+				"pillar_consultations_title": "Online consultations",
+				"pillar_consultations_description": "Secure video and chat consultations with licensed doctors.",
+				"pillar_home_visits_title": "Professional home visits",
+				"pillar_home_visits_description": "Physiotherapy, nursing and specialist care in your own home.",
+				"pillar_privacy_title": "Privacy first",
+				"pillar_privacy_description": "Clinical standards and privacy-first technology protect your data."
+			}
+		}
+	},
 	"auth": {
 		"auth": {
 			"text": {
@@ -38,6 +57,26 @@
 		}
 	},
 	"contact": {
+		"page": {
+			"meta": {
+				"title": "Contact Us | Doctoory",
+				"description": "Get in touch with Doctoory by phone, WhatsApp or email. Find our support line, registered address and service coverage across Cairo and Giza."
+			},
+			"text": {
+				"title": "Contact Us",
+				"subtitle": "Questions about a home visit, an order or your account? Reach the Doctoory team on any of the channels below and we will get back to you quickly.",
+				"response_time": "We typically respond in less than 24 hours",
+				"call_us": "Call us",
+				"call_us_description": "Speak directly with our care team.",
+				"whatsapp": "WhatsApp",
+				"whatsapp_description": "Message us for bookings, orders and returns.",
+				"email_us": "Email us",
+				"email_us_description": "For support, complaints and refund requests.",
+				"registered_address": "Registered address",
+				"address_value": "17 Fawzi Faheem, Giza, Egypt",
+				"open_in_maps": "Open in Google Maps"
+			}
+		},
 		"providers": {
 			"text": {
 				"loading": "Loading...",
@@ -1159,6 +1198,7 @@
 			},
 			"text": {
 				"about": "About Us",
+				"company": "Company",
 				"blog": "Blog",
 				"access_your_reports_track_recovery": "Access your reports, track recovery, and continue your care through the Doctoory app. We're with you every step of the way.",
 				"at_home_radiology": "At-home radiology",

@@ -382,24 +382,26 @@ const Navbar = ({ className }: { className?: string }) => {
 							className="relative"
 						>
 							<span className="text-sm px-2.5 py-1.5 font-medium text-gray-700 hover:text-blue-600 transition-all duration-200 rounded-lg hover:bg-blue-50 hover:shadow-sm cursor-pointer text-center whitespace-nowrap flex items-center justify-center">
-								{tNav("about")}
+								{tNav("company")}
 								<ChevronDown className="ltr:ml-1 rtl:mr-1 h-3.5 w-3.5" />
 							</span>
 							{active === "About" && (
 								<div className="absolute top-full ltr:right-0 rtl:left-0 pt-2 z-50">
-									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-4 w-[400px] animate-in fade-in slide-in-from-top-2 duration-200">
-										<p className="text-sm text-gray-600 leading-relaxed px-2 pb-3">
-											{tNav("about_description")}
-										</p>
-										<div className="border-t border-gray-100 pt-2">
-											<Link
-												href="/contact"
-												className="flex items-center justify-between px-2 py-2 rounded-lg hover:bg-blue-50 transition-all duration-150 text-sm font-medium text-gray-700 hover:text-blue-600 group"
-											>
-												{tNav("contact")}
-												<ChevronRight className="h-3.5 w-3.5 flex-shrink-0 text-gray-400 group-hover:text-blue-600 rtl:rotate-180" />
-											</Link>
-										</div>
+									<div className="bg-white shadow-2xl border border-gray-100 rounded-xl p-2 w-[220px] animate-in fade-in slide-in-from-top-2 duration-200">
+										<Link
+											href="/about"
+											className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-blue-50 transition-all duration-150 text-sm font-medium text-gray-700 hover:text-blue-600 group"
+										>
+											{tNav("about")}
+											<ChevronRight className="h-3.5 w-3.5 flex-shrink-0 text-gray-400 group-hover:text-blue-600 rtl:rotate-180" />
+										</Link>
+										<Link
+											href="/contact"
+											className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-blue-50 transition-all duration-150 text-sm font-medium text-gray-700 hover:text-blue-600 group"
+										>
+											{tNav("contact")}
+											<ChevronRight className="h-3.5 w-3.5 flex-shrink-0 text-gray-400 group-hover:text-blue-600 rtl:rotate-180" />
+										</Link>
 									</div>
 								</div>
 							)}
